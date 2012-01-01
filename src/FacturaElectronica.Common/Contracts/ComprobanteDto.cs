@@ -10,8 +10,6 @@ namespace FacturaElectronica.Common.Contracts
     {
         public long Id { get; set; }
 
-        public DateTime? FechaVencimiento { get; set; }
-
         public int TipoComprobanteId { get; set; }
 
         public string TipoComprobanteDescripcion { get; set; }

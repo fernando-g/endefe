@@ -25,22 +25,29 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        public List<ComprobanteDto> ObtenerComprobantes(ComprobanteCriteria criteria)
+        public List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                IQueryable<Comprobante> query = ctx.Comprobantes;
+                //IQueryable<Comprobante> query = ctx.Comprobantes;
 
-                if (criteria.FechaVencDesde.HasValue)
-                {
-                    query.Where(c => criteria.FechaVencDesde.Value <= c.FechaVencimiento);
-                }
-                if (criteria.FechaVencHasta.HasValue)
-                {
-                    query.Where(c => c.FechaVencimiento <= criteria.FechaVencHasta.Value);
-                }
+                //if (criteria.FechaVencDesde.HasValue)
+                //{
+                //    query.Where(c => criteria.FechaVencDesde.Value <= c.FechaVencimiento);
+                //}
+                //if (criteria.FechaVencHasta.HasValue)
+                //{
+                //    query.Where(c => c.FechaVencimiento <= criteria.FechaVencHasta.Value);
+                //}
+                var query = from aa in ctx.ArchivoAsociadoes
+                            from c in ctx.Comprobantes
+                            where (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                               && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
+                            select new ComprobanteArchivoAsociadoDto()
+                            {
 
-                return ToComprobanteDtoList(query.ToList());
+                            };
+                return null;
             }
         }
 
@@ -110,7 +117,6 @@ namespace FacturaElectronica.Business.Services
             cbte.ClienteId = dto.ClienteId;
             cbte.EstadoId = dto.EstadoId;
             cbte.TipoComprobanteId = dto.TipoComprobanteId;
-            cbte.FechaVencimiento = dto.FechaVencimiento;
             cbte.PtoVta = dto.PtoVta;
         }
 
@@ -127,7 +133,6 @@ namespace FacturaElectronica.Business.Services
             dto.FechaDeCarga = comprobante.FechaDeCarga;
             dto.EstadoId = comprobante.EstadoId;
             dto.EstadoDescripcion = comprobante.EstadoComprobante.Descripcion;
-            dto.FechaVencimiento = comprobante.FechaVencimiento;
             dto.TipoComprobanteId = comprobante.TipoComprobanteId;
             dto.TipoComprobanteDescripcion = comprobante.TipoComprobante.Descripcion;
             dto.CbteDesde = comprobante.CbteDesde;
@@ -149,7 +154,9 @@ namespace FacturaElectronica.Business.Services
             }
             
             return dto;
-        }
+        }      
+
+        #region [Comprobante]
 
         private static List<ComprobanteDto> ToComprobanteDtoList(List<Comprobante> comprobanteList)
         {
@@ -177,6 +184,10 @@ namespace FacturaElectronica.Business.Services
             return dto;
         }
 
+        #endregion [Comprobante]
+
+        #region [TipoComprobante]
+
         private static List<TipoComprobanteDto> ToTipoComprobanteDtoList(List<TipoComprobante> tiposComprobantesList)
         {
             List<TipoComprobanteDto> dtoList = new List<TipoComprobanteDto>();
@@ -202,6 +213,8 @@ namespace FacturaElectronica.Business.Services
 
             return dto;
         }
+        
+        #endregion [TipoComprobante]
 
         #endregion [Conversion]
     }

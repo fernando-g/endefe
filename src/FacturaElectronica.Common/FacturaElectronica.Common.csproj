@@ -44,6 +44,7 @@
     <Compile Include="Constants\CodigoEstadoCbte.cs" />
     <Compile Include="Constants\ResultadoCbte.cs" />
     <Compile Include="Constants\ResultadoCorrida.cs" />
+    <Compile Include="Contracts\ComprobanteArchivoAsociadoDto.cs" />
     <Compile Include="Contracts\ClienteCriteria.cs" />
     <Compile Include="Contracts\ClienteDto.cs" />
     <Compile Include="Contracts\ComprobanteDto.cs" />

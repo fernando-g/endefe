@@ -777,6 +777,30 @@ namespace FacturaElectronica.Data
         private Nullable<global::System.Int32> _DiasVencimiento;
         partial void OnDiasVencimientoChanging(Nullable<global::System.Int32> value);
         partial void OnDiasVencimientoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FechaVencimiento
+        {
+            get
+            {
+                return _FechaVencimiento;
+            }
+            set
+            {
+                OnFechaVencimientoChanging(value);
+                ReportPropertyChanging("FechaVencimiento");
+                _FechaVencimiento = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FechaVencimiento");
+                OnFechaVencimientoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FechaVencimiento;
+        partial void OnFechaVencimientoChanging(Nullable<global::System.DateTime> value);
+        partial void OnFechaVencimientoChanged();
 
         #endregion
     
@@ -1243,30 +1267,6 @@ namespace FacturaElectronica.Data
         private global::System.Int64 _Id;
         partial void OnIdChanging(global::System.Int64 value);
         partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FechaVencimiento
-        {
-            get
-            {
-                return _FechaVencimiento;
-            }
-            set
-            {
-                OnFechaVencimientoChanging(value);
-                ReportPropertyChanging("FechaVencimiento");
-                _FechaVencimiento = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FechaVencimiento");
-                OnFechaVencimientoChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FechaVencimiento;
-        partial void OnFechaVencimientoChanging(Nullable<global::System.DateTime> value);
-        partial void OnFechaVencimientoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

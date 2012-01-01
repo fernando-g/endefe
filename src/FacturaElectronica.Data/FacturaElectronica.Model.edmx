@@ -113,6 +113,7 @@
           <Property Name="TipoContratoId" Type="int" />
           <Property Name="MesFacturacion" Type="date" />
           <Property Name="DiasVencimiento" Type="int" />
+          <Property Name="FechaVencimiento" Type="date" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -133,7 +134,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FechaVencimiento" Type="datetime" />
           <Property Name="TipoComprobanteId" Type="int" Nullable="false" />
           <Property Name="FechaDeCarga" Type="datetime" Nullable="false" />
           <Property Name="ClienteId" Type="bigint" />
@@ -757,6 +757,7 @@
           <NavigationProperty Name="TipoContrato" Relationship="FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato" FromRole="ArchivoAsociado" ToRole="TipoContrato" />
           <NavigationProperty Name="VisualizacionComprobantes" Relationship="FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado" FromRole="ArchivoAsociado" ToRole="VisualizacionComprobante" />
           <NavigationProperty Name="Comprobante" Relationship="FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante" FromRole="ArchivoAsociado" ToRole="Comprobante" />
+          <Property Type="DateTime" Name="FechaVencimiento" />
         </EntityType>
         <Association Name="FK_ArchivoAsociado_TipoContrato">
           <End Type="FacturaElectronicaModel.TipoContrato" Role="TipoContrato" Multiplicity="0..1" />
@@ -919,7 +920,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="FechaVencimiento" />
           <Property Type="Int32" Name="TipoComprobanteId" Nullable="false" />
           <Property Type="DateTime" Name="FechaDeCarga" Nullable="false" />
           <Property Type="Int64" Name="ClienteId" />
@@ -1130,6 +1130,7 @@
           <EntitySetMapping Name="ArchivoAsociadoes">
             <EntityTypeMapping TypeName="FacturaElectronicaModel.ArchivoAsociado">
               <MappingFragment StoreEntitySet="ArchivoAsociado">
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
                 <ScalarProperty Name="DiasVencimiento" ColumnName="DiasVencimiento" />
                 <ScalarProperty Name="MesFacturacion" ColumnName="MesFacturacion" />
                 <ScalarProperty Name="TipoContratoId" ColumnName="TipoContratoId" />
@@ -1210,7 +1211,6 @@
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="FechaDeCarga" ColumnName="FechaDeCarga" />
                 <ScalarProperty Name="TipoComprobanteId" ColumnName="TipoComprobanteId" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1260,15 +1260,17 @@
         <EntityTypeShape EntityType="FacturaElectronicaModel.Rol" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.Usuario" Width="1.5" PointX="6" PointY="7.25" Height="1.9210009765625102" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_Usuarios_Clientes" ManuallyRouted="false" >
-          <ConnectorPoint PointX="2.25" PointY="8.3295296223958353" />
-          <ConnectorPoint PointX="4.010416666666667" PointY="8.3295296223958353" />
-          <ConnectorPoint PointX="4.177083333333333" PointY="8.3295296223958353" />
-          <ConnectorPoint PointX="6" PointY="8.3295296223958353" />
+          <ConnectorPoint PointX="2.25" PointY="8.6172493489583317" />
+          <ConnectorPoint PointX="4.135416666666667" PointY="8.6172493489583317" />
+          <ConnectorPoint PointX="4.302083333333333" PointY="8.6172493489583317" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="8.6172493489583317" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="8.6172493489583317" />
+          <ConnectorPoint PointX="6" PointY="8.6172493489583317" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.UsuarioRol" >
-          <ConnectorPoint PointX="5.15625" PointY="2.3423063151041674" />
-          <ConnectorPoint PointX="5.15625" PointY="7.8416731184895863" />
-          <ConnectorPoint PointX="6" PointY="7.8416731184895863" />
+          <ConnectorPoint PointX="5.15625" PointY="2.537985026041667" />
+          <ConnectorPoint PointX="5.15625" PointY="9.0511711197916664" />
+          <ConnectorPoint PointX="6" PointY="9.0511711197916664" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.VisualizacionComprobante" Width="1.5" PointX="8.75" PointY="3.75" Height="1.7566536458333388" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoComprobante" Width="1.5" PointX="0.75" PointY="0.875" Height="1.7566536458333388" />
@@ -1317,30 +1319,30 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoDocumento" Width="1.5" PointX="9" PointY="0.75" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.WebServiceAfip" Width="1.5" PointX="8.375" PointY="6.75" Height="1.4279589843750031" />
-        <EntityTypeShape EntityType="FacturaElectronicaModel.Comprobante" Width="1.875" PointX="3.125" PointY="3.625" Height="3.7288216145833388" />
+        <EntityTypeShape EntityType="FacturaElectronicaModel.Comprobante" Width="1.875" PointX="3.125" PointY="3.625" Height="4.0956022135416656" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante" >
-          <ConnectorPoint PointX="5" PointY="4.7463688151041659" />
-          <ConnectorPoint PointX="5.072916666666667" PointY="4.746368815104165" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="4.7463688151041659" />
-          <ConnectorPoint PointX="6" PointY="4.7463688151041659" />
+          <ConnectorPoint PointX="5" PointY="5.0381982421875" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="5.0381982421874989" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="5.0381982421875" />
+          <ConnectorPoint PointX="6" PointY="5.0381982421875" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_Comprobante_Cliente" >
-          <ConnectorPoint PointX="2.25" PointY="6.7394108072916694" />
-          <ConnectorPoint PointX="3.125" PointY="6.7394108072916694" />
+          <ConnectorPoint PointX="2.25" PointY="6.9228011067708328" />
+          <ConnectorPoint PointX="3.125" PointY="6.9228011067708328" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_Comprobantes_Estados" >
-          <ConnectorPoint PointX="2.25" PointY="4.2961531575520837" />
-          <ConnectorPoint PointX="3.125" PointY="4.2961531575520837" />
+          <ConnectorPoint PointX="2.25" PointY="4.3939925130208337" />
+          <ConnectorPoint PointX="3.125" PointY="4.3939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_Comprobantes_TiposComprobantes" >
-          <ConnectorPoint PointX="2.25" PointY="2.5182299804687505" />
-          <ConnectorPoint PointX="3.40625" PointY="2.5182299804687505" />
+          <ConnectorPoint PointX="2.25" PointY="2.7278857421875005" />
+          <ConnectorPoint PointX="3.40625" PointY="2.7278857421875005" />
           <ConnectorPoint PointX="3.40625" PointY="3.625" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.DetalleComprobanteComprobante" >
-          <ConnectorPoint PointX="4.09375" PointY="7.3538216145833388" />
-          <ConnectorPoint PointX="4.09375" PointY="12.242889811197916" />
-          <ConnectorPoint PointX="5.625" PointY="12.242889811197916" />
+          <ConnectorPoint PointX="4.21875" PointY="7.7206022135416656" />
+          <ConnectorPoint PointX="4.21875" PointY="12.28125" />
+          <ConnectorPoint PointX="5.625" PointY="12.28125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoConcepto" Width="1.5" PointX="9" PointY="9.25" Height="1.2636116536458246" />
       </Diagram>

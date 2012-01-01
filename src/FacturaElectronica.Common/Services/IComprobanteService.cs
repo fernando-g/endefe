@@ -10,7 +10,7 @@ namespace FacturaElectronica.Common.Services
     {
         ComprobanteDto ObtenerComprobantes(long comprobanteId);
 
-        List<ComprobanteDto> ObtenerComprobantes(ComprobanteCriteria criteria);
+        List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria);
 
         ComprobanteDto ObtenerUltimoComprobanteCargado(int ptoVta, int cbeTipo);
 
