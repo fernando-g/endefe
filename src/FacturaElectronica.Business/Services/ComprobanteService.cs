@@ -40,12 +40,25 @@ namespace FacturaElectronica.Business.Services
                 //    query.Where(c => c.FechaVencimiento <= criteria.FechaVencHasta.Value);
                 //}
                 var query = from aa in ctx.ArchivoAsociadoes
-                            from c in ctx.Comprobantes
+                            join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                             where (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                                && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
-                            select new ComprobanteArchivoAsociadoDto()
+                               && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
+                               && (!criteria.TipoComprobanteId.HasValue || c.TipoComprobanteId == criteria.TipoComprobanteId.Value)
+                               && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
+                               && (!criteria.TipoContratoId.HasValue || aa.TipoContratoId == criteria.TipoContratoId.Value)
+                            select new ComprobanteArchivoAsociadoDto() 
                             {
-
+                                ArchivoAsociadoId = aa.Id,
+                                CAE = c.CAE,
+                                CAEFechaVencimiento = c.CAEFechaVencimiento,
+                                ClienteId = c.ClienteId,
+                                ClienteRazonSocial = c.Cliente.RazonSocial,
+                                ComprobanteId = c.Id,
+                                DireccionIp = aa.VisualizacionComprobantes.Last().DireccionIP,
+                                EstadoDescripcion = "",
+                                EstadoId = 0,
+                                FechaDeCarga = aa.FechaDeCarga
                             };
                 return null;
             }
@@ -141,10 +154,10 @@ namespace FacturaElectronica.Business.Services
             dto.PtoVta = comprobante.PtoVta;
             //#TODO: logica para obtener comprobante de acuerdo al nro.
             // Recordar lo de Factura B que se puede poner un rango.
-            ArchivoAsociado archivoAsociado = comprobante.ArchivoAsociados.FirstOrDefault();
+            ArchivoAsociado archivoAsociado = comprobante.ArchivoAsociadoes.FirstOrDefault();
             if (archivoAsociado != null)
             {
-                dto.PathFile = comprobante.ArchivoAsociados.First().PathArchivo;
+                dto.PathFile = comprobante.ArchivoAsociadoes.First().PathArchivo;
                 VisualizacionComprobante visualizacionCbte = archivoAsociado.VisualizacionComprobantes.FirstOrDefault();
                 if (visualizacionCbte != null)
                 {

@@ -19,5 +19,9 @@ namespace FacturaElectronica.Common.Contracts
         public int? TipoContratoId { get; set; }
 
         public DateTime? MesFacturacion { get; set; }
+
+        public string RazonSocial { get; set; }
+
+        public long? ClienteId { get; set; }
     }
 }

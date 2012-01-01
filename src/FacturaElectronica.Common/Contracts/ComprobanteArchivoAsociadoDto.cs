@@ -7,7 +7,9 @@ namespace FacturaElectronica.Common.Contracts
 {
     public class ComprobanteArchivoAsociadoDto
     {
-        public long Id { get; set; }
+        public long ArchivoAsociadoId { get; set; }
+        
+        public long ComprobanteId { get; set; }
 
         public DateTime? FechaVencimiento { get; set; }
 
@@ -21,7 +23,7 @@ namespace FacturaElectronica.Common.Contracts
 
         public long? ClienteId { get; set; }
 
-        public string ClienteNombre { get; set; }
+        public string ClienteRazonSocial { get; set; }
 
         public int EstadoId { get; set; }
 
@@ -36,8 +38,6 @@ namespace FacturaElectronica.Common.Contracts
         public DateTime? CAEFechaVencimiento { get; set; }
 
         public string PathArchivo { get; set; }
-
-        public DateTime? CbteFecha { get; set; }
 
         public int? PtoVta { get; set; }
 
