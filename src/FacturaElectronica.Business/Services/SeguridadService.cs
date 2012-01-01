@@ -1,0 +1,229 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacturaElectronica.Common.Contracts;
+using FacturaElectronica.Data;
+using System.Transactions;
+using FacturaElectronica.Common.Services;
+using System.Data.Objects;
+
+namespace FacturaElectronica.Business.Services
+{
+    public class SeguridadService : ISeguridadService
+    {              
+        #region [Basic Operations]
+
+        public bool AutenticarUsuario(string nombreUsuario, string password)
+        {
+            return true;
+        }
+
+        public UsuarioDto CrearUsuario(UsuarioDto usuarioDto)
+        {
+            using (TransactionScope ts = new TransactionScope())
+            {
+                using (var ctx = new FacturaElectronicaEntities())
+                {
+                    if (this.ObtenerUsuario(ctx, usuarioDto.NombreUsuario) != null)
+                        throw new Exception("El usuario ya existe");
+                    Usuario usuario = new Usuario();
+                    ToUsuario(usuarioDto, usuario);
+                    if (usuarioDto.Roles != null &&
+                       usuarioDto.Roles.Count() > 0)
+                    {
+                        foreach (int rolId in usuarioDto.Roles)
+                        {
+                            Rol rol = this.ObtenerRol(ctx, rolId);
+                            if (rol != null)
+                            {
+                                usuario.Roles.Add(rol);
+                            }
+                        }
+                    }
+                    ctx.Usuarios.AddObject(usuario);
+                    ctx.SaveChanges();
+                    ts.Complete();
+                    usuarioDto.Id = usuario.Id;
+                }                               
+                return usuarioDto;
+
+            }
+        }
+
+        public UsuarioDto EditarUsuario(UsuarioDto usuarioDto)
+        {
+            using (TransactionScope ts = new TransactionScope())
+            {
+                using (var ctx = new FacturaElectronicaEntities())
+                {
+                    Usuario usuario = this.ObtenerUsuario(ctx, usuarioDto.Id);
+                    ToUsuario(usuarioDto, usuario);
+                    if (usuarioDto.Roles != null &&
+                       usuarioDto.Roles.Count() > 0)
+                    {
+                        usuario.Roles.Clear();
+                        foreach (int rolId in usuarioDto.Roles)
+                        {
+                            Rol rol = this.ObtenerRol(ctx, rolId);
+                            if (rol != null)
+                            {
+                                usuario.Roles.Add(rol);
+                            }
+                        }
+                    }
+                    ctx.SaveChanges();
+
+                    ts.Complete();
+                }
+                
+                return usuarioDto;
+            }
+        }
+
+        public bool EliminarUsuario(long usuarioId)
+        {
+            int result = 0;
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                Usuario usuario = this.ObtenerUsuario(ctx, usuarioId);
+                usuario.Roles.Clear();
+                ctx.Usuarios.DeleteObject(usuario);
+                result = ctx.SaveChanges();
+            }
+            return result > 0;
+        }
+
+        public bool CambiarPassword(long usuarioId, string passwordActual, string passwordNueva)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                Usuario usuario = this.ObtenerUsuario(ctx, usuarioId);
+                if(usuario.Password != passwordActual)
+                    throw new Exception("La password actual ingresada no coincide es incorrecta.");
+
+                usuario.Password = passwordNueva;
+                return ctx.SaveChanges() > 0;
+
+            }
+
+        }
+
+        public UsuarioDto ObtenerUsuario(long usuarioId)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return ToUsuarioDto(this.ObtenerUsuario(ctx,usuarioId));
+            }
+        }
+
+        public List<UsuarioDto> ObtenerUsuarios(string nombreUsuario)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return ToUsuarioDtoList(ctx.Usuarios.Where(u=>u.NombreUsuario.Contains(nombreUsuario)).ToList());
+            }
+        }
+
+        public RolDto ObtenerRol(int rolId)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return ToRolDto(this.ObtenerRol(ctx, rolId));
+            }
+        }
+
+        public List<RolDto> ObtenerRoles()
+        {
+            using(var ctx = new FacturaElectronicaEntities())
+            {
+                return ToRolDtoList(ctx.Rols.ToList());
+            }
+            
+        }
+
+        private Rol ObtenerRol(FacturaElectronicaEntities ctx, int rolId)
+        {
+            return ctx.Rols.Where(r => r.Id == rolId).SingleOrDefault();
+        }
+
+        private Usuario ObtenerUsuario(FacturaElectronicaEntities ctx, long usuarioId)
+        {
+            return ctx.Usuarios.Where(u => u.Id == usuarioId).SingleOrDefault();
+        }
+
+        private Usuario ObtenerUsuario(FacturaElectronicaEntities ctx, string nombreUsuario)
+        {
+            return ctx.Usuarios.Where(u => u.NombreUsuario == nombreUsuario).SingleOrDefault();
+        }
+
+        #endregion [Basic Operations]
+
+        #region [Conversion]
+
+        private static void ToUsuario(UsuarioDto usuarioDto, Usuario usuario)
+        {
+            usuario.ClienteId = usuarioDto.ClienteId;
+            usuario.NombreUsuario = usuarioDto.NombreUsuario;
+            usuario.Password = usuarioDto.Password;
+        }
+
+        private static UsuarioDto ToUsuarioDto(Usuario usuario)
+        {
+            UsuarioDto dto = new UsuarioDto();
+            dto.Id = usuario.Id;
+            dto.NombreUsuario = usuario.NombreUsuario;
+            dto.ClienteId = usuario.ClienteId;
+            dto.Password = usuario.Password;
+
+            if (usuario.Roles.Count > 0)
+            {
+                dto.Roles = new List<int>();
+                foreach (Rol rol in usuario.Roles)
+                {
+                    dto.Roles.Add(rol.Id);
+                }
+            }
+            return dto;
+        }
+
+        private static List<UsuarioDto> ToUsuarioDtoList(List<Usuario> usuarioList)
+        {
+            List<UsuarioDto> usuarioDtoList = new List<UsuarioDto>();
+            if (usuarioList.Count > 0)
+            {
+                foreach (var usuario in usuarioList)
+                {
+                    usuarioDtoList.Add(ToUsuarioDto(usuario));
+                }
+            }
+            return usuarioDtoList;
+        }
+
+        private static RolDto ToRolDto(Rol rol)
+        {
+            RolDto dto = new RolDto();
+            dto.Id = rol.Id;
+            dto.Codigo = rol.Codigo;
+            dto.Nombre = rol.Nombre;
+
+            return dto;
+        }
+
+        private static List<RolDto> ToRolDtoList(List<Rol> rolList)
+        {
+            List<RolDto> rolDtoList = new List<RolDto>();
+            if (rolList.Count > 0)
+            {
+                foreach (var rol in rolList)
+                {
+                    rolDtoList.Add(ToRolDto(rol));
+                }
+            }
+            return rolDtoList;
+        }
+
+
+        #endregion [Conversion]
+    }
+}

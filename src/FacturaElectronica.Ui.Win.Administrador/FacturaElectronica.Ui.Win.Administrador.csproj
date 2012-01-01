@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{88E548EB-3C9A-40F1-AE61-A482BF9F8123}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FacturaElectronica.Ui.Win.Administrador</RootNamespace>
+    <AssemblyName>FacturaElectronica.Ui.Win.Administrador</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\ServiceFactory.cs" />
+    <Compile Include="FormAutorizador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutorizador.Designer.cs">
+      <DependentUpon>FormAutorizador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAutorizadorResultados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutorizadorResultados.Designer.cs">
+      <DependentUpon>FormAutorizadorResultados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCorridas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCorridas.Designer.cs">
+      <DependentUpon>FormCorridas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrincipal.Designer.cs">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConsultaWebServicesAFIP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConsultaWebServicesAFIP.Designer.cs">
+      <DependentUpon>FormConsultaWebServicesAFIP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAutorizador.resx">
+      <DependentUpon>FormAutorizador.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAutorizadorResultados.resx">
+      <DependentUpon>FormAutorizadorResultados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCorridas.resx">
+      <DependentUpon>FormCorridas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConsultaWebServicesAFIP.resx">
+      <DependentUpon>FormConsultaWebServicesAFIP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.CodigoEstadoCbte.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCbte.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCorrida.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ClienteCriteria.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ClienteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteCriteria.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.CorridaAutorizacionDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleErrorDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleEventoDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.EstadoComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ObservacionComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.RolDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.TipoComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.UsuarioDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Services.IClienteService.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Services.IComprobanteService.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Services.ICorridaService.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Services.ISeguridadService.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FacturaElectronica.Afip.Business\FacturaElectronica.Afip.Business.csproj">
+      <Project>{AE2952B6-C7D3-4C5B-ADC2-97C08D01B593}</Project>
+      <Name>FacturaElectronica.Afip.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacturaElectronica.Afip.Ws\FacturaElectronica.Afip.Ws.csproj">
+      <Project>{5782691D-FFA4-448C-97FC-224E8EBE1D7F}</Project>
+      <Name>FacturaElectronica.Afip.Ws</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacturaElectronica.Business\FacturaElectronica.Business.csproj">
+      <Project>{EDB6E9BA-CD60-4D99-AF5B-18024D10DF2A}</Project>
+      <Name>FacturaElectronica.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacturaElectronica.Common\FacturaElectronica.Common.csproj">
+      <Project>{32774052-7837-4A33-8A3C-C80FCAB5EA1E}</Project>
+      <Name>FacturaElectronica.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacturaElectronica.Core\FacturaElectronica.Core.csproj">
+      <Project>{94811E1D-F79B-4BB7-A664-6D0283C8CECE}</Project>
+      <Name>FacturaElectronica.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ENDESA-Cemsa-Ejemplo.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\exportToFile16x16.png" />
+    <None Include="Resources\export16x16.ico" />
+    <None Include="Resources\search16x16.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\openfile.GIF" />
+    <None Include="Resources\autorizar.gif" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
