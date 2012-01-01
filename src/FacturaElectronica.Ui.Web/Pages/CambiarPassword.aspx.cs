@@ -26,7 +26,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             }
         }
 
-        ISeguridadService seguridadService;
+        ISeguridadService seguridadService = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {

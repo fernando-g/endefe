@@ -570,7 +570,9 @@ namespace FacturaElectronica.Data
         /// <param name="pathArchivo">Initial value of the PathArchivo property.</param>
         /// <param name="nroComprobante">Initial value of the NroComprobante property.</param>
         /// <param name="fechaDeCarga">Initial value of the FechaDeCarga property.</param>
-        public static ArchivoAsociado CreateArchivoAsociado(global::System.Int64 id, global::System.Int64 comprobanteId, global::System.String nombreArchivo, global::System.String pathArchivo, global::System.Int64 nroComprobante, global::System.DateTime fechaDeCarga)
+        /// <param name="mesFacturacion">Initial value of the MesFacturacion property.</param>
+        /// <param name="anioFacturacion">Initial value of the AnioFacturacion property.</param>
+        public static ArchivoAsociado CreateArchivoAsociado(global::System.Int64 id, global::System.Int64 comprobanteId, global::System.String nombreArchivo, global::System.String pathArchivo, global::System.Int64 nroComprobante, global::System.DateTime fechaDeCarga, global::System.Int32 mesFacturacion, global::System.Int32 anioFacturacion)
         {
             ArchivoAsociado archivoAsociado = new ArchivoAsociado();
             archivoAsociado.Id = id;
@@ -579,6 +581,8 @@ namespace FacturaElectronica.Data
             archivoAsociado.PathArchivo = pathArchivo;
             archivoAsociado.NroComprobante = nroComprobante;
             archivoAsociado.FechaDeCarga = fechaDeCarga;
+            archivoAsociado.MesFacturacion = mesFacturacion;
+            archivoAsociado.AnioFacturacion = anioFacturacion;
             return archivoAsociado;
         }
 
@@ -737,30 +741,6 @@ namespace FacturaElectronica.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> MesFacturacion
-        {
-            get
-            {
-                return _MesFacturacion;
-            }
-            set
-            {
-                OnMesFacturacionChanging(value);
-                ReportPropertyChanging("MesFacturacion");
-                _MesFacturacion = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("MesFacturacion");
-                OnMesFacturacionChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _MesFacturacion;
-        partial void OnMesFacturacionChanging(Nullable<global::System.DateTime> value);
-        partial void OnMesFacturacionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> DiasVencimiento
         {
             get
@@ -827,6 +807,54 @@ namespace FacturaElectronica.Data
         private global::System.DateTime _FechaDeCarga;
         partial void OnFechaDeCargaChanging(global::System.DateTime value);
         partial void OnFechaDeCargaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MesFacturacion
+        {
+            get
+            {
+                return _MesFacturacion;
+            }
+            set
+            {
+                OnMesFacturacionChanging(value);
+                ReportPropertyChanging("MesFacturacion");
+                _MesFacturacion = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MesFacturacion");
+                OnMesFacturacionChanged();
+            }
+        }
+        private global::System.Int32 _MesFacturacion;
+        partial void OnMesFacturacionChanging(global::System.Int32 value);
+        partial void OnMesFacturacionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AnioFacturacion
+        {
+            get
+            {
+                return _AnioFacturacion;
+            }
+            set
+            {
+                OnAnioFacturacionChanging(value);
+                ReportPropertyChanging("AnioFacturacion");
+                _AnioFacturacion = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AnioFacturacion");
+                OnAnioFacturacionChanged();
+            }
+        }
+        private global::System.Int32 _AnioFacturacion;
+        partial void OnAnioFacturacionChanging(global::System.Int32 value);
+        partial void OnAnioFacturacionChanged();
 
         #endregion
     

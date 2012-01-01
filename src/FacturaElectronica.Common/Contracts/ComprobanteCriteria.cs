@@ -12,13 +12,19 @@ namespace FacturaElectronica.Common.Contracts
 
         public DateTime? FechaVencHasta { get; set; }
 
+        public DateTime? FechaDeCargaDesde { get; set; }
+
+        public DateTime? FechaDeCargaHasta { get; set; }
+
         public int? TipoComprobanteId { get; set; }
 
         public long? NroComprobante { get; set; }
 
         public int? TipoContratoId { get; set; }
 
-        public DateTime? MesFacturacion { get; set; }
+        public int? MesFacturacion { get; set; }
+
+        public int? AnioFacturacion { get; set; }
 
         public string RazonSocial { get; set; }
 

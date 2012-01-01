@@ -52,12 +52,23 @@
         <div class="clear">
         </div>
         <p>
-            <span class="title2">Mes de Facturación:</span>
-            <asp:TextBox ID="txtMesFacturacion" runat="server" CssClass="inputs"></asp:TextBox>
+            <span class="title2">Per&iacute;odo de Facturación:</span>
+        </p>
+        <div class="clear">
+        </div>
+        <p>
+            <span class="title2">Mes</span>
+            <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>        
         </p>
         <p>
-            <span class="title2 secondColumn">Tipo Contrato:</span>
-            <asp:TextBox ID="TextBox2" runat="server" CssClass="inputs"></asp:TextBox>
+            <span class="title2 secondColumn">A&ntilde;o</span>
+            <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>
+        </p>
+        <div class="clear">
+        </div>
+        <p>
+            <span class="title2">Tipo Contrato:</span>
+            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cbo"></asp:DropDownList>
         </p>
         <div class="clear">
         </div>

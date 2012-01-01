@@ -5,7 +5,6 @@ using System.Text;
 using FacturaElectronica.Afip.Business.Wsaa;
 using System.Security.Cryptography.X509Certificates;
 using FacturaElectronica.Afip.Business.Wsfe;
-using FacturaElectronica.Afip.Business.Wsfe;
 using FacturaElectronica.Afip.Ws.Wsfe;
 
 namespace FacturaElectronica.Afip.TestClient

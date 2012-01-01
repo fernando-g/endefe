@@ -41,8 +41,10 @@ namespace FacturaElectronica.Common.Contracts
 
         public int? PtoVta { get; set; }
 
-        public int TipoContratoId { get; set; }
+        public int? TipoContratoId { get; set; }
 
         public string TipoContratoDescripcion { get; set; }
+
+        public string PeriodoFacturacion { get; set; }
     }
 }
