@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="FacturaElectronica.Ui.Web.SiteMaster" %>
+
+<%@ Register Assembly="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI" TagPrefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>    
+    <div class="page">
+        <div class="header">
+            <div class="companyLogo">
+            </div>
+            <div class="title">
+                <h1>
+                    Factura Electronica
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Ingresar</a>
+                        ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Welcome <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Salir"
+                            LogoutPageUrl="~/" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
+                        <asp:MenuItem NavigateUrl="~/Pages/UsuariosListado.aspx" Text="Usuarios" />
+                        <asp:MenuItem NavigateUrl="~/Pages/ClienteListado.aspx" Text="Clientes" />
+                        <asp:MenuItem NavigateUrl="~/Pages/ComprobantesListado.aspx" Text="Comprobantes" />                        
+                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="Acerca de.." />
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <asp:Panel ID="pnlMessages" runat="server" CssClass="pnlMessagesClass displayNone"
+            ClientIDMode="Static">
+            <h2>
+                <asp:Label ID="txtErrorTitle" runat="server" Text="" CssClass="errorTitle" ClientIDMode="Static"></asp:Label>
+            </h2>
+            <div class="errorPanel">
+                <p>
+                    <asp:Label ID="txtMessages" runat="server" Text="" CssClass="errorMessage" ClientIDMode="Static"></asp:Label>                    
+                </p>
+            </div>
+        </asp:Panel>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>
