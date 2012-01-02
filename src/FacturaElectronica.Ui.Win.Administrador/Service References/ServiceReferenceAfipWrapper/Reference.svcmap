@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4c2a9d7b-f5dd-4113-afd7-88df3d21f4d4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1500/AfipWrapperService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AfipWrapperService.xsd" MetadataType="Schema" ID="99696f46-0875-496f-8ca1-3162d4d496bc" SourceId="1" SourceUrl="http://localhost:1500/AfipWrapperService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AfipWrapperService.disco" MetadataType="Disco" ID="3bee930b-6c55-4837-a7a0-82e8cf058dfe" SourceId="1" SourceUrl="http://localhost:1500/AfipWrapperService.svc?disco" />
+    <MetadataFile FileName="AfipWrapperService1.xsd" MetadataType="Schema" ID="41687f2b-22ba-4d75-b6ae-5c23887b3b58" SourceId="1" SourceUrl="http://localhost:1500/AfipWrapperService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WsfeClient.wsdl" MetadataType="Wsdl" ID="bc8e2c1a-5702-49a1-bcb2-f9fca4a2691a" SourceId="1" SourceUrl="http://localhost:1500/AfipWrapperService.svc?wsdl" />
+    <MetadataFile FileName="AfipWrapperService2.xsd" MetadataType="Schema" ID="f429d6fe-5ad7-40ee-ae92-ac1c45c6e3b7" SourceId="1" SourceUrl="http://localhost:1500/AfipWrapperService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
