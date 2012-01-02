@@ -5,10 +5,11 @@ using System.Text;
 
 namespace FacturaElectronica.Common.Constants
 {
-    public class CodigoEstadoCbte
+    public class CodigosEstadoArchivoAsociado
     {
         public const string Visualizado = "V";
         public const string NoVisualizado = "NV";
         public const string Eliminado = "E";
+
     }
 }
