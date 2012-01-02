@@ -11,11 +11,13 @@ using System.Transactions;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
 using System.IO;
+using FacturaElectronica.Common.Contracts.Search;
 
 namespace FacturaElectronica.Business.Services
 {
     public class CorridaService : ICorridaService
     {
+        public static string FinCorridaMsg = "@FinCorrida";
         private ComprobanteService cbteSvc = new ComprobanteService();
         private ClienteService clienteSvc = new ClienteService();
 
@@ -26,25 +28,36 @@ namespace FacturaElectronica.Business.Services
                 CorridaAutorizacion corrida = new CorridaAutorizacion();
                 corrida.Fecha = DateTime.Now;
                 corrida.PathArchivo = xmlPath;
+                corrida.Procesada = null;
                 ctx.CorridaAutorizacions.AddObject(corrida);
                 ctx.SaveChanges();              
                 return ToCorridaDto(corrida, null, null, null);
             }
         }
 
-        public List<CorridaAutorizacionDto> ObtenerCorridas(long? corridaId, DateTime fechaDesde, DateTime fechaHasta)
+        public List<CorridaAutorizacionDto> ObtenerCorridas(CorridaSearch search)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
                 IQueryable<CorridaAutorizacion> query = ctx.CorridaAutorizacions;
 
-                query = query.Where(c => fechaDesde <= c.Fecha && c.Fecha <= fechaHasta);
-
-                if(corridaId.HasValue)
+                if (search.CorridaId.HasValue)
                 {
-                    query = query.Where(c => c.Id == corridaId.Value); 
+                    query = query.Where(c => c.Id == search.CorridaId.Value);
                 }
+                else
+                {
+                    if (search.FechaDesde.HasValue)
+                    {
+                        query = query.Where(c => search.FechaDesde.Value <= c.Fecha);
+                    }
 
+                    if (search.FechaHasta.HasValue)
+                    {
+                        query = query.Where(c => c.Fecha <= search.FechaHasta.Value);
+                    }                  
+                }
+                
                 return ToCorridaDtoList(query.ToList(), ctx.TipoDocumentoes.ToList(), ctx.TipoComprobantes.ToList(), ctx.TipoConceptoes.ToList());
             }        
         }
@@ -162,9 +175,36 @@ namespace FacturaElectronica.Business.Services
                     }
                 }
 
+                corrida.Procesada = true;
+
                 ctx.SaveChanges();
                 return ToCorridaDto(corrida, ctx.TipoDocumentoes.ToList(), ctx.TipoComprobantes.ToList(), ctx.TipoConceptoes.ToList());
             }
+        }
+
+        /// <summary>
+        /// Indica si la corrida puede ejectuarse si es asi la marca en proceso
+        /// </summary>
+        /// <param name="corridaId"></param>
+        /// <returns></returns>
+        public bool MarcarCorridaEnProceso(long corridaId)
+        {
+            bool puedeEjecturar = false;
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                var corridaAutorizacion = ctx.CorridaAutorizacions.Where(c => c.Id == corridaId).SingleOrDefault();
+                if (corridaAutorizacion != null)
+                {
+                    if (!corridaAutorizacion.Procesada.HasValue)
+                    {
+                        corridaAutorizacion.Procesada = false; // Significa que está en proceso
+                        ctx.SaveChanges();
+                        puedeEjecturar = true;
+                    }                  
+                }
+            }
+
+            return puedeEjecturar;
         }
 
         public void Log(long corridaId, string mensaje, string detalle)
@@ -197,6 +237,7 @@ namespace FacturaElectronica.Business.Services
             CorridaAutorizacionDto dto = new CorridaAutorizacionDto();
             dto.Id = corrida.Id;
             dto.Fecha = corrida.Fecha;
+            dto.Procesada = corrida.Procesada;
             dto.NombreDeArchivo = Path.GetFileName(corrida.PathArchivo);
             dto.PathArchivo = corrida.PathArchivo;
 
@@ -222,7 +263,7 @@ namespace FacturaElectronica.Business.Services
             List<CorridaAutorizacionDto> dtoList = new List<CorridaAutorizacionDto>();
 
             foreach (CorridaAutorizacion corrida in corridaList)
-            {
+            {                
                 dtoList.Add(ToCorridaDto(corrida, tiposDoc,tiposComprobante, tiposConcepto));
             }
 
@@ -383,7 +424,14 @@ namespace FacturaElectronica.Business.Services
             dto.Id = logCorrida.Id;
             dto.CorridaId = logCorrida.CorridaId;
             dto.Fecha = logCorrida.Fecha;
-            dto.Mensaje = logCorrida.Mensaje;
+            if (logCorrida.Mensaje == CorridaService.FinCorridaMsg)
+            {
+                dto.CorridaTerminada = true;
+            }
+            else
+            {
+                dto.Mensaje = logCorrida.Mensaje;
+            }
 
             return dto;
         }

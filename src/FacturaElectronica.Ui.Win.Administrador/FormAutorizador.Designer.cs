@@ -30,8 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnVerDetalleCorrida = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblEventos = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblComprobantesConObs = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.lblErroresEncontrados = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblComprobantesAutorizados = new System.Windows.Forms.Label();
@@ -43,13 +48,7 @@
             this.FileTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.timerAutorizacion = new System.Windows.Forms.Timer(this.components);
-            this.lblComprobantesConObs = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblEventos = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.btnVerDetalleCorrida = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +69,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(611, 586);
             this.panel2.TabIndex = 1;
+            // 
+            // btnVerDetalleCorrida
+            // 
+            this.btnVerDetalleCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVerDetalleCorrida.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVerDetalleCorrida.Location = new System.Drawing.Point(12, 537);
+            this.btnVerDetalleCorrida.Name = "btnVerDetalleCorrida";
+            this.btnVerDetalleCorrida.Size = new System.Drawing.Size(592, 23);
+            this.btnVerDetalleCorrida.TabIndex = 9;
+            this.btnVerDetalleCorrida.Text = "Ver Detalle Corrida";
+            this.btnVerDetalleCorrida.UseVisualStyleBackColor = true;
+            this.btnVerDetalleCorrida.Click += new System.EventHandler(this.btnVerDetalleCorrida_Click);
             // 
             // progressBar
             // 
@@ -98,6 +110,42 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resultado";
+            // 
+            // lblEventos
+            // 
+            this.lblEventos.AutoSize = true;
+            this.lblEventos.Location = new System.Drawing.Point(413, 58);
+            this.lblEventos.Name = "lblEventos";
+            this.lblEventos.Size = new System.Drawing.Size(49, 13);
+            this.lblEventos.TabIndex = 14;
+            this.lblEventos.Text = "Cantidad";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(301, 58);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(112, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Eventos Encontrados:";
+            // 
+            // lblComprobantesConObs
+            // 
+            this.lblComprobantesConObs.AutoSize = true;
+            this.lblComprobantesConObs.Location = new System.Drawing.Point(197, 58);
+            this.lblComprobantesConObs.Name = "lblComprobantesConObs";
+            this.lblComprobantesConObs.Size = new System.Drawing.Size(49, 13);
+            this.lblComprobantesConObs.TabIndex = 12;
+            this.lblComprobantesConObs.Text = "Cantidad";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 58);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(174, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Comprobantes Con Observaciones:";
             // 
             // lblErroresEncontrados
             // 
@@ -200,65 +248,9 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Archivo Xml:";
             // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.WorkerReportsProgress = true;
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
-            // 
             // timerAutorizacion
             // 
             this.timerAutorizacion.Tick += new System.EventHandler(this.timerAutorizacion_Tick);
-            // 
-            // lblComprobantesConObs
-            // 
-            this.lblComprobantesConObs.AutoSize = true;
-            this.lblComprobantesConObs.Location = new System.Drawing.Point(197, 58);
-            this.lblComprobantesConObs.Name = "lblComprobantesConObs";
-            this.lblComprobantesConObs.Size = new System.Drawing.Size(49, 13);
-            this.lblComprobantesConObs.TabIndex = 12;
-            this.lblComprobantesConObs.Text = "Cantidad";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 58);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(174, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Comprobantes Con Observaciones:";
-            // 
-            // lblEventos
-            // 
-            this.lblEventos.AutoSize = true;
-            this.lblEventos.Location = new System.Drawing.Point(413, 58);
-            this.lblEventos.Name = "lblEventos";
-            this.lblEventos.Size = new System.Drawing.Size(49, 13);
-            this.lblEventos.TabIndex = 14;
-            this.lblEventos.Text = "Cantidad";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(301, 58);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(112, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Eventos Encontrados:";
-            // 
-            // btnVerDetalleCorrida
-            // 
-            this.btnVerDetalleCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVerDetalleCorrida.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVerDetalleCorrida.Location = new System.Drawing.Point(12, 537);
-            this.btnVerDetalleCorrida.Name = "btnVerDetalleCorrida";
-            this.btnVerDetalleCorrida.Size = new System.Drawing.Size(592, 23);
-            this.btnVerDetalleCorrida.TabIndex = 9;
-            this.btnVerDetalleCorrida.Text = "Ver Detalle Corrida";
-            this.btnVerDetalleCorrida.UseVisualStyleBackColor = true;
-            this.btnVerDetalleCorrida.Click += new System.EventHandler(this.btnVerDetalleCorrida_Click);
             // 
             // FormAutorizador
             // 
@@ -292,7 +284,6 @@
         private System.Windows.Forms.Label lblComprobantesAutorizados;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Timer timerAutorizacion;
         private System.Windows.Forms.Label lblEventos;

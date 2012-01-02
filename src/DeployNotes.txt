@@ -1,0 +1,19 @@
+
+
+Programa Windows
+---------------------------------------
+app.config
+
+Configurar el path en donde se copiaran los archivos en telefónica (<add key="PathDestinoArchivosXMLParaProcesar")
+Los archivos se copian en PathDestinoArchivosXMLParaProcesar\Procesar
+
+
+Host del Web Service para autorizacion
+--------------------------------------
+<appSettings>
+    <add key="idServicioNegocio" value="wsfe" />
+    <add key="certSigner" value="C=AR, O=ENDESA, SERIALNUMBER=CUIT 23289508759, CN=TestFE" />
+    <add key="cuit" value="23289508759" />
+    <add key="storeName" value="TrustedPeople" />
+    <add key="storeLocation" value="CurrentUser" />
+  </appSettings>

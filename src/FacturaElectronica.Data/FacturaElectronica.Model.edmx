@@ -154,6 +154,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
           <Property Name="PathArchivo" Type="varchar(max)" />
+          <Property Name="Procesada" Type="bit" />
         </EntityType>
         <EntityType Name="DetalleCabecera">
           <Key>
@@ -549,28 +550,7 @@
           <EntitySet Name="EstadoComprobantes" EntityType="FacturaElectronicaModel.EstadoComprobante" />
           <EntitySet Name="TipoContratoes" EntityType="FacturaElectronicaModel.TipoContrato" />
           <EntitySet Name="LogCorridas" EntityType="FacturaElectronicaModel.LogCorrida" />
-          <EntitySet Name="CorridaAutorizacions" EntityType="FacturaElectronicaModel.CorridaAutorizacion" />
-          <AssociationSet Name="FK_DetalleCabeceras_Corridas" Association="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas">
-            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
-            <End Role="DetalleCabecera" EntitySet="DetalleCabeceras" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Errores_Corridas" Association="FacturaElectronicaModel.FK_Errores_Corridas">
-            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
-            <End Role="DetalleError" EntitySet="DetalleErrors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Eventos_Corridas" Association="FacturaElectronicaModel.FK_Eventos_Corridas">
-            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
-            <End Role="DetalleEvento" EntitySet="DetalleEventoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LogCorrida_CorridaAutorizacion" Association="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion">
-            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
-            <End Role="LogCorrida" EntitySet="LogCorridas" />
-          </AssociationSet>
           <EntitySet Name="DetalleComprobantes" EntityType="FacturaElectronicaModel.DetalleComprobante" />
-          <AssociationSet Name="FK_DetalleComprobantes_Corridas" Association="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas">
-            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
-            <End Role="DetalleComprobante" EntitySet="DetalleComprobantes" />
-          </AssociationSet>
           <AssociationSet Name="FK_ObservacionesComprobantes_DetalleComprobantes" Association="FacturaElectronicaModel.FK_ObservacionesComprobantes_DetalleComprobantes">
             <End Role="DetalleComprobante" EntitySet="DetalleComprobantes" />
             <End Role="ObservacionComprobante" EntitySet="ObservacionComprobantes" />
@@ -607,6 +587,27 @@
           <AssociationSet Name="FK_VisualizacionComprobante_ArchivoAsociado" Association="FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado">
             <End Role="ArchivoAsociado" EntitySet="ArchivoAsociadoes" />
             <End Role="VisualizacionComprobante" EntitySet="VisualizacionComprobantes" />
+          </AssociationSet>
+          <EntitySet Name="CorridaAutorizacions" EntityType="FacturaElectronicaModel.CorridaAutorizacion" />
+          <AssociationSet Name="FK_DetalleCabeceras_Corridas" Association="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas">
+            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
+            <End Role="DetalleCabecera" EntitySet="DetalleCabeceras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleComprobantes_Corridas" Association="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas">
+            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
+            <End Role="DetalleComprobante" EntitySet="DetalleComprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Errores_Corridas" Association="FacturaElectronicaModel.FK_Errores_Corridas">
+            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
+            <End Role="DetalleError" EntitySet="DetalleErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Eventos_Corridas" Association="FacturaElectronicaModel.FK_Eventos_Corridas">
+            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
+            <End Role="DetalleEvento" EntitySet="DetalleEventoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogCorrida_CorridaAutorizacion" Association="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion">
+            <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacions" />
+            <End Role="LogCorrida" EntitySet="LogCorridas" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cliente">
@@ -752,70 +753,9 @@
           <Property Type="Int64" Name="CorridaId" Nullable="false" />
           <Property Type="DateTime" Name="Fecha" Nullable="false" />
           <Property Type="String" Name="Mensaje" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CorridaAutorizacion" Relationship="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" FromRole="LogCorrida" ToRole="CorridaAutorizacion" />
           <Property Type="String" Name="Detalle" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CorridaAutorizacion" Relationship="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" FromRole="LogCorrida" ToRole="CorridaAutorizacion" />
         </EntityType>
-        <EntityType Name="CorridaAutorizacion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Fecha" Nullable="false" />
-          <Property Type="String" Name="PathArchivo" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DetalleCabeceras" Relationship="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleCabecera" />
-          <NavigationProperty Name="DetalleErrores" Relationship="FacturaElectronicaModel.FK_Errores_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleError" />
-          <NavigationProperty Name="DetalleEventos" Relationship="FacturaElectronicaModel.FK_Eventos_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleEvento" />
-          <NavigationProperty Name="LogCorridas" Relationship="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" FromRole="CorridaAutorizacion" ToRole="LogCorrida" />
-          <NavigationProperty Name="DetalleComprobantes" Relationship="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleComprobante" />
-        </EntityType>
-        <Association Name="FK_DetalleCabeceras_Corridas">
-          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
-          <End Type="FacturaElectronicaModel.DetalleCabecera" Role="DetalleCabecera" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CorridaAutorizacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DetalleCabecera">
-              <PropertyRef Name="CorridaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Errores_Corridas">
-          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
-          <End Type="FacturaElectronicaModel.DetalleError" Role="DetalleError" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CorridaAutorizacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DetalleError">
-              <PropertyRef Name="CorridaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Eventos_Corridas">
-          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
-          <End Type="FacturaElectronicaModel.DetalleEvento" Role="DetalleEvento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CorridaAutorizacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DetalleEvento">
-              <PropertyRef Name="CorridaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LogCorrida_CorridaAutorizacion">
-          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
-          <End Type="FacturaElectronicaModel.LogCorrida" Role="LogCorrida" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CorridaAutorizacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LogCorrida">
-              <PropertyRef Name="CorridaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="DetalleComprobante">
           <Key>
             <PropertyRef Name="Id" />
@@ -831,22 +771,10 @@
           <Property Type="String" Name="Resultado" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CAE" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CAEFchVto" />
-          <NavigationProperty Name="CorridaAutorizacion" Relationship="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" FromRole="DetalleComprobante" ToRole="CorridaAutorizacion" />
           <NavigationProperty Name="ObservacionComprobantes" Relationship="FacturaElectronicaModel.FK_ObservacionesComprobantes_DetalleComprobantes" FromRole="DetalleComprobante" ToRole="ObservacionComprobante" />
           <NavigationProperty Name="Comprobantes" Relationship="FacturaElectronicaModel.DetalleComprobanteComprobante" FromRole="DetalleComprobante" ToRole="Comprobante" />
+          <NavigationProperty Name="CorridaAutorizacion" Relationship="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" FromRole="DetalleComprobante" ToRole="CorridaAutorizacion" />
         </EntityType>
-        <Association Name="FK_DetalleComprobantes_Corridas">
-          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
-          <End Type="FacturaElectronicaModel.DetalleComprobante" Role="DetalleComprobante" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CorridaAutorizacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DetalleComprobante">
-              <PropertyRef Name="CorridaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ObservacionesComprobantes_DetalleComprobantes">
           <End Type="FacturaElectronicaModel.DetalleComprobante" Role="DetalleComprobante" Multiplicity="1" />
           <End Type="FacturaElectronicaModel.ObservacionComprobante" Role="ObservacionComprobante" Multiplicity="*" />
@@ -1000,6 +928,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CorridaAutorizacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="String" Name="PathArchivo" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Procesada" />
+          <NavigationProperty Name="DetalleCabeceras" Relationship="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleCabecera" />
+          <NavigationProperty Name="DetalleComprobantes" Relationship="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleComprobante" />
+          <NavigationProperty Name="DetalleErrores" Relationship="FacturaElectronicaModel.FK_Errores_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleError" />
+          <NavigationProperty Name="DetalleEventos" Relationship="FacturaElectronicaModel.FK_Eventos_Corridas" FromRole="CorridaAutorizacion" ToRole="DetalleEvento" />
+          <NavigationProperty Name="LogCorridas" Relationship="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" FromRole="CorridaAutorizacion" ToRole="LogCorrida" />
+        </EntityType>
+        <Association Name="FK_DetalleCabeceras_Corridas">
+          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.DetalleCabecera" Role="DetalleCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CorridaAutorizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleCabecera">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleComprobantes_Corridas">
+          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.DetalleComprobante" Role="DetalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CorridaAutorizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleComprobante">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Errores_Corridas">
+          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.DetalleError" Role="DetalleError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CorridaAutorizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleError">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Eventos_Corridas">
+          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.DetalleEvento" Role="DetalleEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CorridaAutorizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleEvento">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogCorrida_CorridaAutorizacion">
+          <End Type="FacturaElectronicaModel.CorridaAutorizacion" Role="CorridaAutorizacion" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.LogCorrida" Role="LogCorrida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CorridaAutorizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogCorrida">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1142,15 +1144,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CorridaAutorizacions">
-            <EntityTypeMapping TypeName="FacturaElectronicaModel.CorridaAutorizacion">
-              <MappingFragment StoreEntitySet="CorridaAutorizacion">
-                <ScalarProperty Name="PathArchivo" ColumnName="PathArchivo" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DetalleComprobantes">
             <EntityTypeMapping TypeName="FacturaElectronicaModel.DetalleComprobante">
               <MappingFragment StoreEntitySet="DetalleComprobante">
@@ -1237,6 +1230,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CorridaAutorizacions">
+            <EntityTypeMapping TypeName="FacturaElectronicaModel.CorridaAutorizacion">
+              <MappingFragment StoreEntitySet="CorridaAutorizacion">
+                <ScalarProperty Name="Procesada" ColumnName="Procesada" />
+                <ScalarProperty Name="PathArchivo" ColumnName="PathArchivo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1266,12 +1269,12 @@
         <EntityTypeShape EntityType="FacturaElectronicaModel.Rol" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.Usuario" Width="1.5" PointX="6" PointY="7.25" Height="1.9210009765625102" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_Usuarios_Clientes" ManuallyRouted="false" >
-          <ConnectorPoint PointX="2.25" PointY="8.3546366666666678" />
-          <ConnectorPoint PointX="4.135416666666667" PointY="8.3546366666666678" />
-          <ConnectorPoint PointX="4.302083333333333" PointY="8.3546366666666678" />
-          <ConnectorPoint PointX="5.072916666666667" PointY="8.3546366666666678" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="8.3546366666666678" />
-          <ConnectorPoint PointX="6" PointY="8.3546366666666678" />
+          <ConnectorPoint PointX="2.25" PointY="8.288983496093751" />
+          <ConnectorPoint PointX="3.9791666666666665" PointY="8.288983496093751" />
+          <ConnectorPoint PointX="4.145833333333333" PointY="8.288983496093751" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="8.288983496093751" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="8.288983496093751" />
+          <ConnectorPoint PointX="6" PointY="8.288983496093751" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.UsuarioRol" >
           <ConnectorPoint PointX="5.15625" PointY="2.537985026041667" />
@@ -1283,36 +1286,10 @@
         <EntityTypeShape EntityType="FacturaElectronicaModel.EstadoComprobante" Width="1.5" PointX="0.75" PointY="3.375" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoContrato" Width="1.875" PointX="6.375" PointY="0.875" Height="1.787985026041667" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.LogCorrida" Width="1.5" PointX="1.5" PointY="10.375" Height="1.7566536458333388" />
-        <EntityTypeShape EntityType="FacturaElectronicaModel.CorridaAutorizacion" Width="2.625" PointX="0.75" PointY="14" Height="2.2496956380208353" />
-        <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas" >
-          <ConnectorPoint PointX="3.375" PointY="15.687347819010418" />
-          <ConnectorPoint PointX="6.5" PointY="15.687347819010418" />
-        </AssociationConnector>
-        <AssociationConnector Association="FacturaElectronicaModel.FK_Errores_Corridas" >
-          <ConnectorPoint PointX="1.61059658203125" PointY="16.249695638020835" />
-          <ConnectorPoint PointX="1.61059658203125" PointY="18.128326822916662" />
-          <ConnectorPoint PointX="2.4094674576822914" PointY="18.128326822916662" />
-          <ConnectorPoint PointX="2.5761341243489584" PointY="18.128326822916662" />
-          <ConnectorPoint PointX="3.375" PointY="18.128326822916662" />
-        </AssociationConnector>
-        <AssociationConnector Association="FacturaElectronicaModel.FK_Eventos_Corridas" >
-          <ConnectorPoint PointX="2.4928007910156249" PointY="16.249695638020835" />
-          <ConnectorPoint PointX="2.4928007910156249" PointY="20.378326822916662" />
-          <ConnectorPoint PointX="3.375" PointY="20.378326822916662" />
-        </AssociationConnector>
-        <AssociationConnector Association="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" >
-          <ConnectorPoint PointX="2.25" PointY="14" />
-          <ConnectorPoint PointX="2.25" PointY="12.131653645833339" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.DetalleComprobante" Width="2.25" PointX="5.625" PointY="10.625" Height="3.2357796223958388" />
-        <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" >
-          <ConnectorPoint PointX="3.375" PointY="14.53125" />
-          <ConnectorPoint PointX="6.03125" PointY="14.53125" />
-          <ConnectorPoint PointX="6.03125" PointY="13.860779622395834" />
-        </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_ObservacionesComprobantes_DetalleComprobantes" >
-          <ConnectorPoint PointX="7.875" PointY="12.753326822916668" />
-          <ConnectorPoint PointX="10.625" PointY="12.753326822916668" />
+          <ConnectorPoint PointX="7.875" PointY="12.865143229166666" />
+          <ConnectorPoint PointX="10.625" PointY="12.865143229166666" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoDocumento" Width="1.5" PointX="9" PointY="0.75" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.WebServiceAfip" Width="1.5" PointX="8.375" PointY="6.75" Height="1.4279589843750031" />
@@ -1331,9 +1308,9 @@
           <ConnectorPoint PointX="3.40625" PointY="3.625" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.DetalleComprobanteComprobante" >
-          <ConnectorPoint PointX="4.21875" PointY="7.7206022135416656" />
-          <ConnectorPoint PointX="4.21875" PointY="12.28125" />
-          <ConnectorPoint PointX="5.625" PointY="12.28125" />
+          <ConnectorPoint PointX="4.0625" PointY="7.7206022135416656" />
+          <ConnectorPoint PointX="4.0625" PointY="12.480499674479166" />
+          <ConnectorPoint PointX="5.625" PointY="12.480499674479166" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoConcepto" Width="1.5" PointX="9" PointY="9.25" Height="1.2636116536458246" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.ArchivoAsociado" Width="1.5" PointX="6.125" PointY="3.25" Height="3.7109993489583317" />
@@ -1350,6 +1327,32 @@
         <AssociationConnector Association="FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado" >
           <ConnectorPoint PointX="7.625" PointY="4.7401432291666667" />
           <ConnectorPoint PointX="8.75" PointY="4.7401432291666667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="FacturaElectronicaModel.CorridaAutorizacion" Width="1.5" PointX="0.75" PointY="14.5" Height="2.749492187499996" />
+        <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas" >
+          <ConnectorPoint PointX="2.25" PointY="16.187246093749998" />
+          <ConnectorPoint PointX="4.479166666666667" PointY="16.187246093749998" />
+          <ConnectorPoint PointX="4.645833333333333" PointY="16.187246093749998" />
+          <ConnectorPoint PointX="6.5" PointY="16.187246093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" >
+          <ConnectorPoint PointX="2.25" PointY="14.781249999999998" />
+          <ConnectorPoint PointX="6.03125" PointY="14.781249999999998" />
+          <ConnectorPoint PointX="6.03125" PointY="14.335999348958334" />
+        </AssociationConnector>
+        <AssociationConnector Association="FacturaElectronicaModel.FK_Errores_Corridas" >
+          <ConnectorPoint PointX="2.25" PointY="15.484248046874999" />
+          <ConnectorPoint PointX="4.5625" PointY="15.484248046874999" />
+          <ConnectorPoint PointX="4.5625" PointY="17.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="FacturaElectronicaModel.FK_Eventos_Corridas" >
+          <ConnectorPoint PointX="1.5" PointY="17.249492187499996" />
+          <ConnectorPoint PointX="1.5" PointY="20.490143229166669" />
+          <ConnectorPoint PointX="3.375" PointY="20.490143229166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion" >
+          <ConnectorPoint PointX="1.875" PointY="14.5" />
+          <ConnectorPoint PointX="1.875" PointY="12.547587890625" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

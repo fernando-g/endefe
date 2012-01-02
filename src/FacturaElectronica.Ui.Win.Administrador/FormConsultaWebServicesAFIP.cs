@@ -38,7 +38,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
         #region [Atributos]
 
         private FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest ticket;
-        private WsfeClient client = new WsfeClient();
+        private IAfipWrapperService client;
         private string opcionAnterior = string.Empty;
 
         #endregion [Atributos]
@@ -46,6 +46,8 @@ namespace FacturaElectronica.Ui.Win.Administrador
         public FormConsultaWebServicesAFIP()
         {
             InitializeComponent();
+            client = ServiceFactory.GetAfipWrapperService();
+
             this.ticket = client.ObtenerTicket();
             this.CargarMetodos();
             //

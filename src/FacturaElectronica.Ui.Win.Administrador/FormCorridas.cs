@@ -10,6 +10,7 @@ using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Win.Administrador.Code;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Core.Helpers;
+using FacturaElectronica.Common.Contracts.Search;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -23,7 +24,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            ICorridaService svc = ServiceFactory.GetCorridaService();
+            IProcesoCorridaService svc = ServiceFactory.GetProcesoCorridaService();
             
             long? corridaId = null;
             bool identificadorValido = true;
@@ -42,7 +43,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
             }
             if (identificadorValido)
             {
-                this.bsCorridas.DataSource = svc.ObtenerCorridas(corridaId, this.dtpFechaDesde.Value.Date, this.dtpFechaHasta.Value.Date.AddDays(1).AddMilliseconds(-1));
+                CorridaSearch search = new CorridaSearch();
+                search.CorridaId = corridaId;
+                search.FechaDesde = this.dtpFechaDesde.Value.Date;
+                search.FechaHasta = this.dtpFechaHasta.Value.Date.AddDays(1).AddMilliseconds(-1);
+
+                this.bsCorridas.DataSource = svc.ObtenerCorridas(search);
                 this.gridCorridas.DataSource = this.bsCorridas;
                 this.lblCantidadReg.Text = this.bsCorridas.Count.ToString();
             }

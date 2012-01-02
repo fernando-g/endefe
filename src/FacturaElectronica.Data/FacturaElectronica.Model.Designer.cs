@@ -20,11 +20,6 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Usuarios_Clientes", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.Cliente), "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Usuario), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "UsuarioRol", "Rol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Rol), "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Usuario))]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleCabeceras_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleCabecera", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleCabecera), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Errores_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleError", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleError), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Eventos_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleEvento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleEvento), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_LogCorrida_CorridaAutorizacion", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "LogCorrida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.LogCorrida), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ObservacionesComprobantes_DetalleComprobantes", "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.DetalleComprobante), "ObservacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ObservacionComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobante_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.Cliente), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobantes_Estados", "EstadoComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.EstadoComprobante), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
@@ -33,6 +28,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Comprobante), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.TipoContrato), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "VisualizacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.VisualizacionComprobante), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleCabeceras_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleCabecera", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleCabecera), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleComprobante), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Errores_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleError", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleError), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Eventos_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleEvento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleEvento), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_LogCorrida_CorridaAutorizacion", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "LogCorrida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.LogCorrida), true)]
 
 #endregion
 
@@ -279,22 +279,6 @@ namespace FacturaElectronica.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CorridaAutorizacion> CorridaAutorizacions
-        {
-            get
-            {
-                if ((_CorridaAutorizacions == null))
-                {
-                    _CorridaAutorizacions = base.CreateObjectSet<CorridaAutorizacion>("CorridaAutorizacions");
-                }
-                return _CorridaAutorizacions;
-            }
-        }
-        private ObjectSet<CorridaAutorizacion> _CorridaAutorizacions;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<DetalleComprobante> DetalleComprobantes
         {
             get
@@ -387,6 +371,22 @@ namespace FacturaElectronica.Data
             }
         }
         private ObjectSet<ArchivoAsociado> _ArchivoAsociadoes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CorridaAutorizacion> CorridaAutorizacions
+        {
+            get
+            {
+                if ((_CorridaAutorizacions == null))
+                {
+                    _CorridaAutorizacions = base.CreateObjectSet<CorridaAutorizacion>("CorridaAutorizacions");
+                }
+                return _CorridaAutorizacions;
+            }
+        }
+        private ObjectSet<CorridaAutorizacion> _CorridaAutorizacions;
 
         #endregion
         #region AddTo Methods
@@ -488,14 +488,6 @@ namespace FacturaElectronica.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the CorridaAutorizacions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCorridaAutorizacions(CorridaAutorizacion corridaAutorizacion)
-        {
-            base.AddObject("CorridaAutorizacions", corridaAutorizacion);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the DetalleComprobantes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDetalleComprobantes(DetalleComprobante detalleComprobante)
@@ -541,6 +533,14 @@ namespace FacturaElectronica.Data
         public void AddToArchivoAsociadoes(ArchivoAsociado archivoAsociado)
         {
             base.AddObject("ArchivoAsociadoes", archivoAsociado);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CorridaAutorizacions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCorridaAutorizacions(CorridaAutorizacion corridaAutorizacion)
+        {
+            base.AddObject("CorridaAutorizacions", corridaAutorizacion);
         }
 
         #endregion
@@ -1827,6 +1827,30 @@ namespace FacturaElectronica.Data
         private global::System.String _PathArchivo;
         partial void OnPathArchivoChanging(global::System.String value);
         partial void OnPathArchivoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Procesada
+        {
+            get
+            {
+                return _Procesada;
+            }
+            set
+            {
+                OnProcesadaChanging(value);
+                ReportPropertyChanging("Procesada");
+                _Procesada = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Procesada");
+                OnProcesadaChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Procesada;
+        partial void OnProcesadaChanging(Nullable<global::System.Boolean> value);
+        partial void OnProcesadaChanged();
 
         #endregion
     
@@ -1850,6 +1874,28 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetalleCabecera>("FacturaElectronicaModel.FK_DetalleCabeceras_Corridas", "DetalleCabecera", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "DetalleComprobante")]
+        public EntityCollection<DetalleComprobante> DetalleComprobantes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetalleComprobante>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "DetalleComprobante");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetalleComprobante>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "DetalleComprobante", value);
                 }
             }
         }
@@ -1916,28 +1962,6 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LogCorrida>("FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion", "LogCorrida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "DetalleComprobante")]
-        public EntityCollection<DetalleComprobante> DetalleComprobantes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetalleComprobante>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "DetalleComprobante");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetalleComprobante>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "DetalleComprobante", value);
                 }
             }
         }
@@ -2564,44 +2588,6 @@ namespace FacturaElectronica.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "CorridaAutorizacion")]
-        public CorridaAutorizacion CorridaAutorizacion
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CorridaAutorizacion> CorridaAutorizacionReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ObservacionesComprobantes_DetalleComprobantes", "ObservacionComprobante")]
         public EntityCollection<ObservacionComprobante> ObservacionComprobantes
         {
@@ -2636,6 +2622,44 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Comprobante>("FacturaElectronicaModel.DetalleComprobanteComprobante", "Comprobante", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "CorridaAutorizacion")]
+        public CorridaAutorizacion CorridaAutorizacion
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CorridaAutorizacion> CorridaAutorizacionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_DetalleComprobantes_Corridas", "CorridaAutorizacion", value);
                 }
             }
         }

@@ -22,6 +22,7 @@ namespace FacturaElectronica.Afip.Business
 {
     public class ProcesoAutorizador
     {
+       
         private bool debeLoguear = false;
         private bool validaEsquema = true;
         private StringBuilder validacionesEsquema;
@@ -45,6 +46,8 @@ namespace FacturaElectronica.Afip.Business
             this.debeLoguear = debeLoguear;
         }
 
+        
+
         public CorridaAutorizacionDto AutorizarComprobantes(CorridaAutorizacionDto corridaDto)
         {
             try
@@ -52,77 +55,89 @@ namespace FacturaElectronica.Afip.Business
                 this.corridaDto = corridaDto;
 
                 if (string.IsNullOrEmpty(corridaDto.PathArchivo))
-                    this.Log("ERROR: No se ha ingresado el path del archivo");    
-                
-                // Inicio Proceso
-                this.Log(string.Format("Iniciando procesamiento de archivo {0}...", this.nombreDeArchivo));
+                    this.Log("ERROR: No se ha ingresado el path del archivo");
 
-                // Valido el Esquema de Xml
-                this.Log(string.Format("Validando esquema de archivo"));
-                string xmlSchemaPath = "";
-
-                if (!this.ValidarEsquemaXml(corridaDto.PathArchivo, xmlSchemaPath))
+                // Marco la corrida como en proceso en la base de datos
+                if (this.corridaSvc.MarcarCorridaEnProceso(corridaDto.Id))
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("ERROR: el esquema del archivo es invalido");
-                    sb.AppendLine(this.validacionesEsquema.ToString());
-                    this.Log(sb.ToString());
-                    return null;
-                }
+                    // Inicio Proceso
+                    this.Log(string.Format("Iniciando procesamiento de archivo {0}...", this.nombreDeArchivo));
 
-                // Leo archivo XML y lo paso a string
-                this.Log("Leyendo archivo...");
-                string xmlString = LeerArchivo(corridaDto.PathArchivo);
+                    // Valido el Esquema de Xml
+                    this.Log(string.Format("Validando esquema de archivo"));
+                    string xmlSchemaPath = "";
 
-                // Reemplazo <Lote></Lote> por <FeCAEReq></FeCAEReq>
-                xmlString = xmlString.Replace("<Lote>", "<FECAERequest>").Replace("</Lote>", "</FECAERequest>");
+                    if (!this.ValidarEsquemaXml(corridaDto.PathArchivo, xmlSchemaPath))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine("ERROR: el esquema del archivo es invalido");
+                        sb.AppendLine(this.validacionesEsquema.ToString());
+                        this.Log(sb.ToString());
+                        return null;
+                    }
 
-                // Deserealizo el XML y obtengo solo la parte del request
-                FECAERequest feCAERequest = DeserializarXml<FECAERequest>(xmlString);
+                    // Leo archivo XML y lo paso a string
+                    this.Log("Leyendo archivo...");
+                    string xmlString = LeerArchivo(corridaDto.PathArchivo);
 
-                // Obtengo Ticket de Autorizacion
-                this.Log("Iniciando comunicacion con la AFIP");
-                FEAuthRequest feAuthRequest = this.ObtenerTicket();
+                    // Reemplazo <Lote></Lote> por <FeCAEReq></FeCAEReq>
+                    xmlString = xmlString.Replace("<Lote>", "<FECAERequest>").Replace("</Lote>", "</FECAERequest>");
 
-                // Cargo los comprobantes que estan autorizados en la AFIP
-                // pero que no fueron cargados en la DB por problemas en 
-                // la comunicacion
-                this.CargarComprobantesYaAutorizados(feAuthRequest, feCAERequest);
+                    // Deserealizo el XML y obtengo solo la parte del request
+                    FECAERequest feCAERequest = DeserializarXml<FECAERequest>(xmlString);
 
-                // Remover Comprobantes que ya han sido autorizados
-                string resultado = this.RemoverComprobantesAutorizados(feAuthRequest, feCAERequest);
-                if (!string.IsNullOrEmpty(resultado))
-                {
-                    this.Log(resultado);
-                    feCAERequest.FeCabReq.CantReg = feCAERequest.FeDetReq.Count();
-                }
+                    // Obtengo Ticket de Autorizacion
+                    this.Log("Iniciando comunicacion con la AFIP");
+                    FEAuthRequest feAuthRequest = this.ObtenerTicket();
 
-                if (feCAERequest.FeDetReq != null && feCAERequest.FeDetReq.Count() > 0)
-                {
-                    // Autorizar Comprobantes con la AFIP
-                    this.Log("Autorizando Comprobantes con la AFIP...");
-                    FECAEResponse feCAEResponse = this.AutorizarComprobantes(feAuthRequest, feCAERequest);
+                    // Cargo los comprobantes que estan autorizados en la AFIP
+                    // pero que no fueron cargados en la DB por problemas en 
+                    // la comunicacion
+                    this.CargarComprobantesYaAutorizados(feAuthRequest, feCAERequest);
 
-                    // Proceso Resultado AFIP
-                    this.Log("Procesando respuesta de la AFIP...");
-                    corridaDto = this.corridaSvc.ProcesarCorrida(corridaDto, feCAEResponse);
+                    // Remover Comprobantes que ya han sido autorizados
+                    string resultado = this.RemoverComprobantesAutorizados(feAuthRequest, feCAERequest);
+                    if (!string.IsNullOrEmpty(resultado))
+                    {
+                        this.Log(resultado);
+                        feCAERequest.FeCabReq.CantReg = feCAERequest.FeDetReq.Count();
+                    }
+
+                    if (feCAERequest.FeDetReq != null && feCAERequest.FeDetReq.Count() > 0)
+                    {
+                        // Autorizar Comprobantes con la AFIP
+                        this.Log("Autorizando Comprobantes con la AFIP...");
+                        FECAEResponse feCAEResponse = this.AutorizarComprobantes(feAuthRequest, feCAERequest);
+
+                        // Proceso Resultado AFIP
+                        this.Log("Procesando respuesta de la AFIP...");
+                        corridaDto = this.corridaSvc.ProcesarCorrida(corridaDto, feCAEResponse);
+                    }
+                    else
+                    {
+                        // Todos los comprobantes del archivo ya tienen un CAE asignado
+                        // y existen en DB
+                        this.Log("Todos los comprobantes del archivo ya han sido autorizados");
+                    }
+
+                    this.Log("Fin procesamiento de archivo.");
                 }
                 else
                 {
-                    // Todos los comprobantes del archivo ya tienen un CAE asignado
-                    // y existen en DB
-                    this.Log("Todos los comprobantes del archivo ya han sido autorizados");
+                    this.Log("La corrida ya se está ejecutando");
                 }
-
-                this.Log("Fin procesamiento de archivo.");
 
                 return corridaDto;
             }
             catch (Exception ex)
             {
-                string detalle = string.Format("ex.Message: {0} {1} ex.StackTrace: {2}", ex.Message, ex.StackTrace);
-                this.Log("ERROR: Se ha producido un error. Contactese con el administrador", detalle); 
+                string detalle = string.Format("ex.Message: {0} ex.StackTrace: {1}", ex.Message, ex.StackTrace);
+                this.Log(string.Format("ERROR: Se ha producido un error. Contactese con el administrador. Error: {0}", ex.Message), detalle);
                 return null;
+            }
+            finally
+            {
+                this.Log(CorridaService.FinCorridaMsg);
             }
         }
 

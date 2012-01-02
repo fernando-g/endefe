@@ -8,10 +8,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Configuration;
 using FacturaElectronica.Afip.Business.Helpers;
 using FacturaElectronica.Afip.Ws.Wsfe;
+using FacturaElectronica.Common.Services;
 
 namespace FacturaElectronica.Afip.Business.Wsfe
 {
-    public class WsfeClient
+    public class WsfeClient : IAfipWrapperService
     {
         private string idServicioNegocio;
         private string certSigner;

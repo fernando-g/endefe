@@ -35,8 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Corrida\AfipWrapperWcfProxy.cs" />
+    <Compile Include="Code\Corrida\MaestroServiceProxy.cs" />
+    <Compile Include="Code\Corrida\ProcesoCorridaWcfProxy.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
     <Compile Include="FormAutorizador.cs">
       <SubType>Form</SubType>
@@ -80,6 +85,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ServiceReferenceAfipWrapper\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReferenceCorrida\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReferenceMaestro\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormAutorizador.resx">
       <DependentUpon>FormAutorizador.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -107,6 +127,18 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.CbteTipoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.ConceptoTipoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.DocTipoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FECompConsultaResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FECotizacionResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FERecuperaLastCbteResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FERegXReqResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.FETributoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.IvaTipoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.MonedaResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.OpcionalTipoResponse.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.CodigoEstadoCbte.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCbte.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCorrida.datasource" />
@@ -119,10 +151,12 @@
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleErrorDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleEventoDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.EstadoComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.LogCorridaDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ObservacionComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.RolDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.TipoComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.UsuarioDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.WebServiceAfipDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Services.IClienteService.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Services.IComprobanteService.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Services.ICorridaService.datasource" />
@@ -136,6 +170,36 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\WsfeClient.wsdl" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.wsdl" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceMaestro\MaestroService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceMaestro\MaestroService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceMaestro\MaestroService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceMaestro\MaestrosSevice.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacturaElectronica.Afip.Business\FacturaElectronica.Afip.Business.csproj">
@@ -163,6 +227,30 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceAfipWrapper\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService.disco" />
+    <None Include="Service References\ServiceReferenceMaestro\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceMaestro\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceMaestro\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceMaestro\MaestroService.disco" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceCorrida\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceCorrida\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceCorrida\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.disco" />
     <None Include="Resources\exportToFile16x16.png" />
     <None Include="Resources\export16x16.ico" />
     <None Include="Resources\search16x16.png" />
@@ -170,7 +258,14 @@
     <None Include="Resources\openfile.GIF" />
     <None Include="Resources\autorizar.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReferenceAfipWrapper\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceCorrida\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceMaestro\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

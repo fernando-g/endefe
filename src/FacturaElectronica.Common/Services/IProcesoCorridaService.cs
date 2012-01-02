@@ -10,19 +10,19 @@ using FacturaElectronica.Common.Contracts.Search;
 namespace FacturaElectronica.Common.Services
 {
     [ServiceContract]
-    public interface ICorridaService
+    public interface IProcesoCorridaService
     {
         [OperationContract]
         CorridaAutorizacionDto CrearNuevaCorrida(string nombreDeArchivo);
 
+        [OperationContract(IsOneWay=true)]
+        void EjecutarCorrida(long corridaId);
+
         [OperationContract]
         List<CorridaAutorizacionDto> ObtenerCorridas(CorridaSearch search);
-                
+
         [OperationContract]
         List<LogCorridaDto> ConsultarLog(long corridaId, DateTime fecha);
 
-        CorridaAutorizacionDto ProcesarCorrida(CorridaAutorizacionDto corridaDto, FECAEResponse feCAEResponse);
-
-        void Log(long corridaId, string mensaje, string detalle);
     }
 }
