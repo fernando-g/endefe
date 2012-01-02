@@ -23,6 +23,18 @@ namespace Ubatic.Ui.Web.Code
             }
         }
 
+        public static long? GetLongFromInputText(string text)
+        {
+            if (String.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+            else
+            {
+                return Convert.ToInt64(text);
+            }
+        }
+
         public static int? GetIntFromInputCbo(DropDownList cbo)
         {
             if (cbo.SelectedIndex >= 0)
@@ -130,6 +142,19 @@ namespace Ubatic.Ui.Web.Code
                 name = type.GetProperty(value).GetValue(dataSourceObject, null).ToString();
                 cbo.Items.Add(new ListItem(name, id));
             }
+        }
+
+        public static void LoadBasicCbo(IList dataSource, DropDownList cbo, string extraCode)
+        {                        
+            if (!String.IsNullOrEmpty(extraCode))
+            {
+                cbo.Items.Add(new ListItem(extraCode, cboNullValue));
+            }
+
+            foreach (var item in dataSource)
+            {
+                cbo.Items.Add(item.ToString());
+            }            
         }
     }
 }

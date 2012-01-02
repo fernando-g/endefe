@@ -17,8 +17,24 @@
             $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#btnBuscar').toggleClass('bounce');
         });
-    </script>
 
+        function openWindows(pdfUrl) 
+        {
+            var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
+            window.open(pdfUrl, 'Popup', caracteristicas);
+            window.open("http://www.google.com", null, "toolbars=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=yes");        
+        }
+
+        $(document).ready(function () {
+            $("a[rel='pop-up']").click(function () {
+                var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
+                window.open(this.href, 'Popup', caracteristicas);                
+                window.open("http://www.google.com", null, "toolbars=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=yes");
+                return false;
+            });
+        });  
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
@@ -68,13 +84,15 @@
         </div>
         <p>
             <span class="title2">Tipo Contrato:</span>
-            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cbo"></asp:DropDownList>
+            <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo"></asp:DropDownList>
         </p>
         <div class="clear">
         </div>
         <p>
-            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Buscar" />
-            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Limpiar" />
+            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" 
+                Text="Buscar" onclick="btnBuscar_Click" />
+            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" 
+                Text="Limpiar" onclick="btnLimpiar_Click" />
         </p>
         <div class="clear">
         </div>
@@ -84,18 +102,19 @@
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server">
         <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333"
-            GridLines="None" AutoGenerateColumns="False" DataKeyNames="Id" Width="100%" AllowPaging="True"
+            GridLines="None" AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand"
             OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="ArchivoAsociadoId" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" Visible="false" />
+                <asp:BoundField DataField="ComprobanteId" Visible="false" />
                 <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" />
+                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
@@ -104,8 +123,8 @@
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <a>
-                            <img src="../Images/pdf.png" width="16px" height="16px" alt="pdffile" /></a>
+                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
+                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Borrar Comprobante">

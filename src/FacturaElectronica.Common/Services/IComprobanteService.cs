@@ -8,7 +8,9 @@ namespace FacturaElectronica.Common.Services
 {
     public interface IComprobanteService
     {
-        ComprobanteDto ObtenerComprobantes(long comprobanteId);
+        ComprobanteDto ObtenerComprobante(long comprobanteId);
+
+        List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria);
 
         List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria);
 
@@ -17,5 +19,11 @@ namespace FacturaElectronica.Common.Services
         TipoComprobanteDto ObtenerTipoComprobantePorCodigoAfip(int codigoAfip);
 
         List<TipoComprobanteDto> ObtenerTiposComprobantes();
+
+        List<TipoContratoDto> ObtenerTiposContrato();
+
+        List<int> ObtenerAniosFacturacion();
+
+        void AgregarVisualizacion(VisualizacionComprobanteDto dto);
     }
 }

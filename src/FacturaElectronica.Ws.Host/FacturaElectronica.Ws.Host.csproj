@@ -67,10 +67,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\..\Lacoste\Codigo\PlanProduccion\trunk\src\Web.Framework.Svc\Web.Framework.Svc.csproj">
-      <Project>{272A4403-5F67-4EE0-A52E-C7A744230563}</Project>
-      <Name>Web.Framework.Svc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FacturaElectronica.Business\FacturaElectronica.Business.csproj">
       <Project>{EDB6E9BA-CD60-4D99-AF5B-18024D10DF2A}</Project>
       <Name>FacturaElectronica.Business</Name>

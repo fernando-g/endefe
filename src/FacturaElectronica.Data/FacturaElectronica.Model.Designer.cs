@@ -22,7 +22,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "UsuarioRol", "Rol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Rol), "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Usuario))]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ObservacionesComprobantes_DetalleComprobantes", "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.DetalleComprobante), "ObservacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ObservacionComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobante_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.Cliente), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobantes_Estados", "EstadoComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.EstadoComprobante), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobantes_TiposComprobantes", "TipoComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.TipoComprobante), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "DetalleComprobanteComprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleComprobante))]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Comprobante), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
@@ -33,6 +32,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Errores_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleError", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleError), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Eventos_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleEvento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleEvento), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_LogCorrida_CorridaAutorizacion", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "LogCorrida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.LogCorrida), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.EstadoArchivoAsociado), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
 
 #endregion
 
@@ -231,22 +231,6 @@ namespace FacturaElectronica.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<EstadoComprobante> EstadoComprobantes
-        {
-            get
-            {
-                if ((_EstadoComprobantes == null))
-                {
-                    _EstadoComprobantes = base.CreateObjectSet<EstadoComprobante>("EstadoComprobantes");
-                }
-                return _EstadoComprobantes;
-            }
-        }
-        private ObjectSet<EstadoComprobante> _EstadoComprobantes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<TipoContrato> TipoContratoes
         {
             get
@@ -387,6 +371,22 @@ namespace FacturaElectronica.Data
             }
         }
         private ObjectSet<CorridaAutorizacion> _CorridaAutorizacions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<EstadoArchivoAsociado> EstadoArchivoAsociadoes
+        {
+            get
+            {
+                if ((_EstadoArchivoAsociadoes == null))
+                {
+                    _EstadoArchivoAsociadoes = base.CreateObjectSet<EstadoArchivoAsociado>("EstadoArchivoAsociadoes");
+                }
+                return _EstadoArchivoAsociadoes;
+            }
+        }
+        private ObjectSet<EstadoArchivoAsociado> _EstadoArchivoAsociadoes;
 
         #endregion
         #region AddTo Methods
@@ -464,14 +464,6 @@ namespace FacturaElectronica.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the EstadoComprobantes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEstadoComprobantes(EstadoComprobante estadoComprobante)
-        {
-            base.AddObject("EstadoComprobantes", estadoComprobante);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the TipoContratoes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTipoContratoes(TipoContrato tipoContrato)
@@ -542,6 +534,14 @@ namespace FacturaElectronica.Data
         {
             base.AddObject("CorridaAutorizacions", corridaAutorizacion);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the EstadoArchivoAsociadoes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEstadoArchivoAsociadoes(EstadoArchivoAsociado estadoArchivoAsociado)
+        {
+            base.AddObject("EstadoArchivoAsociadoes", estadoArchivoAsociado);
+        }
 
         #endregion
     }
@@ -572,7 +572,8 @@ namespace FacturaElectronica.Data
         /// <param name="fechaDeCarga">Initial value of the FechaDeCarga property.</param>
         /// <param name="mesFacturacion">Initial value of the MesFacturacion property.</param>
         /// <param name="anioFacturacion">Initial value of the AnioFacturacion property.</param>
-        public static ArchivoAsociado CreateArchivoAsociado(global::System.Int64 id, global::System.Int64 comprobanteId, global::System.String nombreArchivo, global::System.String pathArchivo, global::System.Int64 nroComprobante, global::System.DateTime fechaDeCarga, global::System.Int32 mesFacturacion, global::System.Int32 anioFacturacion)
+        /// <param name="estadoId">Initial value of the EstadoId property.</param>
+        public static ArchivoAsociado CreateArchivoAsociado(global::System.Int64 id, global::System.Int64 comprobanteId, global::System.String nombreArchivo, global::System.String pathArchivo, global::System.Int64 nroComprobante, global::System.DateTime fechaDeCarga, global::System.Int32 mesFacturacion, global::System.Int32 anioFacturacion, global::System.Int32 estadoId)
         {
             ArchivoAsociado archivoAsociado = new ArchivoAsociado();
             archivoAsociado.Id = id;
@@ -583,6 +584,7 @@ namespace FacturaElectronica.Data
             archivoAsociado.FechaDeCarga = fechaDeCarga;
             archivoAsociado.MesFacturacion = mesFacturacion;
             archivoAsociado.AnioFacturacion = anioFacturacion;
+            archivoAsociado.EstadoId = estadoId;
             return archivoAsociado;
         }
 
@@ -855,6 +857,30 @@ namespace FacturaElectronica.Data
         private global::System.Int32 _AnioFacturacion;
         partial void OnAnioFacturacionChanging(global::System.Int32 value);
         partial void OnAnioFacturacionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EstadoId
+        {
+            get
+            {
+                return _EstadoId;
+            }
+            set
+            {
+                OnEstadoIdChanging(value);
+                ReportPropertyChanging("EstadoId");
+                _EstadoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EstadoId");
+                OnEstadoIdChanged();
+            }
+        }
+        private global::System.Int32 _EstadoId;
+        partial void OnEstadoIdChanging(global::System.Int32 value);
+        partial void OnEstadoIdChanged();
 
         #endregion
     
@@ -954,6 +980,44 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VisualizacionComprobante>("FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado")]
+        public EstadoArchivoAsociado EstadoArchivoAsociado
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<EstadoArchivoAsociado> EstadoArchivoAsociadoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EstadoArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado", value);
                 }
             }
         }
@@ -1600,44 +1664,6 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Cliente>("FacturaElectronicaModel.FK_Comprobante_Cliente", "Cliente", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Comprobantes_Estados", "EstadoComprobante")]
-        public EstadoComprobante EstadoComprobante
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoComprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "EstadoComprobante").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoComprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "EstadoComprobante").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<EstadoComprobante> EstadoComprobanteReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EstadoComprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "EstadoComprobante");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EstadoComprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "EstadoComprobante", value);
                 }
             }
         }
@@ -3018,22 +3044,22 @@ namespace FacturaElectronica.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="EstadoComprobante")]
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="EstadoArchivoAsociado")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class EstadoComprobante : EntityObject
+    public partial class EstadoArchivoAsociado : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new EstadoComprobante object.
+        /// Create a new EstadoArchivoAsociado object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static EstadoComprobante CreateEstadoComprobante(global::System.Int32 id)
+        public static EstadoArchivoAsociado CreateEstadoArchivoAsociado(global::System.Int32 id)
         {
-            EstadoComprobante estadoComprobante = new EstadoComprobante();
-            estadoComprobante.Id = id;
-            return estadoComprobante;
+            EstadoArchivoAsociado estadoArchivoAsociado = new EstadoArchivoAsociado();
+            estadoArchivoAsociado.Id = id;
+            return estadoArchivoAsociado;
         }
 
         #endregion
@@ -3124,18 +3150,18 @@ namespace FacturaElectronica.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Comprobantes_Estados", "Comprobante")]
-        public EntityCollection<Comprobante> Comprobantes
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Estado", "ArchivoAsociado")]
+        public EntityCollection<ArchivoAsociado> ArchivoAsociadoes
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Comprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "Comprobante");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "ArchivoAsociado");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Comprobante>("FacturaElectronicaModel.FK_Comprobantes_Estados", "Comprobante", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Estado", "ArchivoAsociado", value);
                 }
             }
         }

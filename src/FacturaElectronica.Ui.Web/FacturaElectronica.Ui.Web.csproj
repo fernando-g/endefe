@@ -92,6 +92,7 @@
     <Content Include="Pages\ClienteDetalle.aspx" />
     <Content Include="Pages\ClienteListado.aspx" />
     <Content Include="Pages\ComprobantesListado.aspx" />
+    <Content Include="Pages\ReporteComprobantes.aspx" />
     <Content Include="Pages\Test.aspx" />
     <Content Include="Pages\TestGrid.aspx" />
     <Content Include="Pages\UsuariosDetalle.aspx" />
@@ -167,6 +168,7 @@
     <Compile Include="Code\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\ExceptionManager.cs" />
     <Compile Include="Code\IWebMessanger.cs" />
     <Compile Include="Code\Roles.cs" />
@@ -209,6 +211,13 @@
     </Compile>
     <Compile Include="Pages\ComprobantesListado.aspx.designer.cs">
       <DependentUpon>ComprobantesListado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReporteComprobantes.aspx.cs">
+      <DependentUpon>ReporteComprobantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ReporteComprobantes.aspx.designer.cs">
+      <DependentUpon>ReporteComprobantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>

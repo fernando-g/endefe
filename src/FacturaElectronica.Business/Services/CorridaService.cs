@@ -127,11 +127,12 @@ namespace FacturaElectronica.Business.Services
                                     comprobante.ClienteId = clienteDto.Id;
                                 }
                             }
-                            EstadoComprobanteDto estadoDto = this.cbteSvc.ObtenerEstado(CodigoEstadoCbte.NoVisualizado);
-                            if (estadoDto != null)
-                            {
-                                comprobante.EstadoId = estadoDto.Id;
-                            }
+                            // #TODO: borrar 
+                            //EstadoComprobanteDto estadoDto = this.cbteSvc.ObtenerEstado(CodigoEstadoCbte.NoVisualizado);
+                            //if (estadoDto != null)
+                            //{
+                            //    comprobante.EstadoId = estadoDto.Id;
+                            //}
                             detalleCbte.Comprobantes.Add(comprobante);
                         }
                         else

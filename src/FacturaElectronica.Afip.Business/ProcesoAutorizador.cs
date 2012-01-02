@@ -217,11 +217,12 @@ namespace FacturaElectronica.Afip.Business
                                 cbteDto.ClienteId = clienteDto.Id;
                             }
                         }
-                        EstadoComprobanteDto estadoDto = this.comprobanteSvc.ObtenerEstado(CodigoEstadoCbte.NoVisualizado);
-                        if (estadoDto != null)
-                        {
-                            cbteDto.EstadoId = estadoDto.Id;
-                        }
+                        // #TODO: borrar
+                        //EstadoComprobanteDto estadoDto = this.comprobanteSvc.ObtenerEstado(CodigoEstadoCbte.NoVisualizado);
+                        //if (estadoDto != null)
+                        //{
+                        //    cbteDto.EstadoId = estadoDto.Id;
+                        //}
                         this.comprobanteSvc.CrearComprobante(cbteDto);
                         cbteNro = (long)cbteDto.CbteHasta + 1;
                     }

@@ -6,12 +6,12 @@ using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Data;
 using System.Data.Objects;
+using FacturaElectronica.Common.Constants;
 
 namespace FacturaElectronica.Business.Services
 {
     public class ComprobanteService : IComprobanteService
     {
-
         #region [Comprobantes]
 
         public void CrearComprobante(ComprobanteDto dto)
@@ -25,66 +25,114 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
+        public List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return (from aa in ctx.ArchivoAsociadoes
+                        join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
+                        where 
+                        // Fecha Vencimiento
+                        (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                        && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
+                        // Fecha De Carga
+                        && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
+                        && (!criteria.FechaDeCargaHasta.HasValue || aa.FechaDeCarga <= criteria.FechaDeCargaHasta.Value)
+                        // Razon Social
+                        && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
+                        // Tipo Comprobante
+                        && (!criteria.TipoComprobanteId.HasValue || c.TipoComprobanteId == criteria.TipoComprobanteId.Value)
+                        // Nro Comprobante
+                        && (!criteria.NroComprobante.HasValue || aa.NroComprobante == criteria.NroComprobante.Value)
+                        // Cliente Id
+                        && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
+                        // Tipo Contrato
+                        && (!criteria.TipoContratoId.HasValue || aa.TipoContratoId == criteria.TipoContratoId.Value)
+                        // Periodo Facturacion
+                        && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
+                        && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
+                        // Documentos Vencidos
+                        && (!criteria.IncluirDocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
+                        // Sacar Documentos Eliminados
+                        && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
+                        select new ComprobanteArchivoAsociadoDto()
+                        {            
+                            ArchivoAsociadoId = aa.Id,
+                            ClienteId = c.ClienteId,
+                            ClienteRazonSocial = c.Cliente.RazonSocial,
+                            ComprobanteId = c.Id,
+                            EstadoCodigo = aa.EstadoArchivoAsociado.Codigo,
+                            EstadoDescripcion = aa.EstadoArchivoAsociado.Descripcion,
+                            FechaDeCarga = aa.FechaDeCarga,
+                            FechaVencimiento = aa.FechaVencimiento,
+                            DiasVencimiento = aa.DiasVencimiento,
+                            NroComprobante = aa.NroComprobante,
+                            PathArchivo = aa.PathArchivo,
+                            PtoVta = c.PtoVta,
+                            TipoComprobanteId = c.TipoComprobanteId,
+                            TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
+                            TipoContratoId = aa.TipoContratoId,
+                            TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty,
+                         }).ToList();         
+                
+   
+            }
+        }
+
         public List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
                 return (from aa in ctx.ArchivoAsociadoes
-                             join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
-                             where 
-                                // Fecha Vencimiento
-                                (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
-                                && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
-                                // Fecha De Carga
-                                && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
-                                && (!criteria.FechaDeCargaHasta.HasValue || aa.FechaDeCarga <= criteria.FechaDeCargaHasta.Value)
-                                // Razon Social
-                                && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
-                                // Tipo Comprobante
-                                && (!criteria.TipoComprobanteId.HasValue || c.TipoComprobanteId == criteria.TipoComprobanteId.Value)
-                                // Nro Comprobante
-                                && (!criteria.NroComprobante.HasValue || aa.NroComprobante == criteria.NroComprobante.Value)
-                                // Cliente Id
-                                && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
-                                // Tipo Contrato
-                                && (!criteria.TipoContratoId.HasValue || aa.TipoContratoId == criteria.TipoContratoId.Value)
-                                // Periodo Facturacion
-                                && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
-                                && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
-                             select ConstruirComprobanteArchivo(aa, c)).ToList();                            
-            }
-        }
+                        join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
+                        where
+                            // Fecha Vencimiento
+                        (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                        && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
+                            // Fecha De Carga
+                        && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
+                        && (!criteria.FechaDeCargaHasta.HasValue || aa.FechaDeCarga <= criteria.FechaDeCargaHasta.Value)
+                            // Razon Social
+                        && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
+                            // Tipo Comprobante
+                        && (!criteria.TipoComprobanteId.HasValue || c.TipoComprobanteId == criteria.TipoComprobanteId.Value)
+                            // Nro Comprobante
+                        && (!criteria.NroComprobante.HasValue || aa.NroComprobante == criteria.NroComprobante.Value)
+                            // Cliente Id
+                        && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
+                            // Tipo Contrato
+                        && (!criteria.TipoContratoId.HasValue || aa.TipoContratoId == criteria.TipoContratoId.Value)
+                            // Periodo Facturacion
+                        && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
+                        && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
+                            // Documentos Vencidos
+                        && (!criteria.IncluirDocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
+                            // Sacar Documentos Eliminados
+                        && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
+                        select new ComprobanteArchivoAsociadoDto()
+                        {
+                            ArchivoAsociadoId = aa.Id,
+                            CAE = c.CAE,
+                            CAEFechaVencimiento = c.CAEFechaVencimiento,
+                            ClienteId = c.ClienteId,
+                            ClienteRazonSocial = c.Cliente.RazonSocial,
+                            ComprobanteId = c.Id,
+                            EstadoCodigo = aa.EstadoArchivoAsociado.Codigo,
+                            EstadoDescripcion = aa.EstadoArchivoAsociado.Descripcion,
+                            FechaDeCarga = aa.FechaDeCarga,
+                            FechaVencimiento = aa.FechaVencimiento,
+                            DiasVencimiento = aa.DiasVencimiento,
+                            NroComprobante = aa.NroComprobante,
+                            PathArchivo = aa.PathArchivo,
+                            PtoVta = c.PtoVta,
+                            TipoComprobanteId = c.TipoComprobanteId,
+                            TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
+                            TipoContratoId = aa.TipoContratoId,
+                            TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty,
+                        }).ToList();
 
-        public ComprobanteArchivoAsociadoDto ConstruirComprobanteArchivo(ArchivoAsociado aa, Comprobante c)
-        { 
-            ComprobanteArchivoAsociadoDto caa = new ComprobanteArchivoAsociadoDto();
-            
-            caa.ArchivoAsociadoId = aa.Id;
-            caa.CAE = c.CAE;
-            caa.CAEFechaVencimiento = c.CAEFechaVencimiento;
-            caa.ClienteId = c.ClienteId;
-            caa.ClienteRazonSocial = c.Cliente.RazonSocial;
-            caa.ComprobanteId = c.Id;
-            caa.EstadoId = 0;
-            caa.EstadoDescripcion = "";
-            caa.FechaDeCarga = aa.FechaDeCarga;
-            caa.FechaVencimiento = aa.FechaVencimiento;
-            caa.NroComprobante = aa.NroComprobante;
-            caa.PathArchivo = aa.PathArchivo;
-            caa.PtoVta = c.PtoVta;
-            caa.TipoComprobanteId = c.TipoComprobanteId;
-            caa.TipoComprobanteDescripcion = c.TipoComprobante.Descripcion;
-            caa.TipoContratoId = aa.TipoContratoId;
-            caa.TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty;
-            
-            VisualizacionComprobante vc = aa.VisualizacionComprobantes.LastOrDefault();
-            if(vc != null)
-            {
-                caa.DireccionIp = vc.DireccionIP;
-                caa.FechaVisualizacion = vc.Fecha;
-            }
 
-            return caa;
+            }
         }
 
         public ComprobanteDto ObtenerUltimoComprobanteCargado(int ptoVta, int cbeTipo)
@@ -96,7 +144,7 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        public ComprobanteDto ObtenerComprobantes(long comprobanteId)
+        public ComprobanteDto ObtenerComprobante(long comprobanteId)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
@@ -121,7 +169,10 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                return ToTipoComprobanteDtoList(ctx.TipoComprobantes.OrderBy(c => c.Descripcion).ToList());
+                var list = (from aa in ctx.ArchivoAsociadoes
+                             select aa.Comprobante.TipoComprobante).Distinct().OrderBy(tc => tc.Descripcion).ToList();
+
+                return ToTipoComprobanteDtoList(list);
             }
         
         }
@@ -130,18 +181,65 @@ namespace FacturaElectronica.Business.Services
 
         #region [Estados]
 
-        public EstadoComprobanteDto ObtenerEstado(string codigo)
-        {
-            using (var ctx = new FacturaElectronicaEntities())
-            {
-                return ToEstadoComprobanteDto(ctx.EstadoComprobantes.Where(e => e.Codigo == codigo).FirstOrDefault());
-            }            
-        }
+        //public EstadoComprobanteDto ObtenerEstado(string codigo)
+        //{
+        //    using (var ctx = new FacturaElectronicaEntities())
+        //    {
+        //        return ToEstadoComprobanteDto(ctx.EstadoComprobantes.Where(e => e.Codigo == codigo).FirstOrDefault());
+        //    }            
+        //}
 
         #endregion [Estados]
 
+        #region [Tipos Contrato]
+
+        public List<TipoContratoDto> ObtenerTiposContrato()
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                // Obtengo el listado con los tipos de contrato que existen en la base
+                var tiposContrato = (from aa in ctx.ArchivoAsociadoes
+                                    select aa.TipoContrato).Distinct().ToList();
+
+                return ToTipoContratoDtoList(tiposContrato);
+            }
+        }
+
+        #endregion [Tipo Contrato]
+
+        #region [Visualizaciones]
+
+        public void AgregarVisualizacion(VisualizacionComprobanteDto dto)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                ctx.Comprobantes.Where(c => c.Id == dto.ArchivoAsociadoId);
+            }
+        }
+
+        #endregion [Visualizaciones]
+
+        public List<int> ObtenerAniosFacturacion()
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                // Si no hay archivos asociados con ningun periodo de facturacion
+                List<int> aniosFacturacion = (from aa in ctx.ArchivoAsociadoes
+                                              select aa.AnioFacturacion).Distinct().ToList();
+                aniosFacturacion.Sort();
+                
+                if (aniosFacturacion.Count == 0)
+                {
+                    aniosFacturacion.Add(DateTime.Now.Year);
+                }
+                return aniosFacturacion;
+            }
+        }
+
         #region [Conversion]
 
+        #region [Comprobante]
+        
         private static void ToComprobante(ComprobanteDto dto, Comprobante cbte)
         {
             cbte.CAE = dto.CAE;
@@ -167,8 +265,6 @@ namespace FacturaElectronica.Business.Services
             dto.ClienteNombre = comprobante.Cliente != null ? comprobante.Cliente.RazonSocial : string.Empty;
             dto.CAEFechaVencimiento = comprobante.CAEFechaVencimiento;
             dto.FechaDeCarga = comprobante.FechaDeCarga;
-            dto.EstadoId = comprobante.EstadoId;
-            dto.EstadoDescripcion = comprobante.EstadoComprobante.Descripcion;
             dto.TipoComprobanteId = comprobante.TipoComprobanteId;
             dto.TipoComprobanteDescripcion = comprobante.TipoComprobante.Descripcion;
             dto.CbteDesde = comprobante.CbteDesde;
@@ -190,9 +286,7 @@ namespace FacturaElectronica.Business.Services
             }
             
             return dto;
-        }      
-
-        #region [Comprobante]
+        }        
 
         private static List<ComprobanteDto> ToComprobanteDtoList(List<Comprobante> comprobanteList)
         {
@@ -207,6 +301,10 @@ namespace FacturaElectronica.Business.Services
             return dtoList;
         }
 
+        #endregion [Comprobante]
+
+        #region [TipoComprobante]
+
         private static TipoComprobanteDto ToTipoComprobanteDto(TipoComprobante tipoComprobante)
         {
             if (tipoComprobante == null) return null;
@@ -219,10 +317,6 @@ namespace FacturaElectronica.Business.Services
 
             return dto;
         }
-
-        #endregion [Comprobante]
-
-        #region [TipoComprobante]
 
         private static List<TipoComprobanteDto> ToTipoComprobanteDtoList(List<TipoComprobante> tiposComprobantesList)
         {
@@ -237,20 +331,54 @@ namespace FacturaElectronica.Business.Services
             return dtoList;
         }
 
-        private static EstadoComprobanteDto ToEstadoComprobanteDto(EstadoComprobante estado)
+        #endregion [TipoComprobante]
+
+        #region [Estado]
+
+        //private static EstadoComprobanteDto ToEstadoComprobanteDto(EstadoComprobante estado)
+        //{
+        //    if (estado == null) return null;
+
+        //    EstadoComprobanteDto dto = new EstadoComprobanteDto();
+
+        //    dto.Id = estado.Id;
+        //    dto.Codigo = estado.Codigo;
+        //    dto.Descripcion = estado.Descripcion;
+
+        //    return dto;
+        //}
+
+        #endregion [Estado]
+
+        #region [Tipo Contrato]
+
+        private static TipoContratoDto ToTipoContratoDto(TipoContrato tipoContrato)
         {
-            if (estado == null) return null;
+            if (tipoContrato == null) return null;
 
-            EstadoComprobanteDto dto = new EstadoComprobanteDto();
-
-            dto.Id = estado.Id;
-            dto.Codigo = estado.Codigo;
-            dto.Descripcion = estado.Descripcion;
+            TipoContratoDto dto = new TipoContratoDto();
+            dto.Id = tipoContrato.Id;
+            dto.Codigo = tipoContrato.Codigo;
+            dto.Descripcion = tipoContrato.Descripcion;
+            
 
             return dto;
         }
-        
-        #endregion [TipoComprobante]
+
+        private static List<TipoContratoDto> ToTipoContratoDtoList(List<TipoContrato> tiposContratoList)
+        {
+            List<TipoContratoDto> dtoList = new List<TipoContratoDto>();
+            if (tiposContratoList.Count > 0)
+            {
+                foreach (var tipoContrato in tiposContratoList)
+                {
+                    dtoList.Add(ToTipoContratoDto(tipoContrato));
+                }
+            }
+            return dtoList;
+        }
+
+        #endregion [Tipo Contrato]
 
         #endregion [Conversion]
     }

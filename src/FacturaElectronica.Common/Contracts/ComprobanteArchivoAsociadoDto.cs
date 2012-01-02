@@ -19,6 +19,9 @@ namespace FacturaElectronica.Common.Contracts
         public DateTime? FechaVencimiento { get; set; }
 
         [DataMember]
+        public int? DiasVencimiento { get; set; }
+
+        [DataMember]
         public int TipoComprobanteId { get; set; }
 
         [DataMember]
@@ -37,7 +40,7 @@ namespace FacturaElectronica.Common.Contracts
         public string ClienteRazonSocial { get; set; }
 
         [DataMember]
-        public int EstadoId { get; set; }
+        public string EstadoCodigo { get; set; }
 
         [DataMember]
         public string EstadoDescripcion { get; set; }
