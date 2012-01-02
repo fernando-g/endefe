@@ -54,7 +54,6 @@
     <Compile Include="Contracts\DetalleComprobanteDto.cs" />
     <Compile Include="Contracts\DetalleErrorDto.cs" />
     <Compile Include="Contracts\DetalleEventoDto.cs" />
-    <Compile Include="Contracts\EstadoComprobanteDto.cs" />
     <Compile Include="Contracts\LogCorridaDto.cs" />
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />
     <Compile Include="Contracts\RolDto.cs" />
