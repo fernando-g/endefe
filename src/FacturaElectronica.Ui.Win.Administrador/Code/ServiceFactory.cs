@@ -5,15 +5,21 @@ using System.Text;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Business.Services;
 using FacturaElectronica.Ui.Win.Administrador.Code.Corrida;
+using FacturaElectronica.Ui.Win.Administrador.Code.Cert;
 
 namespace FacturaElectronica.Ui.Win.Administrador.Code
 {
     public static class ServiceFactory
     {
+        static ServiceFactory()
+        {
+            CertUtil.SetCertificatePolicy();
+        }
+
         public static IProcesoCorridaService GetProcesoCorridaService()
         {
             //return new CorridaService();
-            return new ProcesoCorridaWcfProxy();
+           return new ProcesoCorridaWcfProxy();            
         }        
 
         public static IMaestrosService GetMaestroService()
@@ -23,7 +29,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
         }
 
         public static IAfipWrapperService GetAfipWrapperService()
-        {
+        {            
             return new AfipWrapperWcfProxy();
         }
     }

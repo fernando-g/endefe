@@ -13,6 +13,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public MonedaResponse GetTiposMonedas(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposMonedas(feAuthRequest);
@@ -34,6 +35,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FECotizacionResponse GetCotizacion(FEAuthRequest feAuthRequest, string MonId)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetCotizacion(feAuthRequest, MonId);
@@ -55,6 +57,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public CbteTipoResponse GetTiposCbte(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposCbte(feAuthRequest);
@@ -76,6 +79,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FETributoResponse GetTiposTributos(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposTributos(feAuthRequest);
@@ -97,6 +101,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public IvaTipoResponse GetTiposIva(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposIva(feAuthRequest);
@@ -118,6 +123,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public OpcionalTipoResponse GetTiposOpcional(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposOpcional(feAuthRequest);
@@ -139,6 +145,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FERegXReqResponse CompTotXRequest(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.CompTotXRequest(feAuthRequest);
@@ -160,6 +167,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public DocTipoResponse GetTiposDoc(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposDoc(feAuthRequest);
@@ -181,6 +189,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FERecuperaLastCbteResponse CompUltimoAutorizado(FEAuthRequest feAuthRequest, int ptoVta, int cbteTipo)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.CompUltimoAutorizado(feAuthRequest, ptoVta, cbteTipo);
@@ -202,6 +211,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FECompConsultaResponse CompConsultar(FEAuthRequest feAuthRequest, FECompConsultaReq feCompConsultaReq)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.CompConsultar(feAuthRequest, feCompConsultaReq);
@@ -223,6 +233,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public ConceptoTipoResponse GetTiposConcepto(FEAuthRequest feAuthRequest)
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.GetTiposConcepto(feAuthRequest);
@@ -244,6 +255,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public FEAuthRequest ObtenerTicket()
         {
             AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 var t = client.ObtenerTicket();

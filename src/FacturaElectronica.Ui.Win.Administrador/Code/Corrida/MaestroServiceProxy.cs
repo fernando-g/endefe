@@ -14,6 +14,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         {
             List<WebServiceAfipDto> dto = new List<WebServiceAfipDto>();
             MaestrosServiceClient client = new MaestrosServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 dto = client.ObtenerWebServicesAfip();

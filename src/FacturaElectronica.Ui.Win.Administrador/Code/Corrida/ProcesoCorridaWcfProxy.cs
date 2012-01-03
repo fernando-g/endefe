@@ -6,16 +6,18 @@ using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Ui.Win.Administrador.ServiceReferenceCorrida;
 using FacturaElectronica.Common.Contracts.Search;
+using System.ServiceModel.Description;
 
 
 namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
 {
     public class ProcesoCorridaWcfProxy : FacturaElectronica.Common.Services.IProcesoCorridaService
-    {
+    {      
         public CorridaAutorizacionDto CrearNuevaCorrida(string nombreDeArchivo)
         {
             CorridaAutorizacionDto dto = null;
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {                
                 dto = client.CrearNuevaCorrida(nombreDeArchivo);
@@ -37,6 +39,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         public void EjecutarCorrida(long corridaId)
         {
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 client.EjecutarCorrida(corridaId);
@@ -57,6 +60,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         {
             List<CorridaAutorizacionDto> dto = null;
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 dto = client.ObtenerCorridas(search);
@@ -79,6 +83,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         {
             List<LogCorridaDto> dto = null;
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
                 dto = client.ConsultarLog(corridaId, fecha);

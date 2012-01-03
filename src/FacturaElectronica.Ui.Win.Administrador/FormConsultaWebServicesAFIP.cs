@@ -46,16 +46,23 @@ namespace FacturaElectronica.Ui.Win.Administrador
         public FormConsultaWebServicesAFIP()
         {
             InitializeComponent();
-            client = ServiceFactory.GetAfipWrapperService();
+            try
+            {
+                client = ServiceFactory.GetAfipWrapperService();
 
-            this.ticket = client.ObtenerTicket();
-            this.CargarMetodos();
-            //
-            this.lblResultados.Location = new Point(this.lblResultados.Location.X, this.lblResultados.Location.Y - this.panelMoneda.Height);
-            this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, this.btnConsultar.Location.Y - this.panelMoneda.Height);
-            this.gridResultados.Location = new Point(this.gridResultados.Location.X, this.gridResultados.Location.Y - this.panelMoneda.Height);
-            this.txtResultados.Location = new Point(this.txtResultados.Location.X, this.txtResultados.Location.Y - this.panelMoneda.Height);
-            this.lblResultados.Visible = false;
+                this.ticket = client.ObtenerTicket();
+                this.CargarMetodos();
+                //
+                this.lblResultados.Location = new Point(this.lblResultados.Location.X, this.lblResultados.Location.Y - this.panelMoneda.Height);
+                this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, this.btnConsultar.Location.Y - this.panelMoneda.Height);
+                this.gridResultados.Location = new Point(this.gridResultados.Location.X, this.gridResultados.Location.Y - this.panelMoneda.Height);
+                this.txtResultados.Location = new Point(this.txtResultados.Location.X, this.txtResultados.Location.Y - this.panelMoneda.Height);
+                this.lblResultados.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
