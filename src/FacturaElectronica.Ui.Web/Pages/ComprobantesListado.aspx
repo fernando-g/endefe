@@ -18,21 +18,19 @@
             $('#btnBuscar').toggleClass('bounce');
         });
 
-        function openWindows(pdfUrl) 
-        {
-            var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
-            window.open(pdfUrl, 'Popup', caracteristicas);
-            window.open("http://www.google.com", null, "toolbars=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=yes");        
-        }
+        function openWindows(pdfUrl) {
+            if (document.all || document.layers) {
+                w = screen.availWidth;
+                h = screen.availHeight;
+            }
 
-        $(document).ready(function () {
-            $("a[rel='pop-up']").click(function () {
-                var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
-                window.open(this.href, 'Popup', caracteristicas);                
-                window.open("http://www.google.com", null, "toolbars=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=yes");
-                return false;
-            });
-        });  
+            var popW = 300, popH = 200;
+
+            var leftPos = (w - popW) / 2, topPos = (h - popH) / 2;
+            var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
+            window.open(pdfUrl, 'Popup', 'width=' + w + ',height=' + h + ',top=' + 0 + ',left=' + 0);
+            window.open("InfoVisualizacion.aspx", 'popup', 'width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos);
+        }
 
     </script>
 </asp:Content>
@@ -113,8 +111,6 @@
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
-                <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
@@ -125,14 +121,6 @@
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
                         OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Borrar Comprobante">
-                    <HeaderStyle HorizontalAlign="Center" Width="30px" />
-                    <ItemStyle HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="~/Images/eliminar.png"
-                            CommandName="eliminar" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

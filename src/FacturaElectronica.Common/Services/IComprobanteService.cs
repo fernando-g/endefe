@@ -25,5 +25,7 @@ namespace FacturaElectronica.Common.Services
         List<int> ObtenerAniosFacturacion();
 
         void AgregarVisualizacion(VisualizacionComprobanteDto dto);
+
+        void CambiarEstado(long archivoAsociadoId, string codigoEstado);
     }
 }

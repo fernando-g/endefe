@@ -14,17 +14,15 @@
         $(function () {
             $('#txtFechaVencDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeCargaDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeCargaHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#btnBuscar').toggleClass('bounce');
         });
 
-        $(document).ready(function () {
-            $("a[rel='pop-up']").click(function () {
-                var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
-                window.open(this.href, 'Popup', caracteristicas);
-                window.open("http://www.google.com", null, "toolbars=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=yes");
-                return false;
-            });
-        });  
+        function openWindows(pdfUrl) 
+        {
+            window.open(pdfUrl, 'Popup', 'width=' + screen.availWidth + ',height=' + screen.availHeight + ',top=' + 0 + ',left=' + 0);
+        }
 
     </script>
 </asp:Content>
@@ -46,6 +44,16 @@
         <p>
             <span class="title2 secondColumn">Nro. Comprobante:</span>
             <asp:TextBox ID="txtNroComprobante" runat="server" CssClass="inputs"></asp:TextBox>
+        </p>
+        <div class="clear">
+        </div>
+        <p>
+            <span class="title2">Fecha de Carga Desde:</span>
+            <asp:TextBox ID="txtFechaDeCargaDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+        </p>
+        <p>
+            <span class="title2 secondColumn">Hasta:</span>
+            <asp:TextBox ID="txtFechaDeCargaHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
         </p>
         <div class="clear">
         </div>
@@ -78,6 +86,10 @@
             <span class="title2">Tipo Contrato:</span>
             <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo"></asp:DropDownList>
         </p>
+        <p>            
+            <span class="title2 secondColumn">Documentos Vencidos:</span>
+            <asp:CheckBox ID="chkDocumentosVencidos" runat="server" CssClass="chk"></asp:CheckBox>
+        </p>
         <div class="clear">
         </div>
         <p>
@@ -101,13 +113,19 @@
             <Columns>
                 <asp:BoundField DataField="ArchivoAsociadoId" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" Visible="false" />
                 <asp:BoundField DataField="ComprobanteId" Visible="false" />
+                <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Razon Social" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy HH:mm:ss}" />
+                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="FechaVisualizacion" HeaderText="Fecha de Visualizaci&oacute;n" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
+                <asp:BoundField DataField="DireccionIp" HeaderText="Direccion Ip" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
@@ -115,9 +133,8 @@
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <a href="<%# DataBinder.Eval(Container, "DataItem.PathArchivo")  %>" target="_blank" rel="pop-up"
-                            >
-                            <img src="../Images/pdf.png" width="16px" height="16px" alt="pdffile" style="border-style:none" /></a>
+                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
+                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Borrar Comprobante">
@@ -125,7 +142,8 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="~/Images/eliminar.png"
-                            CommandName="eliminar" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                            CommandName="eliminar" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" 
+                            OnClientClick="return confirm('Esta seguro que desea eliminar el registro?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

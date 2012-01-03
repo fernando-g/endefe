@@ -40,6 +40,24 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.TextBox txtNroComprobante;
         
         /// <summary>
+        /// txtFechaDeCargaDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaDesde;
+        
+        /// <summary>
+        /// txtFechaDeCargaHasta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaHasta;
+        
+        /// <summary>
         /// txtFechaVencDesde control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoContrato;
+        
+        /// <summary>
+        /// chkDocumentosVencidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkDocumentosVencidos;
         
         /// <summary>
         /// btnBuscar control.

@@ -35,9 +35,6 @@ namespace FacturaElectronica.Business.Services
                         // Fecha Vencimiento
                         (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                         && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
-                        // Fecha De Carga
-                        && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
-                        && (!criteria.FechaDeCargaHasta.HasValue || aa.FechaDeCarga <= criteria.FechaDeCargaHasta.Value)
                         // Razon Social
                         && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
                         // Tipo Comprobante
@@ -51,8 +48,6 @@ namespace FacturaElectronica.Business.Services
                         // Periodo Facturacion
                         && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                         && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
-                        // Documentos Vencidos
-                        && (!criteria.IncluirDocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
                         // Sacar Documentos Eliminados
                         && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
                         select new ComprobanteArchivoAsociadoDto()
@@ -68,7 +63,6 @@ namespace FacturaElectronica.Business.Services
                             DiasVencimiento = aa.DiasVencimiento,
                             NroComprobante = aa.NroComprobante,
                             PathArchivo = aa.PathArchivo,
-                            PtoVta = c.PtoVta,
                             TipoComprobanteId = c.TipoComprobanteId,
                             TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
                             TipoContratoId = aa.TipoContratoId,
@@ -83,7 +77,7 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                return (from aa in ctx.ArchivoAsociadoes
+                List<ComprobanteArchivoAsociadoDto> list = (from aa in ctx.ArchivoAsociadoes
                         join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                         where
                             // Fecha Vencimiento
@@ -106,9 +100,7 @@ namespace FacturaElectronica.Business.Services
                         && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                         && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                             // Documentos Vencidos
-                        && (!criteria.IncluirDocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
-                            // Sacar Documentos Eliminados
-                        && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
+                        && (!criteria.DocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
                         select new ComprobanteArchivoAsociadoDto()
                         {
                             ArchivoAsociadoId = aa.Id,
@@ -124,14 +116,22 @@ namespace FacturaElectronica.Business.Services
                             DiasVencimiento = aa.DiasVencimiento,
                             NroComprobante = aa.NroComprobante,
                             PathArchivo = aa.PathArchivo,
-                            PtoVta = c.PtoVta,
                             TipoComprobanteId = c.TipoComprobanteId,
                             TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
                             TipoContratoId = aa.TipoContratoId,
                             TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty,
                         }).ToList();
 
-
+                foreach (var item in list)
+                {
+                    VisualizacionComprobante visualizacion = ctx.VisualizacionComprobantes.Where(vc => vc.ArchivoAsociadoId == item.ArchivoAsociadoId).ToList().LastOrDefault();
+                    if (visualizacion != null)
+                    {
+                        item.DireccionIp = visualizacion.DireccionIP;
+                        item.FechaVisualizacion = visualizacion.Fecha;
+                    }
+                }
+                return list;
             }
         }
 
@@ -189,6 +189,23 @@ namespace FacturaElectronica.Business.Services
         //    }            
         //}
 
+        public void CambiarEstado(long archivoAsociadoId, string codigoEstado)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                EstadoArchivoAsociado nuevoEstado = ctx.EstadoArchivoAsociadoes.Where(e => e.Codigo == codigoEstado).FirstOrDefault();
+                if (nuevoEstado != null)
+                {
+                    ArchivoAsociado aa =  ctx.ArchivoAsociadoes.Where(c => c.Id == archivoAsociadoId).FirstOrDefault();
+                    if (aa != null)
+                    {
+                        aa.EstadoArchivoAsociado = nuevoEstado;
+                        ctx.SaveChanges();
+                    }                    
+                }
+            }
+        }
+
         #endregion [Estados]
 
         #region [Tipos Contrato]
@@ -213,7 +230,23 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                ctx.Comprobantes.Where(c => c.Id == dto.ArchivoAsociadoId);
+                ArchivoAsociado aa =  ctx.ArchivoAsociadoes.Where(c => c.Id == dto.ArchivoAsociadoId).FirstOrDefault();
+                if (aa != null)
+                { 
+                    VisualizacionComprobante vc = new VisualizacionComprobante() { ArchivoAsociadoId = aa.Id,
+                                                                                   Fecha = DateTime.Now,
+                                                                                   DireccionIP = dto.Ip
+                                                                                 };
+                    if (aa.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado)
+                        aa.EstadoArchivoAsociado = ctx.EstadoArchivoAsociadoes.Where(e => e.Codigo == CodigosEstadoArchivoAsociado.Visualizado).First();
+                    aa.VisualizacionComprobantes.Add(vc);
+                    if (!aa.FechaVencimiento.HasValue && aa.DiasVencimiento.HasValue)
+                    {
+                        aa.FechaVencimiento = DateTime.Now.AddDays(aa.DiasVencimiento.Value);
+                    }
+                    ctx.SaveChanges();
+                }
+
             }
         }
 

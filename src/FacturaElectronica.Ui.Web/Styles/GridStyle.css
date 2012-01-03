@@ -152,3 +152,8 @@
     cursor:pointer;
     background-position: 0 -25px;	
 }
+
+.lineThrough
+{
+    text-decoration: line-through;
+}

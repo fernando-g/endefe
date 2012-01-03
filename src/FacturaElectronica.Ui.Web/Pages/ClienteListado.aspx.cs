@@ -9,7 +9,7 @@ using FacturaElectronica.Ui.Web.Code;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
-    public partial class ClienteListado : System.Web.UI.Page
+    public partial class ClienteListado : BasePage
     {
         private const string pagDetalle = "ClienteDetalle.aspx";
 

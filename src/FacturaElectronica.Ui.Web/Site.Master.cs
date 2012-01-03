@@ -8,7 +8,7 @@ using FacturaElectronica.Ui.Web.Code;
 
 namespace FacturaElectronica.Ui.Web
 {
-    public partial class SiteMaster : System.Web.UI.MasterPage
+    public partial class SiteMaster : System.Web.UI.MasterPage, IWebMessage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

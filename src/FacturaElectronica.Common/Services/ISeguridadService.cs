@@ -18,6 +18,8 @@ namespace FacturaElectronica.Common.Services
 
         bool CambiarPassword(long usuarioId, string passwordActual, string passwordNueva);
 
+        bool CambiarPassword(string nombreUsuario, string passwordActual, string passwordNueva);
+
         UsuarioDto ObtenerUsuario(long usuarioId);
 
         List<UsuarioDto> ObtenerUsuarios(string nombreUsuario);

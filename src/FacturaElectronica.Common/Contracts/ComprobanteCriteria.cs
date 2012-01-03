@@ -43,6 +43,6 @@ namespace FacturaElectronica.Common.Contracts
         [DataMember]
         public long? ClienteId { get; set; }
 
-        public bool IncluirDocumentosVencidos { get; set; }
+        public bool DocumentosVencidos { get; set; }
     }
 }

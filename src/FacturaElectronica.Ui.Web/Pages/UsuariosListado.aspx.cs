@@ -8,7 +8,7 @@ using FacturaElectronica.Ui.Web.Code;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
-    public partial class UsuariosListado : System.Web.UI.Page
+    public partial class UsuariosListado : BasePage
     {
         private const string pagDetalle = "UsuariosDetalle.aspx";
         private const string pagCambiarPass = "Account/ChangePassword.aspx";

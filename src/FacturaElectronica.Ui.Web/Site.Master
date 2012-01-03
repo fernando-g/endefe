@@ -44,10 +44,11 @@
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
                         <asp:MenuItem NavigateUrl="~/Pages/UsuariosListado.aspx" Text="Usuarios" />
+                        <asp:MenuItem NavigateUrl="~/Account/ChangePassword.aspx" Text="Cambiar Contraseña" />
                         <asp:MenuItem NavigateUrl="~/Pages/ClienteListado.aspx" Text="Clientes" />
                         <asp:MenuItem NavigateUrl="~/Pages/ComprobantesListado.aspx" Text="Mis Comprobantes" />
                         <asp:MenuItem NavigateUrl="~/Pages/ReporteComprobantes.aspx" Text="Reporte Comprobantes" />
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="Contacto" />
+                        <asp:MenuItem NavigateUrl="~/Pages/Contacto.aspx" Text="Contacto" />
                     </Items>
                 </asp:Menu>
             </div>

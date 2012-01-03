@@ -99,14 +99,31 @@ namespace FacturaElectronica.Business.Services
             using (var ctx = new FacturaElectronicaEntities())
             {
                 Usuario usuario = this.ObtenerUsuario(ctx, usuarioId);
-                if(usuario.Password != passwordActual)
-                    throw new Exception("La password actual ingresada no coincide es incorrecta.");
+                return CambiaPassword(ctx, usuario, passwordActual, passwordNueva);
+            }
+        }
+
+        private static bool CambiaPassword(FacturaElectronicaEntities ctx, Usuario usuario, string passwordActual, string passwordNueva)
+        {
+            bool cambioPass = false;
+            if (usuario != null)
+            {
+                if (usuario.Password != passwordActual)
+                    throw new Exception("La Contraseña Anterior ingresada es incorrecta.");
 
                 usuario.Password = passwordNueva;
-                return ctx.SaveChanges() > 0;
-
+                cambioPass = ctx.SaveChanges() > 0;
             }
+            return cambioPass;
+        }
 
+        public bool CambiarPassword(string nombreUsuario, string passwordActual, string passwordNueva)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                Usuario usuario = ctx.Usuarios.Where(u => u.NombreUsuario == nombreUsuario).FirstOrDefault();
+                return CambiaPassword(ctx, usuario, passwordActual, passwordNueva);
+            }            
         }
 
         public UsuarioDto ObtenerUsuario(long usuarioId)

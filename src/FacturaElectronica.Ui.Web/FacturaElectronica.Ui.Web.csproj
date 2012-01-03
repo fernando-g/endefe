@@ -54,7 +54,6 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
@@ -92,6 +91,8 @@
     <Content Include="Pages\ClienteDetalle.aspx" />
     <Content Include="Pages\ClienteListado.aspx" />
     <Content Include="Pages\ComprobantesListado.aspx" />
+    <Content Include="Pages\Contacto.aspx" />
+    <Content Include="Pages\InfoVisualizacion.aspx" />
     <Content Include="Pages\ReporteComprobantes.aspx" />
     <Content Include="Pages\Test.aspx" />
     <Content Include="Pages\TestGrid.aspx" />
@@ -130,13 +131,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -166,6 +160,9 @@
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="Code\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Code\ComprobantesBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Code\Constants.cs" />
@@ -211,6 +208,20 @@
     </Compile>
     <Compile Include="Pages\ComprobantesListado.aspx.designer.cs">
       <DependentUpon>ComprobantesListado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Contacto.aspx.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Contacto.aspx.designer.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InfoVisualizacion.aspx.cs">
+      <DependentUpon>InfoVisualizacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\InfoVisualizacion.aspx.designer.cs">
+      <DependentUpon>InfoVisualizacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReporteComprobantes.aspx.cs">
       <DependentUpon>ReporteComprobantes.aspx</DependentUpon>
