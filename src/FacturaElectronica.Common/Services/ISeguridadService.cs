@@ -16,7 +16,7 @@ namespace FacturaElectronica.Common.Services
 
         bool EliminarUsuario(long usuarioId);
 
-        bool CambiarPassword(long usuarioId, string passwordActual, string passwordNueva);
+        bool CambiarPassword(long usuarioId, string passwordNueva);
 
         bool CambiarPassword(string nombreUsuario, string passwordActual, string passwordNueva);
 

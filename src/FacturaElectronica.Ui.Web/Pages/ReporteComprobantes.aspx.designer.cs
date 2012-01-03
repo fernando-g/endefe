@@ -13,6 +13,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
     public partial class ReporteComprobantes {
         
         /// <summary>
+        /// valSumm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary valSumm;
+        
+        /// <summary>
         /// txtRazonSocial control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaDesde;
         
         /// <summary>
+        /// cvFechaDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvFechaDesde;
+        
+        /// <summary>
         /// txtFechaDeCargaHasta control.
         /// </summary>
         /// <remarks>
@@ -65,6 +83,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFechaVencDesde;
+        
+        /// <summary>
+        /// CompareValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
         /// txtFechaVencHasta control.

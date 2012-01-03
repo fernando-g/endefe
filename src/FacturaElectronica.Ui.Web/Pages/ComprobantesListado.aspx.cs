@@ -11,6 +11,7 @@ using FacturaElectronica.Common.Services;
 using System.Globalization;
 using System.Drawing;
 using FacturaElectronica.Common.Constants;
+using System.IO;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
@@ -75,7 +76,16 @@ namespace FacturaElectronica.Ui.Web.Pages
                 {
                     VisualizacionComprobanteDto dto = new VisualizacionComprobanteDto();
                     dto.ArchivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);                    
-                    dto.Ip = this.Request.UserHostAddress;
+                    //dto.Ip = this.Request.UserHostAddress;
+                    string ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                    if (string.IsNullOrEmpty(ip))
+                    {
+                        ip = Request.ServerVariables["REMOTE_ADDR"];
+                    }
+                    if (string.IsNullOrEmpty(ip))
+                    {
+                        dto.Ip = Request.UserHostAddress;
+                    }
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
                     svc.AgregarVisualizacion(dto);
                 }
@@ -127,6 +137,12 @@ namespace FacturaElectronica.Ui.Web.Pages
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarControles();
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            //  exporto la grilla
+            GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
         }
     }
 }

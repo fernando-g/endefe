@@ -18,27 +18,34 @@
             $('#btnBuscar').toggleClass('bounce');
         });
 
-        function openWindows(pdfUrl) {
+        function openWindows(pdfUrl, estado) {
             if (document.all || document.layers) {
                 w = screen.availWidth;
                 h = screen.availHeight;
             }
-
             var popW = 300, popH = 200;
 
             var leftPos = (w - popW) / 2, topPos = (h - popH) / 2;
-            var caracteristicas = "height=700,width=800,scrollTo,resizable=1,scrollbars=1,location=0";
             window.open(pdfUrl, 'Popup', 'width=' + w + ',height=' + h + ',top=' + 0 + ',left=' + 0);
-            window.open("InfoVisualizacion.aspx", 'popup', 'width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos);
+            if(estado != "V")
+                window.open("InfoVisualizacion.aspx", 'popup', 'width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos);
         }
-
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Buscar Comprobantes
+        <!-- <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
+            onclick="window.AppCommonObj.toggleVisibility(this.id, 'resultDiv');" alt="" /> -->
+        <span class="clear"></span>
+
     </h2>
-    <div class="editionContainerFilter">
+    <div class="editionContainerFilter" id="resultDiv">
+        <div class="clear">
+        </div>
+        <asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
+            ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
+        <br />        
         <p>
             <span class="title2">Razon Social:</span>
             <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" Width="470px" MaxLength="200"></asp:TextBox>
@@ -58,6 +65,9 @@
         <p>
             <span class="title2">Fecha de Venc. Desde:</span>
             <asp:TextBox ID="txtFechaVencDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta" Operator="LessThanEqual" Type ="Date" 
+                ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
+
         </p>
         <p>
             <span class="title2 secondColumn">Hasta:</span>
@@ -88,9 +98,9 @@
         </div>
         <p>
             <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Buscar" onclick="btnBuscar_Click" />
+                Text="Buscar" onclick="btnBuscar_Click"  />
             <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Limpiar" onclick="btnLimpiar_Click" />
+                Text="Limpiar" onclick="btnLimpiar_Click" CausesValidation="false" />
         </p>
         <div class="clear">
         </div>
@@ -120,7 +130,7 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
-                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\",\"" + Eval("EstadoCodigo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />                        
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -136,4 +146,6 @@
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
     </asp:Panel>
+    <asp:Button ID="btnExportToExcel" Text="Exportar a Excel" runat="server" 
+        onclick="btnExportToExcel_Click" />
 </asp:Content>

@@ -63,10 +63,9 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             try
             {
-                string passwordActual = this.txtPassword.Text.Trim();
                 string passwordNueva = this.txtPasswordNueva.Text.Trim();
 
-                seguridadService.CambiarPassword(usuarioCurrent.Id, passwordActual, passwordNueva);
+                seguridadService.CambiarPassword(usuarioCurrent.Id, passwordNueva);
                 ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
             }
             catch (Exception ex)

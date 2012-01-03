@@ -31,6 +31,11 @@
         Buscar Comprobantes
     </h2>
     <div class="editionContainerFilter">
+        <div class="clear">
+        </div>
+        <asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
+            ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
+        <br />        
         <p>
             <span class="title2">Razon Social:</span>
             <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" Width="470px" MaxLength="200"></asp:TextBox>
@@ -50,6 +55,8 @@
         <p>
             <span class="title2">Fecha de Carga Desde:</span>
             <asp:TextBox ID="txtFechaDeCargaDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaDeCargaDesde" ControlToCompare="txtFechaDeCargaHasta" Operator="LessThanEqual" Type ="Date" 
+                ErrorMessage="Fecha Carga Desde debe ser menor o igual a Fecha Carga Hasta"></asp:CompareValidator>
         </p>
         <p>
             <span class="title2 secondColumn">Hasta:</span>
@@ -60,6 +67,8 @@
         <p>
             <span class="title2">Fecha de Venc. Desde:</span>
             <asp:TextBox ID="txtFechaVencDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta" Operator="LessThanEqual" Type ="Date" 
+                ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
         </p>
         <p>
             <span class="title2 secondColumn">Hasta:</span>

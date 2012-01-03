@@ -20,22 +20,11 @@
         <p>
             &nbsp;<asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
             ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
-        <p>
+        </p>
         <br />
         <p>
             <span class="title2">Nombre Usuario:</span>
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" CssClass="failureNotification"
-                                        ErrorMessage="Debe ingresar un nombre." Display="Static" Text="*"></asp:RequiredFieldValidator>
-
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Password Actual:</span>
-            <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvPass" runat="server" ControlToValidate="txtPassword" CssClass="failureNotification"
-                                        ErrorMessage="Debe ingresar una contraseña." Display="Static" Text="*"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs" Enabled="false"></asp:TextBox>
         </p>
         <div class="clear">
         </div>
@@ -44,19 +33,6 @@
             <asp:TextBox ID="txtPasswordNueva" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvPasswordNueva" runat="server" ControlToValidate="txtPassword" CssClass="failureNotification"
                                         ErrorMessage="Debe ingresar una contraseña." Display="Static" Text="*"></asp:RequiredFieldValidator>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Confirmación Password Nueva:</span>
-            <asp:TextBox ID="txtPasswordConfirmacion" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvPasswordConfirmacion" runat="server" ControlToValidate="txtPassword" CssClass="failureNotification"
-                                        ErrorMessage="Debe ingresar una contraseña." Display="Static" Text="*"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cvPassword" runat="server" 
-                ControlToValidate="txtPasswordNueva" 
-                ControlToCompare="txtPasswordConfirmacion" CssClass="failureNotification"
-                ErrorMessage="Password Nueva y su confirmacion deben coincidir.">*</asp:CompareValidator>
-
         </p>
         <div class="clear">
         </div>

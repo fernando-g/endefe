@@ -94,12 +94,18 @@ namespace FacturaElectronica.Business.Services
             return result > 0;
         }
 
-        public bool CambiarPassword(long usuarioId, string passwordActual, string passwordNueva)
+        public bool CambiarPassword(long usuarioId, string passwordNueva)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
                 Usuario usuario = this.ObtenerUsuario(ctx, usuarioId);
-                return CambiaPassword(ctx, usuario, passwordActual, passwordNueva);
+                bool cambioPass = false;
+                if (usuario != null)
+                {
+                    usuario.Password = passwordNueva;
+                    cambioPass = ctx.SaveChanges() > 0;
+                }
+                return cambioPass;
             }
         }
 

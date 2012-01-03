@@ -255,10 +255,12 @@ div.accountInfo
     display: block;
     float: left;
     text-align: left;
-    background-image: url('../Images/logo.gif');	
+    background-image: url('../Images/logo.png');	
     background-repeat: no-repeat;
-    background-color:White;
-    width: 191px;
+    /*background-color:White;*/
+    /*width: 191px;
+    height:85px;*/
+    width: 250px;
     height:85px;
 }
 
@@ -340,4 +342,12 @@ div.accountInfo
     width:80px;
     cursor:pointer;
     background-position: 0 -25px;	
+}
+
+
+.imgExpand
+{
+    float: left;
+    margin-top: 6px;
+    margin-right: 6px;
 }

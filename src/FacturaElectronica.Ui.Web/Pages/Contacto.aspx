@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-       Endesa CEMSA S.A.        
+       ENDESA CEMSA S.A.        
     </h2>
     <p>
         CUIT: 30691607050

@@ -64,6 +64,8 @@
     <Content Include="Images\editItem.png" />
     <Content Include="Images\eliminar.png" />
     <Content Include="Images\excel.png" />
+    <Content Include="Images\icon_blockcollapsed.png" />
+    <Content Include="Images\icon_blockexpanded.png" />
     <Content Include="Images\importar.png" />
     <Content Include="Images\JQuery\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Images\JQuery\ui-bg_diagonals-thick_20_666666_40x40.png" />
@@ -80,8 +82,8 @@
     <Content Include="Images\JQuery\ui-icons_ffd27a_256x240.png" />
     <Content Include="Images\JQuery\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\key.gif" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\logoubatic.jpg" />
-    <Content Include="Images\logo.gif" />
     <Content Include="Images\pdf.png" />
     <Content Include="Images\roller.gif" />
     <Content Include="Images\roller_orange.gif" />
@@ -99,6 +101,7 @@
     <Content Include="Pages\UsuariosDetalle.aspx" />
     <Content Include="Pages\UsuariosListado.aspx" />
     <Content Include="Scripts\ajaxupload.js" />
+    <Content Include="Scripts\AppCommon.js" />
     <Content Include="Scripts\DirtyCheck.js" />
     <Content Include="Scripts\ErrorPanel.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
@@ -167,6 +170,7 @@
     </Compile>
     <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\ExceptionManager.cs" />
+    <Compile Include="Code\GridViewExportUtil.cs" />
     <Compile Include="Code\IWebMessanger.cs" />
     <Compile Include="Code\Roles.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
