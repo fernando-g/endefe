@@ -18,7 +18,7 @@
         <div class="clear">
         </div>
         <p>
-            &nbsp;<asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
+            <asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
             ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
         </p>
         <br />
@@ -31,7 +31,7 @@
         <p>
             <span class="title2">Password Nueva:</span>
             <asp:TextBox ID="txtPasswordNueva" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvPasswordNueva" runat="server" ControlToValidate="txtPassword" CssClass="failureNotification"
+            <asp:RequiredFieldValidator ID="rfvPasswordNueva" runat="server" ControlToValidate="txtPasswordNueva" CssClass="failureNotification"
                                         ErrorMessage="Debe ingresar una contraseña." Display="Static" Text="*"></asp:RequiredFieldValidator>
         </p>
         <div class="clear">

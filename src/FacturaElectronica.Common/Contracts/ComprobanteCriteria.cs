@@ -43,6 +43,19 @@ namespace FacturaElectronica.Common.Contracts
         [DataMember]
         public long? ClienteId { get; set; }
 
+        [DataMember]
         public bool DocumentosVencidos { get; set; }
+
+        [DataMember]
+        public bool SortIsAsc { get; set; }
+
+        [DataMember]
+        public string SortingField { get; set; }
+
+        [DataMember]
+        public int PageSize { get; set; }
+
+        [DataMember]
+        public int PageSkip { get; set; }
     }
 }

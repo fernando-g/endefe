@@ -7,6 +7,7 @@ using FacturaElectronica.Data;
 using System.Transactions;
 using FacturaElectronica.Common.Services;
 using System.Data.Objects;
+using FacturaElectronica.Core.Helpers;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -16,7 +17,18 @@ namespace FacturaElectronica.Business.Services
 
         public bool AutenticarUsuario(string nombreUsuario, string password)
         {
-            return true;
+            bool usuarioValido = false;
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                Usuario usuario = this.ObtenerUsuario(ctx, nombreUsuario);
+                string salt = usuario.Password.Substring(usuario.Password.Length-40);
+                string hashedPwd = SecurityHelper.CreatePasswordHash(password,salt);
+                if (usuario != null &&  usuario.Password == hashedPwd)
+                {
+                    usuarioValido = true;
+                }
+            }
+            return usuarioValido;
         }
 
         public UsuarioDto CrearUsuario(UsuarioDto usuarioDto)
@@ -32,9 +44,9 @@ namespace FacturaElectronica.Business.Services
                     if (usuarioDto.Roles != null &&
                        usuarioDto.Roles.Count() > 0)
                     {
-                        foreach (int rolId in usuarioDto.Roles)
+                        foreach (RolDto rolDto in usuarioDto.Roles)
                         {
-                            Rol rol = this.ObtenerRol(ctx, rolId);
+                            Rol rol = this.ObtenerRol(ctx, rolDto.Id);
                             if (rol != null)
                             {
                                 usuario.Roles.Add(rol);
@@ -58,14 +70,16 @@ namespace FacturaElectronica.Business.Services
                 using (var ctx = new FacturaElectronicaEntities())
                 {
                     Usuario usuario = this.ObtenerUsuario(ctx, usuarioDto.Id);
+                    string pass = usuario.Password;
                     ToUsuario(usuarioDto, usuario);
+                    usuario.Password = pass;
                     if (usuarioDto.Roles != null &&
                        usuarioDto.Roles.Count() > 0)
                     {
                         usuario.Roles.Clear();
-                        foreach (int rolId in usuarioDto.Roles)
+                        foreach (RolDto rolDto in usuarioDto.Roles)
                         {
-                            Rol rol = this.ObtenerRol(ctx, rolId);
+                            Rol rol = this.ObtenerRol(ctx, rolDto.Id);
                             if (rol != null)
                             {
                                 usuario.Roles.Add(rol);
@@ -140,6 +154,14 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
+        public UsuarioDto ObtenerUsuario(string nombreUsuario)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return ToUsuarioDto(this.ObtenerUsuario(ctx, nombreUsuario));
+            }
+        }
+
         public List<UsuarioDto> ObtenerUsuarios(string nombreUsuario)
         {
             using (var ctx = new FacturaElectronicaEntities())
@@ -197,16 +219,9 @@ namespace FacturaElectronica.Business.Services
             dto.Id = usuario.Id;
             dto.NombreUsuario = usuario.NombreUsuario;
             dto.ClienteId = usuario.ClienteId;
-            dto.Password = usuario.Password;
+            // Roles
+            dto.Roles = ToRolDtoList(usuario.Roles.ToList());
 
-            if (usuario.Roles.Count > 0)
-            {
-                dto.Roles = new List<int>();
-                foreach (Rol rol in usuario.Roles)
-                {
-                    dto.Roles.Add(rol.Id);
-                }
-            }
             return dto;
         }
 

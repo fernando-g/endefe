@@ -5,13 +5,13 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        Welcome to ASP.NET!
+        Bienvenido al Portal Web de Factura Electronica de ENDESA CEMSA S.A
     </h2>
     <p>
-        To learn more about ASP.NET visit <a href="http://www.asp.net" title="ASP.NET Website">www.asp.net</a>.
+        Para saber mas acerca de nosotros visite <a href="http://www.endesacemsa.com/" title="Sitio">www.endesacemsa.com</a>.
     </p>
     <p>
-        You can also find <a href="http://go.microsoft.com/fwlink/?LinkID=152368&amp;clcid=0x409"
-            title="MSDN ASP.NET Docs">documentation on ASP.NET at MSDN</a>.
+        Puede encontrar datos de contacto sobre la empresa en la opción de Menu 
+        <a href="Pages/Contacto.aspx" title="Contacto">Contacto</a>.
     </p>
 </asp:Content>

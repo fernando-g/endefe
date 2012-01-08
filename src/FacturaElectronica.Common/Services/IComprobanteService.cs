@@ -10,7 +10,7 @@ namespace FacturaElectronica.Common.Services
     {
         ComprobanteDto ObtenerComprobante(long comprobanteId);
 
-        List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria);
+        List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria, int cantUltimosCbtes);
 
         List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria);
 
@@ -27,5 +27,11 @@ namespace FacturaElectronica.Common.Services
         void AgregarVisualizacion(VisualizacionComprobanteDto dto);
 
         void CambiarEstado(long archivoAsociadoId, string codigoEstado);
+
+        EstadoArchivoAsociadoDto ObtenerEstado(string codigo);
+
+        string ObtenerArchivo(long archivoId);
+        
+        string ObtenerArchivo(long archivoId, long clienteId);
     }
 }

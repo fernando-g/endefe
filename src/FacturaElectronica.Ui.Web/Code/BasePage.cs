@@ -7,7 +7,20 @@ namespace FacturaElectronica.Ui.Web.Code
 {
     public class BasePage : System.Web.UI.Page, IWebMessage
     {
+        protected BaseMasterPage BaseMaster
+        {
+            get
+            {
+                return (BaseMasterPage) this.Master;
+            }
 
+        }
+
+        protected void HasPermissionToSeeMe(Operaciones operacion)
+        {
+            this.BaseMaster.HasPermissionToSeeMe(operacion);
+        }
+        
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);

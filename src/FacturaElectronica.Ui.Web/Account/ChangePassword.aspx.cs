@@ -24,7 +24,7 @@ namespace FacturaElectronica.Ui.Web.Account
                 string passwordNueva = this.NewPassword.Text.Trim();
 
                 ISeguridadService seguridadService = ServiceFactory.GetSecurityService();
-                seguridadService.CambiarPassword(User.Identity.Name, passwordActual, passwordNueva);
+                seguridadService.CambiarPassword(this.BaseMaster.UserName, passwordActual, passwordNueva);
             }
             catch (Exception ex)
             {

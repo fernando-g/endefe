@@ -12,13 +12,7 @@
     <script src="/Scripts/jquery.datepick-es-AR.js" type="text/javascript"></script>
     <link href="/Styles/jquery.datepick.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-        $(function () {
-            $('#txtFechaVencDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
-            $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
-            $('#btnBuscar').toggleClass('bounce');
-        });
-
-        function openWindows(pdfUrl, estado) {
+        function openWindows(estado) {
             if (document.all || document.layers) {
                 w = screen.availWidth;
                 h = screen.availHeight;
@@ -26,99 +20,108 @@
             var popW = 300, popH = 200;
 
             var leftPos = (w - popW) / 2, topPos = (h - popH) / 2;
-            window.open(pdfUrl, 'Popup', 'width=' + w + ',height=' + h + ',top=' + 0 + ',left=' + 0);
-            if(estado != "V")
+            if (estado != "V")
                 window.open("InfoVisualizacion.aspx", 'popup', 'width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos);
         }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Buscar Comprobantes
-        <!-- <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
-            onclick="window.AppCommonObj.toggleVisibility(this.id, 'resultDiv');" alt="" /> -->
-        <span class="clear"></span>
-
+    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');">
+        <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png" alt="" />
+        Buscar Comprobantes<span class="clear"></span>
     </h2>
-    <div class="editionContainerFilter" id="resultDiv">
+    <div class="editionContainerFilter" id="searchBox">
         <div class="clear">
         </div>
         <asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
             ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
-        <br />        
-        <p>
-            <span class="title2">Razon Social:</span>
-            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" Width="470px" MaxLength="200"></asp:TextBox>
-        </p>
+        <br />
+        <div class="clear">
+        </div>
+        <%--primero--%>
+        <div class="divSearchLeft">
+            <p>
+                <span class="title2">Tipo Comprobante:</span>
+                <asp:DropDownList ID="ddlTipoComprobante" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2">Fecha de Venc. Desde:</span>
+                <asp:TextBox ID="txtFechaVencDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+                <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
+            </p>  
+            <div class="clear">
+            </div>         
+            <p>
+                <span class="title2">Mes</span>
+                <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2">Tipo Contrato:</span>
+                <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+        </div>
+        <%--segundo--%>
+        <div class="divSearchLeft">
+            <p>
+                <span class="title2 secondColumn">Nro. Comprobante:</span>
+                <asp:TextBox ID="txtNroComprobante" runat="server" CssClass="inputs"></asp:TextBox>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtFechaVencHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2 secondColumn">A&ntilde;o</span>
+                <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+        </div>
         <div class="clear">
         </div>
         <p>
-            <span class="title2">Tipo Comprobante:</span>
-            <asp:DropDownList ID="ddlTipoComprobante" runat="server" CssClass="cbo"></asp:DropDownList>
-        </p>
-        <p>
-            <span class="title2 secondColumn">Nro. Comprobante:</span>
-            <asp:TextBox ID="txtNroComprobante" runat="server" CssClass="inputs"></asp:TextBox>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Fecha de Venc. Desde:</span>
-            <asp:TextBox ID="txtFechaVencDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
-            <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta" Operator="LessThanEqual" Type ="Date" 
-                ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
-
-        </p>
-        <p>
-            <span class="title2 secondColumn">Hasta:</span>
-            <asp:TextBox ID="txtFechaVencHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Per&iacute;odo de Facturación:</span>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Mes</span>
-            <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>        
-        </p>
-        <p>
-            <span class="title2 secondColumn">A&ntilde;o</span>
-            <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Tipo Contrato:</span>
-            <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo"></asp:DropDownList>
-        </p>
-        <div class="clear">
-        </div>
-        <p>
-            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Buscar" onclick="btnBuscar_Click"  />
-            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Limpiar" onclick="btnLimpiar_Click" CausesValidation="false" />
+            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Buscar"
+                OnClick="btnBuscar_Click" />
+            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Limpiar"
+                OnClick="btnLimpiar_Click" CausesValidation="false" />
         </p>
         <div class="clear">
         </div>
     </div>
-    <h2>
-        Listado de Comprobantes
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');">
+        <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
+             alt="" />
+        Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span>
     </h2>
-    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server">
-        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333"
-            GridLines="None" AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
-            OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand"
+    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
+        <%--  <asp:ObjectDataSource ID="CustomerObjectDs" runat="server" TypeName="Web.Framework.Search.GridViewSearchObjectDataSource"
+            SortParameterName="sortExpression" SelectMethod="GetObjects" SelectCountMethod="TotalNumberOfGetObjects"
+            EnablePaging="True" OnObjectCreating="CustomerObjectDs_ObjectCreating" OnSelected="Grid_Selected">
+        </asp:ObjectDataSource>--%>
+        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+            AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
+            OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnSorting="Grid_Sorting"
             OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="ArchivoAsociadoId" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" Visible="false" />
-                <asp:BoundField DataField="ComprobanteId" Visible="false" />
-                <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante"
+                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
@@ -129,8 +132,9 @@
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
-                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\",\"" + Eval("EstadoCodigo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />                        
+                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px"
+                            OnClientClick='<%# "openWindows(\"" + Eval("EstadoCodigo") + "\");" %>'
+                            runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -144,8 +148,33 @@
             <SortedAscendingHeaderStyle BackColor="#6D95E1" />
             <SortedDescendingCellStyle BackColor="#E9EBEF" />
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
+            <EmptyDataTemplate>
+                <p>
+                    No existen comprobantes</p>
+            </EmptyDataTemplate>
         </asp:GridView>
     </asp:Panel>
-    <asp:Button ID="btnExportToExcel" Text="Exportar a Excel" runat="server" 
-        onclick="btnExportToExcel_Click" />
+    <asp:Button ID="btnExportToExcel" Text="Exportar a Excel" runat="server" OnClick="btnExportToExcel_Click" />
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+
+            if (!window.AppCommonObj) {
+                window.AppCommonObj = new AppCommon();
+            }
+
+            $('#txtFechaVencDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#btnBuscar').toggleClass('bounce');
+
+            //                 $('input[title]').inputHints();
+
+            //                 $('#txtVigenciaDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
+            //                 $('#txtVigenciaHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+
+            window.AppCommonObj.initializeEnterKeyEvent($('#searchBox'), function () {
+                __doPostBack($('#lnkBuscar').attr('aspnetid'), '');
+            });
+        });
+    </script>
 </asp:Content>

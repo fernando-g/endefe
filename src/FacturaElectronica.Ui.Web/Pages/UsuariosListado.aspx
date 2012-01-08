@@ -4,6 +4,7 @@
 <%@ Register Assembly="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI" TagPrefix="asp" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="/Styles/GridStyle.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/jquery-ui-1.8.10.custom.css" rel="stylesheet" type="text/css" />
@@ -17,10 +18,12 @@
     <script src="/Scripts/site.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Buscar Usuarios
+    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');">
+        <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
+             alt="" />
+        Buscar Usuarios<span class="clear"></span>
     </h2>
-    <div class="editionContainerFilter">
+    <div class="editionContainerFilter" id="searchBox">
         <p>
             <span class="title2">Nombre:</span>
             <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs"></asp:TextBox>
@@ -36,10 +39,13 @@
         <div class="clear">
         </div>
     </div>
-    <h2>
-        Listado de Usuarios
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');">
+        <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
+             alt="" />
+        Listado de Usuarios<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span><span class="clear"></span>
+
     </h2>
-    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server">
+    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
         <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
             AutoGenerateColumns="False" DataKeyNames="Id" Width="100%" AllowPaging="True"
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnRowDataBound="Grid_RowDataBound">
@@ -94,4 +100,19 @@
     <br />
     <asp:Button ID="btnAgregarNuevo" CssClass="btn" runat="server" Text="Agregar" ClientIDMode="Static"
         OnClick="btnAgregarNuevo_Click" />
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+
+            if (!window.AppCommonObj) {
+                window.AppCommonObj = new AppCommon();
+            }
+            //                 $('input[title]').inputHints();
+
+
+            window.AppCommonObj.initializeEnterKeyEvent($('#searchBox'), function () {
+                __doPostBack($('#lnkBuscar').attr('aspnetid'), '');
+            });
+        });
+    </script>
 </asp:Content>

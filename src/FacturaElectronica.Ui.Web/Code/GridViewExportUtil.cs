@@ -23,7 +23,7 @@ namespace FacturaElectronica.Ui.Web.Code
             HttpContext.Current.Response.Clear();
             HttpContext.Current.Response.AddHeader(
                 "content-disposition", string.Format("attachment; filename={0}", fileName));
-            HttpContext.Current.Response.ContentType = "application/ms-excel";
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
 
             using (StringWriter sw = new StringWriter())
             {

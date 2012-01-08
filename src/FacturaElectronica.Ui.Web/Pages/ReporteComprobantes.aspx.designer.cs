@@ -40,15 +40,6 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoComprobante;
         
         /// <summary>
-        /// txtNroComprobante control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNroComprobante;
-        
-        /// <summary>
         /// txtFechaDeCargaDesde control.
         /// </summary>
         /// <remarks>
@@ -65,15 +56,6 @@ namespace FacturaElectronica.Ui.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvFechaDesde;
-        
-        /// <summary>
-        /// txtFechaDeCargaHasta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaHasta;
         
         /// <summary>
         /// txtFechaVencDesde control.
@@ -94,15 +76,6 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
-        /// txtFechaVencHasta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaVencHasta;
-        
-        /// <summary>
         /// ddlMesFacturacion control.
         /// </summary>
         /// <remarks>
@@ -112,15 +85,6 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.DropDownList ddlMesFacturacion;
         
         /// <summary>
-        /// ddlAnioFacturacion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAnioFacturacion;
-        
-        /// <summary>
         /// ddlTipoContrato control.
         /// </summary>
         /// <remarks>
@@ -128,6 +92,42 @@ namespace FacturaElectronica.Ui.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoContrato;
+        
+        /// <summary>
+        /// txtNroComprobante control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNroComprobante;
+        
+        /// <summary>
+        /// txtFechaDeCargaHasta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaHasta;
+        
+        /// <summary>
+        /// txtFechaVencHasta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaVencHasta;
+        
+        /// <summary>
+        /// ddlAnioFacturacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAnioFacturacion;
         
         /// <summary>
         /// chkDocumentosVencidos control.
@@ -155,6 +155,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
+        
+        /// <summary>
+        /// lblCantReg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCantReg;
         
         /// <summary>
         /// pnlResults control.

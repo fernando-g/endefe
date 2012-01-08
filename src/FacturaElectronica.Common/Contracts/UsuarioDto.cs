@@ -12,7 +12,7 @@ namespace FacturaElectronica.Common.Contracts
     {
         public UsuarioDto()
         {
-            Roles = new List<int>();
+            Roles = new List<RolDto>();
         }
 
         [DataMember]
@@ -28,6 +28,6 @@ namespace FacturaElectronica.Common.Contracts
         public long? ClienteId { get; set; }
 
         [DataMember]
-        public List<int> Roles { get; set; }
+        public List<RolDto> Roles { get; set; }
     }
 }

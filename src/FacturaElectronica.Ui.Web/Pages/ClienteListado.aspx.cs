@@ -15,6 +15,7 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HasPermissionToSeeMe(Operaciones.ClienteListado);
             if (!this.IsPostBack)
             {
                 this.Buscar();
@@ -25,11 +26,20 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             // cargo los filtros
             ClienteCriteria criteria = new ClienteCriteria();
-            criteria.RazonSocial = txtRazonSocial.Text.Trim();
-            criteria.CUIT = txtCuit.Text.Trim() != string.Empty ? long.Parse(txtCuit.Text.Trim()) : default(long?);
+            CargarCriteria(criteria);
 
-            this.Grid.DataSource = ServiceFactory.GetClienteService().ObtenerClientes(criteria);
+            List<ClienteDto> list = ServiceFactory.GetClienteService().ObtenerClientes(criteria);
+            this.lblCantReg.Text = string.Format(" ({0})", list.Count);
+            this.Grid.DataSource = list;
             this.Grid.DataBind();
+        }
+
+        private void CargarCriteria(ClienteCriteria criteria)
+        {
+            criteria.RazonSocial = this.txtRazonSocial.Text.Trim();
+            criteria.CUIT = this.txtCuit.Text.Trim() != string.Empty ? long.Parse(this.txtCuit.Text.Trim()) : default(long?);
+            criteria.NombreContacto = this.txtNombreContacto.Text.Trim();
+            criteria.ApellidoContacto = this.txtApellidoContacto.Text.Trim();
         }
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)

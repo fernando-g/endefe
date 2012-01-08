@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ClienteListado.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ClienteListado" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="/Styles/GridStyle.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/jquery-ui-1.8.10.custom.css" rel="stylesheet" type="text/css" />
@@ -11,10 +12,12 @@
     <link href="/Styles/jquery.datepick.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Buscar Clientes
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
+        <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
+             alt="" />
+        Buscar Clientes<span class="clear"></span>
     </h2>
-    <div class="editionContainerFilter">
+    <div class="editionContainerFilter" id="searchBox">
         <p>
             <span class="title2">Razon Social:</span>
             <asp:TextBox ID="txtRazonSocial" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
@@ -42,10 +45,12 @@
         <div class="clear">
         </div>
     </div>
-    <h2>
-        Listado de Clientes
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img2', 'pnlResults');">        
+        <img width="15px" height="15px" id="img2" class="imgExpand" src="/Images/icon_blockexpanded.png"
+             alt="" />
+        Listado de Clientes<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span><span class="clear"></span>
     </h2>
-    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server">
+    <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
         <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333"
             GridLines="None" AutoGenerateColumns="False" DataKeyNames="Id" 
             Width="100%" AllowPaging="True"
@@ -99,4 +104,19 @@
     <br />
     <asp:Button ID="btnAgregarNuevo" CssClass="btn" runat="server" Text="Agregar" ClientIDMode="Static"
         OnClick="btnAgregarNuevo_Click" />
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+
+            if (!window.AppCommonObj) {
+                window.AppCommonObj = new AppCommon();
+            }
+            //                 $('input[title]').inputHints();
+
+
+            window.AppCommonObj.initializeEnterKeyEvent($('#searchBox'), function () {
+                __doPostBack($('#lnkBuscar').attr('aspnetid'), '');
+            });
+        });
+    </script>
 </asp:Content>

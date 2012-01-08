@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Ui.Web.Code;
+using FacturaElectronica.Core.Helpers;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
@@ -25,19 +26,19 @@ namespace FacturaElectronica.Ui.Web.Pages
                 ViewState["Usuario"] = value;
             }
         }
-
-        ISeguridadService seguridadService = null;
+        
+        ISeguridadService seguridadService = ServiceFactory.GetSecurityService();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.HasPermissionToSeeMe(Operaciones.CambiarPassVariosUsuarios);
             try
             {
                 if (!this.IsPostBack)
                 {
                     if (this.Request.QueryString["Id"] != null)
                     {
-                        usuarioCurrent = seguridadService.ObtenerUsuario(Convert.ToInt32(this.Request.QueryString["Id"]));
+                        usuarioCurrent = seguridadService.ObtenerUsuario(Convert.ToInt64(this.Request.QueryString["Id"]));
                     }
 
                     Bindear();
@@ -65,7 +66,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             {
                 string passwordNueva = this.txtPasswordNueva.Text.Trim();
 
-                seguridadService.CambiarPassword(usuarioCurrent.Id, passwordNueva);
+                seguridadService.CambiarPassword(usuarioCurrent.Id, SecurityHelper.CreatePasswordHash(passwordNueva, SecurityHelper.CreateSalt(30)));
                 ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
             }
             catch (Exception ex)

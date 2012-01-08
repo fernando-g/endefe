@@ -33,10 +33,10 @@ namespace FacturaElectronica.Ui.Web.Code
             get;
         }
 
-        protected abstract TextBox txtRazonSocialControl
-        {
-            get;
-        }
+        //protected abstract TextBox txtRazonSocialControl
+        //{
+        //    get;
+        //}
 
         protected abstract TextBox txtNroComprobanteControl
         {
@@ -57,6 +57,11 @@ namespace FacturaElectronica.Ui.Web.Code
             get;
         }
 
+        protected abstract Label lblCantRegControl
+        {
+            get;
+        }
+
         #endregion [BaseControls]
 
         protected virtual void Page_Load()
@@ -70,7 +75,7 @@ namespace FacturaElectronica.Ui.Web.Code
 
         protected virtual void CargarCriteria(ComprobanteCriteria criteria)
         {
-            criteria.RazonSocial = txtRazonSocialControl.Text.Trim();
+            //criteria.RazonSocial = txtRazonSocialControl.Text.Trim();
             criteria.TipoComprobanteId = UIHelper.GetIntFromInputCbo(this.ddlTipoComprobanteControl);
             criteria.NroComprobante = UIHelper.GetLongFromInputText(this.txtNroComprobanteControl.Text.Trim());
             criteria.FechaVencDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaVencDesdeControl.Text);
@@ -80,19 +85,33 @@ namespace FacturaElectronica.Ui.Web.Code
             criteria.TipoContratoId = UIHelper.GetIntFromInputCbo(this.ddlTipoContratoControl);
         }
 
+        //protected ComprobanteCriteria criteria
+        //{
+        //    get
+        //    {
+        //        return (ComprobanteCriteria)ViewState["criteria"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["criteria"] = value;
+        //    }
+        //}
+
         protected virtual void Buscar()
         {
             // cargo los filtros
             ComprobanteCriteria criteria = new ComprobanteCriteria();
             CargarCriteria(criteria);
-
-            this.GridControl.DataSource = this.ObtenerComprobantes(criteria);
+            List<ComprobanteArchivoAsociadoDto> list = this.ObtenerComprobantes(criteria);
+            this.lblCantRegControl.Text = string.Format(" ({0})", list.Count);
+            this.GridControl.DataSource = list;
             this.GridControl.DataBind();
+            
         }
 
         protected virtual void LimpiarControles()
         {
-            txtRazonSocialControl.Text = string.Empty;
+            //txtRazonSocialControl.Text = string.Empty;
             this.ddlTipoComprobanteControl.SelectedIndex = 0;
             this.txtNroComprobanteControl.Text = string.Empty;
             this.txtFechaVencDesdeControl.Text = string.Empty;

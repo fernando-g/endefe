@@ -14,7 +14,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Detalle Cliente
+        <asp:Label ID="lblTituloPagina" runat="server" Text="Detalle Cliente"></asp:Label>
     </h2>
     <div class="editionContainerFilter">
         <div class="clear">
@@ -24,7 +24,7 @@
         <br />        
         <p>
             <span class="title2">Razon Social:</span>
-            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs"></asp:TextBox>
+            <asp:TextBox ID="txtRazonSocial" Width="500px" MaxLength="200" runat="server" CssClass="inputs"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvRazonSocial" runat="server" ControlToValidate="txtRazonSocial" CssClass="failureNotification"
                 ErrorMessage="Debe ingresar la Razon Social." Display="Static" Text="*"></asp:RequiredFieldValidator>
         </p>
@@ -43,18 +43,19 @@
         </p>
         <div class="clear">
         </div>
-        <h3>
-            Datos Contacto</h3>
-        <div class="editionContainerFilter">
+        <fieldset>
+        
+            <legend>Datos Contacto</legend>
+        
             <p>
                 <span class="title2">Nombre:</span>
-                <asp:TextBox ID="txtNombreContacto" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtNombreContacto" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvNombreContacto" runat="server" ControlToValidate="txtNombreContacto" CssClass="failureNotification"
                     ErrorMessage="Debe ingresar el Nombre del Contacto." Display="Static" Text="*"></asp:RequiredFieldValidator>
             </p>
             <p>
                 <span class="title2 secondColumn">Apellido:</span>
-                <asp:TextBox ID="txtApellidoContacto" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtApellidoContacto" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvApellidoContacto" runat="server" ControlToValidate="txtApellidoContacto" CssClass="failureNotification"
                     ErrorMessage="Debe ingresar el Apellido del Contacto." Display="Static" Text="*"></asp:RequiredFieldValidator>
             </p>
@@ -62,7 +63,7 @@
             </div>
             <p>
                 <span class="title2">Email:</span>
-                <asp:TextBox ID="txtEmailContacto" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtEmailContacto" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvEmailContacto" runat="server" ControlToValidate="txtEmailContacto" CssClass="failureNotification"
                     ErrorMessage="Debe ingresar el Email del Contacto." Display="Static" Text="*"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="revEmailContacto" runat="server" ControlToValidate="txtEmailContacto" CssClass="failureNotification"
@@ -71,22 +72,23 @@
             </p>
             <div class="clear">
             </div>
-        </div>
+       
+        </fieldset>
         <div class="clear">
         </div>
-        <h3>
-            Datos Contacto Secundario</h3>
-        <div class="editionContainerFilter">
+        <fieldset>
+            <legend>Datos Contacto Secundario</legend>
+        
             <p>
                 <span class="title2">Nombre:</span>
-                <asp:TextBox ID="txtNombreContactoSecundario" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtNombreContactoSecundario" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvNombreContactoSecundario" runat="server" ControlToValidate="txtNombreContactoSecundario"
                     ErrorMessage="Debe ingresar el Nombre de Contacto Secundario." Display="Static" CssClass="failureNotification"
                     Text="*"></asp:RequiredFieldValidator>
             </p>
             <p>
                 <span class="title2 secondColumn">Apellido:</span>
-                <asp:TextBox ID="txtApellidoContactoSecundario" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtApellidoContactoSecundario" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvApellidoContactoSecundario" runat="server" ControlToValidate="txtApellidoContactoSecundario"
                     ErrorMessage="Debe ingresar el Apellido del Contacto Secundario." Display="Static" CssClass="failureNotification"
                     Text="*"></asp:RequiredFieldValidator>
@@ -95,7 +97,7 @@
             </div>
             <p>
                 <span class="title2">Email:</span>
-                <asp:TextBox ID="txtEmailContactoSecundario" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtEmailContactoSecundario" Width="300px" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvEmailContactoSecundario" runat="server" ControlToValidate="txtEmailContactoSecundario"
                     ErrorMessage="Debe ingresar el Email del Contacto Secundario." Display="Static" CssClass="failureNotification"
                     Text="*"></asp:RequiredFieldValidator>
@@ -105,7 +107,7 @@
             </p>
             <div class="clear">
             </div>
-        </div>
+        </fieldset>
         <br />
         <div class="clear">
         </div>
@@ -116,7 +118,7 @@
         <div class="editionContainerFilter">
             <p>
                 <span class="title2">Usuario:</span>
-                <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="inputs" Enabled="False"></asp:TextBox>
+                <asp:TextBox ID="txtNombreUsuario" Width="300px" runat="server" CssClass="inputs" Enabled="False"></asp:TextBox>
             </p>
             <div class="clear">
             </div>

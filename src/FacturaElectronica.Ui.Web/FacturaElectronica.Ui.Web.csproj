@@ -54,6 +54,7 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccesoDenegado.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
@@ -134,6 +135,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDenegado.aspx.cs">
+      <DependentUpon>AccesoDenegado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccesoDenegado.aspx.designer.cs">
+      <DependentUpon>AccesoDenegado.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -162,6 +170,9 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Code\BaseMasterPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Code\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -172,7 +183,12 @@
     <Compile Include="Code\ExceptionManager.cs" />
     <Compile Include="Code\GridViewExportUtil.cs" />
     <Compile Include="Code\IWebMessanger.cs" />
+    <Compile Include="Code\Operaciones.cs" />
+    <Compile Include="Code\PdfHttpHandler.cs" />
     <Compile Include="Code\Roles.cs" />
+    <Compile Include="Code\Search\ObjectDataSourceComprobanteListado.cs" />
+    <Compile Include="Code\Security\CustomIdentity.cs" />
+    <Compile Include="Code\Security\CustomPrincipal.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
     <Compile Include="Code\UIHelper.cs" />
     <Compile Include="Default.aspx.cs">
@@ -227,6 +243,9 @@
     <Compile Include="Pages\InfoVisualizacion.aspx.designer.cs">
       <DependentUpon>InfoVisualizacion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\PdfHandler.ashx.cs">
+      <DependentUpon>PdfHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ReporteComprobantes.aspx.cs">
       <DependentUpon>ReporteComprobantes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -279,6 +298,10 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\VesubioSVN\vesuapiauth\trunk\src\WebFramework\Web.Framework.csproj">
+      <Project>{0EEED093-28DA-4ACB-BC25-E961C55E72C6}</Project>
+      <Name>Web.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FacturaElectronica.Business\FacturaElectronica.Business.csproj">
       <Project>{EDB6E9BA-CD60-4D99-AF5B-18024D10DF2A}</Project>
       <Name>FacturaElectronica.Business</Name>
@@ -287,6 +310,13 @@
       <Project>{32774052-7837-4A33-8A3C-C80FCAB5EA1E}</Project>
       <Name>FacturaElectronica.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FacturaElectronica.Core\FacturaElectronica.Core.csproj">
+      <Project>{94811E1D-F79B-4BB7-A664-6D0283C8CECE}</Project>
+      <Name>FacturaElectronica.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\PdfHandler.ashx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

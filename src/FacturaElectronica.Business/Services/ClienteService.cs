@@ -78,22 +78,22 @@ namespace FacturaElectronica.Business.Services
 
                 if (!string.IsNullOrEmpty(criteria.RazonSocial))
                 {
-                    query.Where(c => c.RazonSocial.Contains(criteria.RazonSocial));
+                    query = query.Where(c => c.RazonSocial.ToUpper().Contains(criteria.RazonSocial.ToUpper()));
                 }
 
                 if (criteria.CUIT.HasValue)
-                { 
-                    query.Where(c => c.CUIT == criteria.CUIT.Value);
+                {
+                    query = query.Where(c =>  c.CUIT == criteria.CUIT);
                 }
 
                 if (!string.IsNullOrEmpty(criteria.NombreContacto))
                 {
-                    query.Where(c => c.NombreContacto.Contains(criteria.NombreContacto));
+                    query = query.Where(c => c.NombreContacto.ToUpper().Contains(criteria.NombreContacto.ToUpper()));
                 }
 
                 if (!string.IsNullOrEmpty(criteria.ApellidoContacto))
                 {
-                    query.Where(c => c.NombreContacto.Contains(criteria.ApellidoContacto));
+                    query = query.Where(c => c.ApellidoContacto.ToUpper().Contains(criteria.ApellidoContacto.ToUpper()));
                 }
 
                 return ToClienteDtoList(query.ToList());

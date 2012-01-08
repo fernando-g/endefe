@@ -33,10 +33,10 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.ddlAnioFacturacion; }
         }
-        protected override TextBox txtRazonSocialControl
-        {
-            get { return this.txtRazonSocial; }
-        }
+        //protected override TextBox txtRazonSocialControl
+        //{
+        //    get { return this.txtRazonSocial; }
+        //}
         protected override TextBox txtNroComprobanteControl
         {
             get { return this.txtNroComprobante; }
@@ -53,11 +53,16 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.Grid; }
         }
+        protected override Label lblCantRegControl
+        {
+            get { return this.lblCantReg; }
+        }
 
         #endregion [BaseControls]
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HasPermissionToSeeMe(Operaciones.ReporteComprobantes);
             base.Page_Load();
         }
 
@@ -65,7 +70,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             base.CargarCriteria(criteria);
 
-            // agregar codigo
+            criteria.RazonSocial = this.txtRazonSocial.Text.Trim();
             criteria.FechaDeCargaDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaDesde.Text);
             criteria.FechaDeCargaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaHasta.Text);
             criteria.DocumentosVencidos = this.chkDocumentosVencidos.Checked;
@@ -181,6 +186,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             base.LimpiarControles();
 
+            this.txtRazonSocial.Text = string.Empty;
             this.txtFechaDeCargaDesde.Text = string.Empty;
             this.txtFechaDeCargaHasta.Text = string.Empty;
             this.chkDocumentosVencidos.Checked = false;

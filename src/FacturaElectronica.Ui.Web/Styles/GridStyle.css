@@ -157,3 +157,9 @@
 {
     text-decoration: line-through;
 }
+
+.divSearchLeft
+{
+    float:left;
+    margin-right: 40px;
+}

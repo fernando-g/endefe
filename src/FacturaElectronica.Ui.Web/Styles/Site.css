@@ -143,7 +143,7 @@ first child of the left and right table columns */
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-
+/*
 div.hideSkiplink
 {
     background-color:#00255E;
@@ -165,7 +165,9 @@ div.menu ul
 
 div.menu ul li a, div.menu ul li a:visited
 {
-	/*background-color: #465c71;*/
+	/*background-color: #465c71;
+	
+	
     background-color: #00255E;
     border: 1px #4e667d solid;
     color: #dde4ec;
@@ -178,7 +180,7 @@ div.menu ul li a, div.menu ul li a:visited
 
 div.menu ul li a:hover
 {
-    /*background-color: #bfcbd6;*/
+    /*background-color: #bfcbd6;
     background-color: #7294C6;
     color: #00255E;
     text-decoration: none;
@@ -187,8 +189,57 @@ div.menu ul li a:hover
 
 div.menu ul li a:active
 {
-    /*background-color: #465c71;*/
+    /*background-color: #465c71;
     background-color: #7294C6;
+    color: #cfdbe6;
+    text-decoration: none;
+}
+*/
+
+
+div.hideSkiplink
+{
+    background-color: #3a4f63;
+    width: 100%;
+    position: relative;
+    z-index: 300;
+}
+
+div.menu
+{
+    padding: 4px 0px 4px 8px;
+}
+
+div.menu ul
+{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+
+div.menu ul li a, div.menu ul li a:visited
+{
+    background-color: #465c71;
+    border: 1px #4e667d solid;
+    color: #dde4ec;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+div.menu ul li a:hover
+{
+    background-color: #bfcbd6;
+    color: #465c71;
+    text-decoration: none;
+}
+
+div.menu ul li a:active
+{
+    background-color: #465c71;
     color: #cfdbe6;
     text-decoration: none;
 }

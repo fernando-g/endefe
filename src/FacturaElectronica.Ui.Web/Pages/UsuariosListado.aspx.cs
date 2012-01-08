@@ -5,16 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaElectronica.Ui.Web.Code;
+using FacturaElectronica.Common.Contracts;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
     public partial class UsuariosListado : BasePage
     {
         private const string pagDetalle = "UsuariosDetalle.aspx";
-        private const string pagCambiarPass = "Account/ChangePassword.aspx";
+        private const string pagCambiarPass = "CambiarPassword.aspx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HasPermissionToSeeMe(Operaciones.UsuarioDetalle);
             if (!this.IsPostBack)
             {
                 this.Buscar();
@@ -30,7 +32,10 @@ namespace FacturaElectronica.Ui.Web.Pages
             DateTime? fechaDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaDesde.Text);
             DateTime? fechaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaHasta.Text);*/
 
-            this.Grid.DataSource = ServiceFactory.GetSecurityService().ObtenerUsuarios(this.txtNombre.Text.Trim());
+            
+            List<UsuarioDto> list = ServiceFactory.GetSecurityService().ObtenerUsuarios(this.txtNombre.Text.Trim());
+            this.lblCantReg.Text = string.Format(" ({0})", list.Count);
+            this.Grid.DataSource = list;
             this.Grid.DataBind();
         }
         
@@ -69,7 +74,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                 }
                 else if (e.CommandName == "password")
                 {
-                    this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, usuarioId), true);
+                    this.Response.Redirect(string.Format("{0}?Id={1}", pagCambiarPass, usuarioId), true);
                 }
             }
             catch (Exception ex)

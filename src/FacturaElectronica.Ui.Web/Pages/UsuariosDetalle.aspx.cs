@@ -8,6 +8,7 @@ using Ubatic.Ui.Web.Code;
 using FacturaElectronica.Ui.Web.Code;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
+using FacturaElectronica.Core.Helpers;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
@@ -31,6 +32,7 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HasPermissionToSeeMe(Operaciones.UsuarioDetalle);
             try
             {
                 seguridadService = ServiceFactory.GetSecurityService();                             
@@ -45,9 +47,8 @@ namespace FacturaElectronica.Ui.Web.Pages
                     {
                         usuarioCurrent = seguridadService.ObtenerUsuario(Convert.ToInt64(this.Request.QueryString["Id"]));
                     }
-                    this.pnlPassword.Visible = (usuarioCurrent.Id == 0);
                     InicializarListControls();
-
+                    this.pnlPassword.Visible = usuarioCurrent.Id == 0;
                     Bindear();
                 }
 
@@ -69,11 +70,10 @@ namespace FacturaElectronica.Ui.Web.Pages
             if (usuarioCurrent.Id != 0)
             {
                 this.txtNombre.Text = usuarioCurrent.NombreUsuario;
-                this.txtPassword.Text = usuarioCurrent.Password;
-                this.ddlRoles.SelectedValue = usuarioCurrent.Roles[0].ToString();
+                this.ddlRoles.SelectedValue = usuarioCurrent.Roles[0].Id.ToString();
 
                 RolDto rol = ServiceFactory.GetSecurityService().ObtenerRol(int.Parse(this.ddlRoles.SelectedValue));
-                if (rol.Codigo == Roles.Administrador)
+                if (rol.Codigo == FacturaElectronica.Ui.Web.Code.Roles.Administrador)
                 {
                     this.pnlCientes.Visible = false;
                 }
@@ -97,9 +97,12 @@ namespace FacturaElectronica.Ui.Web.Pages
         private void SetData()
         {
             usuarioCurrent.NombreUsuario = this.txtNombre.Text.Trim();
-            usuarioCurrent.Password = this.txtPassword.Text.Trim();
-            usuarioCurrent.Roles = new List<int>();
-            usuarioCurrent.Roles.Add((int)UIHelper.GetIntFromInputCbo(this.ddlRoles));
+            if(this.pnlPassword.Visible)
+                usuarioCurrent.Password = SecurityHelper.CreatePasswordHash(this.txtPassword.Text.Trim(), SecurityHelper.CreateSalt(30));
+            usuarioCurrent.Roles = new List<RolDto>();
+            RolDto rolDto = new RolDto();
+            rolDto.Id = (int)UIHelper.GetIntFromInputCbo(this.ddlRoles);
+            usuarioCurrent.Roles.Add(rolDto);
             usuarioCurrent.ClienteId = string.IsNullOrEmpty(this.hfClienteId.Value) ? default(long?) : long.Parse(this.hfClienteId.Value);
         }
 

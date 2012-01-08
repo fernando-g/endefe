@@ -6,7 +6,14 @@
        ENDESA CEMSA S.A.        
     </h2>
     <p>
-        CUIT: 30691607050
+        Ing. Enrique Butty 220 Piso 16 (C1001AFB)
+        <br />
+        Buenos Aires - Argentina
+        <br />
+        Tel.  (+54 11) 4875-0600
+        <br />
+        Fax. (+54 11) 4875-0618
+        <br />
+        Para comunicarse vía e-mail, haga clic <a href="mailto:info@endesacemsa.com">aquí</a>.
     </p>
-
 </asp:Content>

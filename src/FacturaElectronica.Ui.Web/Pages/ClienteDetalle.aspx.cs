@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Web.Code;
+using FacturaElectronica.Ui.Web.Code.Security;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
@@ -28,13 +29,20 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.HasPermissionToSeeMe(Operaciones.ClienteDetalle);
+            if(this.BaseMaster.EsCliente)
+                this.lblTituloPagina.Text = "Mis Datos";
             try
             {
                 IClienteService clienteService = ServiceFactory.GetClienteService();
 
                 if (!this.IsPostBack)
                 {
-                    if (this.Request.QueryString["Id"] == null)
+                    if (this.BaseMaster.EsCliente)
+                    {
+                        clienteCurrent = clienteService.ObtenerCliente(this.BaseMaster.ClienteId);                        
+                    }
+                    else if (this.Request.QueryString["Id"] == null)
                     {
                         clienteCurrent = new ClienteDto();
                     }
@@ -51,6 +59,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             {
                 ExceptionManager.Instance.HandleException(ex);
             }
+
         }
 
         private void Bindear()
