@@ -153,12 +153,6 @@ namespace FacturaElectronica.Ui.Web.Pages
             }
         }
 
-        protected void cvCuit_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            //args.IsValid = ValidaCuit(args.Value);
-            args.IsValid = true;
-        }
-
         /// <summary>
         /// Calcula el dígito verificador dado un CUIT completo o sin él.
         /// </summary>
@@ -198,6 +192,19 @@ namespace FacturaElectronica.Ui.Web.Pages
                 int digito = int.Parse(cuit.Substring(10));
                 return calculado == digito;
             }
+        }
+
+        protected void cvCuit_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            //args.IsValid = ValidaCuit(args.Value);
+            args.IsValid = true;
+        }
+
+        protected void cvCuitExistente_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            IClienteService svc = ServiceFactory.GetClienteService();
+            ClienteDto cliente = svc.ObtenerClientePorCuit(Int64.Parse(txtCuit.Text.Trim()));
+            args.IsValid = cliente == null;
         }
 
     }

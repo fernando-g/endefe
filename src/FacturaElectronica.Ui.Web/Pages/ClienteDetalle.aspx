@@ -38,8 +38,10 @@
                 ErrorMessage="Debe ingresar el CUIT." Display="Static" Text="*"></asp:RequiredFieldValidator>
             <asp:CustomValidator ID="cvCuit" runat="server" ControlToValidate="txtCuit" ErrorMessage="El CUIT es invalido"
                 Display="Static" Text="*" EnableClientScript="false" CssClass="failureNotification"
-                onservervalidate="cvCuit_ServerValidate">
-            </asp:CustomValidator>
+                onservervalidate="cvCuit_ServerValidate"></asp:CustomValidator>
+            <asp:CustomValidator ID="cvCUITExistente" runat="server" ControlToValidate="txtCuit" ErrorMessage="Ya existe un cliente con el CUIT ingresado"
+                Display="Static" Text="*" EnableClientScript="false" CssClass="failureNotification"
+                onservervalidate="cvCuitExistente_ServerValidate"></asp:CustomValidator>
         </p>
         <div class="clear">
         </div>
