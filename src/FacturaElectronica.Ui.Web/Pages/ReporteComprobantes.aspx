@@ -58,7 +58,7 @@
         <div class="divSearchLeft">
             <p>
                 <span class="title2 secondColumn">Nro. Comprobante:</span>
-                <asp:TextBox ID="txtNroComprobante" runat="server" MaxLength="100px" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtNroComprobante" runat="server" MaxLength="100" CssClass="inputs"></asp:TextBox>
             </p>
             <div class="clear">
             </div>
