@@ -85,9 +85,13 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             try
             {
-                if (e.CommandName == "eliminar")
+                long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                if (e.CommandName == "ver")
                 {
-                    long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                    this.Response.Redirect(string.Format("~/Handlers/PdfHandler.ashx?file={0}", archivoAsociadoId));
+                }
+                else if (e.CommandName == "eliminar")
+                {
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
                     svc.CambiarEstado(archivoAsociadoId, CodigosEstadoArchivoAsociado.Eliminado);
                     Buscar();
@@ -120,10 +124,10 @@ namespace FacturaElectronica.Ui.Web.Pages
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     ComprobanteArchivoAsociadoDto dto = e.Row.DataItem as ComprobanteArchivoAsociadoDto;
-                    int columnaFechaVencimiento = 6;
-                    int columnaFechaVisualizacion = 7;
-                    int columnaEstado = 9;
-                    int columnaBorrarComprobante = 11;
+                    int columnaFechaVencimiento = 4;
+                    int columnaFechaVisualizacion = 5;
+                    int columnaEstado = 7;
+                    int columnaBorrarComprobante = 9;
                     EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);
                     EstablecerColorEstado(e, dto, columnaEstado);
                     EstablecerFechaVisualizacion(e, dto, columnaFechaVisualizacion);
@@ -190,6 +194,12 @@ namespace FacturaElectronica.Ui.Web.Pages
             this.txtFechaDeCargaDesde.Text = string.Empty;
             this.txtFechaDeCargaHasta.Text = string.Empty;
             this.chkDocumentosVencidos.Checked = false;
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            //  exporto la grilla
+            GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
         }
     }
 }

@@ -118,7 +118,7 @@
         <div class="editionContainerFilter">
             <p>
                 <span class="title2">Usuario:</span>
-                <asp:TextBox ID="txtNombreUsuario" Width="300px" runat="server" CssClass="inputs" Enabled="False"></asp:TextBox>
+                <asp:TextBox ID="txtNombreUsuario" Width="300px" runat="server" CssClass="inputs" Enabled="false"></asp:TextBox>
             </p>
             <div class="clear">
             </div>

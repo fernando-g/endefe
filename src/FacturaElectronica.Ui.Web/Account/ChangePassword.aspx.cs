@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Web.Code;
+using FacturaElectronica.Core.Helpers;
 
 namespace FacturaElectronica.Ui.Web.Account
 {
@@ -25,6 +26,7 @@ namespace FacturaElectronica.Ui.Web.Account
 
                 ISeguridadService seguridadService = ServiceFactory.GetSecurityService();
                 seguridadService.CambiarPassword(this.BaseMaster.UserName, passwordActual, passwordNueva);
+                ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
             }
             catch (Exception ex)
             {

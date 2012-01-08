@@ -51,8 +51,6 @@
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-HorizontalAlign="Center"
-                    HeaderStyle-Width="30px" Visible="false" />
                 <asp:BoundField DataField="NombreUsuario" HeaderText="Nombre de Usuario" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Left" />
                 <asp:TemplateField HeaderText="Editar">
@@ -100,6 +98,8 @@
     <br />
     <asp:Button ID="btnAgregarNuevo" CssClass="btn" runat="server" Text="Agregar" ClientIDMode="Static"
         OnClick="btnAgregarNuevo_Click" />
+    &nbsp;
+    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn" runat="server" OnClick="btnExportToExcel_Click" />    
     <script type='text/javascript'>
 
         $(document).ready(function () {

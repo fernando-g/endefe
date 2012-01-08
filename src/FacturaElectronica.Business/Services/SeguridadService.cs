@@ -21,14 +21,19 @@ namespace FacturaElectronica.Business.Services
             using (var ctx = new FacturaElectronicaEntities())
             {
                 Usuario usuario = this.ObtenerUsuario(ctx, nombreUsuario);
-                string salt = usuario.Password.Substring(usuario.Password.Length-40);
-                string hashedPwd = SecurityHelper.CreatePasswordHash(password,salt);
+                string hashedPwd = HashPassword(usuario, password);
                 if (usuario != null &&  usuario.Password == hashedPwd)
                 {
                     usuarioValido = true;
                 }
             }
             return usuarioValido;
+        }
+
+        private static string HashPassword(Usuario usuario, string password)
+        {
+            string salt = usuario.Password.Substring(usuario.Password.Length - 40);
+            return SecurityHelper.CreatePasswordHash(password, salt);
         }
 
         public UsuarioDto CrearUsuario(UsuarioDto usuarioDto)
@@ -116,7 +121,7 @@ namespace FacturaElectronica.Business.Services
                 bool cambioPass = false;
                 if (usuario != null)
                 {
-                    usuario.Password = passwordNueva;
+                    usuario.Password = SecurityHelper.CreatePasswordHash(passwordNueva, SecurityHelper.CreateSalt(30));
                     cambioPass = ctx.SaveChanges() > 0;
                 }
                 return cambioPass;
@@ -128,10 +133,11 @@ namespace FacturaElectronica.Business.Services
             bool cambioPass = false;
             if (usuario != null)
             {
-                if (usuario.Password != passwordActual)
+
+                if (usuario.Password != HashPassword(usuario,passwordActual))
                     throw new Exception("La Contraseña Anterior ingresada es incorrecta.");
 
-                usuario.Password = passwordNueva;
+                usuario.Password =SecurityHelper.CreatePasswordHash(passwordNueva, SecurityHelper.CreateSalt(30));
                 cambioPass = ctx.SaveChanges() > 0;
             }
             return cambioPass;

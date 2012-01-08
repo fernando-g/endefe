@@ -93,5 +93,11 @@ namespace FacturaElectronica.Ui.Web.Pages
             this.txtApellidoContacto.Text = string.Empty;
             this.txtNombreContacto.Text = string.Empty;
         }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            //  exporto la grilla
+            GridViewExportUtil.Export("Clientes.xls", this.Grid);
+        }
     }
 }

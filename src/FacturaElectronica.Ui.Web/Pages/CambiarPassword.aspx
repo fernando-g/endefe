@@ -24,13 +24,13 @@
         <br />
         <p>
             <span class="title2">Nombre Usuario:</span>
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs" Enabled="false"></asp:TextBox>
+            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs" Enabled="false" Width="200px"></asp:TextBox>
         </p>
         <div class="clear">
         </div>
         <p>
             <span class="title2">Password Nueva:</span>
-            <asp:TextBox ID="txtPasswordNueva" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
+            <asp:TextBox ID="txtPasswordNueva" TextMode="Password" runat="server" CssClass="inputs" Width="200px" MaxLength="50"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvPasswordNueva" runat="server" ControlToValidate="txtPasswordNueva" CssClass="failureNotification"
                                         ErrorMessage="Debe ingresar una contraseña." Display="Static" Text="*"></asp:RequiredFieldValidator>
         </p>

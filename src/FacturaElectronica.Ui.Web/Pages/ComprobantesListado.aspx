@@ -75,7 +75,7 @@
         <div class="divSearchLeft">
             <p>
                 <span class="title2 secondColumn">Nro. Comprobante:</span>
-                <asp:TextBox ID="txtNroComprobante" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtNroComprobante" MaxLength="100" runat="server" CssClass="inputs"></asp:TextBox>
             </p>
             <div class="clear">
             </div>
@@ -107,7 +107,8 @@
     <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
              alt="" />
-        Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span>
+        Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label>
+        <span class="clear"></span>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
         <%--  <asp:ObjectDataSource ID="CustomerObjectDs" runat="server" TypeName="Web.Framework.Search.GridViewSearchObjectDataSource"
@@ -154,7 +155,8 @@
             </EmptyDataTemplate>
         </asp:GridView>
     </asp:Panel>
-    <asp:Button ID="btnExportToExcel" Text="Exportar a Excel" runat="server" OnClick="btnExportToExcel_Click" />
+    <br class="clear" />
+    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn" runat="server" OnClick="btnExportToExcel_Click" />
     <script type='text/javascript'>
 
         $(document).ready(function () {

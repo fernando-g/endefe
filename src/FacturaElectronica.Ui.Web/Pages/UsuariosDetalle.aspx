@@ -24,7 +24,7 @@
         <br />
         <p>
             <span class="title2">Nombre Usuario:</span>
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs"></asp:TextBox>
+            <asp:TextBox ID="txtNombre" runat="server" Width="200px" MaxLength="50" CssClass="inputs"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre"
                 CssClass="failureNotification" ErrorMessage="Debe ingresar un nombre." Display="Static"
                 Text="*"></asp:RequiredFieldValidator>
@@ -37,7 +37,7 @@
         <asp:Panel ID="pnlPassword" runat="server">
             <p>
                 <span class="title2">Password:</span>
-                <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtPassword" TextMode="Password" Width="200px" MaxLength="50" runat="server" CssClass="inputs"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvPass" runat="server" ControlToValidate="txtPassword"
                     CssClass="failureNotification" ErrorMessage="Debe ingresar una contraseña." Display="Static"
                     Text="*"></asp:RequiredFieldValidator>
@@ -61,7 +61,7 @@
                 <asp:Panel ID="pnlCientes" runat="server">
                     <p>
                         <span class="title2">Cliente Asignado:</span>
-                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" ReadOnly="True"></asp:TextBox>
+                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" ReadOnly="True" Width="300px"></asp:TextBox>
                         <asp:HiddenField ID="hfClienteId" runat="server" />
                     </p>
                     <div class="clear">

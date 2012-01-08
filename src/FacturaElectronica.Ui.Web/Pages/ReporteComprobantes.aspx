@@ -1,13 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReporteComprobantes.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ReporteComprobantes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <script type="text/javascript">
-        function openWindows(pdfUrl)
-        {
-            window.open(pdfUrl, 'Popup', 'width=' + screen.availWidth + ',height=' + screen.availHeight + ',top=' + 0 + ',left=' + 0);
-        }
-
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
@@ -20,7 +13,7 @@
         </div>
         <asp:ValidationSummary ID="valSumm" runat="server" CssClass="failureNotification"
             ShowSummary="true" HeaderText="Se han encontrado los siguientes errores:" DisplayMode="BulletList" />
-        <br />        
+        <br />
         <p>
             <span class="title2">Razon Social:</span>
             <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="inputs" Width="470px" MaxLength="200"></asp:TextBox>
@@ -65,7 +58,7 @@
         <div class="divSearchLeft">
             <p>
                 <span class="title2 secondColumn">Nro. Comprobante:</span>
-                <asp:TextBox ID="txtNroComprobante" runat="server" CssClass="inputs"></asp:TextBox>
+                <asp:TextBox ID="txtNroComprobante" runat="server" MaxLength="100px" CssClass="inputs"></asp:TextBox>
             </p>
             <div class="clear">
             </div>
@@ -117,8 +110,6 @@
             OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="ArchivoAsociadoId" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" Visible="false" />
-                <asp:BoundField DataField="ComprobanteId" Visible="false" />
                 <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Razon Social" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante" HeaderStyle-HorizontalAlign="Center"
@@ -140,7 +131,7 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
-                        OnClientClick='<%# "openWindows(\"" + Eval("PathArchivo") + "\");" %>' runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                        runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Borrar Comprobante">
@@ -169,6 +160,9 @@
             </EmptyDataTemplate>
         </asp:GridView>
     </asp:Panel>
+    <br class="clear" />
+    &nbsp;
+    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn" runat="server" OnClick="btnExportToExcel_Click" />    
     <script type='text/javascript'>
 
         $(document).ready(function () {

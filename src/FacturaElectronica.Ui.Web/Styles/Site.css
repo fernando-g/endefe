@@ -378,6 +378,11 @@ div.accountInfo
     cursor:pointer;
     background-position: 0 -25px;	
 }
+.btn a:link    {text-decoration:none; color: Red;}
+.btn a:visited {text-decoration:none; color: Red;}
+.btn a:hover   {text-decoration:none; color: Red;}
+.btn a:active  {text-decoration:none; color: Red;}
+
 .btnMouseOver
 {
     background-color: #00C3F2;
