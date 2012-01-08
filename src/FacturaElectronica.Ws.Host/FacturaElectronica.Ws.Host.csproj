@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AfipWrapperService.svc" />
+    <Content Include="EmailTemplates\DocumentosPendientes.htm" />
     <Content Include="MaestroService.svc" />
     <Content Include="ProcesoCorridaService.svc" />
     <Content Include="Web.config">

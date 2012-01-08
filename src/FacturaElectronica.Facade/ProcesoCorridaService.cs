@@ -44,7 +44,7 @@ namespace FacturaElectronica.Facade
             return corridaSvc.ObtenerCorridas(search);
         }
 
-        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime fecha)
+        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha)
         {
             CorridaService corridaSvc = new CorridaService();
             return corridaSvc.ConsultarLog(corridaId, fecha);

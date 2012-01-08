@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FacturaElectronica.Afip.Business.Wsaa;
+using FacturaElectronica.Afip.Ws.Wsaa;
 using System.Security.Cryptography.X509Certificates;
-using FacturaElectronica.Afip.Business.Wsfe;
 using FacturaElectronica.Afip.Ws.Wsfe;
+using FacturaElectronica.Afip.Business.Wsfe;
+using FacturaElectronica.Afip.Business.Wsaa;
+
 
 namespace FacturaElectronica.Afip.TestClient
 {

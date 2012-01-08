@@ -11,7 +11,8 @@
     <RootNamespace>FacturaElectronica.Ui.Win.Administrador</RootNamespace>
     <AssemblyName>FacturaElectronica.Ui.Win.Administrador</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -182,14 +183,17 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReferenceAfipWrapper\WsfeClient.wsdl" />
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.wsdl" />
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.wsdl" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService2.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService43.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReferenceMaestro\MaestroService.xsd">
@@ -229,6 +233,8 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\repetir.png" />
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -243,16 +249,12 @@
     <None Include="Service References\ServiceReferenceMaestro\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceMaestro\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceMaestro\MaestroService.disco" />
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceReferenceCorrida\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceReferenceCorrida\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceCorrida\configuration91.svcinfo" />
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService.disco" />
     <None Include="Resources\exportToFile16x16.png" />
     <None Include="Resources\export16x16.ico" />
     <None Include="Resources\search16x16.png" />

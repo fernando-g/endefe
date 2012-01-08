@@ -49,12 +49,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.timerAutorizacion = new System.Windows.Forms.Timer(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNroCorrida = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtNroCorrida);
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.btnVerDetalleCorrida);
             this.panel2.Controls.Add(this.progressBar);
             this.panel2.Controls.Add(this.groupBox1);
@@ -186,7 +190,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 92);
+            this.label2.Location = new System.Drawing.Point(12, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 6;
@@ -197,10 +201,10 @@
             this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogTextBox.Location = new System.Drawing.Point(12, 108);
+            this.LogTextBox.Location = new System.Drawing.Point(12, 121);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.Size = new System.Drawing.Size(592, 295);
+            this.LogTextBox.Size = new System.Drawing.Size(592, 282);
             this.LogTextBox.TabIndex = 5;
             // 
             // btnAutorizar
@@ -252,6 +256,25 @@
             // 
             this.timerAutorizacion.Tick += new System.EventHandler(this.timerAutorizacion_Tick);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(407, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Ejecución #:";
+            // 
+            // txtNroCorrida
+            // 
+            this.txtNroCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNroCorrida.Location = new System.Drawing.Point(480, 95);
+            this.txtNroCorrida.Name = "txtNroCorrida";
+            this.txtNroCorrida.ReadOnly = true;
+            this.txtNroCorrida.Size = new System.Drawing.Size(119, 20);
+            this.txtNroCorrida.TabIndex = 11;
+            // 
             // FormAutorizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,5 +314,7 @@
         private System.Windows.Forms.Label lblComprobantesConObs;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnVerDetalleCorrida;
+        private System.Windows.Forms.TextBox txtNroCorrida;
+        private System.Windows.Forms.Label label4;
     }
 }

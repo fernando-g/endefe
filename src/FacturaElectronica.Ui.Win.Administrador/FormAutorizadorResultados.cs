@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using FacturaElectronica.Common.Contracts;
 using System.Collections;
 using System.IO;
+using FacturaElectronica.Ui.Win.Administrador.Code;
+using FacturaElectronica.Common.Services;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -29,7 +31,14 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void FormAutorizadorResultados_Load(object sender, EventArgs e)
         {
-            CargarDatos();
+            try
+            {
+                CargarDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void InicializarSaveFileDialog()
@@ -66,6 +75,30 @@ namespace FacturaElectronica.Ui.Win.Administrador
             {
                 this.btnExportar.Enabled = true;
                 InicializarSaveFileDialog();
+            }
+
+            // Cargo el log de la corrida
+            MostrarLog();
+        }
+
+        private void MostrarLog()
+        {
+            IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();        
+            
+            List<LogCorridaDto> logs = procesoCorridaSvc.ConsultarLog(this.corridaDto.Id, null);
+            if (logs != null && logs.Count() > 0)
+            {
+                foreach (LogCorridaDto log in logs)
+                {
+                    if (log.CorridaTerminada)
+                    {                       
+                        break;
+                    }
+                    else
+                    {
+                        this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
+                    }
+                }                
             }
         }
 
@@ -104,6 +137,18 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 tw.Write(sbExport.ToString());
                 //Close the Textwrite
                 tw.Close();
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MostrarLog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

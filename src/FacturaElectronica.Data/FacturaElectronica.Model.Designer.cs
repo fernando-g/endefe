@@ -21,18 +21,21 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Usuarios_Clientes", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.Cliente), "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Usuario), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "UsuarioRol", "Rol", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Rol), "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Usuario))]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ObservacionesComprobantes_DetalleComprobantes", "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.DetalleComprobante), "ObservacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ObservacionComprobante), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.TipoContrato), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "VisualizacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.VisualizacionComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleCabeceras_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleCabecera", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleCabecera), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_DetalleComprobantes_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Errores_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleError", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleError), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Eventos_Corridas", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "DetalleEvento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleEvento), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_LogCorrida_CorridaAutorizacion", "CorridaAutorizacion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaAutorizacion), "LogCorrida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.LogCorrida), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.EstadoArchivoAsociado), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
-[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Comprobante), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobante_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.Cliente), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Comprobantes_TiposComprobantes", "TipoComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.TipoComprobante), "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "DetalleComprobanteComprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Comprobante), "DetalleComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.DetalleComprobante))]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaSubidaArchivo), "CorridaSubidaArchivoDetalle", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.CorridaSubidaArchivoDetalle), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.CorridaSubidaArchivo), "CorridaSubidaArchivoLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.CorridaSubidaArchivoLog), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Comprobante), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Estado", "EstadoArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.EstadoArchivoAsociado), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.TipoContrato), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.ArchivoAsociado), "CorridaSubidaArchivoDetalle", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.CorridaSubidaArchivoDetalle), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "VisualizacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.VisualizacionComprobante), true)]
 
 #endregion
 
@@ -327,22 +330,6 @@ namespace FacturaElectronica.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ArchivoAsociado> ArchivoAsociadoes
-        {
-            get
-            {
-                if ((_ArchivoAsociadoes == null))
-                {
-                    _ArchivoAsociadoes = base.CreateObjectSet<ArchivoAsociado>("ArchivoAsociadoes");
-                }
-                return _ArchivoAsociadoes;
-            }
-        }
-        private ObjectSet<ArchivoAsociado> _ArchivoAsociadoes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<CorridaAutorizacion> CorridaAutorizacions
         {
             get
@@ -387,6 +374,70 @@ namespace FacturaElectronica.Data
             }
         }
         private ObjectSet<Comprobante> _Comprobantes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CorridaSubidaArchivo> CorridaSubidaArchivoes
+        {
+            get
+            {
+                if ((_CorridaSubidaArchivoes == null))
+                {
+                    _CorridaSubidaArchivoes = base.CreateObjectSet<CorridaSubidaArchivo>("CorridaSubidaArchivoes");
+                }
+                return _CorridaSubidaArchivoes;
+            }
+        }
+        private ObjectSet<CorridaSubidaArchivo> _CorridaSubidaArchivoes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CorridaSubidaArchivoDetalle> CorridaSubidaArchivoDetalles
+        {
+            get
+            {
+                if ((_CorridaSubidaArchivoDetalles == null))
+                {
+                    _CorridaSubidaArchivoDetalles = base.CreateObjectSet<CorridaSubidaArchivoDetalle>("CorridaSubidaArchivoDetalles");
+                }
+                return _CorridaSubidaArchivoDetalles;
+            }
+        }
+        private ObjectSet<CorridaSubidaArchivoDetalle> _CorridaSubidaArchivoDetalles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CorridaSubidaArchivoLog> CorridaSubidaArchivoLogs
+        {
+            get
+            {
+                if ((_CorridaSubidaArchivoLogs == null))
+                {
+                    _CorridaSubidaArchivoLogs = base.CreateObjectSet<CorridaSubidaArchivoLog>("CorridaSubidaArchivoLogs");
+                }
+                return _CorridaSubidaArchivoLogs;
+            }
+        }
+        private ObjectSet<CorridaSubidaArchivoLog> _CorridaSubidaArchivoLogs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ArchivoAsociado> ArchivoAsociadoes
+        {
+            get
+            {
+                if ((_ArchivoAsociadoes == null))
+                {
+                    _ArchivoAsociadoes = base.CreateObjectSet<ArchivoAsociado>("ArchivoAsociadoes");
+                }
+                return _ArchivoAsociadoes;
+            }
+        }
+        private ObjectSet<ArchivoAsociado> _ArchivoAsociadoes;
 
         #endregion
         #region AddTo Methods
@@ -512,14 +563,6 @@ namespace FacturaElectronica.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ArchivoAsociadoes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToArchivoAsociadoes(ArchivoAsociado archivoAsociado)
-        {
-            base.AddObject("ArchivoAsociadoes", archivoAsociado);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the CorridaAutorizacions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToCorridaAutorizacions(CorridaAutorizacion corridaAutorizacion)
@@ -541,6 +584,38 @@ namespace FacturaElectronica.Data
         public void AddToComprobantes(Comprobante comprobante)
         {
             base.AddObject("Comprobantes", comprobante);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CorridaSubidaArchivoes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCorridaSubidaArchivoes(CorridaSubidaArchivo corridaSubidaArchivo)
+        {
+            base.AddObject("CorridaSubidaArchivoes", corridaSubidaArchivo);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CorridaSubidaArchivoDetalles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCorridaSubidaArchivoDetalles(CorridaSubidaArchivoDetalle corridaSubidaArchivoDetalle)
+        {
+            base.AddObject("CorridaSubidaArchivoDetalles", corridaSubidaArchivoDetalle);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CorridaSubidaArchivoLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCorridaSubidaArchivoLogs(CorridaSubidaArchivoLog corridaSubidaArchivoLog)
+        {
+            base.AddObject("CorridaSubidaArchivoLogs", corridaSubidaArchivoLog);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ArchivoAsociadoes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToArchivoAsociadoes(ArchivoAsociado archivoAsociado)
+        {
+            base.AddObject("ArchivoAsociadoes", archivoAsociado);
         }
 
         #endregion
@@ -881,6 +956,30 @@ namespace FacturaElectronica.Data
         private global::System.Int32 _EstadoId;
         partial void OnEstadoIdChanging(global::System.Int32 value);
         partial void OnEstadoIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> MontoTotal
+        {
+            get
+            {
+                return _MontoTotal;
+            }
+            set
+            {
+                OnMontoTotalChanging(value);
+                ReportPropertyChanging("MontoTotal");
+                _MontoTotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MontoTotal");
+                OnMontoTotalChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _MontoTotal;
+        partial void OnMontoTotalChanging(Nullable<global::System.Decimal> value);
+        partial void OnMontoTotalChanged();
 
         #endregion
     
@@ -892,16 +991,16 @@ namespace FacturaElectronica.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato")]
-        public TipoContrato TipoContrato
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante")]
+        public Comprobante Comprobante
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante").Value = value;
             }
         }
         /// <summary>
@@ -909,39 +1008,17 @@ namespace FacturaElectronica.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<TipoContrato> TipoContratoReference
+        public EntityReference<Comprobante> ComprobanteReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante")]
-        public EntityCollection<VisualizacionComprobante> VisualizacionComprobantes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VisualizacionComprobante>("FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VisualizacionComprobante>("FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante", value);
                 }
             }
         }
@@ -990,16 +1067,16 @@ namespace FacturaElectronica.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "Comprobante")]
-        public Comprobante Comprobante
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato")]
+        public TipoContrato TipoContrato
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato").Value = value;
             }
         }
         /// <summary>
@@ -1007,17 +1084,61 @@ namespace FacturaElectronica.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Comprobante> ComprobanteReference
+        public EntityReference<TipoContrato> TipoContratoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Comprobante>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "Comprobante", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoContrato>("FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato", "TipoContrato", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "CorridaSubidaArchivoDetalle")]
+        public EntityCollection<CorridaSubidaArchivoDetalle> CorridaSubidaArchivoDetalles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CorridaSubidaArchivoDetalle>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "CorridaSubidaArchivoDetalle");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CorridaSubidaArchivoDetalle>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "CorridaSubidaArchivoDetalle", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante")]
+        public EntityCollection<VisualizacionComprobante> VisualizacionComprobantes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VisualizacionComprobante>("FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VisualizacionComprobante>("FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado", "VisualizacionComprobante", value);
                 }
             }
         }
@@ -1610,28 +1731,6 @@ namespace FacturaElectronica.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "ArchivoAsociado")]
-        public EntityCollection<ArchivoAsociado> ArchivoAsociadoes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "ArchivoAsociado");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "ArchivoAsociado", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Comprobante_Cliente", "Cliente")]
         public Cliente Cliente
         {
@@ -1720,6 +1819,28 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetalleComprobante>("FacturaElectronicaModel.DetalleComprobanteComprobante", "DetalleComprobante", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Comprobante", "ArchivoAsociado")]
+        public EntityCollection<ArchivoAsociado> ArchivoAsociadoes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "ArchivoAsociado");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Comprobante", "ArchivoAsociado", value);
                 }
             }
         }
@@ -1962,6 +2083,590 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LogCorrida>("FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion", "LogCorrida", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="CorridaSubidaArchivo")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CorridaSubidaArchivo : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CorridaSubidaArchivo object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="fechaProceso">Initial value of the FechaProceso property.</param>
+        public static CorridaSubidaArchivo CreateCorridaSubidaArchivo(global::System.Int64 id, global::System.DateTime fechaProceso)
+        {
+            CorridaSubidaArchivo corridaSubidaArchivo = new CorridaSubidaArchivo();
+            corridaSubidaArchivo.Id = id;
+            corridaSubidaArchivo.FechaProceso = fechaProceso;
+            return corridaSubidaArchivo;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FechaProceso
+        {
+            get
+            {
+                return _FechaProceso;
+            }
+            set
+            {
+                OnFechaProcesoChanging(value);
+                ReportPropertyChanging("FechaProceso");
+                _FechaProceso = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FechaProceso");
+                OnFechaProcesoChanged();
+            }
+        }
+        private global::System.DateTime _FechaProceso;
+        partial void OnFechaProcesoChanging(global::System.DateTime value);
+        partial void OnFechaProcesoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Procesada
+        {
+            get
+            {
+                return _Procesada;
+            }
+            set
+            {
+                OnProcesadaChanging(value);
+                ReportPropertyChanging("Procesada");
+                _Procesada = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Procesada");
+                OnProcesadaChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Procesada;
+        partial void OnProcesadaChanging(Nullable<global::System.Boolean> value);
+        partial void OnProcesadaChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivoDetalle")]
+        public EntityCollection<CorridaSubidaArchivoDetalle> CorridaSubidaArchivoDetalles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CorridaSubidaArchivoDetalle>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivoDetalle");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CorridaSubidaArchivoDetalle>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivoDetalle", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivoLog")]
+        public EntityCollection<CorridaSubidaArchivoLog> CorridaSubidaArchivoLogs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CorridaSubidaArchivoLog>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivoLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CorridaSubidaArchivoLog>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivoLog", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="CorridaSubidaArchivoDetalle")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CorridaSubidaArchivoDetalle : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CorridaSubidaArchivoDetalle object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="nombreArchivo">Initial value of the NombreArchivo property.</param>
+        /// <param name="procesadoOK">Initial value of the ProcesadoOK property.</param>
+        /// <param name="corridaSubidaArchivoId">Initial value of the CorridaSubidaArchivoId property.</param>
+        public static CorridaSubidaArchivoDetalle CreateCorridaSubidaArchivoDetalle(global::System.Int64 id, global::System.String nombreArchivo, global::System.Boolean procesadoOK, global::System.Int64 corridaSubidaArchivoId)
+        {
+            CorridaSubidaArchivoDetalle corridaSubidaArchivoDetalle = new CorridaSubidaArchivoDetalle();
+            corridaSubidaArchivoDetalle.Id = id;
+            corridaSubidaArchivoDetalle.NombreArchivo = nombreArchivo;
+            corridaSubidaArchivoDetalle.ProcesadoOK = procesadoOK;
+            corridaSubidaArchivoDetalle.CorridaSubidaArchivoId = corridaSubidaArchivoId;
+            return corridaSubidaArchivoDetalle;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NombreArchivo
+        {
+            get
+            {
+                return _NombreArchivo;
+            }
+            set
+            {
+                OnNombreArchivoChanging(value);
+                ReportPropertyChanging("NombreArchivo");
+                _NombreArchivo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NombreArchivo");
+                OnNombreArchivoChanged();
+            }
+        }
+        private global::System.String _NombreArchivo;
+        partial void OnNombreArchivoChanging(global::System.String value);
+        partial void OnNombreArchivoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ProcesadoOK
+        {
+            get
+            {
+                return _ProcesadoOK;
+            }
+            set
+            {
+                OnProcesadoOKChanging(value);
+                ReportPropertyChanging("ProcesadoOK");
+                _ProcesadoOK = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcesadoOK");
+                OnProcesadoOKChanged();
+            }
+        }
+        private global::System.Boolean _ProcesadoOK;
+        partial void OnProcesadoOKChanging(global::System.Boolean value);
+        partial void OnProcesadoOKChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Mensaje
+        {
+            get
+            {
+                return _Mensaje;
+            }
+            set
+            {
+                OnMensajeChanging(value);
+                ReportPropertyChanging("Mensaje");
+                _Mensaje = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Mensaje");
+                OnMensajeChanged();
+            }
+        }
+        private global::System.String _Mensaje;
+        partial void OnMensajeChanging(global::System.String value);
+        partial void OnMensajeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ArchivoAsociadoId
+        {
+            get
+            {
+                return _ArchivoAsociadoId;
+            }
+            set
+            {
+                OnArchivoAsociadoIdChanging(value);
+                ReportPropertyChanging("ArchivoAsociadoId");
+                _ArchivoAsociadoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ArchivoAsociadoId");
+                OnArchivoAsociadoIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ArchivoAsociadoId;
+        partial void OnArchivoAsociadoIdChanging(Nullable<global::System.Int64> value);
+        partial void OnArchivoAsociadoIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 CorridaSubidaArchivoId
+        {
+            get
+            {
+                return _CorridaSubidaArchivoId;
+            }
+            set
+            {
+                OnCorridaSubidaArchivoIdChanging(value);
+                ReportPropertyChanging("CorridaSubidaArchivoId");
+                _CorridaSubidaArchivoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CorridaSubidaArchivoId");
+                OnCorridaSubidaArchivoIdChanged();
+            }
+        }
+        private global::System.Int64 _CorridaSubidaArchivoId;
+        partial void OnCorridaSubidaArchivoIdChanging(global::System.Int64 value);
+        partial void OnCorridaSubidaArchivoIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo")]
+        public CorridaSubidaArchivo CorridaSubidaArchivo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CorridaSubidaArchivo> CorridaSubidaArchivoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_CorridaSubidaArchivo", "CorridaSubidaArchivo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado")]
+        public ArchivoAsociado ArchivoAsociado
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ArchivoAsociado> ArchivoAsociadoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="CorridaSubidaArchivoLog")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CorridaSubidaArchivoLog : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CorridaSubidaArchivoLog object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="corridaId">Initial value of the CorridaId property.</param>
+        /// <param name="fecha">Initial value of the Fecha property.</param>
+        public static CorridaSubidaArchivoLog CreateCorridaSubidaArchivoLog(global::System.Int64 id, global::System.Int64 corridaId, global::System.DateTime fecha)
+        {
+            CorridaSubidaArchivoLog corridaSubidaArchivoLog = new CorridaSubidaArchivoLog();
+            corridaSubidaArchivoLog.Id = id;
+            corridaSubidaArchivoLog.CorridaId = corridaId;
+            corridaSubidaArchivoLog.Fecha = fecha;
+            return corridaSubidaArchivoLog;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 CorridaId
+        {
+            get
+            {
+                return _CorridaId;
+            }
+            set
+            {
+                OnCorridaIdChanging(value);
+                ReportPropertyChanging("CorridaId");
+                _CorridaId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CorridaId");
+                OnCorridaIdChanged();
+            }
+        }
+        private global::System.Int64 _CorridaId;
+        partial void OnCorridaIdChanging(global::System.Int64 value);
+        partial void OnCorridaIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Fecha
+        {
+            get
+            {
+                return _Fecha;
+            }
+            set
+            {
+                OnFechaChanging(value);
+                ReportPropertyChanging("Fecha");
+                _Fecha = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fecha");
+                OnFechaChanged();
+            }
+        }
+        private global::System.DateTime _Fecha;
+        partial void OnFechaChanging(global::System.DateTime value);
+        partial void OnFechaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Mensaje
+        {
+            get
+            {
+                return _Mensaje;
+            }
+            set
+            {
+                OnMensajeChanging(value);
+                ReportPropertyChanging("Mensaje");
+                _Mensaje = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Mensaje");
+                OnMensajeChanged();
+            }
+        }
+        private global::System.String _Mensaje;
+        partial void OnMensajeChanging(global::System.String value);
+        partial void OnMensajeChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo")]
+        public CorridaSubidaArchivo CorridaSubidaArchivo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CorridaSubidaArchivo> CorridaSubidaArchivoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CorridaSubidaArchivo>("FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo", "CorridaSubidaArchivo", value);
                 }
             }
         }

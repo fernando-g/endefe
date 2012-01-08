@@ -51,6 +51,9 @@
     <Compile Include="Contracts\ComprobanteDto.cs" />
     <Compile Include="Contracts\ComprobanteCriteria.cs" />
     <Compile Include="Contracts\CorridaAutorizacionDto.cs" />
+    <Compile Include="Contracts\CorridaSubidaArchivoDetalleDto.cs" />
+    <Compile Include="Contracts\CorridaSubidaArchivoDto.cs" />
+    <Compile Include="Contracts\CorridaSubidaArchivoLogDto.cs" />
     <Compile Include="Contracts\DetalleComprobanteDto.cs" />
     <Compile Include="Contracts\DetalleErrorDto.cs" />
     <Compile Include="Contracts\DetalleEventoDto.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />
     <Compile Include="Contracts\RolDto.cs" />
     <Compile Include="Contracts\SearchResult.cs" />
+    <Compile Include="Contracts\Search\CorridaSubidaArchivoSearch.cs" />
     <Compile Include="Contracts\Search\CorridaSearch.cs" />
     <Compile Include="Contracts\TipoComprobanteDto.cs" />
     <Compile Include="Contracts\TipoContratoDto.cs" />
@@ -72,6 +76,7 @@
     <Compile Include="Services\ICorridaService.cs" />
     <Compile Include="Services\IMaestrosService.cs" />
     <Compile Include="Services\ISeguridadService.cs" />
+    <Compile Include="Services\ISubidaArchivoService.cs" />
     <Compile Include="Services\IWsServiceAfip.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -42,10 +42,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabAutorizados = new System.Windows.Forms.TabPage();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.gridAutorizados = new System.Windows.Forms.DataGridView();
             this.ConceptoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DocTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabConObservaciones = new System.Windows.Forms.TabPage();
+            this.gridObservaciones = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gridConObservaciones = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DocTipoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabErrores = new System.Windows.Forms.TabPage();
+            this.gridErrores = new System.Windows.Forms.DataGridView();
+            this.tabEventos = new System.Windows.Forms.TabPage();
+            this.gridEventos = new System.Windows.Forms.DataGridView();
+            this.tabLogCorrida = new System.Windows.Forms.TabPage();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.docNroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteDesdeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteHastaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,47 +68,37 @@
             this.cAEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAEFechaVtoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsAutorizados = new System.Windows.Forms.BindingSource(this.components);
-            this.tabConObservaciones = new System.Windows.Forms.TabPage();
-            this.gridObservaciones = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsObservaciones = new System.Windows.Forms.BindingSource(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.gridConObservaciones = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocTipoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docNroDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteDesdeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteHastaDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteFechaDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsConObservaciones = new System.Windows.Forms.BindingSource(this.components);
-            this.tabErrores = new System.Windows.Forms.TabPage();
-            this.gridErrores = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsErrores = new System.Windows.Forms.BindingSource(this.components);
-            this.tabEventos = new System.Windows.Forms.TabPage();
-            this.gridEventos = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsEventos = new System.Windows.Forms.BindingSource(this.components);
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabAutorizados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAutorizados)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).BeginInit();
             this.tabConObservaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridObservaciones)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridConObservaciones)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).BeginInit();
             this.tabErrores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridErrores)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).BeginInit();
             this.tabEventos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridEventos)).BeginInit();
+            this.tabLogCorrida.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEventos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -215,6 +220,7 @@
             this.tabs.Controls.Add(this.tabConObservaciones);
             this.tabs.Controls.Add(this.tabErrores);
             this.tabs.Controls.Add(this.tabEventos);
+            this.tabs.Controls.Add(this.tabLogCorrida);
             this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs.Location = new System.Drawing.Point(0, 134);
             this.tabs.Name = "tabs";
@@ -233,19 +239,6 @@
             this.tabAutorizados.TabIndex = 0;
             this.tabAutorizados.Text = "Comprobantes Autorizados";
             this.tabAutorizados.UseVisualStyleBackColor = true;
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.exportToFile16x16;
-            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportar.Location = new System.Drawing.Point(891, 451);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 23);
-            this.btnExportar.TabIndex = 1;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // gridAutorizados
             // 
@@ -290,52 +283,6 @@
             this.DocTipo.Name = "DocTipo";
             this.DocTipo.ReadOnly = true;
             // 
-            // docNroDataGridViewTextBoxColumn
-            // 
-            this.docNroDataGridViewTextBoxColumn.DataPropertyName = "DocNro";
-            this.docNroDataGridViewTextBoxColumn.HeaderText = "DocNro";
-            this.docNroDataGridViewTextBoxColumn.Name = "docNroDataGridViewTextBoxColumn";
-            this.docNroDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cbteDesdeDataGridViewTextBoxColumn
-            // 
-            this.cbteDesdeDataGridViewTextBoxColumn.DataPropertyName = "CbteDesde";
-            this.cbteDesdeDataGridViewTextBoxColumn.HeaderText = "Cbte. Desde";
-            this.cbteDesdeDataGridViewTextBoxColumn.Name = "cbteDesdeDataGridViewTextBoxColumn";
-            this.cbteDesdeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cbteHastaDataGridViewTextBoxColumn
-            // 
-            this.cbteHastaDataGridViewTextBoxColumn.DataPropertyName = "CbteHasta";
-            this.cbteHastaDataGridViewTextBoxColumn.HeaderText = "Cbte. Hasta";
-            this.cbteHastaDataGridViewTextBoxColumn.Name = "cbteHastaDataGridViewTextBoxColumn";
-            this.cbteHastaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cbteFechaDataGridViewTextBoxColumn
-            // 
-            this.cbteFechaDataGridViewTextBoxColumn.DataPropertyName = "CbteFecha";
-            this.cbteFechaDataGridViewTextBoxColumn.HeaderText = "Cbte. Fecha";
-            this.cbteFechaDataGridViewTextBoxColumn.Name = "cbteFechaDataGridViewTextBoxColumn";
-            this.cbteFechaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cAEDataGridViewTextBoxColumn
-            // 
-            this.cAEDataGridViewTextBoxColumn.DataPropertyName = "CAE";
-            this.cAEDataGridViewTextBoxColumn.HeaderText = "CAE";
-            this.cAEDataGridViewTextBoxColumn.Name = "cAEDataGridViewTextBoxColumn";
-            this.cAEDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cAEFechaVtoDataGridViewTextBoxColumn
-            // 
-            this.cAEFechaVtoDataGridViewTextBoxColumn.DataPropertyName = "CAEFechaVto";
-            this.cAEFechaVtoDataGridViewTextBoxColumn.HeaderText = "CAE Fecha Vto.";
-            this.cAEFechaVtoDataGridViewTextBoxColumn.Name = "cAEFechaVtoDataGridViewTextBoxColumn";
-            this.cAEFechaVtoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bsAutorizados
-            // 
-            this.bsAutorizados.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
-            // 
             // tabConObservaciones
             // 
             this.tabConObservaciones.Controls.Add(this.gridObservaciones);
@@ -371,26 +318,6 @@
             this.gridObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridObservaciones.Size = new System.Drawing.Size(1013, 208);
             this.gridObservaciones.TabIndex = 3;
-            // 
-            // codigoDataGridViewTextBoxColumn
-            // 
-            this.codigoDataGridViewTextBoxColumn.DataPropertyName = "Codigo";
-            this.codigoDataGridViewTextBoxColumn.FillWeight = 30.45685F;
-            this.codigoDataGridViewTextBoxColumn.HeaderText = "Codigo";
-            this.codigoDataGridViewTextBoxColumn.Name = "codigoDataGridViewTextBoxColumn";
-            this.codigoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // mensajeDataGridViewTextBoxColumn
-            // 
-            this.mensajeDataGridViewTextBoxColumn.DataPropertyName = "Mensaje";
-            this.mensajeDataGridViewTextBoxColumn.FillWeight = 169.5432F;
-            this.mensajeDataGridViewTextBoxColumn.HeaderText = "Mensaje";
-            this.mensajeDataGridViewTextBoxColumn.Name = "mensajeDataGridViewTextBoxColumn";
-            this.mensajeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bsObservaciones
-            // 
-            this.bsObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.ObservacionComprobanteDto);
             // 
             // label3
             // 
@@ -442,38 +369,6 @@
             this.DocTipoDesc.Name = "DocTipoDesc";
             this.DocTipoDesc.ReadOnly = true;
             // 
-            // docNroDataGridViewTextBoxColumn1
-            // 
-            this.docNroDataGridViewTextBoxColumn1.DataPropertyName = "DocNro";
-            this.docNroDataGridViewTextBoxColumn1.HeaderText = "DocNro";
-            this.docNroDataGridViewTextBoxColumn1.Name = "docNroDataGridViewTextBoxColumn1";
-            this.docNroDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // cbteDesdeDataGridViewTextBoxColumn1
-            // 
-            this.cbteDesdeDataGridViewTextBoxColumn1.DataPropertyName = "CbteDesde";
-            this.cbteDesdeDataGridViewTextBoxColumn1.HeaderText = "Cbte. Desde";
-            this.cbteDesdeDataGridViewTextBoxColumn1.Name = "cbteDesdeDataGridViewTextBoxColumn1";
-            this.cbteDesdeDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // cbteHastaDataGridViewTextBoxColumn1
-            // 
-            this.cbteHastaDataGridViewTextBoxColumn1.DataPropertyName = "CbteHasta";
-            this.cbteHastaDataGridViewTextBoxColumn1.HeaderText = "Cbte. Hasta";
-            this.cbteHastaDataGridViewTextBoxColumn1.Name = "cbteHastaDataGridViewTextBoxColumn1";
-            this.cbteHastaDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // cbteFechaDataGridViewTextBoxColumn1
-            // 
-            this.cbteFechaDataGridViewTextBoxColumn1.DataPropertyName = "CbteFecha";
-            this.cbteFechaDataGridViewTextBoxColumn1.HeaderText = "Cbte. Fecha";
-            this.cbteFechaDataGridViewTextBoxColumn1.Name = "cbteFechaDataGridViewTextBoxColumn1";
-            this.cbteFechaDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // bsConObservaciones
-            // 
-            this.bsConObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
-            // 
             // tabErrores
             // 
             this.tabErrores.Controls.Add(this.gridErrores);
@@ -507,26 +402,6 @@
             this.gridErrores.Size = new System.Drawing.Size(1011, 464);
             this.gridErrores.TabIndex = 1;
             // 
-            // codigoDataGridViewTextBoxColumn1
-            // 
-            this.codigoDataGridViewTextBoxColumn1.DataPropertyName = "Codigo";
-            this.codigoDataGridViewTextBoxColumn1.FillWeight = 30.45685F;
-            this.codigoDataGridViewTextBoxColumn1.HeaderText = "Codigo";
-            this.codigoDataGridViewTextBoxColumn1.Name = "codigoDataGridViewTextBoxColumn1";
-            this.codigoDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // mensajeDataGridViewTextBoxColumn1
-            // 
-            this.mensajeDataGridViewTextBoxColumn1.DataPropertyName = "Mensaje";
-            this.mensajeDataGridViewTextBoxColumn1.FillWeight = 169.5432F;
-            this.mensajeDataGridViewTextBoxColumn1.HeaderText = "Mensaje";
-            this.mensajeDataGridViewTextBoxColumn1.Name = "mensajeDataGridViewTextBoxColumn1";
-            this.mensajeDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // bsErrores
-            // 
-            this.bsErrores.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleErrorDto);
-            // 
             // tabEventos
             // 
             this.tabEventos.Controls.Add(this.gridEventos);
@@ -558,6 +433,171 @@
             this.gridEventos.Size = new System.Drawing.Size(1011, 464);
             this.gridEventos.TabIndex = 2;
             // 
+            // tabLogCorrida
+            // 
+            this.tabLogCorrida.Controls.Add(this.btnRefresh);
+            this.tabLogCorrida.Controls.Add(this.label4);
+            this.tabLogCorrida.Controls.Add(this.LogTextBox);
+            this.tabLogCorrida.Location = new System.Drawing.Point(4, 22);
+            this.tabLogCorrida.Name = "tabLogCorrida";
+            this.tabLogCorrida.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogCorrida.Size = new System.Drawing.Size(1030, 489);
+            this.tabLogCorrida.TabIndex = 4;
+            this.tabLogCorrida.Text = "Log de Ejecución";
+            this.tabLogCorrida.UseVisualStyleBackColor = true;
+            // 
+            // LogTextBox
+            // 
+            this.LogTextBox.Location = new System.Drawing.Point(3, 24);
+            this.LogTextBox.Multiline = true;
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.Size = new System.Drawing.Size(1024, 462);
+            this.LogTextBox.TabIndex = 6;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Log de Ejecución:";
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportar.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.exportToFile16x16;
+            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportar.Location = new System.Drawing.Point(891, 451);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(133, 23);
+            this.btnExportar.TabIndex = 1;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // docNroDataGridViewTextBoxColumn
+            // 
+            this.docNroDataGridViewTextBoxColumn.DataPropertyName = "DocNro";
+            this.docNroDataGridViewTextBoxColumn.HeaderText = "DocNro";
+            this.docNroDataGridViewTextBoxColumn.Name = "docNroDataGridViewTextBoxColumn";
+            this.docNroDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cbteDesdeDataGridViewTextBoxColumn
+            // 
+            this.cbteDesdeDataGridViewTextBoxColumn.DataPropertyName = "CbteDesde";
+            this.cbteDesdeDataGridViewTextBoxColumn.HeaderText = "Cbte. Desde";
+            this.cbteDesdeDataGridViewTextBoxColumn.Name = "cbteDesdeDataGridViewTextBoxColumn";
+            this.cbteDesdeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cbteHastaDataGridViewTextBoxColumn
+            // 
+            this.cbteHastaDataGridViewTextBoxColumn.DataPropertyName = "CbteHasta";
+            this.cbteHastaDataGridViewTextBoxColumn.HeaderText = "Cbte. Hasta";
+            this.cbteHastaDataGridViewTextBoxColumn.Name = "cbteHastaDataGridViewTextBoxColumn";
+            this.cbteHastaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cbteFechaDataGridViewTextBoxColumn
+            // 
+            this.cbteFechaDataGridViewTextBoxColumn.DataPropertyName = "CbteFecha";
+            this.cbteFechaDataGridViewTextBoxColumn.HeaderText = "Cbte. Fecha";
+            this.cbteFechaDataGridViewTextBoxColumn.Name = "cbteFechaDataGridViewTextBoxColumn";
+            this.cbteFechaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cAEDataGridViewTextBoxColumn
+            // 
+            this.cAEDataGridViewTextBoxColumn.DataPropertyName = "CAE";
+            this.cAEDataGridViewTextBoxColumn.HeaderText = "CAE";
+            this.cAEDataGridViewTextBoxColumn.Name = "cAEDataGridViewTextBoxColumn";
+            this.cAEDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cAEFechaVtoDataGridViewTextBoxColumn
+            // 
+            this.cAEFechaVtoDataGridViewTextBoxColumn.DataPropertyName = "CAEFechaVto";
+            this.cAEFechaVtoDataGridViewTextBoxColumn.HeaderText = "CAE Fecha Vto.";
+            this.cAEFechaVtoDataGridViewTextBoxColumn.Name = "cAEFechaVtoDataGridViewTextBoxColumn";
+            this.cAEFechaVtoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bsAutorizados
+            // 
+            this.bsAutorizados.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
+            // 
+            // codigoDataGridViewTextBoxColumn
+            // 
+            this.codigoDataGridViewTextBoxColumn.DataPropertyName = "Codigo";
+            this.codigoDataGridViewTextBoxColumn.FillWeight = 30.45685F;
+            this.codigoDataGridViewTextBoxColumn.HeaderText = "Codigo";
+            this.codigoDataGridViewTextBoxColumn.Name = "codigoDataGridViewTextBoxColumn";
+            this.codigoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // mensajeDataGridViewTextBoxColumn
+            // 
+            this.mensajeDataGridViewTextBoxColumn.DataPropertyName = "Mensaje";
+            this.mensajeDataGridViewTextBoxColumn.FillWeight = 169.5432F;
+            this.mensajeDataGridViewTextBoxColumn.HeaderText = "Mensaje";
+            this.mensajeDataGridViewTextBoxColumn.Name = "mensajeDataGridViewTextBoxColumn";
+            this.mensajeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bsObservaciones
+            // 
+            this.bsObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.ObservacionComprobanteDto);
+            // 
+            // docNroDataGridViewTextBoxColumn1
+            // 
+            this.docNroDataGridViewTextBoxColumn1.DataPropertyName = "DocNro";
+            this.docNroDataGridViewTextBoxColumn1.HeaderText = "DocNro";
+            this.docNroDataGridViewTextBoxColumn1.Name = "docNroDataGridViewTextBoxColumn1";
+            this.docNroDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // cbteDesdeDataGridViewTextBoxColumn1
+            // 
+            this.cbteDesdeDataGridViewTextBoxColumn1.DataPropertyName = "CbteDesde";
+            this.cbteDesdeDataGridViewTextBoxColumn1.HeaderText = "Cbte. Desde";
+            this.cbteDesdeDataGridViewTextBoxColumn1.Name = "cbteDesdeDataGridViewTextBoxColumn1";
+            this.cbteDesdeDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // cbteHastaDataGridViewTextBoxColumn1
+            // 
+            this.cbteHastaDataGridViewTextBoxColumn1.DataPropertyName = "CbteHasta";
+            this.cbteHastaDataGridViewTextBoxColumn1.HeaderText = "Cbte. Hasta";
+            this.cbteHastaDataGridViewTextBoxColumn1.Name = "cbteHastaDataGridViewTextBoxColumn1";
+            this.cbteHastaDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // cbteFechaDataGridViewTextBoxColumn1
+            // 
+            this.cbteFechaDataGridViewTextBoxColumn1.DataPropertyName = "CbteFecha";
+            this.cbteFechaDataGridViewTextBoxColumn1.HeaderText = "Cbte. Fecha";
+            this.cbteFechaDataGridViewTextBoxColumn1.Name = "cbteFechaDataGridViewTextBoxColumn1";
+            this.cbteFechaDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // bsConObservaciones
+            // 
+            this.bsConObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
+            // 
+            // codigoDataGridViewTextBoxColumn1
+            // 
+            this.codigoDataGridViewTextBoxColumn1.DataPropertyName = "Codigo";
+            this.codigoDataGridViewTextBoxColumn1.FillWeight = 30.45685F;
+            this.codigoDataGridViewTextBoxColumn1.HeaderText = "Codigo";
+            this.codigoDataGridViewTextBoxColumn1.Name = "codigoDataGridViewTextBoxColumn1";
+            this.codigoDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // mensajeDataGridViewTextBoxColumn1
+            // 
+            this.mensajeDataGridViewTextBoxColumn1.DataPropertyName = "Mensaje";
+            this.mensajeDataGridViewTextBoxColumn1.FillWeight = 169.5432F;
+            this.mensajeDataGridViewTextBoxColumn1.HeaderText = "Mensaje";
+            this.mensajeDataGridViewTextBoxColumn1.Name = "mensajeDataGridViewTextBoxColumn1";
+            this.mensajeDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // bsErrores
+            // 
+            this.bsErrores.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleErrorDto);
+            // 
             // codigoDataGridViewTextBoxColumn2
             // 
             this.codigoDataGridViewTextBoxColumn2.DataPropertyName = "Codigo";
@@ -576,9 +616,15 @@
             // 
             this.bsEventos.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleEventoDto);
             // 
-            // openFileDialog
+            // btnRefresh
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
+            this.btnRefresh.Location = new System.Drawing.Point(107, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(34, 21);
+            this.btnRefresh.TabIndex = 17;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // FormAutorizadorResultados
             // 
@@ -595,18 +641,20 @@
             this.tabs.ResumeLayout(false);
             this.tabAutorizados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridAutorizados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).EndInit();
             this.tabConObservaciones.ResumeLayout(false);
             this.tabConObservaciones.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridObservaciones)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridConObservaciones)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).EndInit();
             this.tabErrores.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridErrores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).EndInit();
             this.tabEventos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridEventos)).EndInit();
+            this.tabLogCorrida.ResumeLayout(false);
+            this.tabLogCorrida.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEventos)).EndInit();
             this.ResumeLayout(false);
 
@@ -664,6 +712,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.TabPage tabLogCorrida;
+        private System.Windows.Forms.TextBox LogTextBox;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label label4;
 
     }
 }

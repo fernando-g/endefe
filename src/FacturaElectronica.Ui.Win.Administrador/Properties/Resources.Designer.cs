@@ -81,6 +81,13 @@ namespace FacturaElectronica.Ui.Win.Administrador.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap repetir {
+            get {
+                object obj = ResourceManager.GetObject("repetir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap search16x16 {
             get {
                 object obj = ResourceManager.GetObject("search16x16", resourceCulture);

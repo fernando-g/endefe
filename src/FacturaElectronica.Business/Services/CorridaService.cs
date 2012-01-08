@@ -57,6 +57,8 @@ namespace FacturaElectronica.Business.Services
                         query = query.Where(c => c.Fecha <= search.FechaHasta.Value);
                     }                  
                 }
+
+                query = query.OrderByDescending(c => c.Id);
                 
                 return ToCorridaDtoList(query.ToList(), ctx.TipoDocumentoes.ToList(), ctx.TipoComprobantes.ToList(), ctx.TipoConceptoes.ToList());
             }        
@@ -222,11 +224,20 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime fecha)
+        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                return ToLogCorridaDtoList(ctx.LogCorridas.Where(l => l.CorridaId == corridaId && fecha < l.Fecha).ToList());
+                IQueryable<LogCorrida> query = ctx.LogCorridas;
+
+                query = query.Where(l => l.CorridaId == corridaId);
+
+                if (fecha.HasValue)
+                {
+                    query = query.Where(l => fecha < l.Fecha);
+                }
+
+                return ToLogCorridaDtoList(query.ToList());
             }
         }
 

@@ -20,15 +20,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:1500/ProcesoCorridaService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://endesafews/ProcesoCorridaService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProcesoCorridaService.wsdl" MetadataType="Wsdl" ID="67db8361-c012-4380-a6e8-d8d85d637eb5" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?wsdl" />
-    <MetadataFile FileName="ProcesoCorridaService.xsd" MetadataType="Schema" ID="ced338b6-d8f6-496a-8dff-154c5bae9440" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ProcesoCorridaService3.xsd" MetadataType="Schema" ID="b4cd561a-0bdd-4029-bff4-5d233d7cd1bd" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?xsd=xsd3" />
-    <MetadataFile FileName="ProcesoCorridaService.disco" MetadataType="Disco" ID="0f05c183-c6d7-4aa7-ba76-72234eb7b732" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?disco" />
-    <MetadataFile FileName="ProcesoCorridaService2.xsd" MetadataType="Schema" ID="af3db519-afd7-4d49-a083-9f929ab10d80" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ProcesoCorridaService1.xsd" MetadataType="Schema" ID="4a5c2264-5ade-4987-8f39-bb46b6126a26" SourceId="1" SourceUrl="http://localhost:1500/ProcesoCorridaService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProcesoCorridaService1.disco" MetadataType="Disco" ID="a7957c0c-266c-4b94-9d8f-fe9693f88370" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?disco" />
+    <MetadataFile FileName="ProcesoCorridaService1.wsdl" MetadataType="Wsdl" ID="0f3b5772-4afb-416c-b045-9f786aeecb04" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?wsdl" />
+    <MetadataFile FileName="ProcesoCorridaService4.xsd" MetadataType="Schema" ID="be74c136-eb45-4748-9252-b3d85295da14" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ProcesoCorridaService41.xsd" MetadataType="Schema" ID="ac7965e6-bf31-4f0d-bd1a-9e1d9d5dae5b" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProcesoCorridaService42.xsd" MetadataType="Schema" ID="6a665ef9-7d2e-42f4-9d1b-73665f521710" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ProcesoCorridaService43.xsd" MetadataType="Schema" ID="95f4e07a-68c4-4139-a969-960a6b0c23e2" SourceId="1" SourceUrl="https://endesafews/ProcesoCorridaService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

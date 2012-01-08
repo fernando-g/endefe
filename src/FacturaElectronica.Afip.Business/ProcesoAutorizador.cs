@@ -21,8 +21,7 @@ using FacturaElectronica.Common.Constants;
 namespace FacturaElectronica.Afip.Business
 {
     public class ProcesoAutorizador
-    {
-       
+    {       
         private bool debeLoguear = false;
         private bool validaEsquema = true;
         private StringBuilder validacionesEsquema;
@@ -44,9 +43,7 @@ namespace FacturaElectronica.Afip.Business
         public ProcesoAutorizador(bool debeLoguear)
         {
             this.debeLoguear = debeLoguear;
-        }
-
-        
+        }        
 
         public CorridaAutorizacionDto AutorizarComprobantes(CorridaAutorizacionDto corridaDto)
         {
@@ -120,6 +117,9 @@ namespace FacturaElectronica.Afip.Business
                         this.Log("Todos los comprobantes del archivo ya han sido autorizados");
                     }
 
+                    // Muevo el archivo a una carpeta de procesados
+                    GuardarArchivoProcesado(corridaDto.PathArchivo);
+
                     this.Log("Fin procesamiento de archivo.");
                 }
                 else
@@ -139,6 +139,30 @@ namespace FacturaElectronica.Afip.Business
             {
                 this.Log(CorridaService.FinCorridaMsg);
             }
+        }
+
+        /// <summary>
+        /// Mueve el archivo procesado a una nueva carpeta de procesados
+        /// </summary>
+        /// <param name="pathArchivo"></param>
+        private void GuardarArchivoProcesado(string pathArchivo)
+        {
+            string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosAFIPParaProcesar"];
+
+            string fileName = Path.GetFileName(pathArchivo);
+
+            destinationPath = Path.Combine(destinationPath, "Procesados");
+            destinationPath = Path.Combine(destinationPath, DateTime.Now.ToString("yyyy"));
+            destinationPath = Path.Combine(destinationPath, DateTime.Now.ToString("MM"));
+
+            if (!Directory.Exists(destinationPath))
+            {
+                Directory.CreateDirectory(destinationPath);
+            }
+
+            destinationPath = Path.Combine(destinationPath, fileName);
+
+            File.Move(pathArchivo, destinationPath);
         }
 
         private void Log(string mensaje, string detalle = null)

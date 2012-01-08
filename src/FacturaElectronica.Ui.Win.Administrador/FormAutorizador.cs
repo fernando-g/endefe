@@ -75,7 +75,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 // Primero copio el archivo en el servidor para que lo procese el web service
 
                 string origenPath = this.FileTextBox.Text.Trim();
-                string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosXMLParaProcesar"];
+                string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosAFIPParaProcesar"];
                 string fileName = Path.GetFileName(origenPath);
 
                 destinationPath = Path.Combine(destinationPath, DateTime.Now.ToString("yyyy"));
@@ -88,10 +88,13 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
                 destinationPath = Path.Combine(destinationPath, fileName);
 
+                MostrarMensajeEnLog("Copiando Archivos al Servidor...");
                 File.Copy(origenPath, destinationPath, true);
+                MostrarMensajeEnLog("Fin de copia de archvivos al Servidor");
 
                 this.corridaDto = procesoCorridaSvc.CrearNuevaCorrida(destinationPath);
                 this.fechaLog = DateTime.Now;
+                this.txtNroCorrida.Text = this.corridaDto.Id.ToString();
 
                 procesoCorridaSvc.EjecutarCorrida(this.corridaDto.Id);
             }

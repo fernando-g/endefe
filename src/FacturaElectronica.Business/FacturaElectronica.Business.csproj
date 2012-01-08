@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -49,9 +50,14 @@
     <Compile Include="Services\CorridaService.cs" />
     <Compile Include="Services\MaestrosSevice.cs" />
     <Compile Include="Services\SeguridadService.cs" />
+    <Compile Include="Services\SubidaArchivoService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\Lacoste\Codigo\ApiAutenticacion\trunk\src\WebFramework\Web.Framework.csproj">
+      <Project>{0EEED093-28DA-4ACB-BC25-E961C55E72C6}</Project>
+      <Name>Web.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FacturaElectronica.Afip.Ws\FacturaElectronica.Afip.Ws.csproj">
       <Project>{5782691D-FFA4-448C-97FC-224E8EBE1D7F}</Project>
       <Name>FacturaElectronica.Afip.Ws</Name>

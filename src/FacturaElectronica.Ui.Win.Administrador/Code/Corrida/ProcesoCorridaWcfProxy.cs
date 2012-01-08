@@ -79,7 +79,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
             return dto;
         }        
 
-        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime fecha)
+        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha)
         {
             List<LogCorridaDto> dto = null;
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
