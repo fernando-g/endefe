@@ -20,5 +20,8 @@ namespace FacturaElectronica.Common.Contracts
 
         [DataMember]
         public string Mensaje { get; set; }
+
+        [DataMember]
+        public bool FinCorrida { get; set; }
     }
 }

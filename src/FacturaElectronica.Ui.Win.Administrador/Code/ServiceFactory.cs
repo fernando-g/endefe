@@ -16,6 +16,11 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
             CertUtil.SetCertificatePolicy();
         }
 
+        public static ISubidaArchivoService GetSubidaArchivoService()
+        {
+            return new SubidaArchivoServiceProxy();
+        }
+
         public static IProcesoCorridaService GetProcesoCorridaService()
         {
             //return new CorridaService();

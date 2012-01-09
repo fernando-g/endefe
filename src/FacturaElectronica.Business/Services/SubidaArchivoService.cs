@@ -10,11 +10,15 @@ using Web.Framework.Mapper;
 using System.Configuration;
 using System.IO;
 using FacturaElectronica.Common.Constants;
+using System.Threading;
+using System.Net.Mail;
 
 namespace FacturaElectronica.Business.Services
 {
     public class SubidaArchivoService : ISubidaArchivoService
     {
+        public const string FinCorridaStr = "@FinCorrida";
+
         public CorridaSubidaArchivoDto CrearNuevaCorrida()
         {
             using (var ctx = new FacturaElectronicaEntities())
@@ -34,7 +38,7 @@ namespace FacturaElectronica.Business.Services
 
         public void EjecutarCorrida(long corridaId, List<string> files)
         {
-            // Proceso los archivos en la corrida y marcos cuales están ok y cuales no
+            // Proceso los archivos en la corrida y marcos cuales están ok y cuales no            
             using (var ctx = new FacturaElectronicaEntities())
             {
                 CorridaSubidaArchivo dbCorrida = ctx.CorridaSubidaArchivoes.Where(c => c.Id == corridaId).SingleOrDefault();
@@ -82,6 +86,8 @@ namespace FacturaElectronica.Business.Services
                             }
                         }
 
+                        GenerarLog(dbCorrida, FinCorridaStr);
+
                         dbCorrida.Procesada = true;
                         ctx.SaveChanges();
                     }
@@ -94,6 +100,37 @@ namespace FacturaElectronica.Business.Services
 
             // Al final, envío emails a los clientes informando que ya están listos X cantidad de facturas para
             // ser visualizadas
+            SendMailToCustomers(corridaId);
+
+        }
+
+        private void SendMailToCustomers(long corridaId)
+        {
+
+            List<Cliente> clienteList = new List<Cliente>();
+            using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
+            {
+                try
+                {
+                    clienteList = (from corrida in ctx.CorridaSubidaArchivoes
+                                   join corridaDetalle in ctx.CorridaSubidaArchivoDetalles on corrida.Id equals corridaDetalle.Id
+                                   join archivo in ctx.ArchivoAsociadoes on corridaDetalle.ArchivoAsociadoId equals archivo.Id
+                                   join comp in ctx.Comprobantes on archivo.ComprobanteId equals comp.Id
+                                   join cli in ctx.Clientes on comp.ClienteId equals cli.Id
+                                   where corridaDetalle.ProcesadoOK
+                                   && corrida.Id == corridaId
+                                   select cli
+                                      ).Distinct().ToList();
+
+                    // A los clientes les envío un email pero por thread
+                    SendEmailToCustomerInThread(corridaId, clienteList);
+
+                }
+                catch (Exception ex)
+                {
+                    GenerarLog(ctx, corridaId, ex.Message);
+                }
+            }
         }
 
         private const int arch_cuit = 0;
@@ -160,7 +197,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Nro de comprobante " + nroComprobanteStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);                  
+                    GenerarLog(dbCorrida, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -170,7 +207,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Punto de venta " + ptovtaStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);                    
+                    GenerarLog(dbCorrida, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -183,7 +220,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Periodo de Facturacion " + periodoFactuStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);                         
+                    GenerarLog(dbCorrida, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -201,7 +238,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se pudo interpretar la fecha de vencimiento " + vencimientoFactuStr;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);                       
+                        GenerarLog(dbCorrida, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -212,7 +249,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se pudo interpretar la fecha de vencimiento " + vencimientoFactuStr;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);                         
+                        GenerarLog(dbCorrida, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -221,13 +258,13 @@ namespace FacturaElectronica.Business.Services
                 decimal montoTotal;
                 if (!Decimal.TryParse(montoTotalStr, out montoTotal))
                 {
-                    errorStr =  "No se pudo interpretar el MontoTotal " + montoTotalStr;
+                    errorStr = "No se pudo interpretar el MontoTotal " + montoTotalStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);                     
+                    GenerarLog(dbCorrida, errorStr);
                     procesarArchivo = false;
                 }
 
-                string tipoContratoStr = filePartes[arch_tipoContrato];                
+                string tipoContratoStr = filePartes[arch_tipoContrato];
                 TipoContrato tipoContrato = null;
                 if (!String.IsNullOrEmpty(tipoContratoStr))
                 {
@@ -258,7 +295,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se encuentra el cliente " + cuit.ToString();
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);                         
+                        GenerarLog(dbCorrida, errorStr);
                     }
                     else
                     {
@@ -309,15 +346,82 @@ namespace FacturaElectronica.Business.Services
                             archivoAsociado.MesFacturacion = periodoFacturacionMes;
                             archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
                             archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
-                            archivoAsociado.MontoTotal = montoTotal;                            
+                            archivoAsociado.MontoTotal = montoTotal;
                         }
                     }
                 }
-                
-                detalle.NombreArchivo = fileName;               
+
+                detalle.NombreArchivo = fileName;
                 detalle.Mensaje = errorStr.ToString();
                 dbCorrida.CorridaSubidaArchivoDetalles.Add(detalle);
             }
+        }
+
+        private void SendEmailToCustomerInThread(long corridaId, List<Cliente> clienteList)
+        {
+            EmailConfiguration configuration = new EmailConfiguration();
+            configuration.Subject = ConfigurationManager.AppSettings["MailSubject"];
+            configuration.From = ConfigurationManager.AppSettings["MailFrom"];
+            configuration.ReplayTo = ConfigurationManager.AppSettings["MailReplayTo"];
+            configuration.BodyPathHtml = ConfigurationManager.AppSettings["MailBodyPathHtml"];
+            configuration.Host = ConfigurationManager.AppSettings["MailHost"];
+            configuration.Port = ConfigurationManager.AppSettings["MailPort"];
+
+            foreach (Cliente cliente in clienteList)
+            {
+                EmailInThread emailInThread = new EmailInThread();
+                emailInThread.CorridaId = corridaId;
+                emailInThread.Cuit = cliente.CUIT;
+                emailInThread.Email = cliente.EmailContacto;
+                emailInThread.Configuration = configuration;
+                emailInThread.ConnectionString = ConfigurationManager.ConnectionStrings["FacturaElectronicaEntities"].ConnectionString;
+
+                ThreadPool.QueueUserWorkItem(SendEmailToCustomer, emailInThread);
+            }
+        }
+
+        private void SendEmailToCustomer(object param)
+        {
+            EmailInThread emailInThread = (EmailInThread)param;
+            using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities(emailInThread.ConnectionString))
+            {
+                try
+                {
+                    SendMail(emailInThread);
+                    GenerarLog(ctx, emailInThread.CorridaId, string.Format("Email enviado a {0}", emailInThread.Email));
+                }
+                catch (Exception ex)
+                {
+                    GenerarLog(ctx, emailInThread.CorridaId, string.Format("Email enviado a {0} con error {1}", emailInThread.Email, ex.Message));
+                }
+
+                ctx.SaveChanges();
+            }
+        }
+
+        private static void SendMail(EmailInThread emailInThread)
+        {
+            string subject = emailInThread.Configuration.Subject;
+            string body = File.ReadAllText(emailInThread.Configuration.BodyPathHtml);
+            string from = emailInThread.Configuration.From;
+            string replayTo = emailInThread.Configuration.ReplayTo;
+            string host = emailInThread.Configuration.Host;
+            string port = emailInThread.Configuration.Port;
+
+            MailMessage email = new MailMessage();
+            email.To.Add(new MailAddress(emailInThread.Email));
+            email.Subject = subject;
+            email.Body = body;
+            email.From = new MailAddress(from);
+            email.ReplyToList.Add(new MailAddress(replayTo));
+            //email.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure | DeliveryNotificationOptions.OnSuccess;
+            email.IsBodyHtml = true;
+
+            SmtpClient client = new SmtpClient();
+            client.Host = host;
+            client.Port = Convert.ToInt32(port);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.Send(email);
         }
 
         private List<TipoComprobante> tiposComprobante;
@@ -361,6 +465,12 @@ namespace FacturaElectronica.Business.Services
             dbCorrida.CorridaSubidaArchivoLogs.Add(log);
         }
 
+        private void GenerarLog(FacturaElectronicaEntities ctx, long corridaId, string mensaje)
+        {
+            var dbCorrida = ctx.CorridaSubidaArchivoes.Where(c => c.Id == corridaId).Single();
+            GenerarLog(dbCorrida, mensaje);
+        }
+
         /// <summary>
         /// Obtiene las corridas de subida de archivo
         /// </summary>
@@ -368,7 +478,81 @@ namespace FacturaElectronica.Business.Services
         /// <returns></returns>
         public List<CorridaSubidaArchivoDto> ObtenerCorridas(CorridaSubidaArchivoSearch search)
         {
-            return null;
+            List<CorridaSubidaArchivoDto> corridasList = new List<CorridaSubidaArchivoDto>();
+            using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
+            {
+                IQueryable<CorridaSubidaArchivo> query = ctx.CorridaSubidaArchivoes;
+
+                if (search.CorridaId.HasValue)
+                {
+                    query = query.Where(c => c.Id == search.CorridaId);
+                }
+                else
+                {
+                    if(!String.IsNullOrEmpty(search.NombreArchivoLike))
+                    {
+                        query = query.Where(c => c.CorridaSubidaArchivoDetalles.Where(d => d.NombreArchivo.Contains(search.NombreArchivoLike)).Count() > 0);
+                    }
+
+                    if (search.FechaDesde.HasValue)
+                    {
+                        query = query.Where(c => c.FechaProceso >= search.FechaDesde.Value);
+                    }
+
+                    if (search.FechaHasta.HasValue)
+                    {
+                        query = query.Where(c => c.FechaProceso >= search.FechaHasta.Value);
+                    }                    
+                }
+
+                List<CorridaSubidaArchivo> corridas = query.ToList();
+                foreach (var dbCorrida in corridas)
+                {
+                    CorridaSubidaArchivoDto corridaDto = new CorridaSubidaArchivoDto();
+                    EntityMapper.Map(dbCorrida, corridaDto);
+
+                    if (search.LoadDetalle)
+                    {
+                        List<CorridaSubidaArchivoDetalleDto> detalleDtoList = new List<CorridaSubidaArchivoDetalleDto>();
+                        foreach (var dbDetalle in dbCorrida.CorridaSubidaArchivoDetalles)
+                        {
+                            CorridaSubidaArchivoDetalleDto detalle = new CorridaSubidaArchivoDetalleDto();
+                            EntityMapper.Map(dbDetalle, detalle);
+                            detalleDtoList.Add(detalle);
+                        }
+
+                        corridaDto.Detalles = detalleDtoList;
+                    }
+
+                    if (search.LoadLog)
+                    {
+                        List<CorridaSubidaArchivoLogDto> logDtoList = new List<CorridaSubidaArchivoLogDto>();
+                        IQueryable<CorridaSubidaArchivoLog> queryLog = dbCorrida.CorridaSubidaArchivoLogs.AsQueryable();
+
+                        if (search.FechaLog.HasValue)
+                        {
+                            queryLog = queryLog.Where(l => l.Fecha >= search.FechaLog.Value);
+                        }
+
+                        foreach (var dbLog in queryLog)
+                        {
+                            CorridaSubidaArchivoLogDto logDto = new CorridaSubidaArchivoLogDto();                            
+                            EntityMapper.Map(dbLog, logDto);
+                            logDtoList.Add(logDto);
+                            if (logDto.Mensaje == FinCorridaStr)
+                            {
+                                logDto.FinCorrida = true;
+                            }
+                        }
+
+                        corridaDto.Log = logDtoList;
+                    }
+
+                    corridasList.Add(corridaDto);
+                }
+            }
+
+            return corridasList;
         }
     }
 }

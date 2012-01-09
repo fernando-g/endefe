@@ -41,5 +41,17 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
             frmCorridas.ShowDialog(this);
         }
+
+        private void enviarArchivosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormEnviarArchivosAWeb frmEnviarArhchivos = new FormEnviarArchivosAWeb();
+            frmEnviarArhchivos.ShowDialog(this);
+        }
+
+        private void consultarEnviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormConsultaEnviosArchivosAWeb frmConsultarEnvios = new FormConsultaEnviosArchivosAWeb();
+            frmConsultarEnvios.ShowDialog(this);
+        }
     }
 }

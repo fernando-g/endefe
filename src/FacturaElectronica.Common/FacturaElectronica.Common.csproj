@@ -57,6 +57,8 @@
     <Compile Include="Contracts\DetalleComprobanteDto.cs" />
     <Compile Include="Contracts\DetalleErrorDto.cs" />
     <Compile Include="Contracts\DetalleEventoDto.cs" />
+    <Compile Include="Contracts\EmailConfiguration.cs" />
+    <Compile Include="Contracts\EmailInThread.cs" />
     <Compile Include="Contracts\EstadoArchivoAsociadoDto.cs" />
     <Compile Include="Contracts\LogCorridaDto.cs" />
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />

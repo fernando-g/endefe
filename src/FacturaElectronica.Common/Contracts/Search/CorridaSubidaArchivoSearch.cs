@@ -22,6 +22,9 @@ namespace FacturaElectronica.Common.Contracts.Search
         public DateTime? FechaHasta { get; set; }
 
         [DataMember]
+        public DateTime? FechaLog { get; set; }
+
+        [DataMember]
         public bool LoadDetalle { get; set; }
 
         [DataMember]

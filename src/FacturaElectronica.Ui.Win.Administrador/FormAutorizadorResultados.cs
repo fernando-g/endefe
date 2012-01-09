@@ -83,6 +83,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void MostrarLog()
         {
+            this.LogTextBox.Clear();
             IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();        
             
             List<LogCorridaDto> logs = procesoCorridaSvc.ConsultarLog(this.corridaDto.Id, null);

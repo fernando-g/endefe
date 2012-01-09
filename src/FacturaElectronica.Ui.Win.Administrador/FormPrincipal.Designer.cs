@@ -33,6 +33,9 @@
             this.solicitarCAEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webservicesAFIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.solicitudesDeAutorizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.envioDeArchivosALaWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarArchivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarEnviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,31 +54,55 @@
             this.facturacionElectronicaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.solicitarCAEToolStripMenuItem,
             this.webservicesAFIPToolStripMenuItem,
-            this.solicitudesDeAutorizaciónToolStripMenuItem});
+            this.solicitudesDeAutorizaciónToolStripMenuItem,
+            this.envioDeArchivosALaWebToolStripMenuItem});
             this.facturacionElectronicaToolStripMenuItem.Name = "facturacionElectronicaToolStripMenuItem";
-            this.facturacionElectronicaToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.facturacionElectronicaToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.facturacionElectronicaToolStripMenuItem.Text = "AFIP";
             // 
             // solicitarCAEToolStripMenuItem
             // 
             this.solicitarCAEToolStripMenuItem.Name = "solicitarCAEToolStripMenuItem";
-            this.solicitarCAEToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.solicitarCAEToolStripMenuItem.Text = "Solicitud CAE";
+            this.solicitarCAEToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.solicitarCAEToolStripMenuItem.Text = "Obtención de CAE";
             this.solicitarCAEToolStripMenuItem.Click += new System.EventHandler(this.solicitarCAEToolStripMenuItem_Click);
             // 
             // webservicesAFIPToolStripMenuItem
             // 
             this.webservicesAFIPToolStripMenuItem.Name = "webservicesAFIPToolStripMenuItem";
-            this.webservicesAFIPToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.webservicesAFIPToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.webservicesAFIPToolStripMenuItem.Text = "Webservices AFIP";
             this.webservicesAFIPToolStripMenuItem.Click += new System.EventHandler(this.webservicesAFIPToolStripMenuItem_Click);
             // 
             // solicitudesDeAutorizaciónToolStripMenuItem
             // 
             this.solicitudesDeAutorizaciónToolStripMenuItem.Name = "solicitudesDeAutorizaciónToolStripMenuItem";
-            this.solicitudesDeAutorizaciónToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.solicitudesDeAutorizaciónToolStripMenuItem.Text = "Solicitudes de Autorización";
+            this.solicitudesDeAutorizaciónToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.solicitudesDeAutorizaciónToolStripMenuItem.Text = "Consulta de Envios a la AFIP";
             this.solicitudesDeAutorizaciónToolStripMenuItem.Click += new System.EventHandler(this.solicitudesDeAutorizaciónToolStripMenuItem_Click);
+            // 
+            // envioDeArchivosALaWebToolStripMenuItem
+            // 
+            this.envioDeArchivosALaWebToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enviarArchivosToolStripMenuItem,
+            this.consultarEnviosToolStripMenuItem});
+            this.envioDeArchivosALaWebToolStripMenuItem.Name = "envioDeArchivosALaWebToolStripMenuItem";
+            this.envioDeArchivosALaWebToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.envioDeArchivosALaWebToolStripMenuItem.Text = "Envio de Archivos a la Web";
+            // 
+            // enviarArchivosToolStripMenuItem
+            // 
+            this.enviarArchivosToolStripMenuItem.Name = "enviarArchivosToolStripMenuItem";
+            this.enviarArchivosToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.enviarArchivosToolStripMenuItem.Text = "Enviar Archivos";
+            this.enviarArchivosToolStripMenuItem.Click += new System.EventHandler(this.enviarArchivosToolStripMenuItem_Click);
+            // 
+            // consultarEnviosToolStripMenuItem
+            // 
+            this.consultarEnviosToolStripMenuItem.Name = "consultarEnviosToolStripMenuItem";
+            this.consultarEnviosToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.consultarEnviosToolStripMenuItem.Text = "Consultar Envios";
+            this.consultarEnviosToolStripMenuItem.Click += new System.EventHandler(this.consultarEnviosToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 
@@ -103,6 +130,9 @@
         private System.Windows.Forms.ToolStripMenuItem solicitarCAEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem webservicesAFIPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem solicitudesDeAutorizaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem envioDeArchivosALaWebToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enviarArchivosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarEnviosToolStripMenuItem;
     }
 }
 

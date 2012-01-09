@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,7 @@
     <Compile Include="Code\Cert\CertUtil.cs" />
     <Compile Include="Code\Corrida\AfipWrapperWcfProxy.cs" />
     <Compile Include="Code\Corrida\ClientCredentialHelper.cs" />
+    <Compile Include="Code\Corrida\SubidaArchivoServiceProxy.cs" />
     <Compile Include="Code\Corrida\MaestroServiceProxy.cs" />
     <Compile Include="Code\Corrida\ProcesoCorridaWcfProxy.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
@@ -68,11 +70,29 @@
     <Compile Include="FormAutorizadorResultados.Designer.cs">
       <DependentUpon>FormAutorizadorResultados.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormConsultaEnviosArchivosAWeb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConsultaEnviosArchivosAWeb.Designer.cs">
+      <DependentUpon>FormConsultaEnviosArchivosAWeb.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCorridas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormCorridas.Designer.cs">
       <DependentUpon>FormCorridas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDetalleDeEnvioArhivoAWeb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDetalleDeEnvioArhivoAWeb.Designer.cs">
+      <DependentUpon>FormDetalleDeEnvioArhivoAWeb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEnviarArchivosAWeb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEnviarArchivosAWeb.Designer.cs">
+      <DependentUpon>FormEnviarArchivosAWeb.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -103,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ServiceReferenceSubidaArchivo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormAutorizador.resx">
       <DependentUpon>FormAutorizador.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -110,8 +135,17 @@
     <EmbeddedResource Include="FormAutorizadorResultados.resx">
       <DependentUpon>FormAutorizadorResultados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormConsultaEnviosArchivosAWeb.resx">
+      <DependentUpon>FormConsultaEnviosArchivosAWeb.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCorridas.resx">
       <DependentUpon>FormCorridas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDetalleDeEnvioArhivoAWeb.resx">
+      <DependentUpon>FormDetalleDeEnvioArhivoAWeb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEnviarArchivosAWeb.resx">
+      <DependentUpon>FormEnviarArchivosAWeb.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -150,6 +184,7 @@
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteCriteria.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.CorridaAutorizacionDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleErrorDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleEventoDto.datasource" />
@@ -206,6 +241,22 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReferenceMaestro\MaestrosSevice.wsdl" />
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.wsdl" />
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacturaElectronica.Afip.Business\FacturaElectronica.Afip.Business.csproj">
@@ -233,6 +284,13 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceSubidaArchivo\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.disco" />
     <None Include="Resources\repetir.png" />
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
@@ -269,6 +327,7 @@
     <WCFMetadataStorage Include="Service References\ServiceReferenceAfipWrapper\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceCorrida\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceMaestro\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceSubidaArchivo\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
