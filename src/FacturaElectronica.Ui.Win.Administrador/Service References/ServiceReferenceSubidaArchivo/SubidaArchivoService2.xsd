@@ -5,6 +5,7 @@
       <xs:element minOccurs="0" name="CorridaId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="FechaDesde" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHasta" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaLog" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="LoadDetalle" type="xs:boolean" />
       <xs:element minOccurs="0" name="LoadLog" type="xs:boolean" />
       <xs:element minOccurs="0" name="NombreArchivoLike" nillable="true" type="xs:string" />

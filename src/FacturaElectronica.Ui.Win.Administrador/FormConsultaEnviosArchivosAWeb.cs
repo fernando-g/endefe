@@ -20,6 +20,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
         public FormConsultaEnviosArchivosAWeb()
         {
             InitializeComponent();
+            this.lblCantidadReg.Text = string.Empty;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

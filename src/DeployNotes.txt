@@ -28,3 +28,10 @@ La clave privada del certificado se guarda en personal(my) de local machine (por
 
 En el iis hay que poner que solo acepte SSL
 
+Configurar en el web config lso datos del email para ser enviados
+
+
+Sitio Web
+------------------------------------------------
+
+

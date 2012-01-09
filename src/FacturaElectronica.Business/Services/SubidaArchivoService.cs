@@ -49,7 +49,7 @@ namespace FacturaElectronica.Business.Services
                         // Armo los path destinos Ok y con errores
                         string fileDestinationPathOk = ConfigurationManager.AppSettings["PathDestinoArchivosFacturaConCAE"];
                         fileDestinationPathOk = Path.Combine(fileDestinationPathOk, corridaId.ToString());
-                        string fileDestinationPathNoOk = fileDestinationPathOk = Path.Combine(fileDestinationPathOk, "ConErrores"); ;
+                        string fileDestinationPathNoOk = Path.Combine(fileDestinationPathOk, "ConErrores"); ;
                         fileDestinationPathOk = Path.Combine(fileDestinationPathOk, "OK");
                         if (!Directory.Exists(fileDestinationPathOk))
                         {
@@ -67,7 +67,7 @@ namespace FacturaElectronica.Business.Services
                             try
                             {
                                 string fileName = Path.GetFileName(filePath);
-                                GenerarLog(dbCorrida, string.Format("Procesando Archivo: {0}", fileName));
+                                GenerarLog(dbCorrida.Id, string.Format("Procesando Archivo: {0}", fileName));
 
                                 if (File.Exists(filePath))
                                 {
@@ -75,25 +75,25 @@ namespace FacturaElectronica.Business.Services
                                 }
                                 else
                                 {
-                                    GenerarLog(dbCorrida, string.Format("No Existe el Archivo: {0}", fileName));
+                                    GenerarLog(dbCorrida.Id, string.Format("No Existe el Archivo: {0}", fileName));
                                 }
 
-                                GenerarLog(dbCorrida, string.Format("Fin Procesamiento Archivo: {0}", fileName));
+                                GenerarLog(dbCorrida.Id, string.Format("Fin Procesamiento Archivo: {0}", fileName));
                             }
                             catch (Exception ex)
                             {
-                                GenerarLog(dbCorrida, ex.Message);
+                                GenerarLog(dbCorrida.Id, ex.Message);
                             }
                         }
 
-                        GenerarLog(dbCorrida, FinCorridaStr);
+                        GenerarLog(dbCorrida.Id, FinCorridaStr);
 
                         dbCorrida.Procesada = true;
                         ctx.SaveChanges();
                     }
                     catch (Exception ex)
                     {
-                        GenerarLog(dbCorrida, ex.Message);
+                        GenerarLog(dbCorrida.Id, ex.Message);
                     }
                 }
             }
@@ -111,16 +111,17 @@ namespace FacturaElectronica.Business.Services
             using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
             {
                 try
-                {
-                    clienteList = (from corrida in ctx.CorridaSubidaArchivoes
+                {                    
+                    var query      = (from corrida in ctx.CorridaSubidaArchivoes
                                    join corridaDetalle in ctx.CorridaSubidaArchivoDetalles on corrida.Id equals corridaDetalle.Id
                                    join archivo in ctx.ArchivoAsociadoes on corridaDetalle.ArchivoAsociadoId equals archivo.Id
                                    join comp in ctx.Comprobantes on archivo.ComprobanteId equals comp.Id
                                    join cli in ctx.Clientes on comp.ClienteId equals cli.Id
                                    where corridaDetalle.ProcesadoOK
                                    && corrida.Id == corridaId
-                                   select cli
-                                      ).Distinct().ToList();
+                                   select cli);
+
+                    clienteList = query.Distinct().ToList();
 
                     // A los clientes les envío un email pero por thread
                     SendEmailToCustomerInThread(corridaId, clienteList);
@@ -154,7 +155,7 @@ namespace FacturaElectronica.Business.Services
             {
                 errorStr = "No se pudo interpretar el nombre del archivo " + fileNameWithoutExtension;
                 mensajeError.AppendLine(errorStr);
-                GenerarLog(dbCorrida, errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
             }
             else
             {
@@ -164,22 +165,20 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el CUIT " + filePartes[arch_cuit];
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
-                string tipoComprobante = filePartes[arch_tipodocumento];
-                long? tipoComprobanteId = null;
+                string tipoComprobante = filePartes[arch_tipodocumento];               
                 TipoComprobante tipoComprobanteObj = null;
                 if (!String.IsNullOrEmpty(tipoComprobante))
                 {
                     tipoComprobanteObj = GetTipoComprobante(ctx).Where(t => t.Codigo == tipoComprobante).SingleOrDefault();
-                    tipoComprobanteId = tipoComprobanteObj.Id;
-                    if (!tipoComprobanteId.HasValue)
+                    if (tipoComprobanteObj == null)
                     {
                         errorStr = "No se pudo interpretar el Tipo de Comprobante " + tipoComprobante;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);
+                        GenerarLog(dbCorrida.Id, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -187,7 +186,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Tipo de Comprobante " + tipoComprobante;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -197,7 +196,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Nro de comprobante " + nroComprobanteStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -207,7 +206,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Punto de venta " + ptovtaStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -220,7 +219,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Periodo de Facturacion " + periodoFactuStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -238,7 +237,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se pudo interpretar la fecha de vencimiento " + vencimientoFactuStr;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);
+                        GenerarLog(dbCorrida.Id, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -249,7 +248,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se pudo interpretar la fecha de vencimiento " + vencimientoFactuStr;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);
+                        GenerarLog(dbCorrida.Id, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -260,7 +259,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el MontoTotal " + montoTotalStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -274,7 +273,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se pudo interpretar el Tipo de Contrato " + tipoContratoStr;
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);
+                        GenerarLog(dbCorrida.Id, errorStr);
                         procesarArchivo = false;
                     }
                 }
@@ -282,7 +281,7 @@ namespace FacturaElectronica.Business.Services
                 {
                     errorStr = "No se pudo interpretar el Tipo de Contrato " + tipoContratoStr;
                     mensajeError.AppendLine(errorStr);
-                    GenerarLog(dbCorrida, errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
                     procesarArchivo = false;
                 }
 
@@ -295,18 +294,18 @@ namespace FacturaElectronica.Business.Services
                     {
                         errorStr = "No se encuentra el cliente " + cuit.ToString();
                         mensajeError.AppendLine(errorStr);
-                        GenerarLog(dbCorrida, errorStr);
+                        GenerarLog(dbCorrida.Id, errorStr);
                     }
                     else
                     {
                         // Obtengo el comprobante al que hay que asociarle el archivo
-                        var dbComprobante = ctx.Comprobantes.Where(c => c.TipoComprobanteId == tipoComprobanteId.Value && c.PtoVta == ptovta && c.CbteDesde <= nroComprobante && c.CbteHasta >= nroComprobante).First();
+                        var dbComprobante = ctx.Comprobantes.Where(c => c.TipoComprobanteId == tipoComprobanteObj.Id && c.PtoVta == ptovta && c.CbteDesde <= nroComprobante && c.CbteHasta >= nroComprobante).First();
                         if (dbComprobante == null)
                         {
                             // No se puede procesar
                             errorStr = string.Format("No se encuentra el comprobante asociado. Nro {0}, Tipo {1}, PtoVta: {2}", nroComprobante, tipoComprobanteObj.Descripcion, ptovta);
                             mensajeError.AppendLine(errorStr);
-                            GenerarLog(dbCorrida, errorStr);
+                            GenerarLog(dbCorrida.Id, errorStr);
 
                             // Lo copio a la carpeta de fallidos y registro el estado en el documento
                             File.Move(filePath, fileDestinationPathNoOk);
@@ -455,20 +454,24 @@ namespace FacturaElectronica.Business.Services
             }
 
             return estadosArchivoAsociado;
+        }      
+
+        private void GenerarLog(long corridaId, string mensaje)
+        {           
+            using(FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
+            {
+                GenerarLog(ctx, corridaId, mensaje);          
+            }
         }
 
-        private void GenerarLog(CorridaSubidaArchivo dbCorrida, string mensaje)
+        private static void GenerarLog(FacturaElectronicaEntities ctx, long corridaId, string mensaje)
         {
             CorridaSubidaArchivoLog log = new CorridaSubidaArchivoLog();
             log.Mensaje = mensaje;
             log.Fecha = DateTime.Now;
-            dbCorrida.CorridaSubidaArchivoLogs.Add(log);
-        }
-
-        private void GenerarLog(FacturaElectronicaEntities ctx, long corridaId, string mensaje)
-        {
-            var dbCorrida = ctx.CorridaSubidaArchivoes.Where(c => c.Id == corridaId).Single();
-            GenerarLog(dbCorrida, mensaje);
+            log.CorridaId = corridaId;
+            ctx.CorridaSubidaArchivoLogs.AddObject(log);
+            ctx.SaveChanges();
         }
 
         /// <summary>
@@ -501,9 +504,11 @@ namespace FacturaElectronica.Business.Services
 
                     if (search.FechaHasta.HasValue)
                     {
-                        query = query.Where(c => c.FechaProceso >= search.FechaHasta.Value);
+                        query = query.Where(c => c.FechaProceso <= search.FechaHasta.Value);
                     }                    
                 }
+
+                query = query.OrderByDescending(c => c.Id);
 
                 List<CorridaSubidaArchivo> corridas = query.ToList();
                 foreach (var dbCorrida in corridas)

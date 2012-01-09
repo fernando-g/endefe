@@ -110,7 +110,6 @@
             this.FechaProceso,
             this.Procesada});
             this.gridCorridas.Location = new System.Drawing.Point(21, 90);
-            this.gridCorridas.MultiSelect = false;
             this.gridCorridas.Name = "gridCorridas";
             this.gridCorridas.ReadOnly = true;
             this.gridCorridas.RowHeadersVisible = false;
@@ -194,12 +193,14 @@
             // 
             // FechaProceso
             // 
+            this.FechaProceso.DataPropertyName = "FechaProceso";
             this.FechaProceso.HeaderText = "Fecha de Proceso";
             this.FechaProceso.Name = "FechaProceso";
             this.FechaProceso.ReadOnly = true;
             // 
             // Procesada
             // 
+            this.Procesada.DataPropertyName = "Procesada";
             this.Procesada.HeaderText = "Procesada";
             this.Procesada.Name = "Procesada";
             this.Procesada.ReadOnly = true;

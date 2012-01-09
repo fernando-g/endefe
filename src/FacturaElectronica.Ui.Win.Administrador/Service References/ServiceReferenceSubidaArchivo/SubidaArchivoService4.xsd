@@ -37,6 +37,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CorridaId" type="xs:long" />
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FinCorrida" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
     </xs:sequence>

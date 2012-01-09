@@ -24,43 +24,57 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            IProcesoCorridaService svc = ServiceFactory.GetProcesoCorridaService();
-            
-            long? corridaId = null;
-            bool identificadorValido = true;
-            if(this.txtIdentificador.Text.Trim() != string.Empty)
+            try
             {
-                try
+                IProcesoCorridaService svc = ServiceFactory.GetProcesoCorridaService();
+
+                long? corridaId = null;
+                bool identificadorValido = true;
+                if (this.txtIdentificador.Text.Trim() != string.Empty)
                 {
-                    corridaId = long.Parse(this.txtIdentificador.Text.Trim());
+                    try
+                    {
+                        corridaId = long.Parse(this.txtIdentificador.Text.Trim());
+                    }
+                    catch
+                    {
+                        MessageBox.Show("El Identificador es invalido", "Parametro invalido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.txtIdentificador.Text = string.Empty;
+                        identificadorValido = false;
+                    }
                 }
-                catch
+                if (identificadorValido)
                 {
-                    MessageBox.Show("El Identificador es invalido", "Parametro invalido", MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    this.txtIdentificador.Text = string.Empty;
-                    identificadorValido = false;
+                    CorridaSearch search = new CorridaSearch();
+                    search.CorridaId = corridaId;
+                    search.FechaDesde = this.dtpFechaDesde.Value.Date;
+                    search.FechaHasta = this.dtpFechaHasta.Value.Date.AddDays(1).AddMilliseconds(-1);
+
+                    this.bsCorridas.DataSource = svc.ObtenerCorridas(search);
+                    this.gridCorridas.DataSource = this.bsCorridas;
+                    this.lblCantidadReg.Text = this.bsCorridas.Count.ToString();
                 }
             }
-            if (identificadorValido)
+            catch (Exception ex)
             {
-                CorridaSearch search = new CorridaSearch();
-                search.CorridaId = corridaId;
-                search.FechaDesde = this.dtpFechaDesde.Value.Date;
-                search.FechaHasta = this.dtpFechaHasta.Value.Date.AddDays(1).AddMilliseconds(-1);
-
-                this.bsCorridas.DataSource = svc.ObtenerCorridas(search);
-                this.gridCorridas.DataSource = this.bsCorridas;
-                this.lblCantidadReg.Text = this.bsCorridas.Count.ToString();
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void gridCorridas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.gridCorridas.SelectedRows.Count > 0)
+            try
             {
-                CorridaAutorizacionDto corridaDto = this.gridCorridas.SelectedRows[0].DataBoundItem as CorridaAutorizacionDto;
-                FormAutorizadorResultados frm = new FormAutorizadorResultados(corridaDto);
-                frm.ShowDialog(this);
+                if (this.gridCorridas.SelectedRows.Count > 0)
+                {
+                    CorridaAutorizacionDto corridaDto = this.gridCorridas.SelectedRows[0].DataBoundItem as CorridaAutorizacionDto;
+                    FormAutorizadorResultados frm = new FormAutorizadorResultados(corridaDto);
+                    frm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

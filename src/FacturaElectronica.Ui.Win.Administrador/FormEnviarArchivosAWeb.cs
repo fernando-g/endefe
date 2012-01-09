@@ -12,6 +12,8 @@ using FacturaElectronica.Ui.Win.Administrador.Code;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts.Search;
 using System.Configuration;
+using System.Threading;
+using FacturaElectronica.Ui.Win.Administrador.Code.Ejecucion;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -91,10 +93,15 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
                         // Ejecuto
                         MostrarMensajeEnLog("Enviando mensaje de ejecución asincrónica...");
-                        SubidaArchivoService.EjecutarCorrida(CorridaSubidaArchivo.Id, fileList);
 
-                        // Activo el timer                        
-                        timerLog.Start();
+                        EjecucionSubidaArchivos ejecucionData = new EjecucionSubidaArchivos();
+                        ejecucionData.CorridaId = CorridaSubidaArchivo.Id;
+                        ejecucionData.FileList = fileList;
+
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData); 
+                        
+                        // Activo el timer porque a veces no retorna la siguiente llamada
+                        timerLog.Start();                                   
                     }
                 }
             }
@@ -102,6 +109,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void EjecutarCorridaCallBack(object state)
+        {            
+             EjecucionSubidaArchivos ejecucionData = (EjecucionSubidaArchivos)state;
+             SubidaArchivoService.EjecutarCorrida(ejecucionData.CorridaId, ejecucionData.FileList);    
         }
 
         private List<string> CopiarArchivosParaProcesar(List<string> fileList)

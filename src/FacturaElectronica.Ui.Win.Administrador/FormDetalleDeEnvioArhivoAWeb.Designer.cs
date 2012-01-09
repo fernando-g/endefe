@@ -41,8 +41,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.NombreArchivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProcesadoOK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Mensaje = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Mensaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabs.SuspendLayout();
             this.tabDetalleDeArchivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).BeginInit();
@@ -133,10 +134,10 @@
             this.gridArchivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridArchivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NombreArchivo,
+            this.Id,
             this.ProcesadoOK,
             this.Mensaje});
             this.gridArchivos.Location = new System.Drawing.Point(11, 6);
-            this.gridArchivos.MultiSelect = false;
             this.gridArchivos.Name = "gridArchivos";
             this.gridArchivos.ReadOnly = true;
             this.gridArchivos.RowHeadersVisible = false;
@@ -186,21 +187,34 @@
             // 
             // NombreArchivo
             // 
+            this.NombreArchivo.DataPropertyName = "NombreArchivo";
             this.NombreArchivo.HeaderText = "Nombre de Archivo";
             this.NombreArchivo.Name = "NombreArchivo";
             this.NombreArchivo.ReadOnly = true;
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
             // ProcesadoOK
             // 
+            this.ProcesadoOK.DataPropertyName = "ProcesadoOK";
             this.ProcesadoOK.HeaderText = "Procesado OK?";
             this.ProcesadoOK.Name = "ProcesadoOK";
             this.ProcesadoOK.ReadOnly = true;
             // 
             // Mensaje
             // 
+            this.Mensaje.DataPropertyName = "Mensaje";
             this.Mensaje.HeaderText = "Mensaje";
             this.Mensaje.Name = "Mensaje";
             this.Mensaje.ReadOnly = true;
+            this.Mensaje.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Mensaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FormDetalleDeEnvioArhivoAWeb
             // 
@@ -240,7 +254,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreArchivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ProcesadoOK;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Mensaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mensaje;
     }
 }

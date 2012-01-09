@@ -57,6 +57,7 @@
     <Compile Include="Code\Corrida\SubidaArchivoServiceProxy.cs" />
     <Compile Include="Code\Corrida\MaestroServiceProxy.cs" />
     <Compile Include="Code\Corrida\ProcesoCorridaWcfProxy.cs" />
+    <Compile Include="Code\Ejecucion\EjecucionSubidaArchivos.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
     <Compile Include="FormAutorizador.cs">
       <SubType>Form</SubType>

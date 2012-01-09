@@ -53,11 +53,8 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
                 if (client.State != System.ServiceModel.CommunicationState.Closed)
                 {
                     client.Abort();
-                }
-
-                throw;
+                }             
             }
-  
         }
 
         public List<CorridaSubidaArchivoDto> ObtenerCorridas(CorridaSubidaArchivoSearch search)

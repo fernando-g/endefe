@@ -104,9 +104,9 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>1500</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost/FacturaElectronicaWsHost</IISUrl>
+          <IISUrl>https://endesafews/FacturaElectronicaWsHost</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost/FacturaElectronicaWsHost</IISAppRootUrl>
+          <IISAppRootUrl>https://endesafews/FacturaElectronicaWsHost</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
