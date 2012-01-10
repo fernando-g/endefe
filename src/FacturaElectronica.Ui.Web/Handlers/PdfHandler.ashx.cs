@@ -25,9 +25,19 @@ namespace FacturaElectronica.Ui.Web.Handlers
 
             if (!string.IsNullOrEmpty(file))
             {
-                r.AppendHeader("Content-Disposition", "attachment; filename=Comprobante.pdf");
-                r.TransmitFile(file);
-                r.End();
+                if (System.IO.File.Exists(file))
+                {
+                    try
+                    {
+                        r.AppendHeader("Content-Disposition", "attachment; filename=Comprobante.pdf");
+                        r.TransmitFile(file);
+                        r.End();
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
         }
 
