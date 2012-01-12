@@ -143,8 +143,8 @@ namespace FacturaElectronica.Ui.Web.Pages
                     {
                         Save();
                     }
-
-                    ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
+                    this.RedirectToPagListado();
+                    //ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
                 }
                 catch (Exception ex)
                 {
@@ -154,6 +154,11 @@ namespace FacturaElectronica.Ui.Web.Pages
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            RedirectToPagListado();
+        }
+
+        private void RedirectToPagListado()
         {
             try
             {

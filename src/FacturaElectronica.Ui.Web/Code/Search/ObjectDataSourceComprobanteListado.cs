@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using Web.Framework.Search;
+/*using Web.Framework.Search;*/
 using System.Collections;
 using FacturaElectronica.Common.Contracts;
 
 namespace FacturaElectronica.Ui.Web.Code.Search
 {
-    public class ObjectDataSourceComprobanteListado : IGridViewSearchObjectDataSource
+    public class ObjectDataSourceComprobanteListado/* : IGridViewSearchObjectDataSource*/
     {
         public bool DebeBuscar { get; set; }
 

@@ -71,5 +71,8 @@ namespace FacturaElectronica.Common.Contracts
 
         [DataMember]
         public string PeriodoFacturacion { get; set; }
+
+        [DataMember]
+        public decimal? MontoTotal { get; set; }
     }
 }

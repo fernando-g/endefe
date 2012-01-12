@@ -45,7 +45,7 @@
             <div class="clear">
             </div>
             <p>
-                <span class="title2">Mes</span>
+                <span class="title2">Mes Facturaci&oacute;n</span>
                 <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>        
             </p>
             <div class="clear">
@@ -53,6 +53,12 @@
             <p>
                 <span class="title2">Tipo Contrato:</span>
                 <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo"></asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2">Monto Total Desde:</span>
+                <asp:TextBox ID="txtMontoTotalDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
             </p>
         </div>
         <div class="divSearchLeft">
@@ -75,7 +81,7 @@
             <div class="clear">
             </div>
             <p>
-                <span class="title2 secondColumn">A&ntilde;o</span>
+                <span class="title2 secondColumn">A&ntilde;o Facturaci&oacute;n</span>
                 <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>
             </p>
             <div class="clear">
@@ -85,7 +91,13 @@
                 <asp:CheckBox ID="chkDocumentosVencidos" runat="server" CssClass="chk"></asp:CheckBox>
             </p>
             <div class="clear">
-            </div>        
+            </div>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtMontoTotalHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            </p>
         </div>
         <div class="clear">
         </div>
@@ -125,6 +137,8 @@
                 <asp:BoundField DataField="DireccionIp" HeaderText="Direccion Ip" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:n}"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:TemplateField HeaderText="Factura Asociada">
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />

@@ -13,9 +13,6 @@
     </p>
     <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false" onauthenticate="LoginUser_Authenticate">
         <LayoutTemplate>
-            <span class="failureNotification">
-                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-            </span>
             <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
                  ValidationGroup="LoginUserValidationGroup"/>
             <div class="accountInfo">
@@ -40,11 +37,14 @@
                     <asp:Button ID="LoginButton" runat="server" CssClass="btn" CommandName="Login" Text="Ingresar" ValidationGroup="LoginUserValidationGroup"/>
                 </p>
             </div>
+                <span class="failureNotification">
+                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
+            </span>
+
         </LayoutTemplate>
     </asp:Login>
 
     <script language="javascript" type="text/javascript">
-      <script type='text/javascript'>
 
         $(document).ready(function () {
         $("#UserName").focus();

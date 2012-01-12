@@ -40,7 +40,10 @@ namespace FacturaElectronica.Ui.Web.Pages
                 {
                     if (this.BaseMaster.EsCliente)
                     {
-                        clienteCurrent = clienteService.ObtenerCliente(this.BaseMaster.ClienteId);                        
+                        clienteCurrent = clienteService.ObtenerCliente(this.BaseMaster.ClienteId);
+                        this.txtCuit.Enabled = false;
+                        this.txtRazonSocial.Enabled = false;
+                        this.btnCancelar.Visible = false;
                     }
                     else if (this.Request.QueryString["Id"] == null)
                     {
@@ -131,8 +134,14 @@ namespace FacturaElectronica.Ui.Web.Pages
                     {
                         Save();
                     }
-
-                    ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
+                    if (this.BaseMaster.EsCliente)
+                    {
+                        ShowMessage("Los datos fueron grabados con éxito", WebMessageType.Notification);
+                    }
+                    else
+                    {
+                        this.RedirectToPagListado();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -142,6 +151,11 @@ namespace FacturaElectronica.Ui.Web.Pages
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            RedirectToPagListado();
+        }
+
+        private void RedirectToPagListado()
         {
             try
             {
@@ -202,9 +216,13 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void cvCuitExistente_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            IClienteService svc = ServiceFactory.GetClienteService();
-            ClienteDto cliente = svc.ObtenerClientePorCuit(Int64.Parse(txtCuit.Text.Trim()));
-            args.IsValid = cliente == null;
+            args.IsValid = true;
+            if (clienteCurrent.Id == 0)
+            {
+                IClienteService svc = ServiceFactory.GetClienteService();
+                ClienteDto cliente = svc.ObtenerClientePorCuit(Int64.Parse(txtCuit.Text.Trim()));
+                args.IsValid = cliente == null;
+            }                        
         }
 
     }

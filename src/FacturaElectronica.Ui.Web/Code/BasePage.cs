@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace FacturaElectronica.Ui.Web.Code
 {
@@ -38,6 +39,12 @@ namespace FacturaElectronica.Ui.Web.Code
         {
             SiteMaster main = (SiteMaster)this.Master;
             main.ShowMessage(title, message, type);
+        }
+
+        protected void SignOut()
+        {
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
         }
     }
 }

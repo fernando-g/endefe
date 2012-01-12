@@ -117,6 +117,10 @@ namespace FacturaElectronica.Business.Services
                         && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                             // Documentos Vencidos
                         && (!criteria.DocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
+                            // Monto Desde
+                        && (!criteria.MontoTotalDesde.HasValue || criteria.MontoTotalDesde.Value <= aa.MontoTotal)
+                            // Monto Hasta
+                        && (!criteria.MontoTotalHasta.HasValue || aa.MontoTotal <= criteria.MontoTotalHasta.Value)
                         select new ComprobanteArchivoAsociadoDto()
                         {
                             ArchivoAsociadoId = aa.Id,
@@ -136,6 +140,7 @@ namespace FacturaElectronica.Business.Services
                             TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
                             TipoContratoId = aa.TipoContratoId,
                             TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty,
+                            MontoTotal = aa.MontoTotal.HasValue ? aa.MontoTotal.Value : default(decimal?)
                         }).ToList();
 
                 foreach (var item in list)

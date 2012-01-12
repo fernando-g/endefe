@@ -74,6 +74,8 @@ namespace FacturaElectronica.Ui.Web.Pages
             criteria.FechaDeCargaDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaDesde.Text);
             criteria.FechaDeCargaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaHasta.Text);
             criteria.DocumentosVencidos = this.chkDocumentosVencidos.Checked;
+            criteria.MontoTotalDesde = UIHelper.GetDecimalFromInputText(this.txtMontoTotalDesde.Text.Trim());
+            criteria.MontoTotalHasta = UIHelper.GetDecimalFromInputText(this.txtMontoTotalHasta.Text.Trim());
         }
 
         protected override List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria)
@@ -127,7 +129,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                     int columnaFechaVencimiento = 4;
                     int columnaFechaVisualizacion = 5;
                     int columnaEstado = 7;
-                    int columnaBorrarComprobante = 9;
+                    int columnaBorrarComprobante = 10;
                     EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);
                     EstablecerColorEstado(e, dto, columnaEstado);
                     EstablecerFechaVisualizacion(e, dto, columnaFechaVisualizacion);
@@ -194,6 +196,8 @@ namespace FacturaElectronica.Ui.Web.Pages
             this.txtFechaDeCargaDesde.Text = string.Empty;
             this.txtFechaDeCargaHasta.Text = string.Empty;
             this.chkDocumentosVencidos.Checked = false;
+            this.txtMontoTotalDesde.Text = string.Empty;
+            this.txtMontoTotalHasta.Text = string.Empty;
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)

@@ -25,14 +25,7 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         private void Buscar()
         {
-            // cargo los filtros
-            /*int? pedidoId = UIHelper.GetIntFromInputText(this.txtPedidoId.Text);
-            int? temporadaId = UIHelper.GetIntFromInputCbo(this.cboTemporada);
-            int? destinoId = UIHelper.GetIntFromInputCbo(this.cboDestino);
-            DateTime? fechaDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaDesde.Text);
-            DateTime? fechaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaHasta.Text);*/
-
-            
+            // cargo los filtros            
             List<UsuarioDto> list = ServiceFactory.GetSecurityService().ObtenerUsuarios(this.txtNombre.Text.Trim());
             this.lblCantReg.Text = string.Format(" ({0})", list.Count);
             this.Grid.DataSource = list;

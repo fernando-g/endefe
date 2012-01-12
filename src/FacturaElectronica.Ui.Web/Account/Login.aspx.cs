@@ -31,14 +31,14 @@ namespace FacturaElectronica.Ui.Web.Account
                     UsuarioDto usuario = this.ObtenerUsuario(this.LoginUser.UserName.Trim());
 
                     // Query the user store to get this user's User Data
-                    string userDataString = string.Format("{0}|{1}",usuario.Id,usuario.ClienteId);
+                    string userDataString = string.Format("{0}|{1}", usuario.Id, usuario.ClienteId);
 
                     // Create the cookie that contains the forms authentication ticket
                     HttpCookie authCookie = FormsAuthentication.GetAuthCookie(usuario.NombreUsuario, false);
 
                     // Get the FormsAuthenticationTicket out of the encrypted cookie
                     FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                    
+
                     // Create a new FormsAuthenticationTicket that includes our custom User Data
                     FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, userDataString);
 
@@ -50,7 +50,7 @@ namespace FacturaElectronica.Ui.Web.Account
 
                     // Determine redirect URL and send user there
                     string redirUrl = FormsAuthentication.GetRedirectUrl(usuario.NombreUsuario, false);
-                    Response.Redirect(redirUrl);
+                    Response.Redirect("~/Default.aspx");
 
 
                     ////LoginData loginData = new LoginData();
@@ -64,18 +64,28 @@ namespace FacturaElectronica.Ui.Web.Account
                     //HttpContext.Current.User = principal;
                     //Thread.CurrentPrincipal = principal;
 
-                    
+
                     //FormsAuthentication.RedirectFromLoginPage(this.LoginUser.UserName, false);
+                }
+                else 
+                {
+                    this.AgregarErrorDeLogin();
                 }
             }
             catch (Exception ex)
             {
-                CustomValidator validator = new CustomValidator();
-                validator.IsValid = false;
-                validator.ValidationGroup = "LoginUserValidationGroup";
-                validator.ErrorMessage = "Usuario y Contraseña incorrectos";
-                this.Validators.Add(validator);
+                AgregarErrorDeLogin();
             }
+        }
+
+        private void AgregarErrorDeLogin()
+        {
+            //CustomValidator validator = new CustomValidator();
+            //validator.IsValid = false;
+            //validator.ValidationGroup = "LoginUserValidationGroup";
+            //validator.ErrorMessage = "Usuario y Contraseña incorrectos";
+            //this.Validators.Add(validator);
+            this.LoginUser.FailureText = "Usuario y Contraseña incorrectos";
         }
 
         private UsuarioDto ObtenerUsuario(string userName)

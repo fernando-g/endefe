@@ -47,6 +47,12 @@ namespace FacturaElectronica.Common.Contracts
         public bool DocumentosVencidos { get; set; }
 
         [DataMember]
+        public decimal? MontoTotalDesde { get; set; }
+
+        [DataMember]
+        public decimal? MontoTotalHasta { get; set; }
+
+        [DataMember]
         public bool SortIsAsc { get; set; }
 
         [DataMember]

@@ -65,6 +65,18 @@ namespace Ubatic.Ui.Web.Code
             }
         }
 
+        public static decimal? GetDecimalFromInputText(string text)
+        {
+            if (String.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+            else
+            {
+                return Convert.ToDecimal(text);
+            }
+        }
+
         public static List<int> GetIntListFromInputCbo(ListBox cbo)
         {
             List<int> selectedItems = new List<int>();

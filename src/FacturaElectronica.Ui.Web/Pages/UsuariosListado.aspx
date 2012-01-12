@@ -53,6 +53,10 @@
             <Columns>
                 <asp:BoundField DataField="NombreUsuario" HeaderText="Nombre de Usuario" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="RolNombre" HeaderText="Rol" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Cliente" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Left" />
                 <asp:TemplateField HeaderText="Editar">
                     <HeaderStyle HorizontalAlign="Center" Width="40px" />
                     <ItemStyle HorizontalAlign="Center" />

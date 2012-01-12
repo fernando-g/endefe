@@ -224,9 +224,17 @@ namespace FacturaElectronica.Business.Services
             UsuarioDto dto = new UsuarioDto();
             dto.Id = usuario.Id;
             dto.NombreUsuario = usuario.NombreUsuario;
-            dto.ClienteId = usuario.ClienteId;
+            if (usuario.Cliente != null)
+            {
+                dto.ClienteId = usuario.ClienteId;
+                dto.ClienteRazonSocial = usuario.Cliente.RazonSocial;
+            }
             // Roles
-            dto.Roles = ToRolDtoList(usuario.Roles.ToList());
+            if (usuario.Roles.Count > 0)
+            {
+                dto.Roles = ToRolDtoList(usuario.Roles.ToList());
+                dto.RolNombre = usuario.Roles.First().Nombre;
+            }
 
             return dto;
         }

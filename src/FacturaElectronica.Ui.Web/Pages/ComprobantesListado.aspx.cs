@@ -12,7 +12,6 @@ using System.Globalization;
 using System.Drawing;
 using FacturaElectronica.Common.Constants;
 using System.IO;
-using Web.Framework.Search;
 using FacturaElectronica.Ui.Web.Code.Search;
 using FacturaElectronica.Ui.Web.Code.Security;
 using System.Configuration;

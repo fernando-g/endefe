@@ -28,6 +28,12 @@ namespace FacturaElectronica.Common.Contracts
         public long? ClienteId { get; set; }
 
         [DataMember]
+        public string ClienteRazonSocial { get; set; }
+
+        [DataMember]
+        public string RolNombre { get; set; }
+
+        [DataMember]
         public List<RolDto> Roles { get; set; }
     }
 }
