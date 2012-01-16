@@ -1,11 +1,9 @@
 ﻿
 function openWindows(estado, file) 
 {
-    if (document.all || document.layers) 
-    {
-        w = screen.availWidth;
-        h = screen.availHeight;
-    }
+    w = $(window).width();
+    h = $(window).height();
+
     var popW = 300, popH = 200;
 
     var leftPos = (w - popW) / 2;

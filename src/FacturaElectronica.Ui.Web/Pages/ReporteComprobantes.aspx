@@ -1,22 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReporteComprobantes.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ReporteComprobantes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+    CodeBehind="ReporteComprobantes.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ReporteComprobantes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-<script language="javascript" type="text/javascript">
-    function openPdf(estado, file) {
-        if (document.all || document.layers) {
-            w = screen.availWidth;
-            h = screen.availHeight;
-        }
-        window.open("../Handlers/PdfHandler.ashx?file=" + file, 'blank', 'width=' + w + ',height=' + h + ',top=0,left=0');
+    <script language="javascript" type="text/javascript">
+        function openPdf(file) {
+            w = $(window).width();
+            h = $(window).height();
+            window.open("../Handlers/PdfHandler.ashx?file=" + file, 'blank', 'width=' + w + ',height=' + h + ',top=0,left=0');
 
-        return true;
-    }
-</script>
+            return true;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
-             alt="" />
+            alt="" />
         Buscar Comprobantes<span class="clear"></span>
     </h2>
     <div class="editionContainerFilter" id="searchBox">
@@ -35,35 +34,40 @@
         <div class="divSearchLeft">
             <p>
                 <span class="title2">Tipo Comprobante:</span>
-                <asp:DropDownList ID="ddlTipoComprobante" runat="server" CssClass="cbo"></asp:DropDownList>
+                <asp:DropDownList ID="ddlTipoComprobante" runat="server" CssClass="cbo">
+                </asp:DropDownList>
             </p>
             <div class="clear">
             </div>
             <p>
                 <span class="title2">Fecha de Carga Desde:</span>
                 <asp:TextBox ID="txtFechaDeCargaDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
-                <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaDeCargaDesde" ControlToCompare="txtFechaDeCargaHasta" Operator="LessThanEqual" Type ="Date" 
-                    ErrorMessage="Fecha Carga Desde debe ser menor o igual a Fecha Carga Hasta"></asp:CompareValidator>
+                <asp:CompareValidator ID="cvFechaDesde" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtFechaDeCargaDesde" ControlToCompare="txtFechaDeCargaHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Carga Desde debe ser menor o igual a Fecha Carga Hasta"></asp:CompareValidator>
             </p>
             <div class="clear">
             </div>
             <p>
                 <span class="title2">Fecha de Venc. Desde:</span>
                 <asp:TextBox ID="txtFechaVencDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" Text="*" Display="Static" CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta" Operator="LessThanEqual" Type ="Date" 
-                    ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator1" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaVencHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
             </p>
             <div class="clear">
             </div>
             <p>
                 <span class="title2">Mes Facturaci&oacute;n</span>
-                <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>        
+                <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo">
+                </asp:DropDownList>
             </p>
             <div class="clear">
             </div>
             <p>
                 <span class="title2">Tipo Contrato:</span>
-                <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo"></asp:DropDownList>
+                <asp:DropDownList ID="ddlTipoContrato" runat="server" CssClass="cbo">
+                </asp:DropDownList>
             </p>
             <div class="clear">
             </div>
@@ -93,11 +97,12 @@
             </div>
             <p>
                 <span class="title2 secondColumn">A&ntilde;o Facturaci&oacute;n</span>
-                <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo"></asp:DropDownList>
+                <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo">
+                </asp:DropDownList>
             </p>
             <div class="clear">
             </div>
-            <p>            
+            <p>
                 <span class="title2 secondColumn">Documentos Vencidos:</span>
                 <asp:CheckBox ID="chkDocumentosVencidos" runat="server" CssClass="chk"></asp:CheckBox>
             </p>
@@ -113,51 +118,50 @@
         <div class="clear">
         </div>
         <p>
-            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Buscar" onclick="btnBuscar_Click" />
-            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" 
-                Text="Limpiar" onclick="btnLimpiar_Click" />
+            <asp:Button ID="btnBuscar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Buscar"
+                OnClick="btnBuscar_Click" />
+            <asp:Button ID="btnLimpiar" ClientIDMode="Static" CssClass="btn" runat="server" Text="Limpiar"
+                OnClick="btnLimpiar_Click" />
         </p>
         <div class="clear">
         </div>
     </div>
     <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'pnlResults');">
         <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
-             alt="" />
+            alt="" />
         Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
-        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333"
-            GridLines="None" AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
-            OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand"
-            OnRowDataBound="Grid_RowDataBound">
+        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+            AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
+            OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Razon Social" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
-                <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="TipoComprobanteDescripcion" HeaderText="Tipo de Comprobante"
+                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
-                <asp:BoundField DataField="FechaVisualizacion" HeaderText="Fecha de Visualizaci&oacute;n" HeaderStyle-HorizontalAlign="Center"
-                    ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
+                <asp:BoundField DataField="FechaVisualizacion" HeaderText="Fecha de Visualizaci&oacute;n"
+                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0: dd/MM/yyyy hh:mm:ss tt}" />
                 <asp:BoundField DataField="DireccionIp" HeaderText="Direccion Ip" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
-                <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:n}"
-                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" HeaderStyle-HorizontalAlign="Center"
+                    DataFormatString="{0:n}" ItemStyle-HorizontalAlign="Center" />
                 <asp:TemplateField HeaderText="Factura Asociada">
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
-                            OnClientClick='<%# "openPdf(\"" + Eval("EstadoCodigo") + "\",\"" + Eval("ArchivoAsociadoId") + "\");" %>'
-                        runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                        <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px"
+                            OnClientClick='<%# "openPdf(\"" + Eval("ArchivoAsociadoId") + "\");" %>'
+                            runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Borrar Comprobante">
@@ -165,7 +169,7 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="~/Images/eliminar.png"
-                            CommandName="eliminar" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" 
+                            CommandName="eliminar" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"
                             OnClientClick="return confirm('Esta seguro que desea eliminar el registro?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -188,7 +192,8 @@
     </asp:Panel>
     <br class="clear" />
     &nbsp;
-    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn" runat="server" OnClick="btnExportToExcel_Click" />    
+    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn"
+        runat="server" OnClick="btnExportToExcel_Click" />
     <script type='text/javascript'>
 
         $(document).ready(function () {
