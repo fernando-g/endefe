@@ -1,6 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReporteComprobantes.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ReporteComprobantes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+<script language="javascript" type="text/javascript">
+    function openPdf(estado, file) {
+        if (document.all || document.layers) {
+            w = screen.availWidth;
+            h = screen.availHeight;
+        }
+        window.open("../Handlers/PdfHandler.ashx?file=" + file, 'blank', 'width=' + w + ',height=' + h + ',top=0,left=0');
+
+        return true;
+    }
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
@@ -145,6 +156,7 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px" 
+                            OnClientClick='<%# "openPdf(\"" + Eval("EstadoCodigo") + "\",\"" + Eval("ArchivoAsociadoId") + "\");" %>'
                         runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>

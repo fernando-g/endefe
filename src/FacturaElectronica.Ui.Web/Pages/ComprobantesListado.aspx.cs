@@ -198,11 +198,9 @@ namespace FacturaElectronica.Ui.Web.Pages
                     svc.AgregarVisualizacion(dto);
                     // Actualizo Estado
                     EstadoArchivoAsociadoDto estado = svc.ObtenerEstado(CodigosEstadoArchivoAsociado.Visualizado);
-                    int columnaPdf = 3;
-                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaPdf].Text = estado.Descripcion;
-                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaPdf].Text = estado.Descripcion;
-                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaPdf].ForeColor = Color.Green;
-                    this.Response.Redirect(string.Format("~/Handlers/PdfHandler.ashx?file={0}",dto.ArchivoAsociadoId));
+                    int columnaEstado = 4;
+                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].Text = estado.Descripcion;
+                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].ForeColor = Color.Green;
                 }
             }
             catch (Exception ex)
@@ -218,8 +216,8 @@ namespace FacturaElectronica.Ui.Web.Pages
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     ComprobanteArchivoAsociadoDto dto = e.Row.DataItem as ComprobanteArchivoAsociadoDto;
-                    int columnaFechaVencimiento = 2;
-                    int columnaEstado = 3;
+                    int columnaFechaVencimiento = 3;
+                    int columnaEstado = 4;
                     EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);                    
                     EstablecerColorEstado(e, dto, columnaEstado);
                 }

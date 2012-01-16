@@ -11,19 +11,6 @@
     <script src="/Scripts/jquery.datepick.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.datepick-es-AR.js" type="text/javascript"></script>
     <link href="/Styles/jquery.datepick.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        function openWindows(estado) {
-            if (document.all || document.layers) {
-                w = screen.availWidth;
-                h = screen.availHeight;
-            }
-            var popW = 300, popH = 200;
-
-            var leftPos = (w - popW) / 2, topPos = (h - popH) / 2;
-            if (estado != "V")
-                window.open("InfoVisualizacion.aspx", 'popup', 'width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos);
-        }
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');">
@@ -125,6 +112,8 @@
                     HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="NroComprobante" HeaderText="Nro. Comprobante" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
@@ -134,7 +123,7 @@
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px"
-                            OnClientClick='<%# "openWindows(\"" + Eval("EstadoCodigo") + "\");" %>'
+                            OnClientClick='<%# "openWindows(\"" + Eval("EstadoCodigo") + "\",\"" + Eval("ArchivoAsociadoId") + "\");" %>'
                             runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>

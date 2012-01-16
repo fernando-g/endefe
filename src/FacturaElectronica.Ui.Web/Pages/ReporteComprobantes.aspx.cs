@@ -88,11 +88,11 @@ namespace FacturaElectronica.Ui.Web.Pages
             try
             {
                 long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
-                if (e.CommandName == "ver")
-                {
-                    this.Response.Redirect(string.Format("~/Handlers/PdfHandler.ashx?file={0}", archivoAsociadoId));
-                }
-                else if (e.CommandName == "eliminar")
+                //if (e.CommandName == "ver")
+                //{
+                //    this.Response.Redirect(string.Format("~/Handlers/PdfHandler.ashx?file={0}", archivoAsociadoId));
+                //}
+                if (e.CommandName == "eliminar")
                 {
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
                     svc.CambiarEstado(archivoAsociadoId, CodigosEstadoArchivoAsociado.Eliminado);

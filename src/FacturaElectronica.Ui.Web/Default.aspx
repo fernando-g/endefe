@@ -8,8 +8,7 @@
         Bienvenido al Portal Web de Factura Electronica de ENDESA CEMSA S.A
     </h2>
     <p>
-        Para saber mas acerca de nosotros visite <a href="http://www.endesacemsa.com/" title="Sitio">www.endesacemsa.com</a>.
-        <asp:LinkButton ID="lnkEndesa" runat="server" onclick="lnkEndesa_Click">www.endesacemsa.com</asp:LinkButton>
+        Para saber mas acerca de nosotros visite <asp:LinkButton ID="lnkEndesa" runat="server" onclick="lnkEndesa_Click">www.endesacemsa.com</asp:LinkButton>
     </p>
     <p>
         Puede encontrar datos de contacto sobre la empresa en la opción de Menu 

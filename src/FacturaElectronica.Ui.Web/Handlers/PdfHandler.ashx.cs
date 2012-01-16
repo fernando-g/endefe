@@ -16,8 +16,7 @@ namespace FacturaElectronica.Ui.Web.Handlers
 
         public void ProcessRequest(HttpContext context)
         {
-            HttpResponse r = context.Response;
-            r.ContentType = "application/pdf";
+            HttpResponse r = context.Response;            
             long archivoId = Convert.ToInt64(context.Request.QueryString["file"].ToString());
             
             // Obtengo el path del archivo de la DB
@@ -29,6 +28,7 @@ namespace FacturaElectronica.Ui.Web.Handlers
                 {
                     try
                     {
+                        r.ContentType = "application/pdf";
                         r.AppendHeader("Content-Disposition", "attachment; filename=Comprobante.pdf");
                         r.TransmitFile(file);
                         r.End();
@@ -37,6 +37,10 @@ namespace FacturaElectronica.Ui.Web.Handlers
                     {
 
                     }
+                }
+                else
+                {
+                    r.Redirect("~/Error.aspx");
                 }
             }
         }
