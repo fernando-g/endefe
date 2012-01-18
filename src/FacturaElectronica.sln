@@ -26,9 +26,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaElectronica.Ws.Host"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaElectronica.Facade", "FacturaElectronica.Facade\FacturaElectronica.Facade.csproj", "{B14207AF-1D3D-4158-805E-6C8C95A895AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework", "..\..\..\..\..\Adrian\VesubioSVN\vesuapiauth\trunk\src\WebFramework\Web.Framework.csproj", "{0EEED093-28DA-4ACB-BC25-E961C55E72C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework", "..\..\..\..\..\..\..\Lacoste\Codigo\ApiAutenticacion\trunk\src\WebFramework\Web.Framework.csproj", "{0EEED093-28DA-4ACB-BC25-E961C55E72C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework.Svc", "..\..\..\..\..\Adrian\VesubioSVN\vesuplanprod\trunk\src\Web.Framework.Svc\Web.Framework.Svc.csproj", "{272A4403-5F67-4EE0-A52E-C7A744230563}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework.Svc", "..\..\..\..\..\..\..\Lacoste\Codigo\PlanProduccion\trunk\src\Web.Framework.Svc\Web.Framework.Svc.csproj", "{272A4403-5F67-4EE0-A52E-C7A744230563}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

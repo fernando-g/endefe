@@ -33,16 +33,17 @@
             this.solicitarCAEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webservicesAFIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.solicitudesDeAutorizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.envioDeArchivosALaWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enviarArchivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultarEnviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.envioDeArchivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarArchivosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarEnviosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.facturacionElectronicaToolStripMenuItem});
+            this.facturacionElectronicaToolStripMenuItem,
+            this.envioDeArchivosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(952, 24);
@@ -54,8 +55,7 @@
             this.facturacionElectronicaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.solicitarCAEToolStripMenuItem,
             this.webservicesAFIPToolStripMenuItem,
-            this.solicitudesDeAutorizaciónToolStripMenuItem,
-            this.envioDeArchivosALaWebToolStripMenuItem});
+            this.solicitudesDeAutorizaciónToolStripMenuItem});
             this.facturacionElectronicaToolStripMenuItem.Name = "facturacionElectronicaToolStripMenuItem";
             this.facturacionElectronicaToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.facturacionElectronicaToolStripMenuItem.Text = "AFIP";
@@ -81,28 +81,28 @@
             this.solicitudesDeAutorizaciónToolStripMenuItem.Text = "Consulta de Envios a la AFIP";
             this.solicitudesDeAutorizaciónToolStripMenuItem.Click += new System.EventHandler(this.solicitudesDeAutorizaciónToolStripMenuItem_Click);
             // 
-            // envioDeArchivosALaWebToolStripMenuItem
+            // envioDeArchivosToolStripMenuItem
             // 
-            this.envioDeArchivosALaWebToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enviarArchivosToolStripMenuItem,
-            this.consultarEnviosToolStripMenuItem});
-            this.envioDeArchivosALaWebToolStripMenuItem.Name = "envioDeArchivosALaWebToolStripMenuItem";
-            this.envioDeArchivosALaWebToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.envioDeArchivosALaWebToolStripMenuItem.Text = "Envio de Archivos a la Web";
+            this.envioDeArchivosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enviarArchivosToolStripMenuItem1,
+            this.consultarEnviosToolStripMenuItem1});
+            this.envioDeArchivosToolStripMenuItem.Name = "envioDeArchivosToolStripMenuItem";
+            this.envioDeArchivosToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
+            this.envioDeArchivosToolStripMenuItem.Text = "Envio de Archivos a la Web";
             // 
-            // enviarArchivosToolStripMenuItem
+            // enviarArchivosToolStripMenuItem1
             // 
-            this.enviarArchivosToolStripMenuItem.Name = "enviarArchivosToolStripMenuItem";
-            this.enviarArchivosToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.enviarArchivosToolStripMenuItem.Text = "Enviar Archivos";
-            this.enviarArchivosToolStripMenuItem.Click += new System.EventHandler(this.enviarArchivosToolStripMenuItem_Click);
+            this.enviarArchivosToolStripMenuItem1.Name = "enviarArchivosToolStripMenuItem1";
+            this.enviarArchivosToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.enviarArchivosToolStripMenuItem1.Text = "Enviar Archivos";
+            this.enviarArchivosToolStripMenuItem1.Click += new System.EventHandler(this.enviarArchivosToolStripMenuItem1_Click);
             // 
-            // consultarEnviosToolStripMenuItem
+            // consultarEnviosToolStripMenuItem1
             // 
-            this.consultarEnviosToolStripMenuItem.Name = "consultarEnviosToolStripMenuItem";
-            this.consultarEnviosToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.consultarEnviosToolStripMenuItem.Text = "Consultar Envios";
-            this.consultarEnviosToolStripMenuItem.Click += new System.EventHandler(this.consultarEnviosToolStripMenuItem_Click);
+            this.consultarEnviosToolStripMenuItem1.Name = "consultarEnviosToolStripMenuItem1";
+            this.consultarEnviosToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.consultarEnviosToolStripMenuItem1.Text = "Consultar Envios";
+            this.consultarEnviosToolStripMenuItem1.Click += new System.EventHandler(this.consultarEnviosToolStripMenuItem1_Click);
             // 
             // FormPrincipal
             // 
@@ -130,9 +130,9 @@
         private System.Windows.Forms.ToolStripMenuItem solicitarCAEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem webservicesAFIPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem solicitudesDeAutorizaciónToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem envioDeArchivosALaWebToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enviarArchivosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem consultarEnviosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem envioDeArchivosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enviarArchivosToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem consultarEnviosToolStripMenuItem1;
     }
 }
 

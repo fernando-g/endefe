@@ -54,6 +54,7 @@
             this.btnVerDetalleCorrida.TabIndex = 13;
             this.btnVerDetalleCorrida.Text = "Ver Detalle Corrida";
             this.btnVerDetalleCorrida.UseVisualStyleBackColor = true;
+            this.btnVerDetalleCorrida.Click += new System.EventHandler(this.btnVerDetalleCorrida_Click);
             // 
             // progressBar
             // 

@@ -48,7 +48,9 @@ namespace FacturaElectronica.Business.Services
                     {
                         // Armo los path destinos Ok y con errores
                         string fileDestinationPathOk = ConfigurationManager.AppSettings["PathDestinoArchivosFacturaConCAE"];
+                        
                         fileDestinationPathOk = Path.Combine(fileDestinationPathOk, corridaId.ToString());
+                        string sourceFilePath = Path.Combine(fileDestinationPathOk, "AProcesar");
                         string fileDestinationPathNoOk = Path.Combine(fileDestinationPathOk, "ConErrores"); ;
                         fileDestinationPathOk = Path.Combine(fileDestinationPathOk, "OK");
                         if (!Directory.Exists(fileDestinationPathOk))
@@ -60,12 +62,14 @@ namespace FacturaElectronica.Business.Services
                         {
                             Directory.CreateDirectory(fileDestinationPathNoOk);
                         }
-
+                        
                         // Una vez que tengo los paths, cargo los archivos
-                        foreach (string filePath in files)
+                        foreach (string filePathIterator in files)
                         {
                             try
                             {
+                                string filePath = Path.Combine(sourceFilePath, filePathIterator);
+
                                 string fileName = Path.GetFileName(filePath);
                                 GenerarLog(dbCorrida.Id, string.Format("Procesando Archivo: {0}", fileName));
 
@@ -351,7 +355,7 @@ namespace FacturaElectronica.Business.Services
                 }
 
                 detalle.NombreArchivo = fileName;
-                detalle.Mensaje = errorStr.ToString();
+                detalle.Mensaje = mensajeError.ToString();
                 dbCorrida.CorridaSubidaArchivoDetalles.Add(detalle);
             }
         }
