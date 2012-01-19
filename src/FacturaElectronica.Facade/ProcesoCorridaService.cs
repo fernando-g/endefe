@@ -8,6 +8,8 @@ using System.ServiceModel;
 using FacturaElectronica.Business.Services;
 using FacturaElectronica.Common.Contracts.Search;
 using FacturaElectronica.Afip.Business;
+using System.Configuration;
+using System.IO;
 
 namespace FacturaElectronica.Facade
 {    
@@ -32,6 +34,14 @@ namespace FacturaElectronica.Facade
             if (corridas.Count == 1)
             {
                 CorridaAutorizacionDto corridaAutorizacionDto = corridas.Single();
+
+                // Asigno el verdadero path                
+                // El path se forma con la corrida y la configuracion
+                string basePath = ConfigurationManager.AppSettings["PathDestinoArchivosFactura"];
+                basePath = Path.Combine(basePath, "ArchivosXml");
+                basePath = Path.Combine(basePath, corridaId.ToString());
+                basePath = Path.Combine(basePath, corridaAutorizacionDto.PathArchivo);
+                corridaAutorizacionDto.PathArchivo = basePath;
 
                 ProcesoAutorizador autorizador = new ProcesoAutorizador(true);
                 autorizador.AutorizarComprobantes(corridaAutorizacionDto);

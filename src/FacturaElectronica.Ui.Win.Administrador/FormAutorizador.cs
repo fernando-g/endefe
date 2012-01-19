@@ -13,6 +13,7 @@ using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Win.Administrador.Code;
 using System.Configuration;
 using FacturaElectronica.Common.Contracts.Search;
+using System.Net;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -68,31 +69,16 @@ namespace FacturaElectronica.Ui.Win.Administrador
                                     "Validación Datos de entrada",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Exclamation);
-
                     return;
                 }
 
-                // Primero copio el archivo en el servidor para que lo procese el web service
-
-                string origenPath = this.FileTextBox.Text.Trim();
-                string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosAFIPParaProcesar"];
+                // Primero copio el archivo en el servidor para que lo procese el web service                
+                string origenPath = this.FileTextBox.Text.Trim();                              
                 string fileName = Path.GetFileName(origenPath);
 
-                destinationPath = Path.Combine(destinationPath, DateTime.Now.ToString("yyyy"));
-                destinationPath = Path.Combine(destinationPath, DateTime.Now.ToString("MM"));
+                this.corridaDto = procesoCorridaSvc.CrearNuevaCorrida(fileName);
 
-                if(!Directory.Exists(destinationPath))
-                {
-                    Directory.CreateDirectory(destinationPath);
-                }
-
-                destinationPath = Path.Combine(destinationPath, fileName);
-
-                MostrarMensajeEnLog("Copiando Archivos al Servidor...");
-                File.Copy(origenPath, destinationPath, true);
-                MostrarMensajeEnLog("Fin de copia de archvivos al Servidor");
-
-                this.corridaDto = procesoCorridaSvc.CrearNuevaCorrida(destinationPath);
+                CopiarArchivoParaProcesarPorFTP(origenPath);
                 this.fechaLog = DateTime.Now;
                 this.txtNroCorrida.Text = this.corridaDto.Id.ToString();
 
@@ -104,6 +90,25 @@ namespace FacturaElectronica.Ui.Win.Administrador
             }            
         }
 
+        private void CopiarArchivoParaProcesarPorFTP(string filePath)
+        {
+            FtpClient ftpClient = new FtpClient();
+            ftpClient.LoadFromConfig();
+
+            List<string> folders = ftpClient.GetFolders(ftpClient.FTPAddress);
+            if (folders.Where(f => f.Contains("ArchivosXml")).Count() == 0)
+            {
+                ftpClient.CreateDirectory(ftpClient.FTPAddress + "ArchivosXml");
+            }
+
+            ftpClient.CreateDirectory(ftpClient.FTPAddress + "ArchivosXml/" + corridaDto.Id.ToString());
+            string destinationFile = ftpClient.FTPAddress + "ArchivosXml/" + corridaDto.Id.ToString() + "/" + Path.GetFileName(filePath);
+
+            ftpClient.Notify += new FtpClient.NotifyDelegate(MostrarMensajeEnLog);
+
+            ftpClient.UploadFile(filePath, destinationFile);
+        }
+      
         private void InicializarValores()
         {
             this.LogTextBox.Text = string.Empty;

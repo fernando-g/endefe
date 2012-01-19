@@ -47,8 +47,10 @@ namespace FacturaElectronica.Business.Services
                     try
                     {
                         // Armo los path destinos Ok y con errores
-                        string fileDestinationPathOk = ConfigurationManager.AppSettings["PathDestinoArchivosFacturaConCAE"];
-                        
+                        string fileDestinationPathOk = ConfigurationManager.AppSettings["PathDestinoArchivosFactura"];
+
+                        fileDestinationPathOk = Path.Combine(fileDestinationPathOk, "ArchivosPDF");
+
                         fileDestinationPathOk = Path.Combine(fileDestinationPathOk, corridaId.ToString());
                         string sourceFilePath = Path.Combine(fileDestinationPathOk, "AProcesar");
                         string fileDestinationPathNoOk = Path.Combine(fileDestinationPathOk, "ConErrores"); ;
@@ -312,7 +314,7 @@ namespace FacturaElectronica.Business.Services
                             GenerarLog(dbCorrida.Id, errorStr);
 
                             // Lo copio a la carpeta de fallidos y registro el estado en el documento
-                            File.Move(filePath, fileDestinationPathNoOk);
+                            //File.Move(filePath, fileDestinationPathNoOk);
                             detalle.ProcesadoOK = false;
                         }
                         else
@@ -352,6 +354,13 @@ namespace FacturaElectronica.Business.Services
                             archivoAsociado.MontoTotal = montoTotal;
                         }
                     }
+                }
+                
+                if(!detalle.ProcesadoOK)
+                {
+                    // Lo copio a la carpeta de fallidos y registro el estado en el documento
+                    string destPath = Path.Combine(fileDestinationPathNoOk, fileName);                    
+                    File.Move(filePath, destPath);
                 }
 
                 detalle.NombreArchivo = fileName;

@@ -50,9 +50,10 @@ namespace FacturaElectronica.Afip.Business
             try
             {
                 this.corridaDto = corridaDto;
+                string pathArchivoOrigen = corridaDto.PathArchivo;
 
                 if (string.IsNullOrEmpty(corridaDto.PathArchivo))
-                    this.Log("ERROR: No se ha ingresado el path del archivo");
+                    this.Log("ERROR: No se ha ingresado el path del archivo");                                
 
                 // Marco la corrida como en proceso en la base de datos
                 if (this.corridaSvc.MarcarCorridaEnProceso(corridaDto.Id))
@@ -118,7 +119,7 @@ namespace FacturaElectronica.Afip.Business
                     }
 
                     // Muevo el archivo a una carpeta de procesados
-                    GuardarArchivoProcesado(corridaDto.PathArchivo);
+                    GuardarArchivoProcesado(pathArchivoOrigen);
 
                     this.Log("Fin procesamiento de archivo.");
                 }
@@ -147,7 +148,7 @@ namespace FacturaElectronica.Afip.Business
         /// <param name="pathArchivo"></param>
         private void GuardarArchivoProcesado(string pathArchivo)
         {
-            string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosAFIPParaProcesar"];
+            string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosFactura"];
 
             string fileName = Path.GetFileName(pathArchivo);
 
