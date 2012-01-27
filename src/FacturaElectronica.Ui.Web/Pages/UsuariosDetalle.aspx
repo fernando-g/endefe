@@ -92,7 +92,7 @@
                                         <HeaderStyle HorizontalAlign="Center" Width="40px" />
                                         <ItemStyle HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="btnEditar" runat="server" ImageUrl="~/Images/editar.png" CommandName="asignar"
+                                            <asp:ImageButton ID="btnEditar" CausesValidation="false" runat="server" ImageUrl="~/Images/editar.png" CommandName="asignar"
                                                 CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
