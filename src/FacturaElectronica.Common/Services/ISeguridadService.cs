@@ -26,6 +26,8 @@ namespace FacturaElectronica.Common.Services
 
         List<UsuarioDto> ObtenerUsuarios(string nombreUsuario);
 
+        List<UsuarioDto> ObtenerUsuarios(UsuarioCriteria criteria);
+
         RolDto ObtenerRol(int rolId);
 
         List<RolDto> ObtenerRoles();

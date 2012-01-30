@@ -4,7 +4,6 @@
 <%@ Register Assembly="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI" TagPrefix="asp" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="/Styles/GridStyle.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/jquery-ui-1.8.10.custom.css" rel="stylesheet" type="text/css" />
@@ -16,18 +15,48 @@
     <script src="/Scripts/jquery.datepick-es-AR.js" type="text/javascript"></script>
     <link href="/Styles/jquery.datepick.css" rel="stylesheet" type="text/css" />
     <script src="/Scripts/site.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function AllowDigitsOnly() {
+            $("#txtCuit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+        }        
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');">
         <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
-             alt="" />
+            alt="" />
         Buscar Usuarios<span class="clear"></span>
     </h2>
     <div class="editionContainerFilter" id="searchBox">
-        <p>
-            <span class="title2">Nombre:</span>
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs"></asp:TextBox>
-        </p>
+        <div class="divSearchLeft">
+            <p>
+                <span class="title2">Nombre:</span>
+                <asp:TextBox ID="txtNombre" runat="server" CssClass="inputs"></asp:TextBox>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2">CUIT:</span>
+                <asp:TextBox ID="txtCuit" runat="server" CssClass="inputs" ClientIDMode="Static" MaxLength="11" onkeypress="AllowDigitsOnly()"></asp:TextBox>
+            </p>
+        </div>
+        <div class="divSearchLeft">
+            <p>
+                <span class="title2 secondColumn">Rol:</span>
+                <asp:DropDownList ID="ddlRoles" runat="server" CausesValidation="false" AutoPostBack="false" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2 secondColumn">Razon Social:</span>
+                <asp:TextBox ID="txtRazonSocial" runat="server" Width="200px" MaxLength="300" CssClass="inputs"></asp:TextBox>
+            </p>
+        </div>
         <div class="clear">
         </div>
         <p>
@@ -41,9 +70,9 @@
     </div>
     <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
-             alt="" />
-        Listado de Usuarios<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span><span class="clear"></span>
-
+            alt="" />
+        Listado de Usuarios<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span><span
+            class="clear"></span>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
         <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
@@ -56,6 +85,8 @@
                 <asp:BoundField DataField="RolNombre" HeaderText="Rol" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Cliente" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="ClienteCuit" HeaderText="CUIT" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Left" />
                 <asp:TemplateField HeaderText="Editar">
                     <HeaderStyle HorizontalAlign="Center" Width="40px" />
@@ -103,7 +134,8 @@
     <asp:Button ID="btnAgregarNuevo" CssClass="btn" runat="server" Text="Agregar" ClientIDMode="Static"
         OnClick="btnAgregarNuevo_Click" />
     &nbsp;
-    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn" runat="server" OnClick="btnExportToExcel_Click" />    
+    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn"
+        runat="server" OnClick="btnExportToExcel_Click" />
     <script type='text/javascript'>
 
         $(document).ready(function () {

@@ -68,6 +68,7 @@
     <Compile Include="Contracts\Search\CorridaSearch.cs" />
     <Compile Include="Contracts\TipoComprobanteDto.cs" />
     <Compile Include="Contracts\TipoContratoDto.cs" />
+    <Compile Include="Contracts\UsuarioCriteria.cs" />
     <Compile Include="Contracts\UsuarioDto.cs" />
     <Compile Include="Contracts\VisualizacionComprobanteDto.cs" />
     <Compile Include="Contracts\WebServiceAfipDto.cs" />

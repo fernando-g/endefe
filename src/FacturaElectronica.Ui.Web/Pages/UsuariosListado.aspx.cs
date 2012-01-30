@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaElectronica.Ui.Web.Code;
 using FacturaElectronica.Common.Contracts;
+using Ubatic.Ui.Web.Code;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
@@ -19,14 +20,26 @@ namespace FacturaElectronica.Ui.Web.Pages
             HasPermissionToSeeMe(Operaciones.UsuarioDetalle);
             if (!this.IsPostBack)
             {
+                this.InicializarListControls();
                 this.Buscar();
             }
+        }
+
+        private void InicializarListControls()
+        {
+            List<RolDto> roles = ServiceFactory.GetSecurityService().ObtenerRoles();
+            UIHelper.LoadCbo(roles, this.ddlRoles, "-Todos-");
         }
 
         private void Buscar()
         {
             // cargo los filtros            
-            List<UsuarioDto> list = ServiceFactory.GetSecurityService().ObtenerUsuarios(this.txtNombre.Text.Trim());
+            UsuarioCriteria criteria = new UsuarioCriteria();
+            criteria.NombreUsuario = this.txtNombre.Text.Trim();
+            criteria.RolId = this.ddlRoles.SelectedIndex != 0 ? long.Parse(this.ddlRoles.SelectedValue) : default(long?);
+            criteria.Cuit = this.txtCuit.Text.Trim() != string.Empty ? long.Parse(this.txtCuit.Text.Trim()) : default(long?);
+            criteria.RazonSocial = this.txtRazonSocial.Text.Trim();
+            List<UsuarioDto> list = ServiceFactory.GetSecurityService().ObtenerUsuarios(criteria);
             this.lblCantReg.Text = string.Format(" ({0})", list.Count);
             this.Grid.DataSource = list;
             this.Grid.DataBind();

@@ -176,6 +176,31 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
+        public List<UsuarioDto> ObtenerUsuarios(UsuarioCriteria criteria)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                IQueryable<Usuario> query = ctx.Usuarios;
+                if (!string.IsNullOrEmpty(criteria.NombreUsuario))
+                {
+                    query = query.Where(u => u.NombreUsuario.Contains(criteria.NombreUsuario));
+                }
+                if (criteria.RolId.HasValue)
+                {
+                    query = query.Where(u => u.Roles.Count> 0 &&  u.Roles.FirstOrDefault().Id == criteria.RolId);
+                }
+                if (!string.IsNullOrEmpty(criteria.RazonSocial))
+                {
+                    query = query.Where(u => u.Cliente != null && u.Cliente.RazonSocial.Contains(criteria.RazonSocial));
+                }
+                if (criteria.Cuit.HasValue)
+                {
+                    query = query.Where(u => u.Cliente.CUIT == criteria.Cuit.Value);
+                }
+                return ToUsuarioDtoList(query.ToList());
+            }        
+        }
+
         public RolDto ObtenerRol(int rolId)
         {
             using (var ctx = new FacturaElectronicaEntities())
@@ -228,6 +253,7 @@ namespace FacturaElectronica.Business.Services
             {
                 dto.ClienteId = usuario.ClienteId;
                 dto.ClienteRazonSocial = usuario.Cliente.RazonSocial;
+                dto.ClienteCuit = usuario.Cliente.CUIT;
             }
             // Roles
             if (usuario.Roles.Count > 0)

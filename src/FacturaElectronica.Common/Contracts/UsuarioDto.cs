@@ -31,6 +31,9 @@ namespace FacturaElectronica.Common.Contracts
         public string ClienteRazonSocial { get; set; }
 
         [DataMember]
+        public long? ClienteCuit { get; set; }
+
+        [DataMember]
         public string RolNombre { get; set; }
 
         [DataMember]

@@ -335,7 +335,7 @@ namespace FacturaElectronica.Afip.Business
 
             catch (Exception ex)
             {
-                throw new Exception("Error al serializar el archivo", ex);
+                throw new Exception("El archivo no esta bien formado", ex);
             }
 
             return obj;
