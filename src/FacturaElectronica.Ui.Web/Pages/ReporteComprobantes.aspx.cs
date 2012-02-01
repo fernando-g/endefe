@@ -75,7 +75,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             criteria.FechaDeCargaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaHasta.Text);
             if (criteria.FechaDeCargaHasta.HasValue)
             {
-                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1);
+                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1).AddSeconds(-1);
             }
             criteria.DocumentosVencidos = this.chkDocumentosVencidos.Checked;
             criteria.MontoTotalDesde = UIHelper.GetDecimalFromInputText(this.txtMontoTotalDesde.Text.Trim());

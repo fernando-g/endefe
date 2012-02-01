@@ -82,7 +82,7 @@ namespace FacturaElectronica.Ui.Web.Code
             criteria.FechaVencHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaVencHastaControl.Text);
             if (criteria.FechaDeCargaHasta.HasValue)
             {
-                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1);
+                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1).AddSeconds(-1);
             }
             criteria.MesFacturacion = UIHelper.GetIntFromInputCbo(this.ddlMesFacturacionControl);
             criteria.AnioFacturacion = UIHelper.GetIntFromInputCbo(this.ddlAnioFacturacionControl);
