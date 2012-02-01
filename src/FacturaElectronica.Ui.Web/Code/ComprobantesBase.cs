@@ -80,6 +80,10 @@ namespace FacturaElectronica.Ui.Web.Code
             criteria.NroComprobante = UIHelper.GetLongFromInputText(this.txtNroComprobanteControl.Text.Trim());
             criteria.FechaVencDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaVencDesdeControl.Text);
             criteria.FechaVencHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaVencHastaControl.Text);
+            if (criteria.FechaDeCargaHasta.HasValue)
+            {
+                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1);
+            }
             criteria.MesFacturacion = UIHelper.GetIntFromInputCbo(this.ddlMesFacturacionControl);
             criteria.AnioFacturacion = UIHelper.GetIntFromInputCbo(this.ddlAnioFacturacionControl);
             criteria.TipoContratoId = UIHelper.GetIntFromInputCbo(this.ddlTipoContratoControl);

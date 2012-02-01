@@ -73,6 +73,10 @@ namespace FacturaElectronica.Ui.Web.Pages
             criteria.RazonSocial = this.txtRazonSocial.Text.Trim();
             criteria.FechaDeCargaDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaDesde.Text);
             criteria.FechaDeCargaHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaDeCargaHasta.Text);
+            if (criteria.FechaDeCargaHasta.HasValue)
+            {
+                criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1);
+            }
             criteria.DocumentosVencidos = this.chkDocumentosVencidos.Checked;
             criteria.MontoTotalDesde = UIHelper.GetDecimalFromInputText(this.txtMontoTotalDesde.Text.Trim());
             criteria.MontoTotalHasta = UIHelper.GetDecimalFromInputText(this.txtMontoTotalHasta.Text.Trim());
