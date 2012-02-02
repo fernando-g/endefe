@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerLog = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialogFilesForUpLoad = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVerDetalleCorrida
@@ -93,7 +94,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Envío #:";
+            this.label4.Text = "# Envío:";
             // 
             // label2
             // 
@@ -153,11 +154,22 @@
             this.timerLog.Interval = 3000;
             this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
+            this.btnRefresh.Location = new System.Drawing.Point(82, 94);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(34, 21);
+            this.btnRefresh.TabIndex = 21;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // FormEnviarArchivosAWeb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(731, 478);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.txtNroCorrida);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -190,5 +202,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerLog;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogFilesForUpLoad;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

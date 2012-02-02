@@ -34,15 +34,15 @@
             this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.gridCorridas = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombreDeArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pathArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsCorridas = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblCantidadReg = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombreDeArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pathArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.txtIdentificador = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridCorridas)).BeginInit();
@@ -111,6 +111,38 @@
             this.gridCorridas.TabIndex = 10;
             this.gridCorridas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridCorridas_CellDoubleClick);
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.FillWeight = 60.91371F;
+            this.Id.HeaderText = "Identificador";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // fechaDataGridViewTextBoxColumn
+            // 
+            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "Fecha";
+            this.fechaDataGridViewTextBoxColumn.FillWeight = 64.08591F;
+            this.fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
+            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
+            this.fechaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nombreDeArchivoDataGridViewTextBoxColumn
+            // 
+            this.nombreDeArchivoDataGridViewTextBoxColumn.DataPropertyName = "NombreDeArchivo";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.FillWeight = 102.8753F;
+            this.nombreDeArchivoDataGridViewTextBoxColumn.HeaderText = "Nombre de Archivo";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.Name = "nombreDeArchivoDataGridViewTextBoxColumn";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pathArchivoDataGridViewTextBoxColumn
+            // 
+            this.pathArchivoDataGridViewTextBoxColumn.DataPropertyName = "PathArchivo";
+            this.pathArchivoDataGridViewTextBoxColumn.FillWeight = 172.1251F;
+            this.pathArchivoDataGridViewTextBoxColumn.HeaderText = "Path Archivo";
+            this.pathArchivoDataGridViewTextBoxColumn.Name = "pathArchivoDataGridViewTextBoxColumn";
+            this.pathArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // bsCorridas
             // 
             this.bsCorridas.DataSource = typeof(FacturaElectronica.Common.Contracts.CorridaAutorizacionDto);
@@ -161,46 +193,14 @@
             this.lblCantidadReg.TabIndex = 14;
             this.lblCantidadReg.Text = "lblCantidadReg";
             // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.FillWeight = 60.91371F;
-            this.Id.HeaderText = "Identificador";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // fechaDataGridViewTextBoxColumn
-            // 
-            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "Fecha";
-            this.fechaDataGridViewTextBoxColumn.FillWeight = 64.08591F;
-            this.fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
-            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
-            this.fechaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nombreDeArchivoDataGridViewTextBoxColumn
-            // 
-            this.nombreDeArchivoDataGridViewTextBoxColumn.DataPropertyName = "NombreDeArchivo";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.FillWeight = 102.8753F;
-            this.nombreDeArchivoDataGridViewTextBoxColumn.HeaderText = "Nombre de Archivo";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.Name = "nombreDeArchivoDataGridViewTextBoxColumn";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pathArchivoDataGridViewTextBoxColumn
-            // 
-            this.pathArchivoDataGridViewTextBoxColumn.DataPropertyName = "PathArchivo";
-            this.pathArchivoDataGridViewTextBoxColumn.FillWeight = 172.1251F;
-            this.pathArchivoDataGridViewTextBoxColumn.HeaderText = "Path Archivo";
-            this.pathArchivoDataGridViewTextBoxColumn.Name = "pathArchivoDataGridViewTextBoxColumn";
-            this.pathArchivoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(13, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Identificador:";
+            this.label5.Text = "# Ejecución:";
             // 
             // txtIdentificador
             // 

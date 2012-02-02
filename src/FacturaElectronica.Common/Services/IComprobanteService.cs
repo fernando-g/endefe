@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FacturaElectronica.Common.Contracts;
+using System.ServiceModel;
 
 namespace FacturaElectronica.Common.Services
 {
+    [ServiceContract]
     public interface IComprobanteService
     {
         ComprobanteDto ObtenerComprobante(long comprobanteId);
@@ -18,6 +20,7 @@ namespace FacturaElectronica.Common.Services
 
         TipoComprobanteDto ObtenerTipoComprobantePorCodigoAfip(int codigoAfip);
 
+        [OperationContract]
         List<TipoComprobanteDto> ObtenerTiposComprobantes();
 
         List<TipoContratoDto> ObtenerTiposContrato();

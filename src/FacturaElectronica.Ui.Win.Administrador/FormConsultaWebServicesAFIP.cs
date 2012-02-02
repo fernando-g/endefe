@@ -39,6 +39,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest ticket;
         private IAfipWrapperService client;
+        private IComprobanteService ComprobanteService = ServiceFactory.GetComprobanteService();
         private string opcionAnterior = string.Empty;
 
         #endregion [Atributos]
@@ -230,10 +231,20 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     int ptoVtaInt = int.Parse(this.txtPtoVta.Text);
                     int cbteTipo = int.Parse(this.cbTiposCbte.SelectedValue.ToString());
                     FERecuperaLastCbteResponse result = this.client.CompUltimoAutorizado(this.ticket, ptoVtaInt, cbteTipo);
+
+                    var tiposDeComprobante = ComprobanteService.ObtenerTiposComprobantes();
+
+                    string tipoComprobanteStr = result.CbteTipo.ToString();
+                    var tipoDeComprobante = tiposDeComprobante.Where(t => t.CodigoAfip.HasValue && t.CodigoAfip.Value == result.CbteTipo).SingleOrDefault();
+                    if (tipoDeComprobante != null)
+                    {
+                        tipoComprobanteStr = string.Format("{0}, AFIP {1} {2}", tipoDeComprobante.Codigo, tipoDeComprobante.CodigoAfip, tipoDeComprobante.Descripcion);
+                    }
+
                     this.txtResultados.Text = string.Format(@"CbteNro: {0}{1}CbteTipo: {2}{3}PtoVta: {4}{5}",
                                                               result.CbteNro,
                                                               Environment.NewLine,
-                                                              result.CbteTipo,
+                                                              tipoComprobanteStr,
                                                               Environment.NewLine,
                                                               result.PtoVta,
                                                               Environment.NewLine);

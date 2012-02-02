@@ -52,9 +52,10 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
                     string line = reader.ReadLine();
-                    if (!String.IsNullOrEmpty(line))
-                    {
+                    while(!String.IsNullOrEmpty(line))
+                    {                    
                         folders.Add(line);
+                        line = reader.ReadLine();
                     }
                 }
             }
@@ -71,7 +72,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
             // Creo el directorio en el servidor remoto
             using (FtpWebResponse response = (FtpWebResponse)fwr.GetResponse())
             {
-                OnNotify(string.Format("Creacion de Directorio Remoto: {0}", response.StatusCode.ToString()));
+                OnNotify("Creacion de Directorio Remoto");
                 response.Close();
             }
         }
@@ -108,7 +109,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
                 // obtengo la respuesta
                 using (FtpWebResponse response = (FtpWebResponse)fwr.GetResponse())
                 {
-                    OnNotify(string.Format("Subida de archivo {0}  en el servidor remoto: {1}", fileName, response.StatusCode.ToString()));
+                    OnNotify(string.Format("Subida de archivo {0}  en el servidor remoto", fileName));
                     response.Close();
                 }
             }

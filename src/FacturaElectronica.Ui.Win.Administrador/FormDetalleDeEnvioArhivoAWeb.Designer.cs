@@ -36,14 +36,14 @@
             this.tabDetalleDeArchivos = new System.Windows.Forms.TabPage();
             this.btnExportar = new System.Windows.Forms.Button();
             this.gridArchivos = new System.Windows.Forms.DataGridView();
-            this.tabLogCorrida = new System.Windows.Forms.TabPage();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.LogTextBox = new System.Windows.Forms.TextBox();
             this.NombreArchivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProcesadoOK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Mensaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabLogCorrida = new System.Windows.Forms.TabPage();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabDetalleDeArchivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).BeginInit();
@@ -64,9 +64,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 24;
-            this.label6.Text = "Identificador:";
+            this.label6.Text = "# Envío:";
             // 
             // lblFecha
             // 
@@ -101,6 +101,7 @@
             // 
             // tabDetalleDeArchivos
             // 
+            this.tabDetalleDeArchivos.AutoScroll = true;
             this.tabDetalleDeArchivos.Controls.Add(this.btnExportar);
             this.tabDetalleDeArchivos.Controls.Add(this.gridArchivos);
             this.tabDetalleDeArchivos.Location = new System.Drawing.Point(4, 22);
@@ -131,6 +132,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridArchivos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridArchivos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.gridArchivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridArchivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NombreArchivo,
@@ -144,6 +146,37 @@
             this.gridArchivos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridArchivos.Size = new System.Drawing.Size(1945, 1210);
             this.gridArchivos.TabIndex = 0;
+            // 
+            // NombreArchivo
+            // 
+            this.NombreArchivo.DataPropertyName = "NombreArchivo";
+            this.NombreArchivo.HeaderText = "Nombre de Archivo";
+            this.NombreArchivo.Name = "NombreArchivo";
+            this.NombreArchivo.ReadOnly = true;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // ProcesadoOK
+            // 
+            this.ProcesadoOK.DataPropertyName = "ProcesadoOK";
+            this.ProcesadoOK.HeaderText = "Procesado OK?";
+            this.ProcesadoOK.Name = "ProcesadoOK";
+            this.ProcesadoOK.ReadOnly = true;
+            // 
+            // Mensaje
+            // 
+            this.Mensaje.DataPropertyName = "Mensaje";
+            this.Mensaje.HeaderText = "Mensaje";
+            this.Mensaje.Name = "Mensaje";
+            this.Mensaje.ReadOnly = true;
+            this.Mensaje.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Mensaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tabLogCorrida
             // 
@@ -184,37 +217,6 @@
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.Size = new System.Drawing.Size(1024, 462);
             this.LogTextBox.TabIndex = 6;
-            // 
-            // NombreArchivo
-            // 
-            this.NombreArchivo.DataPropertyName = "NombreArchivo";
-            this.NombreArchivo.HeaderText = "Nombre de Archivo";
-            this.NombreArchivo.Name = "NombreArchivo";
-            this.NombreArchivo.ReadOnly = true;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // ProcesadoOK
-            // 
-            this.ProcesadoOK.DataPropertyName = "ProcesadoOK";
-            this.ProcesadoOK.HeaderText = "Procesado OK?";
-            this.ProcesadoOK.Name = "ProcesadoOK";
-            this.ProcesadoOK.ReadOnly = true;
-            // 
-            // Mensaje
-            // 
-            this.Mensaje.DataPropertyName = "Mensaje";
-            this.Mensaje.HeaderText = "Mensaje";
-            this.Mensaje.Name = "Mensaje";
-            this.Mensaje.ReadOnly = true;
-            this.Mensaje.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Mensaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FormDetalleDeEnvioArhivoAWeb
             // 

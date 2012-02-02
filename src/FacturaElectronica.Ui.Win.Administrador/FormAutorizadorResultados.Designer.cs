@@ -42,25 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabAutorizados = new System.Windows.Forms.TabPage();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.gridAutorizados = new System.Windows.Forms.DataGridView();
             this.ConceptoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DocTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabConObservaciones = new System.Windows.Forms.TabPage();
-            this.gridObservaciones = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.gridConObservaciones = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocTipoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabErrores = new System.Windows.Forms.TabPage();
-            this.gridErrores = new System.Windows.Forms.DataGridView();
-            this.tabEventos = new System.Windows.Forms.TabPage();
-            this.gridEventos = new System.Windows.Forms.DataGridView();
-            this.tabLogCorrida = new System.Windows.Forms.TabPage();
-            this.LogTextBox = new System.Windows.Forms.TextBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.docNroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteDesdeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteHastaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,38 +53,53 @@
             this.cAEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAEFechaVtoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsAutorizados = new System.Windows.Forms.BindingSource(this.components);
+            this.tabConObservaciones = new System.Windows.Forms.TabPage();
+            this.gridObservaciones = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsObservaciones = new System.Windows.Forms.BindingSource(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.gridConObservaciones = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DocTipoDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docNroDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteDesdeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteHastaDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbteFechaDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsConObservaciones = new System.Windows.Forms.BindingSource(this.components);
+            this.tabErrores = new System.Windows.Forms.TabPage();
+            this.gridErrores = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsErrores = new System.Windows.Forms.BindingSource(this.components);
+            this.tabEventos = new System.Windows.Forms.TabPage();
+            this.gridEventos = new System.Windows.Forms.DataGridView();
             this.codigoDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsEventos = new System.Windows.Forms.BindingSource(this.components);
+            this.tabLogCorrida = new System.Windows.Forms.TabPage();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabAutorizados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAutorizados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).BeginInit();
             this.tabConObservaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridObservaciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridConObservaciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).BeginInit();
             this.tabErrores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridErrores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).BeginInit();
             this.tabEventos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridEventos)).BeginInit();
-            this.tabLogCorrida.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEventos)).BeginInit();
+            this.tabLogCorrida.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -134,9 +134,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.Size = new System.Drawing.Size(67, 13);
             this.label6.TabIndex = 14;
-            this.label6.Text = "Identificador:";
+            this.label6.Text = "# Ejecución:";
             // 
             // lblTipoComprobante
             // 
@@ -240,6 +240,19 @@
             this.tabAutorizados.Text = "Comprobantes Autorizados";
             this.tabAutorizados.UseVisualStyleBackColor = true;
             // 
+            // btnExportar
+            // 
+            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportar.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.exportToFile16x16;
+            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportar.Location = new System.Drawing.Point(891, 451);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(133, 23);
+            this.btnExportar.TabIndex = 1;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // gridAutorizados
             // 
             this.gridAutorizados.AllowUserToAddRows = false;
@@ -249,6 +262,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridAutorizados.AutoGenerateColumns = false;
             this.gridAutorizados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridAutorizados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.gridAutorizados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridAutorizados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConceptoDesc,
@@ -282,203 +296,6 @@
             this.DocTipo.HeaderText = "DocTipo";
             this.DocTipo.Name = "DocTipo";
             this.DocTipo.ReadOnly = true;
-            // 
-            // tabConObservaciones
-            // 
-            this.tabConObservaciones.Controls.Add(this.gridObservaciones);
-            this.tabConObservaciones.Controls.Add(this.label3);
-            this.tabConObservaciones.Controls.Add(this.gridConObservaciones);
-            this.tabConObservaciones.Location = new System.Drawing.Point(4, 22);
-            this.tabConObservaciones.Name = "tabConObservaciones";
-            this.tabConObservaciones.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConObservaciones.Size = new System.Drawing.Size(1030, 489);
-            this.tabConObservaciones.TabIndex = 1;
-            this.tabConObservaciones.Text = "Comprobantes Con Observaciones";
-            this.tabConObservaciones.UseVisualStyleBackColor = true;
-            // 
-            // gridObservaciones
-            // 
-            this.gridObservaciones.AllowUserToAddRows = false;
-            this.gridObservaciones.AllowUserToDeleteRows = false;
-            this.gridObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridObservaciones.AutoGenerateColumns = false;
-            this.gridObservaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridObservaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridObservaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codigoDataGridViewTextBoxColumn,
-            this.mensajeDataGridViewTextBoxColumn});
-            this.gridObservaciones.DataSource = this.bsObservaciones;
-            this.gridObservaciones.Location = new System.Drawing.Point(11, 272);
-            this.gridObservaciones.MultiSelect = false;
-            this.gridObservaciones.Name = "gridObservaciones";
-            this.gridObservaciones.ReadOnly = true;
-            this.gridObservaciones.RowHeadersVisible = false;
-            this.gridObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridObservaciones.Size = new System.Drawing.Size(1013, 208);
-            this.gridObservaciones.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 256);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Observaciones:";
-            // 
-            // gridConObservaciones
-            // 
-            this.gridConObservaciones.AllowUserToAddRows = false;
-            this.gridConObservaciones.AllowUserToDeleteRows = false;
-            this.gridConObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridConObservaciones.AutoGenerateColumns = false;
-            this.gridConObservaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridConObservaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridConObservaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.DocTipoDesc,
-            this.docNroDataGridViewTextBoxColumn1,
-            this.cbteDesdeDataGridViewTextBoxColumn1,
-            this.cbteHastaDataGridViewTextBoxColumn1,
-            this.cbteFechaDataGridViewTextBoxColumn1});
-            this.gridConObservaciones.DataSource = this.bsConObservaciones;
-            this.gridConObservaciones.Location = new System.Drawing.Point(11, 6);
-            this.gridConObservaciones.MultiSelect = false;
-            this.gridConObservaciones.Name = "gridConObservaciones";
-            this.gridConObservaciones.ReadOnly = true;
-            this.gridConObservaciones.RowHeadersVisible = false;
-            this.gridConObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridConObservaciones.Size = new System.Drawing.Size(1011, 247);
-            this.gridConObservaciones.TabIndex = 1;
-            this.gridConObservaciones.SelectionChanged += new System.EventHandler(this.gridConObservaciones_SelectionChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "ConceptoDesc";
-            this.Column1.HeaderText = "Concepto";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // DocTipoDesc
-            // 
-            this.DocTipoDesc.DataPropertyName = "DocTipoDesc";
-            this.DocTipoDesc.HeaderText = "DocTipo";
-            this.DocTipoDesc.Name = "DocTipoDesc";
-            this.DocTipoDesc.ReadOnly = true;
-            // 
-            // tabErrores
-            // 
-            this.tabErrores.Controls.Add(this.gridErrores);
-            this.tabErrores.Location = new System.Drawing.Point(4, 22);
-            this.tabErrores.Name = "tabErrores";
-            this.tabErrores.Size = new System.Drawing.Size(1030, 489);
-            this.tabErrores.TabIndex = 2;
-            this.tabErrores.Text = "Errores";
-            this.tabErrores.UseVisualStyleBackColor = true;
-            // 
-            // gridErrores
-            // 
-            this.gridErrores.AllowUserToAddRows = false;
-            this.gridErrores.AllowUserToDeleteRows = false;
-            this.gridErrores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridErrores.AutoGenerateColumns = false;
-            this.gridErrores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridErrores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridErrores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codigoDataGridViewTextBoxColumn1,
-            this.mensajeDataGridViewTextBoxColumn1});
-            this.gridErrores.DataSource = this.bsErrores;
-            this.gridErrores.Location = new System.Drawing.Point(11, 6);
-            this.gridErrores.MultiSelect = false;
-            this.gridErrores.Name = "gridErrores";
-            this.gridErrores.ReadOnly = true;
-            this.gridErrores.RowHeadersVisible = false;
-            this.gridErrores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridErrores.Size = new System.Drawing.Size(1011, 464);
-            this.gridErrores.TabIndex = 1;
-            // 
-            // tabEventos
-            // 
-            this.tabEventos.Controls.Add(this.gridEventos);
-            this.tabEventos.Location = new System.Drawing.Point(4, 22);
-            this.tabEventos.Name = "tabEventos";
-            this.tabEventos.Size = new System.Drawing.Size(1030, 489);
-            this.tabEventos.TabIndex = 3;
-            this.tabEventos.Text = "Eventos";
-            this.tabEventos.UseVisualStyleBackColor = true;
-            // 
-            // gridEventos
-            // 
-            this.gridEventos.AllowUserToAddRows = false;
-            this.gridEventos.AllowUserToDeleteRows = false;
-            this.gridEventos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridEventos.AutoGenerateColumns = false;
-            this.gridEventos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridEventos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridEventos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codigoDataGridViewTextBoxColumn2,
-            this.mensajeDataGridViewTextBoxColumn2});
-            this.gridEventos.DataSource = this.bsEventos;
-            this.gridEventos.Location = new System.Drawing.Point(11, 6);
-            this.gridEventos.Name = "gridEventos";
-            this.gridEventos.RowHeadersVisible = false;
-            this.gridEventos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridEventos.Size = new System.Drawing.Size(1011, 464);
-            this.gridEventos.TabIndex = 2;
-            // 
-            // tabLogCorrida
-            // 
-            this.tabLogCorrida.Controls.Add(this.btnRefresh);
-            this.tabLogCorrida.Controls.Add(this.label4);
-            this.tabLogCorrida.Controls.Add(this.LogTextBox);
-            this.tabLogCorrida.Location = new System.Drawing.Point(4, 22);
-            this.tabLogCorrida.Name = "tabLogCorrida";
-            this.tabLogCorrida.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogCorrida.Size = new System.Drawing.Size(1030, 489);
-            this.tabLogCorrida.TabIndex = 4;
-            this.tabLogCorrida.Text = "Log de Ejecución";
-            this.tabLogCorrida.UseVisualStyleBackColor = true;
-            // 
-            // LogTextBox
-            // 
-            this.LogTextBox.Location = new System.Drawing.Point(3, 24);
-            this.LogTextBox.Multiline = true;
-            this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.Size = new System.Drawing.Size(1024, 462);
-            this.LogTextBox.TabIndex = 6;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 8);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Log de Ejecución:";
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.exportToFile16x16;
-            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportar.Location = new System.Drawing.Point(891, 451);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 23);
-            this.btnExportar.TabIndex = 1;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // docNroDataGridViewTextBoxColumn
             // 
@@ -526,6 +343,43 @@
             // 
             this.bsAutorizados.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
             // 
+            // tabConObservaciones
+            // 
+            this.tabConObservaciones.Controls.Add(this.gridObservaciones);
+            this.tabConObservaciones.Controls.Add(this.label3);
+            this.tabConObservaciones.Controls.Add(this.gridConObservaciones);
+            this.tabConObservaciones.Location = new System.Drawing.Point(4, 22);
+            this.tabConObservaciones.Name = "tabConObservaciones";
+            this.tabConObservaciones.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConObservaciones.Size = new System.Drawing.Size(1030, 489);
+            this.tabConObservaciones.TabIndex = 1;
+            this.tabConObservaciones.Text = "Comprobantes Con Observaciones";
+            this.tabConObservaciones.UseVisualStyleBackColor = true;
+            // 
+            // gridObservaciones
+            // 
+            this.gridObservaciones.AllowUserToAddRows = false;
+            this.gridObservaciones.AllowUserToDeleteRows = false;
+            this.gridObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridObservaciones.AutoGenerateColumns = false;
+            this.gridObservaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridObservaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.gridObservaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridObservaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codigoDataGridViewTextBoxColumn,
+            this.mensajeDataGridViewTextBoxColumn});
+            this.gridObservaciones.DataSource = this.bsObservaciones;
+            this.gridObservaciones.Location = new System.Drawing.Point(11, 272);
+            this.gridObservaciones.MultiSelect = false;
+            this.gridObservaciones.Name = "gridObservaciones";
+            this.gridObservaciones.ReadOnly = true;
+            this.gridObservaciones.RowHeadersVisible = false;
+            this.gridObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridObservaciones.Size = new System.Drawing.Size(1013, 208);
+            this.gridObservaciones.TabIndex = 3;
+            // 
             // codigoDataGridViewTextBoxColumn
             // 
             this.codigoDataGridViewTextBoxColumn.DataPropertyName = "Codigo";
@@ -545,6 +399,57 @@
             // bsObservaciones
             // 
             this.bsObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.ObservacionComprobanteDto);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 256);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Observaciones:";
+            // 
+            // gridConObservaciones
+            // 
+            this.gridConObservaciones.AllowUserToAddRows = false;
+            this.gridConObservaciones.AllowUserToDeleteRows = false;
+            this.gridConObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridConObservaciones.AutoGenerateColumns = false;
+            this.gridConObservaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridConObservaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.gridConObservaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridConObservaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.DocTipoDesc,
+            this.docNroDataGridViewTextBoxColumn1,
+            this.cbteDesdeDataGridViewTextBoxColumn1,
+            this.cbteHastaDataGridViewTextBoxColumn1,
+            this.cbteFechaDataGridViewTextBoxColumn1});
+            this.gridConObservaciones.DataSource = this.bsConObservaciones;
+            this.gridConObservaciones.Location = new System.Drawing.Point(11, 6);
+            this.gridConObservaciones.MultiSelect = false;
+            this.gridConObservaciones.Name = "gridConObservaciones";
+            this.gridConObservaciones.ReadOnly = true;
+            this.gridConObservaciones.RowHeadersVisible = false;
+            this.gridConObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridConObservaciones.Size = new System.Drawing.Size(1011, 247);
+            this.gridConObservaciones.TabIndex = 1;
+            this.gridConObservaciones.SelectionChanged += new System.EventHandler(this.gridConObservaciones_SelectionChanged);
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "ConceptoDesc";
+            this.Column1.HeaderText = "Concepto";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // DocTipoDesc
+            // 
+            this.DocTipoDesc.DataPropertyName = "DocTipoDesc";
+            this.DocTipoDesc.HeaderText = "DocTipo";
+            this.DocTipoDesc.Name = "DocTipoDesc";
+            this.DocTipoDesc.ReadOnly = true;
             // 
             // docNroDataGridViewTextBoxColumn1
             // 
@@ -578,6 +483,40 @@
             // 
             this.bsConObservaciones.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleComprobanteDto);
             // 
+            // tabErrores
+            // 
+            this.tabErrores.Controls.Add(this.gridErrores);
+            this.tabErrores.Location = new System.Drawing.Point(4, 22);
+            this.tabErrores.Name = "tabErrores";
+            this.tabErrores.Size = new System.Drawing.Size(1030, 489);
+            this.tabErrores.TabIndex = 2;
+            this.tabErrores.Text = "Errores";
+            this.tabErrores.UseVisualStyleBackColor = true;
+            // 
+            // gridErrores
+            // 
+            this.gridErrores.AllowUserToAddRows = false;
+            this.gridErrores.AllowUserToDeleteRows = false;
+            this.gridErrores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridErrores.AutoGenerateColumns = false;
+            this.gridErrores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridErrores.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.gridErrores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridErrores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codigoDataGridViewTextBoxColumn1,
+            this.mensajeDataGridViewTextBoxColumn1});
+            this.gridErrores.DataSource = this.bsErrores;
+            this.gridErrores.Location = new System.Drawing.Point(11, 6);
+            this.gridErrores.MultiSelect = false;
+            this.gridErrores.Name = "gridErrores";
+            this.gridErrores.ReadOnly = true;
+            this.gridErrores.RowHeadersVisible = false;
+            this.gridErrores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridErrores.Size = new System.Drawing.Size(1011, 464);
+            this.gridErrores.TabIndex = 1;
+            // 
             // codigoDataGridViewTextBoxColumn1
             // 
             this.codigoDataGridViewTextBoxColumn1.DataPropertyName = "Codigo";
@@ -598,6 +537,38 @@
             // 
             this.bsErrores.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleErrorDto);
             // 
+            // tabEventos
+            // 
+            this.tabEventos.Controls.Add(this.gridEventos);
+            this.tabEventos.Location = new System.Drawing.Point(4, 22);
+            this.tabEventos.Name = "tabEventos";
+            this.tabEventos.Size = new System.Drawing.Size(1030, 489);
+            this.tabEventos.TabIndex = 3;
+            this.tabEventos.Text = "Eventos";
+            this.tabEventos.UseVisualStyleBackColor = true;
+            // 
+            // gridEventos
+            // 
+            this.gridEventos.AllowUserToAddRows = false;
+            this.gridEventos.AllowUserToDeleteRows = false;
+            this.gridEventos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridEventos.AutoGenerateColumns = false;
+            this.gridEventos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridEventos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.gridEventos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridEventos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codigoDataGridViewTextBoxColumn2,
+            this.mensajeDataGridViewTextBoxColumn2});
+            this.gridEventos.DataSource = this.bsEventos;
+            this.gridEventos.Location = new System.Drawing.Point(11, 6);
+            this.gridEventos.Name = "gridEventos";
+            this.gridEventos.RowHeadersVisible = false;
+            this.gridEventos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridEventos.Size = new System.Drawing.Size(1011, 464);
+            this.gridEventos.TabIndex = 2;
+            // 
             // codigoDataGridViewTextBoxColumn2
             // 
             this.codigoDataGridViewTextBoxColumn2.DataPropertyName = "Codigo";
@@ -616,6 +587,19 @@
             // 
             this.bsEventos.DataSource = typeof(FacturaElectronica.Common.Contracts.DetalleEventoDto);
             // 
+            // tabLogCorrida
+            // 
+            this.tabLogCorrida.Controls.Add(this.btnRefresh);
+            this.tabLogCorrida.Controls.Add(this.label4);
+            this.tabLogCorrida.Controls.Add(this.LogTextBox);
+            this.tabLogCorrida.Location = new System.Drawing.Point(4, 22);
+            this.tabLogCorrida.Name = "tabLogCorrida";
+            this.tabLogCorrida.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogCorrida.Size = new System.Drawing.Size(1030, 489);
+            this.tabLogCorrida.TabIndex = 4;
+            this.tabLogCorrida.Text = "Log de Ejecución";
+            this.tabLogCorrida.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh
             // 
             this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
@@ -625,6 +609,27 @@
             this.btnRefresh.TabIndex = 17;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Log de Ejecución:";
+            // 
+            // LogTextBox
+            // 
+            this.LogTextBox.Location = new System.Drawing.Point(3, 24);
+            this.LogTextBox.Multiline = true;
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.Size = new System.Drawing.Size(1024, 462);
+            this.LogTextBox.TabIndex = 6;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // FormAutorizadorResultados
             // 
@@ -641,21 +646,21 @@
             this.tabs.ResumeLayout(false);
             this.tabAutorizados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridAutorizados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).EndInit();
             this.tabConObservaciones.ResumeLayout(false);
             this.tabConObservaciones.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridObservaciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridConObservaciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).EndInit();
             this.tabErrores.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridErrores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).EndInit();
             this.tabEventos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridEventos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsEventos)).EndInit();
             this.tabLogCorrida.ResumeLayout(false);
             this.tabLogCorrida.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAutorizados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsObservaciones)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsConObservaciones)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsErrores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsEventos)).EndInit();
             this.ResumeLayout(false);
 
         }

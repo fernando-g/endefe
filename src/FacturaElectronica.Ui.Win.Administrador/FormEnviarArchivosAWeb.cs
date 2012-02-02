@@ -22,7 +22,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
     public partial class FormEnviarArchivosAWeb : Form
     {
         private ISubidaArchivoService SubidaArchivoService = ServiceFactory.GetSubidaArchivoService();
-        private DateTime fechaLog = default(DateTime);
+        private DateTime fechaLog = DateTime.MinValue;
 
         public FormEnviarArchivosAWeb()
         {
@@ -108,6 +108,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                         ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData);
 
                         // Activo el timer porque a veces no retorna la siguiente llamada
+                        fechaLog = DateTime.MinValue;
                         timerLog.Start();
                     }
                 }
@@ -234,6 +235,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     if (log.FinCorrida)
                     {
                         this.timerLog.Stop();
+                        fechaLog = DateTime.MinValue;
                         break;
                     }
                     else
@@ -253,6 +255,18 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 FormDetalleDeEnvioArhivoAWeb frmDetalle = new FormDetalleDeEnvioArhivoAWeb();
                 frmDetalle.CorridaId = this.CorridaSubidaArchivo.Id;
                 frmDetalle.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MostrarLog();
             }
             catch (Exception ex)
             {

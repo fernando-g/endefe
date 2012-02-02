@@ -301,11 +301,12 @@ namespace FacturaElectronica.Business.Services
                         errorStr = "No se encuentra el cliente " + cuit.ToString();
                         mensajeError.AppendLine(errorStr);
                         GenerarLog(dbCorrida.Id, errorStr);
+                        detalle.ProcesadoOK = false;
                     }
                     else
                     {
                         // Obtengo el comprobante al que hay que asociarle el archivo
-                        var dbComprobante = ctx.Comprobantes.Where(c => c.TipoComprobanteId == tipoComprobanteObj.Id && c.PtoVta == ptovta && c.CbteDesde <= nroComprobante && c.CbteHasta >= nroComprobante).First();
+                        var dbComprobante = ctx.Comprobantes.Where(c => c.TipoComprobanteId == tipoComprobanteObj.Id && c.PtoVta == ptovta && c.CbteDesde <= nroComprobante && c.CbteHasta >= nroComprobante).FirstOrDefault();
                         if (dbComprobante == null)
                         {
                             // No se puede procesar
@@ -319,39 +320,58 @@ namespace FacturaElectronica.Business.Services
                         }
                         else
                         {
-
-                            // Lo copio a la carpeta de ok y lo guardo en la base
-                            string destPath = Path.Combine(fileDestinationPathOk, fileName);
-                            detalle.ProcesadoOK = true;
-                            File.Move(filePath, destPath);
-
-                            // Puede ser que el archivo asociado ya exista y lo tengo que actualizar
-                            ArchivoAsociado archivoAsociado;
-                            archivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.ComprobanteId == dbComprobante.Id && a.NombreArchivo == fileName).SingleOrDefault();
-                            if (archivoAsociado == null)
+                            bool clienteOk = true;
+                            if (!dbComprobante.ClienteId.HasValue)
                             {
-                                archivoAsociado = new ArchivoAsociado();
-                                dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
+                                dbComprobante.ClienteId = dbCliente.Id;                                
+                            }
+                            else if (dbComprobante.ClienteId.Value != dbCliente.Id)
+                            {
+                                errorStr = string.Format("El cliente del comprobante CUIT {0} es distinto que el indicado en la factura CUIT {1}", dbComprobante.Cliente.CUIT, dbCliente.CUIT);
+                                mensajeError.AppendLine(errorStr);
+                                GenerarLog(dbCorrida.Id, errorStr);
+
+                                // Lo copio a la carpeta de fallidos y registro el estado en el documento
+                                //File.Move(filePath, fileDestinationPathNoOk);
+                                detalle.ProcesadoOK = false;
+                                clienteOk = false;
                             }
 
-                            archivoAsociado.NombreArchivo = fileName;
-                            archivoAsociado.PathArchivo = destPath;
-                            archivoAsociado.NroComprobante = nroComprobante;
-                            archivoAsociado.TipoContratoId = tipoContrato.Id;
-                            if (tieneFechaVencimiento)
+                            if (clienteOk)
                             {
-                                archivoAsociado.FechaVencimiento = fechaDeVencimiento;
-                            }
-                            else
-                            {
-                                archivoAsociado.DiasVencimiento = diasDeVencimiento;
-                            }
+                                // Lo copio a la carpeta de ok y lo guardo en la base
+                                string destPath = Path.Combine(fileDestinationPathOk, fileName);
+                                detalle.ProcesadoOK = true;
+                                File.Move(filePath, destPath);
 
-                            archivoAsociado.FechaDeCarga = DateTime.Now;
-                            archivoAsociado.MesFacturacion = periodoFacturacionMes;
-                            archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
-                            archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
-                            archivoAsociado.MontoTotal = montoTotal;
+                                // Puede ser que el archivo asociado ya exista y lo tengo que actualizar
+                                ArchivoAsociado archivoAsociado;
+                                archivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.ComprobanteId == dbComprobante.Id && a.NombreArchivo == fileName).SingleOrDefault();
+                                if (archivoAsociado == null)
+                                {
+                                    archivoAsociado = new ArchivoAsociado();
+                                    dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
+                                }
+
+                                archivoAsociado.NombreArchivo = fileName;
+                                archivoAsociado.PathArchivo = destPath;
+                                archivoAsociado.NroComprobante = nroComprobante;
+                                archivoAsociado.TipoContratoId = tipoContrato.Id;
+                                if (tieneFechaVencimiento)
+                                {
+                                    archivoAsociado.FechaVencimiento = fechaDeVencimiento;
+                                }
+                                else
+                                {
+                                    archivoAsociado.DiasVencimiento = diasDeVencimiento;
+                                }
+
+                                archivoAsociado.FechaDeCarga = DateTime.Now;
+                                archivoAsociado.MesFacturacion = periodoFacturacionMes;
+                                archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
+                                archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
+                                archivoAsociado.MontoTotal = montoTotal;
+                            }
                         }
                     }
                 }

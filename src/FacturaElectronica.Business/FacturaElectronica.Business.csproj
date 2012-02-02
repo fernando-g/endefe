@@ -37,6 +37,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,7 +55,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Adrian\VesubioSVN\vesuapiauth\trunk\src\WebFramework\Web.Framework.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\..\..\Lacoste\Codigo\ApiAutenticacion\trunk\src\WebFramework\Web.Framework.csproj">
       <Project>{0EEED093-28DA-4ACB-BC25-E961C55E72C6}</Project>
       <Name>Web.Framework</Name>
     </ProjectReference>

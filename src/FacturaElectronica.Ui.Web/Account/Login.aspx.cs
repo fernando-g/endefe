@@ -50,7 +50,12 @@ namespace FacturaElectronica.Ui.Web.Account
 
                     // Determine redirect URL and send user there
                     string redirUrl = FormsAuthentication.GetRedirectUrl(usuario.NombreUsuario, false);
-                    Response.Redirect("~/Default.aspx");
+                    if (String.IsNullOrEmpty(redirUrl))
+                    {
+                        redirUrl = "~/Default.aspx";
+                    }
+
+                    Response.Redirect(redirUrl);
 
 
                     ////LoginData loginData = new LoginData();

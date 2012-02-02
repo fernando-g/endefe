@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AfipWrapperService.svc" />
+    <Content Include="ComprobanteService.svc" />
     <Content Include="SubidaArchivoService.svc" />
     <Content Include="EmailTemplates\DocumentosPendientes.htm" />
     <Content Include="MaestroService.svc" />

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a29dd43b-af1a-4a8a-a025-3e043b591635" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1500/SubidaArchivoService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SubidaArchivoService.xsd" MetadataType="Schema" ID="f2c04905-8e2c-4a23-bdea-91a49fd2b6aa" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SubidaArchivoService1.xsd" MetadataType="Schema" ID="e8e464d3-6a6e-4415-bf53-b7550e6b6624" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SubidaArchivoService.disco" MetadataType="Disco" ID="29e76bcd-a462-48a0-b312-1c0b360ffbac" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?disco" />
+    <MetadataFile FileName="SubidaArchivoService2.xsd" MetadataType="Schema" ID="17f5b70f-6818-458a-b056-cadf56334985" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SubidaArchivoService.wsdl" MetadataType="Wsdl" ID="43a7a9f1-4f0e-4afd-94de-fe7711ab0474" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?wsdl" />
+    <MetadataFile FileName="SubidaArchivoService3.xsd" MetadataType="Schema" ID="366a5c91-62fe-4e4b-a483-4cabc08e647c" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SubidaArchivoService4.xsd" MetadataType="Schema" ID="84b8f363-9be1-42fe-8fde-be7712effe1b" SourceId="1" SourceUrl="http://localhost:1500/SubidaArchivoService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

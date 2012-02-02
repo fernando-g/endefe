@@ -76,12 +76,16 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 string origenPath = this.FileTextBox.Text.Trim();                              
                 string fileName = Path.GetFileName(origenPath);
 
+                this.MostrarMensajeEnLog("Preparando ejecución....");
                 this.corridaDto = procesoCorridaSvc.CrearNuevaCorrida(fileName);
 
+                this.MostrarMensajeEnLog("Enviando archivos por FTP....");
                 CopiarArchivoParaProcesarPorFTP(origenPath);
+                this.MostrarMensajeEnLog("Archivos enviados al FTP.");
                 this.fechaLog = DateTime.Now;
                 this.txtNroCorrida.Text = this.corridaDto.Id.ToString();
 
+                this.MostrarMensajeEnLog("Iniciando ejecución asincrónica...");
                 procesoCorridaSvc.EjecutarCorrida(this.corridaDto.Id);
             }
             catch (Exception ex)

@@ -34,6 +34,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.gridCorridas = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaProceso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Procesada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
@@ -41,9 +44,6 @@
             this.txtNombreDeArchivo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaProceso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Procesada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridCorridas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,9 +59,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(22, 16);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 26;
-            this.label5.Text = "Identificador:";
+            this.label5.Text = "# Envío:";
             // 
             // lblCantidadReg
             // 
@@ -104,6 +104,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCorridas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridCorridas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.gridCorridas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCorridas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -117,6 +118,28 @@
             this.gridCorridas.Size = new System.Drawing.Size(860, 410);
             this.gridCorridas.TabIndex = 21;
             this.gridCorridas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridCorridas_CellDoubleClick);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.FillWeight = 60.91371F;
+            this.Id.HeaderText = "Identificador";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // FechaProceso
+            // 
+            this.FechaProceso.DataPropertyName = "FechaProceso";
+            this.FechaProceso.HeaderText = "Fecha de Proceso";
+            this.FechaProceso.Name = "FechaProceso";
+            this.FechaProceso.ReadOnly = true;
+            // 
+            // Procesada
+            // 
+            this.Procesada.DataPropertyName = "Procesada";
+            this.Procesada.HeaderText = "Procesada";
+            this.Procesada.Name = "Procesada";
+            this.Procesada.ReadOnly = true;
             // 
             // dtpFechaHasta
             // 
@@ -182,28 +205,6 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.FillWeight = 60.91371F;
-            this.Id.HeaderText = "Identificador";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // FechaProceso
-            // 
-            this.FechaProceso.DataPropertyName = "FechaProceso";
-            this.FechaProceso.HeaderText = "Fecha de Proceso";
-            this.FechaProceso.Name = "FechaProceso";
-            this.FechaProceso.ReadOnly = true;
-            // 
-            // Procesada
-            // 
-            this.Procesada.DataPropertyName = "Procesada";
-            this.Procesada.HeaderText = "Procesada";
-            this.Procesada.Name = "Procesada";
-            this.Procesada.ReadOnly = true;
             // 
             // FormConsultaEnviosArchivosAWeb
             // 
