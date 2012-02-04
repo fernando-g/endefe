@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using FacturaElectronica.Common.Constants;
 
 namespace FacturaElectronica.Common.Contracts
 {
@@ -47,10 +48,19 @@ namespace FacturaElectronica.Common.Contracts
         public bool DocumentosVencidos { get; set; }
 
         [DataMember]
+        public bool DocumentosNoVencidos { get; set; }
+
+        [DataMember]
         public decimal? MontoTotalDesde { get; set; }
 
         [DataMember]
         public decimal? MontoTotalHasta { get; set; }
+
+        [DataMember]
+        public int? EstadoId { get; set; }
+
+        [DataMember]
+        public string Estado { get; set; }
 
         [DataMember]
         public bool SortIsAsc { get; set; }

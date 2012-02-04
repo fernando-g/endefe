@@ -44,22 +44,25 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            if (e.CommandName == "editar" || e.CommandName == "eliminar")
             {
-                long clienteId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
-                if (e.CommandName == "editar")
+                try
                 {
-                    this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, clienteId), true);
+                    long clienteId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                    if (e.CommandName == "editar")
+                    {
+                        this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, clienteId), true);
+                    }
+                    else if (e.CommandName == "eliminar")
+                    {
+                        ServiceFactory.GetClienteService().EliminarCliente(clienteId);
+                        Buscar();
+                    }
                 }
-                else if (e.CommandName == "eliminar")
-                { 
-                    ServiceFactory.GetClienteService().EliminarCliente(clienteId);
-                    Buscar();
+                catch (Exception ex)
+                {
+                    ExceptionManager.Instance.HandleException(ex);
                 }
-            }
-            catch (Exception ex)
-            {
-                ExceptionManager.Instance.HandleException(ex);
             }
         }
 

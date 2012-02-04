@@ -13,7 +13,7 @@
     <link href="/Styles/jquery.datepick.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'searchBox');" class="collapsible_panel">
         <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png" alt="" />
         Buscar Comprobantes<span class="clear"></span>
     </h2>
@@ -44,7 +44,7 @@
             <div class="clear">
             </div>         
             <p>
-                <span class="title2">Mes</span>
+                <span class="title2">Mes Facturaci&oacute;n:</span>
                 <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo">
                 </asp:DropDownList>
             </p>
@@ -73,8 +73,15 @@
             <div class="clear">
             </div>
             <p>
-                <span class="title2 secondColumn">A&ntilde;o</span>
+                <span class="title2 secondColumn">A&ntilde;o Facturaci&oacute;n:</span>
                 <asp:DropDownList ID="ddlAnioFacturacion" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2 secondColumn">Estado:</span>
+                <asp:DropDownList ID="ddlEstado" runat="server" CssClass="cbo">
                 </asp:DropDownList>
             </p>
             <div class="clear">
@@ -91,7 +98,7 @@
         <div class="clear">
         </div>
     </div>
-    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'pnlResults');" class="collapsible_panel">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
              alt="" />
         Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label>
@@ -103,7 +110,7 @@
             EnablePaging="True" OnObjectCreating="CustomerObjectDs_ObjectCreating" OnSelected="Grid_Selected">
         </asp:ObjectDataSource>--%>
         <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
-            AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
+            AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True" PageSize="15"
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnSorting="Grid_Sorting"
             OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />

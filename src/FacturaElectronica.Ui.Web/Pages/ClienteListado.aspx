@@ -22,7 +22,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');" class="collapsible_panel">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
             alt="" />
         Buscar Clientes<span class="clear"></span>
@@ -63,14 +63,14 @@
         <div class="clear">
         </div>
     </div>
-    <h2 onclick="window.AppCommonObj.toggleVisibility('img2', 'pnlResults');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img2', 'pnlResults');" class="collapsible_panel">
         <img width="15px" height="15px" id="img2" class="imgExpand" src="/Images/icon_blockexpanded.png"
             alt="" />
         Listado de Clientes<asp:Label ID="lblCantReg" runat="server"></asp:Label><span class="clear"></span><span
             class="clear"></span>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
-        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="15"
             AutoGenerateColumns="False" DataKeyNames="Id" Width="100%" AllowPaging="True"
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand">
             <AlternatingRowStyle BackColor="White" />

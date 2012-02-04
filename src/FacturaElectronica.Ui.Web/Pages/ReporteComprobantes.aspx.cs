@@ -33,6 +33,10 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.ddlAnioFacturacion; }
         }
+        protected override DropDownList ddlEstadoControl
+        {
+            get { return this.ddlEstado; }
+        }
         //protected override TextBox txtRazonSocialControl
         //{
         //    get { return this.txtRazonSocial; }
@@ -66,6 +70,16 @@ namespace FacturaElectronica.Ui.Web.Pages
             base.Page_Load();
         }
 
+        protected override void InicializarControles()
+        {
+            base.InicializarControles();
+
+            // Estados
+            IComprobanteService comprobanteSvc = ServiceFactory.GetComprobanteService();
+            List<EstadoArchivoAsociadoDto> estados = comprobanteSvc.ObtenerEstados();
+            UIHelper.LoadCbo(estados, this.ddlEstado, Constants.ValorInicialDdl, "Id", "Descripcion");
+        }
+
         protected override void CargarCriteria(ComprobanteCriteria criteria)
         {
             base.CargarCriteria(criteria);
@@ -91,13 +105,9 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             try
             {
-                long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
-                //if (e.CommandName == "ver")
-                //{
-                //    this.Response.Redirect(string.Format("~/Handlers/PdfHandler.ashx?file={0}", archivoAsociadoId));
-                //}
                 if (e.CommandName == "eliminar")
                 {
+                    long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
                     svc.CambiarEstado(archivoAsociadoId, CodigosEstadoArchivoAsociado.Eliminado);
                     Buscar();

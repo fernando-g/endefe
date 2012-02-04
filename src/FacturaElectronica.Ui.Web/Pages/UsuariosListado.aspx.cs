@@ -66,26 +66,29 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            if (e.CommandName == "editar" || e.CommandName == "eliminar" || e.CommandName == "eliminar")
             {
-                long usuarioId = Convert.ToInt32(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
-                if (e.CommandName == "editar")
+                try
                 {
-                    this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, usuarioId), true);
+                    long usuarioId = Convert.ToInt32(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                    if (e.CommandName == "editar")
+                    {
+                        this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, usuarioId), true);
+                    }
+                    else if (e.CommandName == "eliminar")
+                    {
+                        ServiceFactory.GetSecurityService().EliminarUsuario(usuarioId);
+                        Buscar();
+                    }
+                    else if (e.CommandName == "eliminar")
+                    {
+                        this.Response.Redirect(string.Format("{0}?Id={1}", pagCambiarPass, usuarioId), true);
+                    }
                 }
-                else if (e.CommandName == "eliminar")
+                catch (Exception ex)
                 {
-                    ServiceFactory.GetSecurityService().EliminarUsuario(usuarioId);
-                    Buscar();
+                    ExceptionManager.Instance.HandleException(ex);
                 }
-                else if (e.CommandName == "password")
-                {
-                    this.Response.Redirect(string.Format("{0}?Id={1}", pagCambiarPass, usuarioId), true);
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionManager.Instance.HandleException(ex);
             }
         }
 

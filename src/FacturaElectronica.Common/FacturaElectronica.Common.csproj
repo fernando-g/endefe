@@ -60,6 +60,7 @@
     <Compile Include="Contracts\EmailConfiguration.cs" />
     <Compile Include="Contracts\EmailInThread.cs" />
     <Compile Include="Contracts\EstadoArchivoAsociadoDto.cs" />
+    <Compile Include="Contracts\EstadoComprobantesDto.cs" />
     <Compile Include="Contracts\LogCorridaDto.cs" />
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />
     <Compile Include="Contracts\RolDto.cs" />

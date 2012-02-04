@@ -94,6 +94,15 @@ namespace FacturaElectronica.Ui.Web.Pages {
         protected global::System.Web.UI.WebControls.DropDownList ddlAnioFacturacion;
         
         /// <summary>
+        /// ddlEstado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+        
+        /// <summary>
         /// btnBuscar control.
         /// </summary>
         /// <remarks>

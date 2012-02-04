@@ -65,6 +65,10 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.ddlAnioFacturacion; }
         }
+        protected override DropDownList ddlEstadoControl
+        {
+            get { return this.ddlEstado; }
+        }
         protected override TextBox txtNroComprobanteControl
         {
             get { return this.txtNroComprobante; }
@@ -93,6 +97,22 @@ namespace FacturaElectronica.Ui.Web.Pages
             HasPermissionToSeeMe(Operaciones.ComprobanteListado);
             base.Page_Load();
             this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
+        }
+
+        protected override void InicializarControles()
+        {
+            base.InicializarControles();
+            // Estados
+            IComprobanteService comprobanteSvc = ServiceFactory.GetComprobanteService();
+            List<EstadoArchivoAsociadoDto> estados = comprobanteSvc.ObtenerEstados();
+            foreach (var estado in estados)
+            {
+                if (estado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
+                {
+                    this.ddlEstado.Items.Add(new ListItem(estado.Descripcion, estado.Id.ToString()));
+                }
+            }
+            this.ddlEstado.Items.Insert(0, new ListItem(Constants.ValorInicialDdl, Constants.CboNullValue));
         }
 
         protected override void CargarCriteria(ComprobanteCriteria criteria)

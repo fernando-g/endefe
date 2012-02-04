@@ -13,7 +13,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('img1', 'searchBox');" class="collapsible_panel">
         <img width="15px" height="15px" id="img1" class="imgExpand" src="/Images/icon_blockexpanded.png"
             alt="" />
         Buscar Comprobantes<span class="clear"></span>
@@ -75,6 +75,15 @@
                 <span class="title2">Monto Total Desde:</span>
                 <asp:TextBox ID="txtMontoTotalDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
             </p>
+            <div class="clear">
+            </div>
+            <p>
+                <span class="title2">Estado:</span>
+                <asp:DropDownList ID="ddlEstado" runat="server" CssClass="cbo">
+                </asp:DropDownList>
+            </p>
+            <div class="clear">
+            </div>
         </div>
         <div class="divSearchLeft">
             <p>
@@ -126,13 +135,13 @@
         <div class="clear">
         </div>
     </div>
-    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'pnlResults');">
+    <h2 onclick="window.AppCommonObj.toggleVisibility('imgExpand', 'pnlResults');" class="collapsible_panel">
         <img width="15px" height="15px" id="imgExpand" class="imgExpand" src="/Images/icon_blockexpanded.png"
             alt="" />
         Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
-        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="15"
             AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
             OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />

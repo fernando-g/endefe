@@ -7,6 +7,7 @@ using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Data;
 using System.Data.Objects;
 using FacturaElectronica.Common.Constants;
+using Web.Framework.Mapper;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -26,10 +27,10 @@ namespace FacturaElectronica.Business.Services
         }
 
         /// <summary>
-        /// 
+        /// Obtiene los comprobantes para un cliente
         /// </summary>
         /// <param name="criteria"></param>
-        /// <param name="cantUltimosCbtes">cant. de comprobantes a mostrar</param>
+        /// <param name="cantUltimosCbtes">cant. de ultimos comprobantes a mostrar. Si es igual a 0 retorna toda el set de datos</param>
         /// <returns></returns>
         public List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria, int cantUltimosCbtes)
         {
@@ -59,6 +60,11 @@ namespace FacturaElectronica.Business.Services
                              && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                                  // Sacar Documentos Eliminados
                              && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
+                                 // Estados por Id
+                             && (!criteria.EstadoId.HasValue || aa.EstadoArchivoAsociado.Id == criteria.EstadoId)
+                                 //Estado por Codigo
+                             && (string.IsNullOrEmpty(criteria.Estado) || aa.EstadoArchivoAsociado.Codigo == criteria.Estado)
+
                              select new ComprobanteArchivoAsociadoDto()
                              {
                                  ArchivoAsociadoId = aa.Id,
@@ -93,6 +99,7 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
+                DateTime today = DateTime.Now.Date;
                 List<ComprobanteArchivoAsociadoDto> list = (from aa in ctx.ArchivoAsociadoes
                         join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                         where
@@ -116,11 +123,17 @@ namespace FacturaElectronica.Business.Services
                         && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                         && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                             // Documentos Vencidos
-                        && (!criteria.DocumentosVencidos || aa.FechaVencimiento < DateTime.Now)
+                        && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < today)
+                            // Documentos No Vencidos
+                        && (!criteria.DocumentosNoVencidos || today <= aa.FechaVencimiento.Value)
                             // Monto Desde
                         && (!criteria.MontoTotalDesde.HasValue || criteria.MontoTotalDesde.Value <= aa.MontoTotal)
                             // Monto Hasta
                         && (!criteria.MontoTotalHasta.HasValue || aa.MontoTotal <= criteria.MontoTotalHasta.Value)
+                            //Estado por Codigo
+                        && (string.IsNullOrEmpty(criteria.Estado) || aa.EstadoArchivoAsociado.Codigo == criteria.Estado)
+                            // Estados por Id
+                        && (!criteria.EstadoId.HasValue || aa.EstadoArchivoAsociado.Id == criteria.EstadoId)
                         select new ComprobanteArchivoAsociadoDto()
                         {
                             ArchivoAsociadoId = aa.Id,
@@ -171,6 +184,29 @@ namespace FacturaElectronica.Business.Services
             {
                 return ToComprobanteDto(ctx.Comprobantes.Where(c => c.Id == comprobanteId).FirstOrDefault());
             }
+        }
+
+        public EstadoComprobantesDto ObtenerEstadoComprobantes(long clientId)
+        {
+            EstadoComprobantesDto dto = new EstadoComprobantesDto();
+            ComprobanteCriteria criteria = new ComprobanteCriteria();
+            criteria.ClienteId = clientId;
+            // Total Comprobantes
+            dto.TotalComprobantes = this.ObtenerComprobantesPorCliente(criteria,0).Count;
+            // Visualizados
+            criteria.Estado = CodigosEstadoArchivoAsociado.Visualizado;
+            dto.Visualizados = this.ObtenerComprobantes(criteria).Count;
+            // No Visualizados
+            criteria.Estado = CodigosEstadoArchivoAsociado.NoVisualizado;
+            criteria.DocumentosNoVencidos = true;
+            dto.NoVisualizados = this.ObtenerComprobantes(criteria).Count;
+            // No Visualizados
+            criteria.Estado = CodigosEstadoArchivoAsociado.NoVisualizado;
+            criteria.DocumentosVencidos = true;
+            criteria.DocumentosNoVencidos = false;
+            dto.NoVisualizadosVencidos = this.ObtenerComprobantes(criteria).Count;
+
+            return dto;
         }
 
         #endregion [Comprobantes]
@@ -224,6 +260,14 @@ namespace FacturaElectronica.Business.Services
                         ctx.SaveChanges();
                     }                    
                 }
+            }
+        }
+
+        public List<EstadoArchivoAsociadoDto> ObtenerEstados()
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                return ToEstadoArchivoAsociadoDtoList(ctx.EstadoArchivoAsociadoes.ToList());
             }
         }
 
@@ -324,7 +368,7 @@ namespace FacturaElectronica.Business.Services
                 }
                 return aniosFacturacion;
             }
-        }
+        }        
 
         #region [Conversion]
 
@@ -436,6 +480,20 @@ namespace FacturaElectronica.Business.Services
 
             return dto;
         }
+
+        private static List<EstadoArchivoAsociadoDto> ToEstadoArchivoAsociadoDtoList(List<EstadoArchivoAsociado> estados)
+        {
+            List<EstadoArchivoAsociadoDto> dtoList = new List<EstadoArchivoAsociadoDto>();
+            if (estados.Count > 0)
+            {
+                foreach (var estado in estados)
+                {
+                    dtoList.Add(ToEstadoArchivoAsociadoDto(estado));
+                }
+            }
+            return dtoList;
+        }
+
 
         #endregion [Estado]
 

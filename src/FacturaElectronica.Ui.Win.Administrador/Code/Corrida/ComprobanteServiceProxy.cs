@@ -80,12 +80,22 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
             throw new NotImplementedException();
         }
 
+        public List<EstadoArchivoAsociadoDto> ObtenerEstados()
+        {
+            throw new NotImplementedException();
+        }
+
         public string ObtenerArchivo(long archivoId)
         {
             throw new NotImplementedException();
         }
 
         public string ObtenerArchivo(long archivoId, long clienteId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EstadoComprobantesDto ObtenerEstadoComprobantes(long clientId)
         {
             throw new NotImplementedException();
         }

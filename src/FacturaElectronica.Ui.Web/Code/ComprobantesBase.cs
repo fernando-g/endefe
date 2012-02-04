@@ -33,6 +33,11 @@ namespace FacturaElectronica.Ui.Web.Code
             get;
         }
 
+        protected abstract DropDownList ddlEstadoControl
+        {
+            get;
+        }
+
         //protected abstract TextBox txtRazonSocialControl
         //{
         //    get;
@@ -87,6 +92,7 @@ namespace FacturaElectronica.Ui.Web.Code
             criteria.MesFacturacion = UIHelper.GetIntFromInputCbo(this.ddlMesFacturacionControl);
             criteria.AnioFacturacion = UIHelper.GetIntFromInputCbo(this.ddlAnioFacturacionControl);
             criteria.TipoContratoId = UIHelper.GetIntFromInputCbo(this.ddlTipoContratoControl);
+            criteria.EstadoId = UIHelper.GetIntFromInputCbo(this.ddlEstadoControl);
         }
 
         //protected ComprobanteCriteria criteria
@@ -125,6 +131,7 @@ namespace FacturaElectronica.Ui.Web.Code
             this.ddlMesFacturacionControl.SelectedIndex = 0;
             this.ddlAnioFacturacionControl.SelectedIndex = 0;
             this.ddlTipoContratoControl.SelectedIndex = 0;
+            this.ddlEstadoControl.SelectedIndex = 0;
         }
 
         protected virtual void InicializarControles()

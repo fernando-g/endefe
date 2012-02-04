@@ -407,3 +407,27 @@ div.accountInfo
     margin-top: 6px;
     margin-right: 6px;
 }
+
+/* ------------------------ */
+.table_estados
+{   
+    color: #333333; 
+    width: 450px; 
+    border-collapse: collapse;
+    border: 1px solid #DBDDFF
+}
+.table_estados th
+{   
+    background-image: url(../Images/header_estados.png);
+    background-repeat:repeat-x;    
+    color: White;
+}
+.table_estados th h3
+{   
+    color: White; 
+    font-weight: bold;
+}
+.collapsible_panel
+{
+    cursor:pointer;    
+}
