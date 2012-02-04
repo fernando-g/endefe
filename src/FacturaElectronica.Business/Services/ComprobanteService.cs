@@ -190,21 +190,26 @@ namespace FacturaElectronica.Business.Services
         {
             EstadoComprobantesDto dto = new EstadoComprobantesDto();
             ComprobanteCriteria criteria = new ComprobanteCriteria();
-            criteria.ClienteId = clientId;
-            // Total Comprobantes
-            dto.TotalComprobantes = this.ObtenerComprobantesPorCliente(criteria,0).Count;
-            // Visualizados
-            criteria.Estado = CodigosEstadoArchivoAsociado.Visualizado;
-            dto.Visualizados = this.ObtenerComprobantes(criteria).Count;
-            // No Visualizados
-            criteria.Estado = CodigosEstadoArchivoAsociado.NoVisualizado;
-            criteria.DocumentosNoVencidos = true;
-            dto.NoVisualizados = this.ObtenerComprobantes(criteria).Count;
-            // No Visualizados
-            criteria.Estado = CodigosEstadoArchivoAsociado.NoVisualizado;
-            criteria.DocumentosVencidos = true;
-            criteria.DocumentosNoVencidos = false;
-            dto.NoVisualizadosVencidos = this.ObtenerComprobantes(criteria).Count;
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+
+                criteria.ClienteId = clientId;
+                // Total Comprobantes
+                dto.TotalComprobantes = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                                                                         a.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado).Count();
+                // Visualizados
+                dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                                                                    a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado).Count();
+                // No Visualizados
+                DateTime hoy = DateTime.Now.Date;
+                dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                                                                      a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
+                                                                      hoy <= a.FechaVencimiento).Count();
+                // No Visualizados
+                dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                                                                              a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
+                                                                              a.FechaVencimiento < hoy).Count();
+            }
 
             return dto;
         }
