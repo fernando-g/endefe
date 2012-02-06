@@ -93,7 +93,6 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCorridas.AutoGenerateColumns = false;
-            this.gridCorridas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridCorridas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCorridas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -118,6 +117,7 @@
             this.Id.HeaderText = "Identificador";
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
+            this.Id.Width = 131;
             // 
             // fechaDataGridViewTextBoxColumn
             // 
@@ -126,6 +126,7 @@
             this.fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
             this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
             this.fechaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.fechaDataGridViewTextBoxColumn.Width = 137;
             // 
             // nombreDeArchivoDataGridViewTextBoxColumn
             // 
@@ -134,6 +135,7 @@
             this.nombreDeArchivoDataGridViewTextBoxColumn.HeaderText = "Nombre de Archivo";
             this.nombreDeArchivoDataGridViewTextBoxColumn.Name = "nombreDeArchivoDataGridViewTextBoxColumn";
             this.nombreDeArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nombreDeArchivoDataGridViewTextBoxColumn.Width = 220;
             // 
             // pathArchivoDataGridViewTextBoxColumn
             // 
@@ -142,6 +144,7 @@
             this.pathArchivoDataGridViewTextBoxColumn.HeaderText = "Path Archivo";
             this.pathArchivoDataGridViewTextBoxColumn.Name = "pathArchivoDataGridViewTextBoxColumn";
             this.pathArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pathArchivoDataGridViewTextBoxColumn.Width = 369;
             // 
             // bsCorridas
             // 

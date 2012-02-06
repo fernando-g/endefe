@@ -68,7 +68,7 @@ namespace FacturaElectronica.Afip.Business
                     if (!this.ValidarEsquemaXml(corridaDto.PathArchivo, xmlSchemaPath))
                     {
                         StringBuilder sb = new StringBuilder();
-                        sb.AppendLine("ERROR: el esquema del archivo es invalido");
+                        sb.AppendLine("ERROR: el formato del archivo es invalido");
                         sb.AppendLine(this.validacionesEsquema.ToString());
                         this.Log(sb.ToString());
                         return null;
@@ -82,7 +82,16 @@ namespace FacturaElectronica.Afip.Business
                     xmlString = xmlString.Replace("<Lote>", "<FECAERequest>").Replace("</Lote>", "</FECAERequest>");
 
                     // Deserealizo el XML y obtengo solo la parte del request
-                    FECAERequest feCAERequest = DeserializarXml<FECAERequest>(xmlString);
+                    FECAERequest feCAERequest = null;
+                    try
+                    {
+                        feCAERequest = DeserializarXml<FECAERequest>(xmlString);                       
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Log("El formato del archivo es inválido.");
+                        return null;
+                    }
 
                     // Obtengo Ticket de Autorizacion
                     this.Log("Iniciando comunicacion con la AFIP");

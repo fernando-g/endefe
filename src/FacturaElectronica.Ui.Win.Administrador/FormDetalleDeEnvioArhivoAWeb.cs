@@ -42,7 +42,8 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void CargarDetalleDeArchivos(CorridaSubidaArchivoDto corridaDto)
         {            
-            this.gridArchivos.DataSource = corridaDto.Detalles;
+            this.bsDetalleArchivosWeb.DataSource = corridaDto.Detalles;
+            this.gridArchivos.DataSource = this.bsDetalleArchivosWeb;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

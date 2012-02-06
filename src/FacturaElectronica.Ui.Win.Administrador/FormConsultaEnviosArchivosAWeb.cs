@@ -40,7 +40,8 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 var searchResult = SubidaArchivoService.ObtenerCorridas(search);
                 this.lblCantidadReg.Text = searchResult.Count.ToString();
 
-                this.gridCorridas.DataSource = searchResult;                              
+                this.bsCorridaSubidaArchivo.DataSource = searchResult;
+                this.gridCorridas.DataSource = this.bsCorridaSubidaArchivo;                              
             }
             catch (Exception ex)
             {

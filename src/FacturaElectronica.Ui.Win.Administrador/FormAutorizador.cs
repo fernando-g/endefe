@@ -14,6 +14,7 @@ using FacturaElectronica.Ui.Win.Administrador.Code;
 using System.Configuration;
 using FacturaElectronica.Common.Contracts.Search;
 using System.Net;
+using System.Threading;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -86,12 +87,20 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 this.txtNroCorrida.Text = this.corridaDto.Id.ToString();
 
                 this.MostrarMensajeEnLog("Iniciando ejecución asincrónica...");
-                procesoCorridaSvc.EjecutarCorrida(this.corridaDto.Id);
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), this.corridaDto.Id);
+                
             }
             catch (Exception ex)
             {
                 this.MostrarMensajeEnLog(ex.Message);
             }            
+        }
+
+        private void EjecutarCorridaCallBack(object state)
+        {
+            long corridaId = Convert.ToInt64(state);
+            procesoCorridaSvc.EjecutarCorrida(corridaId);
         }
 
         private void CopiarArchivoParaProcesarPorFTP(string filePath)

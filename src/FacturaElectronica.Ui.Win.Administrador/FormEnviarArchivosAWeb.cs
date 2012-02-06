@@ -75,6 +75,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
             try
             {
                 timerLog.Stop();
+                this.LogTextBox.Clear();
                 string sourceDirectory = this.txtDirectorio.Text;
                 List<string> fileList = new List<string>();
                 if (Directory.Exists(sourceDirectory))
@@ -189,30 +190,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
             }
 
             return filesInServerList;
-        }
-
-        //private List<string> CopiarArchivosParaProcesar(List<string> fileList)
-        //{
-        //    //List<string> filesInServerList = new List<string>();
-        //    //string destinationPath = ConfigurationManager.AppSettings["PathDestinoArchivosFacturaConCAE"];
-        //    //destinationPath = Path.Combine(destinationPath, CorridaSubidaArchivo.Id.ToString());
-        //    //destinationPath = Path.Combine(destinationPath, "AProcesar");
-
-        //    //if (!Directory.Exists(destinationPath))
-        //    //{
-        //    //    Directory.CreateDirectory(destinationPath);
-        //    //}
-
-        //    //foreach (string file in fileList)
-        //    //{
-        //    //    string fileName = Path.GetFileName(file);
-        //    //    string destFilePath = Path.Combine(destinationPath, fileName);
-        //    //    File.Copy(file, destFilePath);
-        //    //    filesInServerList.Add(destFilePath);
-        //    //}
-
-        //    //return filesInServerList;
-        //}
+        }        
 
         private void MostrarMensajeEnLog(string text)
         {

@@ -12,6 +12,7 @@ using System.IO;
 using FacturaElectronica.Common.Constants;
 using System.Threading;
 using System.Net.Mail;
+using System.Globalization;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -261,6 +262,8 @@ namespace FacturaElectronica.Business.Services
 
                 string montoTotalStr = filePartes[arch_montototal];
                 decimal montoTotal;
+
+                montoTotalStr = montoTotalStr.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator);
                 if (!Decimal.TryParse(montoTotalStr, out montoTotal))
                 {
                     errorStr = "No se pudo interpretar el MontoTotal " + montoTotalStr;
