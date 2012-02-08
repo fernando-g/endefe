@@ -13,6 +13,7 @@ using FacturaElectronica.Common.Constants;
 using System.Threading;
 using System.Net.Mail;
 using System.Globalization;
+using System.Net;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -65,7 +66,7 @@ namespace FacturaElectronica.Business.Services
                         {
                             Directory.CreateDirectory(fileDestinationPathNoOk);
                         }
-                        
+
                         // Una vez que tengo los paths, cargo los archivos
                         foreach (string filePathIterator in files)
                         {
@@ -118,15 +119,15 @@ namespace FacturaElectronica.Business.Services
             using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
             {
                 try
-                {                    
-                    var query      = (from corrida in ctx.CorridaSubidaArchivoes
-                                   join corridaDetalle in ctx.CorridaSubidaArchivoDetalles on corrida.Id equals corridaDetalle.Id
-                                   join archivo in ctx.ArchivoAsociadoes on corridaDetalle.ArchivoAsociadoId equals archivo.Id
-                                   join comp in ctx.Comprobantes on archivo.ComprobanteId equals comp.Id
-                                   join cli in ctx.Clientes on comp.ClienteId equals cli.Id
-                                   where corridaDetalle.ProcesadoOK
-                                   && corrida.Id == corridaId
-                                   select cli);
+                {
+                    var query = (from corrida in ctx.CorridaSubidaArchivoes
+                                 join corridaDetalle in ctx.CorridaSubidaArchivoDetalles on corrida.Id equals corridaDetalle.CorridaSubidaArchivoId
+                                 join archivo in ctx.ArchivoAsociadoes on corridaDetalle.ArchivoAsociadoId equals archivo.Id
+                                 join comp in ctx.Comprobantes on archivo.ComprobanteId equals comp.Id
+                                 join cli in ctx.Clientes on comp.ClienteId equals cli.Id
+                                 where corridaDetalle.ProcesadoOK
+                                 && corrida.Id == corridaId
+                                 select cli);
 
                     clienteList = query.Distinct().ToList();
 
@@ -176,7 +177,7 @@ namespace FacturaElectronica.Business.Services
                     procesarArchivo = false;
                 }
 
-                string tipoComprobante = filePartes[arch_tipodocumento];               
+                string tipoComprobante = filePartes[arch_tipodocumento];
                 TipoComprobante tipoComprobanteObj = null;
                 if (!String.IsNullOrEmpty(tipoComprobante))
                 {
@@ -326,7 +327,7 @@ namespace FacturaElectronica.Business.Services
                             bool clienteOk = true;
                             if (!dbComprobante.ClienteId.HasValue)
                             {
-                                dbComprobante.ClienteId = dbCliente.Id;                                
+                                dbComprobante.ClienteId = dbCliente.Id;
                             }
                             else if (dbComprobante.ClienteId.Value != dbCliente.Id)
                             {
@@ -356,6 +357,7 @@ namespace FacturaElectronica.Business.Services
                                     dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
                                 }
 
+                                detalle.ArchivoAsociado = archivoAsociado;
                                 archivoAsociado.NombreArchivo = fileName;
                                 archivoAsociado.PathArchivo = destPath;
                                 archivoAsociado.NroComprobante = nroComprobante;
@@ -378,11 +380,11 @@ namespace FacturaElectronica.Business.Services
                         }
                     }
                 }
-                
-                if(!detalle.ProcesadoOK)
+
+                if (!detalle.ProcesadoOK)
                 {
                     // Lo copio a la carpeta de fallidos y registro el estado en el documento
-                    string destPath = Path.Combine(fileDestinationPathNoOk, fileName);                    
+                    string destPath = Path.Combine(fileDestinationPathNoOk, fileName);
                     File.Move(filePath, destPath);
                 }
 
@@ -401,6 +403,11 @@ namespace FacturaElectronica.Business.Services
             configuration.BodyPathHtml = ConfigurationManager.AppSettings["MailBodyPathHtml"];
             configuration.Host = ConfigurationManager.AppSettings["MailHost"];
             configuration.Port = ConfigurationManager.AppSettings["MailPort"];
+
+            configuration.MailUserName = ConfigurationManager.AppSettings["MailUserName"];
+            configuration.MailPassword = ConfigurationManager.AppSettings["MailPassword"];
+            configuration.MailEnableSSL = Convert.ToBoolean(ConfigurationManager.AppSettings["MailEnableSSL"]);
+            configuration.MailDefaultCredentials = Convert.ToBoolean(ConfigurationManager.AppSettings["MailDefaultCredentials"]);
 
             foreach (Cliente cliente in clienteList)
             {
@@ -427,11 +434,41 @@ namespace FacturaElectronica.Business.Services
                 }
                 catch (Exception ex)
                 {
-                    GenerarLog(ctx, emailInThread.CorridaId, string.Format("Email enviado a {0} con error {1}", emailInThread.Email, ex.Message));
+                    string exceptionMessage = GetExceptionMessage(ex);
+                    string exceptionStack = GetExceptionStackTrace(ex);
+                    GenerarLog(ctx, emailInThread.CorridaId, string.Format("Email enviado a {0} con error {1}", emailInThread.Email, exceptionMessage + exceptionStack));
                 }
 
                 ctx.SaveChanges();
             }
+        }
+
+        public string GetExceptionMessage(Exception ex)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            Exception current = ex;
+            while (current != null)
+            {
+                builder.Append(current.Message);
+                current = current.InnerException;
+            }
+
+            return builder.ToString();
+        }
+
+        public string GetExceptionStackTrace(Exception ex)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            Exception current = ex;
+            while (current != null)
+            {
+                builder.Append(current.StackTrace);
+                current = current.InnerException;
+            }
+
+            return builder.ToString();
         }
 
         private static void SendMail(EmailInThread emailInThread)
@@ -442,20 +479,40 @@ namespace FacturaElectronica.Business.Services
             string replayTo = emailInThread.Configuration.ReplayTo;
             string host = emailInThread.Configuration.Host;
             string port = emailInThread.Configuration.Port;
+            string username = emailInThread.Configuration.MailUserName;
+            string password = emailInThread.Configuration.MailPassword;
+            bool enableSSL = emailInThread.Configuration.MailEnableSSL;
+            bool defaultCredentials = emailInThread.Configuration.MailDefaultCredentials;
 
             MailMessage email = new MailMessage();
             email.To.Add(new MailAddress(emailInThread.Email));
             email.Subject = subject;
+            email.From = new MailAddress(from);
+            email.ReplyToList.Add(new MailAddress(replayTo));
             email.Body = body;
             email.From = new MailAddress(from);
             email.ReplyToList.Add(new MailAddress(replayTo));
             //email.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure | DeliveryNotificationOptions.OnSuccess;
             email.IsBodyHtml = true;
 
+
             SmtpClient client = new SmtpClient();
             client.Host = host;
             client.Port = Convert.ToInt32(port);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            if (defaultCredentials)
+            {
+                client.UseDefaultCredentials = true;
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(username))
+                {
+                    client.Credentials = new NetworkCredential(username, password);
+                }
+            }
+
+            client.EnableSsl = enableSSL;
             client.Send(email);
         }
 
@@ -490,13 +547,13 @@ namespace FacturaElectronica.Business.Services
             }
 
             return estadosArchivoAsociado;
-        }      
+        }
 
         private void GenerarLog(long corridaId, string mensaje)
-        {           
-            using(FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
+        {
+            using (FacturaElectronicaEntities ctx = new FacturaElectronicaEntities())
             {
-                GenerarLog(ctx, corridaId, mensaje);          
+                GenerarLog(ctx, corridaId, mensaje);
             }
         }
 
@@ -528,7 +585,7 @@ namespace FacturaElectronica.Business.Services
                 }
                 else
                 {
-                    if(!String.IsNullOrEmpty(search.NombreArchivoLike))
+                    if (!String.IsNullOrEmpty(search.NombreArchivoLike))
                     {
                         query = query.Where(c => c.CorridaSubidaArchivoDetalles.Where(d => d.NombreArchivo.Contains(search.NombreArchivoLike)).Count() > 0);
                     }
@@ -541,7 +598,7 @@ namespace FacturaElectronica.Business.Services
                     if (search.FechaHasta.HasValue)
                     {
                         query = query.Where(c => c.FechaProceso <= search.FechaHasta.Value);
-                    }                    
+                    }
                 }
 
                 query = query.OrderByDescending(c => c.Id);
@@ -577,7 +634,7 @@ namespace FacturaElectronica.Business.Services
 
                         foreach (var dbLog in queryLog)
                         {
-                            CorridaSubidaArchivoLogDto logDto = new CorridaSubidaArchivoLogDto();                            
+                            CorridaSubidaArchivoLogDto logDto = new CorridaSubidaArchivoLogDto();
                             EntityMapper.Map(dbLog, logDto);
                             logDtoList.Add(logDto);
                             if (logDto.Mensaje == FinCorridaStr)

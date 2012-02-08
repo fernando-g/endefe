@@ -13,5 +13,9 @@ namespace FacturaElectronica.Common.Contracts
         public string ReplayTo { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }       
+        public string  MailUserName { get; set; }   
+        public string MailPassword { get; set; }   
+        public bool MailEnableSSL { get; set; }
+        public bool MailDefaultCredentials { get; set; }   
     }
 }
