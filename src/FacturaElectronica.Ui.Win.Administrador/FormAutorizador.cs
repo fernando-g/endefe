@@ -247,5 +247,17 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 this.MostrarMensajeEnLog(ex.Message);
             }               
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MostrarLog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

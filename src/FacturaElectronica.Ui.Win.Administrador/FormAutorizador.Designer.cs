@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtNroCorrida = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnVerDetalleCorrida = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,14 +51,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.timerAutorizacion = new System.Windows.Forms.Timer(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtNroCorrida = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnRefresh);
             this.panel2.Controls.Add(this.txtNroCorrida);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.btnVerDetalleCorrida);
@@ -73,6 +75,25 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(611, 586);
             this.panel2.TabIndex = 1;
+            // 
+            // txtNroCorrida
+            // 
+            this.txtNroCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNroCorrida.Location = new System.Drawing.Point(480, 95);
+            this.txtNroCorrida.Name = "txtNroCorrida";
+            this.txtNroCorrida.ReadOnly = true;
+            this.txtNroCorrida.Size = new System.Drawing.Size(119, 20);
+            this.txtNroCorrida.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(407, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Ejecución #:";
             // 
             // btnVerDetalleCorrida
             // 
@@ -256,24 +277,15 @@
             // 
             this.timerAutorizacion.Tick += new System.EventHandler(this.timerAutorizacion_Tick);
             // 
-            // label4
+            // btnRefresh
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(407, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Ejecución #:";
-            // 
-            // txtNroCorrida
-            // 
-            this.txtNroCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNroCorrida.Location = new System.Drawing.Point(480, 95);
-            this.txtNroCorrida.Name = "txtNroCorrida";
-            this.txtNroCorrida.ReadOnly = true;
-            this.txtNroCorrida.Size = new System.Drawing.Size(119, 20);
-            this.txtNroCorrida.TabIndex = 11;
+            this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
+            this.btnRefresh.Location = new System.Drawing.Point(79, 98);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(34, 21);
+            this.btnRefresh.TabIndex = 22;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // FormAutorizador
             // 
@@ -316,5 +328,6 @@
         private System.Windows.Forms.Button btnVerDetalleCorrida;
         private System.Windows.Forms.TextBox txtNroCorrida;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
