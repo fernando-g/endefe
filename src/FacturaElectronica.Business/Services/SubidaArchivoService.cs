@@ -351,31 +351,43 @@ namespace FacturaElectronica.Business.Services
                                 // Puede ser que el archivo asociado ya exista y lo tengo que actualizar
                                 ArchivoAsociado archivoAsociado;
                                 archivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.ComprobanteId == dbComprobante.Id && a.NombreArchivo == fileName).SingleOrDefault();
-                                if (archivoAsociado == null)
+                                if (archivoAsociado != null &&
+                                    archivoAsociado.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado)
                                 {
-                                    archivoAsociado = new ArchivoAsociado();
-                                    dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
-                                }
-
-                                detalle.ArchivoAsociado = archivoAsociado;
-                                archivoAsociado.NombreArchivo = fileName;
-                                archivoAsociado.PathArchivo = destPath;
-                                archivoAsociado.NroComprobante = nroComprobante;
-                                archivoAsociado.TipoContratoId = tipoContrato.Id;
-                                if (tieneFechaVencimiento)
-                                {
-                                    archivoAsociado.FechaVencimiento = fechaDeVencimiento;
+                                    // No se puede procesar porque ya fue visualizado
+                                    errorStr = string.Format("No se puede reemplazar el archivo asociado del comprobante porque ya fue visualizado. (Nro {0}, Tipo {1}, PtoVta: {2})", nroComprobante, tipoComprobanteObj.Descripcion, ptovta);
+                                    mensajeError.AppendLine(errorStr);
+                                    GenerarLog(dbCorrida.Id, errorStr);                                    
                                 }
                                 else
                                 {
-                                    archivoAsociado.DiasVencimiento = diasDeVencimiento;
-                                }
 
-                                archivoAsociado.FechaDeCarga = DateTime.Now;
-                                archivoAsociado.MesFacturacion = periodoFacturacionMes;
-                                archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
-                                archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
-                                archivoAsociado.MontoTotal = montoTotal;
+                                    if (archivoAsociado == null)
+                                    {
+                                        archivoAsociado = new ArchivoAsociado();
+                                        dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
+                                    }
+
+                                    detalle.ArchivoAsociado = archivoAsociado;
+                                    archivoAsociado.NombreArchivo = fileName;
+                                    archivoAsociado.PathArchivo = destPath;
+                                    archivoAsociado.NroComprobante = nroComprobante;
+                                    archivoAsociado.TipoContratoId = tipoContrato.Id;
+                                    if (tieneFechaVencimiento)
+                                    {
+                                        archivoAsociado.FechaVencimiento = fechaDeVencimiento;
+                                    }
+                                    else
+                                    {
+                                        archivoAsociado.DiasVencimiento = diasDeVencimiento;
+                                    }
+
+                                    archivoAsociado.FechaDeCarga = DateTime.Now;
+                                    archivoAsociado.MesFacturacion = periodoFacturacionMes;
+                                    archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
+                                    archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
+                                    archivoAsociado.MontoTotal = montoTotal;
+                                }
                             }
                         }
                     }
