@@ -46,7 +46,7 @@ namespace FacturaElectronica.Common.Services
         [OperationContract]
         List<EstadoArchivoAsociadoDto> ObtenerEstados();
 
-        [OperationContract]
+        [OperationContract(Name="ObtenerArchivoPorId")]
         string ObtenerArchivo(long archivoId);
 
         [OperationContract]
