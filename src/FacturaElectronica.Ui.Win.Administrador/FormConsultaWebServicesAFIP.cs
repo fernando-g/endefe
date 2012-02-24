@@ -224,8 +224,8 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 {
                     if (string.IsNullOrEmpty(this.txtPtoVta.Text))
                     {
-                        //MessageBox();
-                        //return;
+                        MessageBox.Show("Debe ingresar un valor para el Punto de Venta", "Validación campos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
                     }
 
                     int ptoVtaInt = int.Parse(this.txtPtoVta.Text);
