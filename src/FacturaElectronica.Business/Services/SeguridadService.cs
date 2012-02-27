@@ -20,11 +20,15 @@ namespace FacturaElectronica.Business.Services
             bool usuarioValido = false;
             using (var ctx = new FacturaElectronicaEntities())
             {
-                Usuario usuario = this.ObtenerUsuario(ctx, nombreUsuario);
-                string hashedPwd = HashPassword(usuario, password);
-                if (usuario != null &&  usuario.Password == hashedPwd)
+                Usuario usuario = this.ObtenerUsuario(ctx, nombreUsuario);                
+                
+                if (usuario != null)                
                 {
-                    usuarioValido = true;
+                    string hashedPwd = HashPassword(usuario, password);
+                    if (usuario.Password == hashedPwd)
+                    {
+                        usuarioValido = true;
+                    }
                 }
             }
             return usuarioValido;

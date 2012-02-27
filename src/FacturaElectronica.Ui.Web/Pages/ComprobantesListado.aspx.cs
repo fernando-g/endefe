@@ -119,13 +119,31 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             base.CargarCriteria(criteria);
             criteria.ClienteId = this.BaseMaster.ClienteId;
+            string codigoEstado = this.Request.Params["Estado"];
+            if (!string.IsNullOrEmpty(codigoEstado) &&
+                (codigoEstado == CodigosEstadoArchivoAsociado.NoVisualizado ||
+                 codigoEstado == CodigosEstadoArchivoAsociado.Visualizado))
+            {
+                criteria.Estado = codigoEstado;
+                if (codigoEstado == CodigosEstadoArchivoAsociado.NoVisualizado)
+                {
+                    if (this.Request.Params["Venc"] != null)
+                    {
+                        criteria.DocumentosVencidos = true;
+                    }
+                    else
+                    {
+                        criteria.DocumentosNoVencidos = true;
+                    }
+                }
+            }
         }
+
         protected override List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria)
         {
             int cantCbtes = this.Page.IsPostBack ? 0 : int.Parse(ConfigurationManager.AppSettings["cantUltimosReg"].ToString());
             return ServiceFactory.GetComprobanteService().ObtenerComprobantesPorCliente(criteria, cantCbtes);
-        }
-        
+        }        
 
         private void BindToGrid()
         {

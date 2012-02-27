@@ -15,3 +15,7 @@ function openWindows(estado, file)
 
     return true;
 }
+
+function Nav(url, parameters) {
+    document.location.href = url + parameters;
+}

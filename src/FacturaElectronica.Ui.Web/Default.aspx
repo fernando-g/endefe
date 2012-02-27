@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr onclick="Nav('Pages/ComprobantesListado.aspx','?Estado=V');" style="cursor: pointer">
                     <td style="width: 50px">
                         <img src="Images/visualizado.png" alt="" />
                     </td>
@@ -40,7 +40,7 @@
                         <asp:Label ID="lblVisualizados" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr onclick="Nav('Pages/ComprobantesListado.aspx','?Estado=NV');" style="cursor: pointer">
                     <td>
                         <img src="Images/no_visualizado.png" alt="" />
                     </td>
@@ -51,7 +51,7 @@
                         <asp:Label ID="lblNoVisualizados" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr onclick="Nav('Pages/ComprobantesListado.aspx','?Estado=NV&Venc=1');" style="cursor: pointer">
                     <td>
                         <img src="Images/no_visualizado_vencido.png" alt="" />
                     </td>

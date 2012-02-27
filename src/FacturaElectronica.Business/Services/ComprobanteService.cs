@@ -39,6 +39,7 @@ namespace FacturaElectronica.Business.Services
 
             using (var ctx = new FacturaElectronicaEntities())
             {
+                DateTime hoy = DateTime.Now.Date;
                 var query = (from aa in ctx.ArchivoAsociadoes
                              join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                              where
@@ -58,6 +59,10 @@ namespace FacturaElectronica.Business.Services
                                  // Periodo Facturacion
                              && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                              && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
+                                 // Documentos Vencidos
+                             && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < hoy)
+                                 // Documentos No Vencidos
+                             && (!criteria.DocumentosNoVencidos || hoy <= aa.FechaVencimiento.Value)
                                  // Sacar Documentos Eliminados
                              && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
                                  // Estados por Id
@@ -99,7 +104,7 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                DateTime today = DateTime.Now.Date;
+                DateTime hoy = DateTime.Now.Date;
                 List<ComprobanteArchivoAsociadoDto> list = (from aa in ctx.ArchivoAsociadoes
                         join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                         where
@@ -123,9 +128,9 @@ namespace FacturaElectronica.Business.Services
                         && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                         && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                             // Documentos Vencidos
-                        && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < today)
+                        && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < hoy)
                             // Documentos No Vencidos
-                        && (!criteria.DocumentosNoVencidos || today <= aa.FechaVencimiento.Value)
+                        && (!criteria.DocumentosNoVencidos || hoy <= aa.FechaVencimiento.Value)
                             // Monto Desde
                         && (!criteria.MontoTotalDesde.HasValue || criteria.MontoTotalDesde.Value <= aa.MontoTotal)
                             // Monto Hasta
