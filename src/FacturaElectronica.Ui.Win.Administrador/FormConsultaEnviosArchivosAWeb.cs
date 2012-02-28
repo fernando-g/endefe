@@ -27,26 +27,54 @@ namespace FacturaElectronica.Ui.Win.Administrador
         {
             try
             {
-                CorridaSubidaArchivoSearch search = new CorridaSubidaArchivoSearch();
-                if(!string.IsNullOrEmpty(this.txtIdentificador.Text))
+                if (ValidarInputs())
                 {
-                    search.CorridaId = Convert.ToInt64(this.txtIdentificador.Text);
-                }
-                
-                search.NombreArchivoLike = this.txtNombreDeArchivo.Text;                
-                search.FechaDesde = dtpFechaDesde.Value;
-                search.FechaHasta = dtpFechaHasta.Value;
-                              
-                var searchResult = SubidaArchivoService.ObtenerCorridas(search);
-                this.lblCantidadReg.Text = searchResult.Count.ToString();
+                    CorridaSubidaArchivoSearch search = new CorridaSubidaArchivoSearch();
+                    if (!string.IsNullOrEmpty(this.txtIdentificador.Text))
+                    {
+                        search.CorridaId = Convert.ToInt64(this.txtIdentificador.Text);
+                    }
 
-                this.bsCorridaSubidaArchivo.DataSource = searchResult;
-                this.gridCorridas.DataSource = this.bsCorridaSubidaArchivo;                              
+                    search.NombreArchivoLike = this.txtNombreDeArchivo.Text;
+                    search.FechaDesde = dtpFechaDesde.Value;
+                    search.FechaHasta = dtpFechaHasta.Value;
+
+                    var searchResult = SubidaArchivoService.ObtenerCorridas(search);
+                    this.lblCantidadReg.Text = searchResult.Count.ToString();
+
+                    this.bsCorridaSubidaArchivo.DataSource = searchResult;
+                    this.gridCorridas.DataSource = this.bsCorridaSubidaArchivo;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private bool ValidarInputs()
+        {
+            bool validado = true;
+            try
+            {
+                StringBuilder errorBuilder = new StringBuilder();
+                if (!Validaciones.IsNumeber(this.txtIdentificador.Text))
+                {
+                    errorBuilder.AppendLine("El envío debe ser un número.");
+                }
+
+                if (errorBuilder.Length > 0)
+                {
+                    validado = false;
+                    MessageBox.Show(errorBuilder.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return validado;
         }
 
         private void gridCorridas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -65,6 +93,14 @@ namespace FacturaElectronica.Ui.Win.Administrador
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void txtIdentificador_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }            
         }
     }
 }

@@ -48,6 +48,7 @@
             // 
             this.btnVerDetalleCorrida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVerDetalleCorrida.Enabled = false;
             this.btnVerDetalleCorrida.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVerDetalleCorrida.Location = new System.Drawing.Point(15, 446);
             this.btnVerDetalleCorrida.Name = "btnVerDetalleCorrida";
@@ -74,6 +75,7 @@
             this.LogTextBox.Location = new System.Drawing.Point(15, 120);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.ReadOnly = true;
             this.LogTextBox.Size = new System.Drawing.Size(704, 259);
             this.LogTextBox.TabIndex = 10;
             // 

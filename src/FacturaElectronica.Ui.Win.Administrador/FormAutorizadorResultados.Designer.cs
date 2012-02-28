@@ -261,6 +261,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridAutorizados.AutoGenerateColumns = false;
+            this.gridAutorizados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridAutorizados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.gridAutorizados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridAutorizados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -288,7 +289,6 @@
             this.ConceptoDesc.HeaderText = "Concepto";
             this.ConceptoDesc.Name = "ConceptoDesc";
             this.ConceptoDesc.ReadOnly = true;
-            this.ConceptoDesc.Width = 126;
             // 
             // DocTipo
             // 
@@ -296,7 +296,6 @@
             this.DocTipo.HeaderText = "DocTipo";
             this.DocTipo.Name = "DocTipo";
             this.DocTipo.ReadOnly = true;
-            this.DocTipo.Width = 127;
             // 
             // docNroDataGridViewTextBoxColumn
             // 
@@ -304,7 +303,6 @@
             this.docNroDataGridViewTextBoxColumn.HeaderText = "DocNro";
             this.docNroDataGridViewTextBoxColumn.Name = "docNroDataGridViewTextBoxColumn";
             this.docNroDataGridViewTextBoxColumn.ReadOnly = true;
-            this.docNroDataGridViewTextBoxColumn.Width = 126;
             // 
             // cbteDesdeDataGridViewTextBoxColumn
             // 
@@ -312,7 +310,6 @@
             this.cbteDesdeDataGridViewTextBoxColumn.HeaderText = "Cbte. Desde";
             this.cbteDesdeDataGridViewTextBoxColumn.Name = "cbteDesdeDataGridViewTextBoxColumn";
             this.cbteDesdeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cbteDesdeDataGridViewTextBoxColumn.Width = 126;
             // 
             // cbteHastaDataGridViewTextBoxColumn
             // 
@@ -320,7 +317,6 @@
             this.cbteHastaDataGridViewTextBoxColumn.HeaderText = "Cbte. Hasta";
             this.cbteHastaDataGridViewTextBoxColumn.Name = "cbteHastaDataGridViewTextBoxColumn";
             this.cbteHastaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cbteHastaDataGridViewTextBoxColumn.Width = 126;
             // 
             // cbteFechaDataGridViewTextBoxColumn
             // 
@@ -328,7 +324,6 @@
             this.cbteFechaDataGridViewTextBoxColumn.HeaderText = "Cbte. Fecha";
             this.cbteFechaDataGridViewTextBoxColumn.Name = "cbteFechaDataGridViewTextBoxColumn";
             this.cbteFechaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cbteFechaDataGridViewTextBoxColumn.Width = 127;
             // 
             // cAEDataGridViewTextBoxColumn
             // 
@@ -336,7 +331,6 @@
             this.cAEDataGridViewTextBoxColumn.HeaderText = "CAE";
             this.cAEDataGridViewTextBoxColumn.Name = "cAEDataGridViewTextBoxColumn";
             this.cAEDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cAEDataGridViewTextBoxColumn.Width = 126;
             // 
             // cAEFechaVtoDataGridViewTextBoxColumn
             // 
@@ -344,7 +338,6 @@
             this.cAEFechaVtoDataGridViewTextBoxColumn.HeaderText = "CAE Fecha Vto.";
             this.cAEFechaVtoDataGridViewTextBoxColumn.Name = "cAEFechaVtoDataGridViewTextBoxColumn";
             this.cAEFechaVtoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cAEFechaVtoDataGridViewTextBoxColumn.Width = 126;
             // 
             // bsAutorizados
             // 

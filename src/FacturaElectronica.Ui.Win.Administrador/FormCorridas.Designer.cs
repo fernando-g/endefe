@@ -34,10 +34,6 @@
             this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.gridCorridas = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombreDeArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pathArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsCorridas = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -45,6 +41,10 @@
             this.lblCantidadReg = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtIdentificador = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombreDeArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pathArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridCorridas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCorridas)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +93,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCorridas.AutoGenerateColumns = false;
+            this.gridCorridas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridCorridas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCorridas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -109,42 +110,6 @@
             this.gridCorridas.Size = new System.Drawing.Size(860, 410);
             this.gridCorridas.TabIndex = 10;
             this.gridCorridas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridCorridas_CellDoubleClick);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.FillWeight = 60.91371F;
-            this.Id.HeaderText = "Identificador";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 131;
-            // 
-            // fechaDataGridViewTextBoxColumn
-            // 
-            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "Fecha";
-            this.fechaDataGridViewTextBoxColumn.FillWeight = 64.08591F;
-            this.fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
-            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
-            this.fechaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.fechaDataGridViewTextBoxColumn.Width = 137;
-            // 
-            // nombreDeArchivoDataGridViewTextBoxColumn
-            // 
-            this.nombreDeArchivoDataGridViewTextBoxColumn.DataPropertyName = "NombreDeArchivo";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.FillWeight = 102.8753F;
-            this.nombreDeArchivoDataGridViewTextBoxColumn.HeaderText = "Nombre de Archivo";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.Name = "nombreDeArchivoDataGridViewTextBoxColumn";
-            this.nombreDeArchivoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nombreDeArchivoDataGridViewTextBoxColumn.Width = 220;
-            // 
-            // pathArchivoDataGridViewTextBoxColumn
-            // 
-            this.pathArchivoDataGridViewTextBoxColumn.DataPropertyName = "PathArchivo";
-            this.pathArchivoDataGridViewTextBoxColumn.FillWeight = 172.1251F;
-            this.pathArchivoDataGridViewTextBoxColumn.HeaderText = "Path Archivo";
-            this.pathArchivoDataGridViewTextBoxColumn.Name = "pathArchivoDataGridViewTextBoxColumn";
-            this.pathArchivoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.pathArchivoDataGridViewTextBoxColumn.Width = 369;
             // 
             // bsCorridas
             // 
@@ -211,6 +176,39 @@
             this.txtIdentificador.Name = "txtIdentificador";
             this.txtIdentificador.Size = new System.Drawing.Size(160, 20);
             this.txtIdentificador.TabIndex = 16;
+            this.txtIdentificador.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdentificador_KeyPress);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.FillWeight = 60.91371F;
+            this.Id.HeaderText = "# Ejecución";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // fechaDataGridViewTextBoxColumn
+            // 
+            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "Fecha";
+            this.fechaDataGridViewTextBoxColumn.FillWeight = 64.08591F;
+            this.fechaDataGridViewTextBoxColumn.HeaderText = "Fecha";
+            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
+            this.fechaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nombreDeArchivoDataGridViewTextBoxColumn
+            // 
+            this.nombreDeArchivoDataGridViewTextBoxColumn.DataPropertyName = "NombreDeArchivo";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.FillWeight = 102.8753F;
+            this.nombreDeArchivoDataGridViewTextBoxColumn.HeaderText = "Nombre de Archivo";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.Name = "nombreDeArchivoDataGridViewTextBoxColumn";
+            this.nombreDeArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pathArchivoDataGridViewTextBoxColumn
+            // 
+            this.pathArchivoDataGridViewTextBoxColumn.DataPropertyName = "PathArchivo";
+            this.pathArchivoDataGridViewTextBoxColumn.FillWeight = 172.1251F;
+            this.pathArchivoDataGridViewTextBoxColumn.HeaderText = "Path Archivo";
+            this.pathArchivoDataGridViewTextBoxColumn.Name = "pathArchivoDataGridViewTextBoxColumn";
+            this.pathArchivoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormCorridas
             // 
@@ -250,11 +248,11 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblCantidadReg;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtIdentificador;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreDeArchivoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn pathArchivoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtIdentificador;
     }
 }

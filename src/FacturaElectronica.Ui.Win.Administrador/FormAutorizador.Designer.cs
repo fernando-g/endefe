@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNroCorrida = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnVerDetalleCorrida = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.timerAutorizacion = new System.Windows.Forms.Timer(this.components);
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +75,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(611, 586);
             this.panel2.TabIndex = 1;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
+            this.btnRefresh.Location = new System.Drawing.Point(79, 98);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(34, 21);
+            this.btnRefresh.TabIndex = 22;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // txtNroCorrida
             // 
@@ -225,6 +235,7 @@
             this.LogTextBox.Location = new System.Drawing.Point(12, 121);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.ReadOnly = true;
             this.LogTextBox.Size = new System.Drawing.Size(592, 282);
             this.LogTextBox.TabIndex = 5;
             // 
@@ -276,16 +287,6 @@
             // timerAutorizacion
             // 
             this.timerAutorizacion.Tick += new System.EventHandler(this.timerAutorizacion_Tick);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.repetir;
-            this.btnRefresh.Location = new System.Drawing.Point(79, 98);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(34, 21);
-            this.btnRefresh.TabIndex = 22;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // FormAutorizador
             // 

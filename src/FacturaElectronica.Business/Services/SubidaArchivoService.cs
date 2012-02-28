@@ -604,12 +604,14 @@ namespace FacturaElectronica.Business.Services
 
                     if (search.FechaDesde.HasValue)
                     {
-                        query = query.Where(c => c.FechaProceso >= search.FechaDesde.Value);
+                        DateTime desde = search.FechaDesde.Value.Date;
+                        query = query.Where(c => c.FechaProceso >= desde);
                     }
 
                     if (search.FechaHasta.HasValue)
                     {
-                        query = query.Where(c => c.FechaProceso <= search.FechaHasta.Value);
+                        DateTime hasta = search.FechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
+                        query = query.Where(c => c.FechaProceso <= hasta);
                     }
                 }
 
@@ -640,7 +642,7 @@ namespace FacturaElectronica.Business.Services
                         IQueryable<CorridaSubidaArchivoLog> queryLog = dbCorrida.CorridaSubidaArchivoLogs.AsQueryable();
 
                         if (search.FechaLog.HasValue)
-                        {
+                        {                            
                             queryLog = queryLog.Where(l => l.Fecha >= search.FechaLog.Value);
                         }
 

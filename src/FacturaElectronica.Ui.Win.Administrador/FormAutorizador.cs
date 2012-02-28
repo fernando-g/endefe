@@ -25,6 +25,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private CorridaAutorizacionDto corridaDto = null;
         private IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();
         private DateTime fechaLog = default(DateTime);
+        private long lastLogId = 0;
 
         public FormAutorizador()
         {
@@ -62,6 +63,9 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 this.btnExaminar.Enabled = false;
                 this.btnAutorizar.Enabled = false;
                 this.LogTextBox.Text = string.Empty;
+                lastLogId = 0;
+                this.fechaLog = DateTime.MinValue;
+                this.txtNroCorrida.Text = string.Empty;
 
                 // Validar Entrada
                 if (!this.ValidarDatosDeEntrada())
@@ -220,17 +224,22 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 foreach (LogCorridaDto log in logs)
                 {
                     if (log.CorridaTerminada)
-                    {
+                    {                        
                         MostrarFinCorrida();
                         break;
                     }
                     else
                     {
-                        this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
+                        if (log.Id > lastLogId)
+                        {
+                            this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
+                        }
                     }
                 }
 
-                fechaLog = logs.Last().Fecha;
+                var lastLog = logs.Last();
+                lastLogId = lastLog.Id;
+                fechaLog = lastLog.Fecha;
             }
         }
 
@@ -252,7 +261,10 @@ namespace FacturaElectronica.Ui.Win.Administrador
         {
             try
             {
-                MostrarLog();
+                if (this.corridaDto != null && this.corridaDto.Id != 0)
+                {
+                    MostrarLog();
+                }
             }
             catch (Exception ex)
             {

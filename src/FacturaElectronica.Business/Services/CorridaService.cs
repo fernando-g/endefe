@@ -49,12 +49,14 @@ namespace FacturaElectronica.Business.Services
                 {
                     if (search.FechaDesde.HasValue)
                     {
-                        query = query.Where(c => search.FechaDesde.Value <= c.Fecha);
+                        DateTime desde = search.FechaDesde.Value.Date;
+                        query = query.Where(c => desde <= c.Fecha);
                     }
 
                     if (search.FechaHasta.HasValue)
                     {
-                        query = query.Where(c => c.Fecha <= search.FechaHasta.Value);
+                        DateTime hasta = search.FechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
+                        query = query.Where(c => c.Fecha <= hasta);
                     }                  
                 }
 

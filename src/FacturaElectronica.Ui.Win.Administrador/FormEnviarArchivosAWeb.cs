@@ -23,6 +23,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
     {
         private ISubidaArchivoService SubidaArchivoService = ServiceFactory.GetSubidaArchivoService();
         private DateTime fechaLog = DateTime.MinValue;
+        private long lastLogId = 0;
 
         public FormEnviarArchivosAWeb()
         {
@@ -78,6 +79,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 this.LogTextBox.Clear();
                 string sourceDirectory = this.txtDirectorio.Text;
                 List<string> fileList = new List<string>();
+                this.btnVerDetalleCorrida.Enabled = false;
+                lastLogId = 0;
+                this.fechaLog = DateTime.MinValue;
+                this.txtNroCorrida.Text = string.Empty;
+
+
                 if (Directory.Exists(sourceDirectory))
                 {
                     // Obtengo los archivos a procesar
@@ -106,11 +113,11 @@ namespace FacturaElectronica.Ui.Win.Administrador
                         ejecucionData.CorridaId = CorridaSubidaArchivo.Id;
                         ejecucionData.FileList = fileList;
 
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData);
-
                         // Activo el timer porque a veces no retorna la siguiente llamada
                         fechaLog = DateTime.MinValue;
                         timerLog.Start();
+
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData);                        
                     }
                 }
             }
@@ -214,15 +221,21 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     {
                         this.timerLog.Stop();
                         fechaLog = DateTime.MinValue;
+                        this.btnVerDetalleCorrida.Enabled = true;
                         break;
                     }
                     else
                     {
-                        this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
+                        if (log.Id > lastLogId)
+                        {
+                            this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
+                        }
                     }
                 }
 
-                fechaLog = logs.Last().Fecha;
+                var lastLog = logs.Last();
+                lastLogId = lastLog.Id;
+                fechaLog = lastLog.Fecha;
             }
         }
 
@@ -230,9 +243,16 @@ namespace FacturaElectronica.Ui.Win.Administrador
         {
             try
             {
-                FormDetalleDeEnvioArhivoAWeb frmDetalle = new FormDetalleDeEnvioArhivoAWeb();
-                frmDetalle.CorridaId = this.CorridaSubidaArchivo.Id;
-                frmDetalle.ShowDialog(this);
+                if (this.CorridaSubidaArchivo != null && this.CorridaSubidaArchivo.Id != 0)
+                {
+                    FormDetalleDeEnvioArhivoAWeb frmDetalle = new FormDetalleDeEnvioArhivoAWeb();
+                    frmDetalle.CorridaId = this.CorridaSubidaArchivo.Id;
+                    frmDetalle.ShowDialog(this);
+                }
+                else
+                {
+                    MessageBox.Show("El envío no está completo para ver su detalle.");
+                }
             }
             catch (Exception ex)
             {
@@ -244,7 +264,10 @@ namespace FacturaElectronica.Ui.Win.Administrador
         {
             try
             {
-                MostrarLog();
+                if (this.CorridaSubidaArchivo != null && this.CorridaSubidaArchivo.Id != 0)
+                {
+                    MostrarLog();
+                }
             }
             catch (Exception ex)
             {

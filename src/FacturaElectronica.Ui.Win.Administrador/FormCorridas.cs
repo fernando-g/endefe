@@ -77,5 +77,13 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void txtIdentificador_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }            
+        }
     }
 }

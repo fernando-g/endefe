@@ -37,11 +37,11 @@
             this.tabDetalleDeArchivos = new System.Windows.Forms.TabPage();
             this.btnExportar = new System.Windows.Forms.Button();
             this.gridArchivos = new System.Windows.Forms.DataGridView();
+            this.bsDetalleArchivosWeb = new System.Windows.Forms.BindingSource(this.components);
             this.tabLogCorrida = new System.Windows.Forms.TabPage();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
-            this.bsDetalleArchivosWeb = new System.Windows.Forms.BindingSource(this.components);
             this.NombreArchivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProcesadoOK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -49,8 +49,8 @@
             this.tabs.SuspendLayout();
             this.tabDetalleDeArchivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).BeginInit();
-            this.tabLogCorrida.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsDetalleArchivosWeb)).BeginInit();
+            this.tabLogCorrida.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblIdentificador
@@ -135,6 +135,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridArchivos.AutoGenerateColumns = false;
+            this.gridArchivos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridArchivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridArchivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NombreArchivo,
@@ -149,6 +150,10 @@
             this.gridArchivos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridArchivos.Size = new System.Drawing.Size(1063, 622);
             this.gridArchivos.TabIndex = 0;
+            // 
+            // bsDetalleArchivosWeb
+            // 
+            this.bsDetalleArchivosWeb.DataSource = typeof(FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto);
             // 
             // tabLogCorrida
             // 
@@ -190,17 +195,12 @@
             this.LogTextBox.Size = new System.Drawing.Size(1024, 462);
             this.LogTextBox.TabIndex = 6;
             // 
-            // bsDetalleArchivosWeb
-            // 
-            this.bsDetalleArchivosWeb.DataSource = typeof(FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto);
-            // 
             // NombreArchivo
             // 
             this.NombreArchivo.DataPropertyName = "NombreArchivo";
             this.NombreArchivo.HeaderText = "Nombre de Archivo";
             this.NombreArchivo.Name = "NombreArchivo";
             this.NombreArchivo.ReadOnly = true;
-            this.NombreArchivo.Width = 353;
             // 
             // Id
             // 
@@ -216,7 +216,6 @@
             this.ProcesadoOK.HeaderText = "Procesado OK?";
             this.ProcesadoOK.Name = "ProcesadoOK";
             this.ProcesadoOK.ReadOnly = true;
-            this.ProcesadoOK.Width = 353;
             // 
             // Mensaje
             // 
@@ -226,7 +225,6 @@
             this.Mensaje.ReadOnly = true;
             this.Mensaje.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Mensaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Mensaje.Width = 354;
             // 
             // FormDetalleDeEnvioArhivoAWeb
             // 
@@ -244,9 +242,9 @@
             this.tabs.ResumeLayout(false);
             this.tabDetalleDeArchivos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsDetalleArchivosWeb)).EndInit();
             this.tabLogCorrida.ResumeLayout(false);
             this.tabLogCorrida.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsDetalleArchivosWeb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
