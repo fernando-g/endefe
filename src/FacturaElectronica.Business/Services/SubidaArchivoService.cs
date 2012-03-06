@@ -142,14 +142,14 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        private const int arch_cuit = 0;
-        private const int arch_tipodocumento = 1;
-        private const int arch_nrocomprobante = 2;
-        private const int arch_ptovta = 3;
-        private const int arch_periodofacturacion = 4;
-        private const int arch_fechavencimiento = 5;
-        private const int arch_tipoContrato = 6;
-        private const int arch_montototal = 7;
+        private const int arch_cuit = 1;
+        private const int arch_tipodocumento = 2;
+        private const int arch_nrocomprobante = 3;
+        private const int arch_ptovta = 4;
+        private const int arch_periodofacturacion = 5;
+        private const int arch_fechavencimiento = 6;
+        private const int arch_tipoContrato = 7;
+        private const int arch_montototal = 8;
 
         private void ArmarArchivoAsociado(FacturaElectronicaEntities ctx, CorridaSubidaArchivo dbCorrida, string filePath, string fileDestinationPathOk, string fileDestinationPathNoOk)
         {
@@ -159,7 +159,7 @@ namespace FacturaElectronica.Business.Services
 
             StringBuilder mensajeError = new StringBuilder();
             string errorStr = string.Empty;
-            if (filePartes.Length != 8)
+            if (filePartes.Length != 9)
             {
                 errorStr = "No se pudo interpretar el nombre del archivo " + fileNameWithoutExtension;
                 mensajeError.AppendLine(errorStr);
