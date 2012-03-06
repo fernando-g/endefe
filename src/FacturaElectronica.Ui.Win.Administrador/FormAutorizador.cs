@@ -76,12 +76,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
                                     MessageBoxIcon.Exclamation);
                     return;
                 }
-
-                // Primero copio el archivo en el servidor para que lo procese el web service                
+                               
                 string origenPath = this.FileTextBox.Text.Trim();                              
                 string fileName = Path.GetFileName(origenPath);
 
                 this.MostrarMensajeEnLog("Preparando ejecución....");
+                               
                 this.corridaDto = procesoCorridaSvc.CrearNuevaCorrida(fileName);
 
                 this.MostrarMensajeEnLog("Enviando archivos por FTP....");

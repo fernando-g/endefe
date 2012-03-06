@@ -286,6 +286,7 @@
             // 
             // timerAutorizacion
             // 
+            this.timerAutorizacion.Interval = 3500;
             this.timerAutorizacion.Tick += new System.EventHandler(this.timerAutorizacion_Tick);
             // 
             // FormAutorizador
