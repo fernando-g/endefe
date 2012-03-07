@@ -158,6 +158,9 @@ namespace FacturaElectronica.Business.Services
 
         public UsuarioDto ObtenerUsuario(long usuarioId)
         {
+            if (usuarioId == 0)
+                return null;
+
             using (var ctx = new FacturaElectronicaEntities())
             {
                 return ToUsuarioDto(this.ObtenerUsuario(ctx,usuarioId));

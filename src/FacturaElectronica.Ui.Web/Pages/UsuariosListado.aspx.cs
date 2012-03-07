@@ -66,7 +66,7 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "editar" || e.CommandName == "eliminar" || e.CommandName == "eliminar")
+            if (e.CommandName == "editar" || e.CommandName == "eliminar" || e.CommandName == "password")
             {
                 try
                 {
@@ -80,7 +80,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                         ServiceFactory.GetSecurityService().EliminarUsuario(usuarioId);
                         Buscar();
                     }
-                    else if (e.CommandName == "eliminar")
+                    else if (e.CommandName == "password")
                     {
                         this.Response.Redirect(string.Format("{0}?Id={1}", pagCambiarPass, usuarioId), true);
                     }
