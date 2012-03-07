@@ -14,6 +14,14 @@
         <br />
         Fax. (+54 11) 4875-0618
         <br />
-        Para comunicarse vía e-mail, haga clic <a href="mailto:info@endesacemsa.com">aquí</a>.
+    </p>    
+    <p>
+        <b>Administración y Finanzas</b>
+        <br />
+        Vilaseco Rivas, Graciela
+        <br />
+        Tel. (+54 11) 4307-3040 int: 296
+        <br />
+        Para comunicarse vía e-mail, haga clic <a href="mailto:gvilaseco@endesacemsa.com">aquí</a>.
     </p>
 </asp:Content>
