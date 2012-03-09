@@ -271,13 +271,13 @@
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService41.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService42.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService43.xsd">
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReferenceMaestro\MaestroService.xsd">
@@ -333,6 +333,7 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceComprobanteService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -347,7 +348,6 @@
     <None Include="Service References\ServiceReferenceSubidaArchivo\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.disco" />
     <None Include="Resources\repetir.png" />
-    <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

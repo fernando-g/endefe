@@ -11,6 +11,7 @@ using System.Collections;
 using System.IO;
 using FacturaElectronica.Ui.Win.Administrador.Code;
 using FacturaElectronica.Common.Services;
+using FacturaElectronica.Common.Contracts.Search;
 
 namespace FacturaElectronica.Ui.Win.Administrador
 {
@@ -84,9 +85,11 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private void MostrarLog()
         {
             this.LogTextBox.Clear();
-            IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();        
-            
-            List<LogCorridaDto> logs = procesoCorridaSvc.ConsultarLog(this.corridaDto.Id, null);
+            IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();
+
+            LogSearch search = new LogSearch();
+            search.CorridaId = this.corridaDto.Id;
+            List<LogCorridaDto> logs = procesoCorridaSvc.ConsultarLog(search);
             if (logs != null && logs.Count() > 0)
             {
                 foreach (LogCorridaDto log in logs)

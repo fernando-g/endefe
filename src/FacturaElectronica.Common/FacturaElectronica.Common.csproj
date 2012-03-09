@@ -67,6 +67,7 @@
     <Compile Include="Contracts\SearchResult.cs" />
     <Compile Include="Contracts\Search\CorridaSubidaArchivoSearch.cs" />
     <Compile Include="Contracts\Search\CorridaSearch.cs" />
+    <Compile Include="Contracts\Search\LogSearch.cs" />
     <Compile Include="Contracts\TipoComprobanteDto.cs" />
     <Compile Include="Contracts\TipoContratoDto.cs" />
     <Compile Include="Contracts\UsuarioCriteria.cs" />

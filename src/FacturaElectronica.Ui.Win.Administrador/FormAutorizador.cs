@@ -23,9 +23,8 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private StringBuilder validacionEntradaDatos;
         private ProcesoAutorizador autorizador = new ProcesoAutorizador(true);
         private CorridaAutorizacionDto corridaDto = null;
-        private IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();
-        private DateTime fechaLog = default(DateTime);
-        private long lastLogId = 0;
+        private IProcesoCorridaService procesoCorridaSvc = ServiceFactory.GetProcesoCorridaService();        
+        private long? lastLogId = null;
 
         public FormAutorizador()
         {
@@ -57,16 +56,13 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private void AutorizarButton_Click(object sender, EventArgs e)
         {
             try
-            {
-                this.timerAutorizacion.Enabled = true;
-                this.timerAutorizacion.Start();
+            {               
                 this.btnExaminar.Enabled = false;
                 this.btnAutorizar.Enabled = false;
                 this.LogTextBox.Text = string.Empty;
-                lastLogId = 0;
-                this.fechaLog = DateTime.MinValue;
+                lastLogId = null;                
                 this.txtNroCorrida.Text = string.Empty;
-
+               
                 // Validar Entrada
                 if (!this.ValidarDatosDeEntrada())
                 {
@@ -87,10 +83,13 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 this.MostrarMensajeEnLog("Enviando archivos por FTP....");
                 CopiarArchivoParaProcesarPorFTP(origenPath);
                 this.MostrarMensajeEnLog("Archivos enviados al FTP.");
-                this.fechaLog = DateTime.Now;
+                this.lastLogId = null;
                 this.txtNroCorrida.Text = this.corridaDto.Id.ToString();
 
                 this.MostrarMensajeEnLog("Iniciando ejecución asincrónica...");
+
+                this.timerAutorizacion.Enabled = true;
+                this.timerAutorizacion.Start();
 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), this.corridaDto.Id);
                 
@@ -218,7 +217,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
         private void MostrarLog()
         {
-            List<LogCorridaDto> logs = this.procesoCorridaSvc.ConsultarLog(this.corridaDto.Id, this.fechaLog);
+            //this.LogTextBox.Text += "Antes de consultar log..." + Environment.NewLine;
+            LogSearch search = new LogSearch();
+            search.CorridaId = this.corridaDto.Id;
+            search.LogId = lastLogId;
+            List<LogCorridaDto> logs = this.procesoCorridaSvc.ConsultarLog(search);
+            //this.LogTextBox.Text += string.Format("Log consultado y se obtuvieron {0} registros.", logs.Count ) + Environment.NewLine;
             if (logs != null && logs.Count() > 0)
             {
                 foreach (LogCorridaDto log in logs)
@@ -230,7 +234,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     }
                     else
                     {
-                        if (log.Id > lastLogId)
+                        if (!lastLogId.HasValue || log.Id > lastLogId)
                         {
                             this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
                         }
@@ -238,8 +242,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 }
 
                 var lastLog = logs.Last();
-                lastLogId = lastLog.Id;
-                fechaLog = lastLog.Fecha;
+                lastLogId = lastLog.Id;                
             }
         }
 

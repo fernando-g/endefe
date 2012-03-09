@@ -172,7 +172,12 @@ namespace FacturaElectronica.Afip.Business
 
             destinationPath = Path.Combine(destinationPath, fileName);
 
-            File.Move(pathArchivo, destinationPath);
+            if (File.Exists(destinationPath))
+            {
+                File.Delete(destinationPath);                
+            }
+            
+            File.Move(pathArchivo, destinationPath);            
         }
 
         private void Log(string mensaje, string detalle = null)

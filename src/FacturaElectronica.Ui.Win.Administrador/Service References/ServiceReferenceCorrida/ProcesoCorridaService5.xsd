@@ -8,4 +8,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CorridaSearch" nillable="true" type="tns:CorridaSearch" />
+  <xs:complexType name="LogSearch">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CorridaId" type="xs:long" />
+      <xs:element minOccurs="0" name="LogId" nillable="true" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LogSearch" nillable="true" type="tns:LogSearch" />
 </xs:schema>

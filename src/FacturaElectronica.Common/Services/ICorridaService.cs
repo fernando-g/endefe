@@ -17,9 +17,9 @@ namespace FacturaElectronica.Common.Services
 
         [OperationContract]
         List<CorridaAutorizacionDto> ObtenerCorridas(CorridaSearch search);
-                
+
         [OperationContract]
-        List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha);
+        List<LogCorridaDto> ConsultarLog(LogSearch search);
 
         CorridaAutorizacionDto ProcesarCorrida(CorridaAutorizacionDto corridaDto, FECAEResponse feCAEResponse);
 

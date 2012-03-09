@@ -77,16 +77,16 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
             }
 
             return dto;
-        }        
+        }
 
-        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha)
+        public List<LogCorridaDto> ConsultarLog(LogSearch search)
         {
             List<LogCorridaDto> dto = null;
             ProcesoCorridaServiceClient client = new ProcesoCorridaServiceClient();
             ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
-                dto = client.ConsultarLog(corridaId, fecha);
+                dto = client.ConsultarLog(search);
                 client.Close();
             }
             catch

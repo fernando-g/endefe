@@ -226,17 +226,17 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        public List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha)
+        public List<LogCorridaDto> ConsultarLog(LogSearch search)
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
                 IQueryable<LogCorrida> query = ctx.LogCorridas;
 
-                query = query.Where(l => l.CorridaId == corridaId);
+                query = query.Where(l => l.CorridaId == search.CorridaId);
 
-                if (fecha.HasValue)
+                if (search.LogId.HasValue)
                 {
-                    query = query.Where(l => fecha < l.Fecha);
+                    query = query.Where(l => search.LogId.Value < l.Id);
                 }
 
                 return ToLogCorridaDtoList(query.ToList());

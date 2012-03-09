@@ -22,7 +22,7 @@ namespace FacturaElectronica.Common.Services
         List<CorridaAutorizacionDto> ObtenerCorridas(CorridaSearch search);
 
         [OperationContract]
-        List<LogCorridaDto> ConsultarLog(long corridaId, DateTime? fecha);
+        List<LogCorridaDto> ConsultarLog(LogSearch search);
 
     }
 }

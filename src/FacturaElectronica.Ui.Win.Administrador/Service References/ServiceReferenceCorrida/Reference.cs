@@ -25,7 +25,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceCorrida {
         System.Collections.Generic.List<FacturaElectronica.Common.Contracts.CorridaAutorizacionDto> ObtenerCorridas(FacturaElectronica.Common.Contracts.Search.CorridaSearch search);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProcesoCorridaService/ConsultarLog", ReplyAction="http://tempuri.org/IProcesoCorridaService/ConsultarLogResponse")]
-        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.LogCorridaDto> ConsultarLog(long corridaId, System.Nullable<System.DateTime> fecha);
+        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.LogCorridaDto> ConsultarLog(FacturaElectronica.Common.Contracts.Search.LogSearch search);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,8 +67,8 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceCorrida {
             return base.Channel.ObtenerCorridas(search);
         }
         
-        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.LogCorridaDto> ConsultarLog(long corridaId, System.Nullable<System.DateTime> fecha) {
-            return base.Channel.ConsultarLog(corridaId, fecha);
+        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.LogCorridaDto> ConsultarLog(FacturaElectronica.Common.Contracts.Search.LogSearch search) {
+            return base.Channel.ConsultarLog(search);
         }
     }
 }
