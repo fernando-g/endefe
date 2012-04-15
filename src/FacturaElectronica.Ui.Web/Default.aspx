@@ -16,6 +16,18 @@
             title="Contacto">Contacto</a>.
     </p>
     <br />
+    <asp:Panel ID="pnlMensajeSinLeer" runat="server" Visible="false">
+        <fieldset style="width: 424px">
+            <legend>
+                <img src="Images/mail_alert.png" width="24px" height="24px" style="vertical-align: bottom"
+                    alt="mensajesyalertas" /><label style="margin-left: 5px">Mensajes y Alertas (<asp:Label
+                        ID="lblCantMensajesTitulo" runat="server"></asp:Label>):</label></legend>
+            Ud. tiene
+            <asp:Label ID="lblCantMensajesDesc" runat="server"></asp:Label>
+            mensajes y alertas Sin Leer. Haga click <a href="Pages/MensajesAlertasListado.aspx?Id=NL" alt="mensajesnoleidos">aquí</a> para verlos.
+        </fieldset>
+    </asp:Panel>
+    <br />
     <asp:Panel ID="pnlEstadoComprobantes" runat="server" Visible="false">
         <table cellpadding="4" cellspacing="0" class="table_estados">
             <thead>

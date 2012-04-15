@@ -23,5 +23,10 @@ namespace FacturaElectronica.Ui.Web.Code
         {
             return new ClienteService();
         }
+
+        public static IMensajeService GetMensajeService()
+        {
+            return new MensajeService();
+        }
     }
 }

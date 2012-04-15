@@ -71,7 +71,8 @@ namespace FacturaElectronica.Ui.Web.Code
                     if (operacion == Operaciones.Home ||
                         operacion == Operaciones.Contacto ||
                         operacion == Operaciones.ComprobanteListado ||
-                        operacion == Operaciones.ClienteDetalle)
+                        operacion == Operaciones.ClienteDetalle ||
+                        operacion == Operaciones.MensajesAlertas)
                     { 
                         hasPermission = true;
                     }

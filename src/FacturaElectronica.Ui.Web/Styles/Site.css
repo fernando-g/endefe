@@ -4,7 +4,8 @@
 body   
 {
     /*background: #b6b7bc; modificado*/ 
-    font-size: .80em;
+    /*font-size: .80em;*/
+    font-size: 12px;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
@@ -280,6 +281,7 @@ input.textEntry
 {
     width: 320px;
     border: 1px solid #ccc;
+    font-size: 14px;
 }
 
 input.passwordEntry 
@@ -376,7 +378,8 @@ div.accountInfo
     font-family:Verdana;*/
     width:80px;
     cursor:pointer;
-    background-position: 0 -25px;	
+    background-position: 0 -25px;
+    font-size:12px;
 }
 .btn a:link    {text-decoration:none; color: Red;}
 .btn a:visited {text-decoration:none; color: Red;}
@@ -430,4 +433,10 @@ div.accountInfo
 .collapsible_panel
 {
     cursor:pointer;    
+}
+
+.text_area
+{
+    font-family:  Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
 }

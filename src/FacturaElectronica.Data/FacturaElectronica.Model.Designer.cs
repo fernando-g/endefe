@@ -36,6 +36,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_TipoContrato", "TipoContrato", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.TipoContrato), "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_CorridaSubidaArchivoDetalle_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FacturaElectronica.Data.ArchivoAsociado), "CorridaSubidaArchivoDetalle", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.CorridaSubidaArchivoDetalle), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "VisualizacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.VisualizacionComprobante), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Cliente), "MensajeCliente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.MensajeCliente), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Mensaje", "Mensaje", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Mensaje), "MensajeCliente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.MensajeCliente), true)]
 
 #endregion
 
@@ -438,6 +440,38 @@ namespace FacturaElectronica.Data
             }
         }
         private ObjectSet<ArchivoAsociado> _ArchivoAsociadoes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Mensaje> Mensajes
+        {
+            get
+            {
+                if ((_Mensajes == null))
+                {
+                    _Mensajes = base.CreateObjectSet<Mensaje>("Mensajes");
+                }
+                return _Mensajes;
+            }
+        }
+        private ObjectSet<Mensaje> _Mensajes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MensajeCliente> MensajeClientes
+        {
+            get
+            {
+                if ((_MensajeClientes == null))
+                {
+                    _MensajeClientes = base.CreateObjectSet<MensajeCliente>("MensajeClientes");
+                }
+                return _MensajeClientes;
+            }
+        }
+        private ObjectSet<MensajeCliente> _MensajeClientes;
 
         #endregion
         #region AddTo Methods
@@ -616,6 +650,22 @@ namespace FacturaElectronica.Data
         public void AddToArchivoAsociadoes(ArchivoAsociado archivoAsociado)
         {
             base.AddObject("ArchivoAsociadoes", archivoAsociado);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Mensajes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMensajes(Mensaje mensaje)
+        {
+            base.AddObject("Mensajes", mensaje);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MensajeClientes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMensajeClientes(MensajeCliente mensajeCliente)
+        {
+            base.AddObject("MensajeClientes", mensajeCliente);
         }
 
         #endregion
@@ -1443,6 +1493,28 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Comprobante>("FacturaElectronicaModel.FK_Comprobante_Cliente", "Comprobante", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Cliente", "MensajeCliente")]
+        public EntityCollection<MensajeCliente> MensajeClientes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MensajeCliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "MensajeCliente");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MensajeCliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "MensajeCliente", value);
                 }
             }
         }
@@ -4039,6 +4111,422 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CorridaAutorizacion>("FacturaElectronicaModel.FK_LogCorrida_CorridaAutorizacion", "CorridaAutorizacion", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="Mensaje")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Mensaje : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Mensaje object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="asunto">Initial value of the Asunto property.</param>
+        /// <param name="fechaDeCarga">Initial value of the FechaDeCarga property.</param>
+        public static Mensaje CreateMensaje(global::System.Int64 id, global::System.String asunto, global::System.DateTime fechaDeCarga)
+        {
+            Mensaje mensaje = new Mensaje();
+            mensaje.Id = id;
+            mensaje.Asunto = asunto;
+            mensaje.FechaDeCarga = fechaDeCarga;
+            return mensaje;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Asunto
+        {
+            get
+            {
+                return _Asunto;
+            }
+            set
+            {
+                OnAsuntoChanging(value);
+                ReportPropertyChanging("Asunto");
+                _Asunto = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Asunto");
+                OnAsuntoChanged();
+            }
+        }
+        private global::System.String _Asunto;
+        partial void OnAsuntoChanging(global::System.String value);
+        partial void OnAsuntoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Texto
+        {
+            get
+            {
+                return _Texto;
+            }
+            set
+            {
+                OnTextoChanging(value);
+                ReportPropertyChanging("Texto");
+                _Texto = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Texto");
+                OnTextoChanged();
+            }
+        }
+        private global::System.String _Texto;
+        partial void OnTextoChanging(global::System.String value);
+        partial void OnTextoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NombreArchivo
+        {
+            get
+            {
+                return _NombreArchivo;
+            }
+            set
+            {
+                OnNombreArchivoChanging(value);
+                ReportPropertyChanging("NombreArchivo");
+                _NombreArchivo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NombreArchivo");
+                OnNombreArchivoChanged();
+            }
+        }
+        private global::System.String _NombreArchivo;
+        partial void OnNombreArchivoChanging(global::System.String value);
+        partial void OnNombreArchivoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                OnPathChanging(value);
+                ReportPropertyChanging("Path");
+                _Path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Path");
+                OnPathChanged();
+            }
+        }
+        private global::System.String _Path;
+        partial void OnPathChanging(global::System.String value);
+        partial void OnPathChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FechaDeCarga
+        {
+            get
+            {
+                return _FechaDeCarga;
+            }
+            set
+            {
+                OnFechaDeCargaChanging(value);
+                ReportPropertyChanging("FechaDeCarga");
+                _FechaDeCarga = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FechaDeCarga");
+                OnFechaDeCargaChanged();
+            }
+        }
+        private global::System.DateTime _FechaDeCarga;
+        partial void OnFechaDeCargaChanging(global::System.DateTime value);
+        partial void OnFechaDeCargaChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Mensaje", "MensajeCliente")]
+        public EntityCollection<MensajeCliente> MensajeClientes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MensajeCliente>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "MensajeCliente");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MensajeCliente>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "MensajeCliente", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="MensajeCliente")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MensajeCliente : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MensajeCliente object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="mensajeId">Initial value of the MensajeId property.</param>
+        /// <param name="clienteId">Initial value of the ClienteId property.</param>
+        /// <param name="leido">Initial value of the Leido property.</param>
+        public static MensajeCliente CreateMensajeCliente(global::System.Int64 id, global::System.Int64 mensajeId, global::System.Int64 clienteId, global::System.Boolean leido)
+        {
+            MensajeCliente mensajeCliente = new MensajeCliente();
+            mensajeCliente.Id = id;
+            mensajeCliente.MensajeId = mensajeId;
+            mensajeCliente.ClienteId = clienteId;
+            mensajeCliente.Leido = leido;
+            return mensajeCliente;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 MensajeId
+        {
+            get
+            {
+                return _MensajeId;
+            }
+            set
+            {
+                OnMensajeIdChanging(value);
+                ReportPropertyChanging("MensajeId");
+                _MensajeId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MensajeId");
+                OnMensajeIdChanged();
+            }
+        }
+        private global::System.Int64 _MensajeId;
+        partial void OnMensajeIdChanging(global::System.Int64 value);
+        partial void OnMensajeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ClienteId
+        {
+            get
+            {
+                return _ClienteId;
+            }
+            set
+            {
+                OnClienteIdChanging(value);
+                ReportPropertyChanging("ClienteId");
+                _ClienteId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ClienteId");
+                OnClienteIdChanged();
+            }
+        }
+        private global::System.Int64 _ClienteId;
+        partial void OnClienteIdChanging(global::System.Int64 value);
+        partial void OnClienteIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Leido
+        {
+            get
+            {
+                return _Leido;
+            }
+            set
+            {
+                OnLeidoChanging(value);
+                ReportPropertyChanging("Leido");
+                _Leido = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Leido");
+                OnLeidoChanged();
+            }
+        }
+        private global::System.Boolean _Leido;
+        partial void OnLeidoChanging(global::System.Boolean value);
+        partial void OnLeidoChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Cliente", "Cliente")]
+        public Cliente Cliente
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "Cliente").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "Cliente").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Cliente> ClienteReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "Cliente");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Cliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "Cliente", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Mensaje", "Mensaje")]
+        public Mensaje Mensaje
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Mensaje>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "Mensaje").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Mensaje>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "Mensaje").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Mensaje> MensajeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Mensaje>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "Mensaje");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Mensaje>("FacturaElectronicaModel.FK_MensajeCliente_Mensaje", "Mensaje", value);
                 }
             }
         }

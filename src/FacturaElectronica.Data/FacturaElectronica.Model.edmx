@@ -20,6 +20,8 @@
           <EntitySet Name="DetalleEvento" EntityType="FacturaElectronicaModel.Store.DetalleEvento" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EstadoArchivoAsociado" EntityType="FacturaElectronicaModel.Store.EstadoArchivoAsociado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LogCorrida" EntityType="FacturaElectronicaModel.Store.LogCorrida" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Mensaje" EntityType="FacturaElectronicaModel.Store.Mensaje" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MensajeCliente" EntityType="FacturaElectronicaModel.Store.MensajeCliente" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ObservacionComprobante" EntityType="FacturaElectronicaModel.Store.ObservacionComprobante" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Rol" EntityType="FacturaElectronicaModel.Store.Rol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoComprobante" EntityType="FacturaElectronicaModel.Store.TipoComprobante" store:Type="Tables" Schema="dbo" />
@@ -94,6 +96,14 @@
           <AssociationSet Name="FK_LogCorrida_CorridaAutorizacion" Association="FacturaElectronicaModel.Store.FK_LogCorrida_CorridaAutorizacion">
             <End Role="CorridaAutorizacion" EntitySet="CorridaAutorizacion" />
             <End Role="LogCorrida" EntitySet="LogCorrida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajeCliente_Cliente" Association="FacturaElectronicaModel.Store.FK_MensajeCliente_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="MensajeCliente" EntitySet="MensajeCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajeCliente_Mensaje" Association="FacturaElectronicaModel.Store.FK_MensajeCliente_Mensaje">
+            <End Role="Mensaje" EntitySet="Mensaje" />
+            <End Role="MensajeCliente" EntitySet="MensajeCliente" />
           </AssociationSet>
           <AssociationSet Name="FK_ObservacionesComprobantes_DetalleComprobantes" Association="FacturaElectronicaModel.Store.FK_ObservacionesComprobantes_DetalleComprobantes">
             <End Role="DetalleComprobante" EntitySet="DetalleComprobante" />
@@ -198,7 +208,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CorridaId" Type="bigint" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
-          <Property Name="Mensaje" Type="varchar" MaxLength="300" />
+          <Property Name="Mensaje" Type="varchar" MaxLength="7000" />
         </EntityType>
         <EntityType Name="DetalleCabecera">
           <Key>
@@ -273,6 +283,26 @@
           <Property Name="Fecha" Type="datetime" Nullable="false" />
           <Property Name="Mensaje" Type="varchar(max)" Nullable="false" />
           <Property Name="Detalle" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Asunto" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Texto" Type="varchar(max)" />
+          <Property Name="NombreArchivo" Type="varchar" MaxLength="100" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="FechaDeCarga" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MensajeCliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MensajeId" Type="bigint" Nullable="false" />
+          <Property Name="ClienteId" Type="bigint" Nullable="false" />
+          <Property Name="Leido" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ObservacionComprobante">
           <Key>
@@ -545,6 +575,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MensajeCliente_Cliente">
+          <End Role="Cliente" Type="FacturaElectronicaModel.Store.Cliente" Multiplicity="1" />
+          <End Role="MensajeCliente" Type="FacturaElectronicaModel.Store.MensajeCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MensajeCliente">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajeCliente_Mensaje">
+          <End Role="Mensaje" Type="FacturaElectronicaModel.Store.Mensaje" Multiplicity="1" />
+          <End Role="MensajeCliente" Type="FacturaElectronicaModel.Store.MensajeCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensaje">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MensajeCliente">
+              <PropertyRef Name="MensajeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ObservacionesComprobantes_DetalleComprobantes">
           <End Role="DetalleComprobante" Type="FacturaElectronicaModel.Store.DetalleComprobante" Multiplicity="1" />
           <End Role="ObservacionComprobante" Type="FacturaElectronicaModel.Store.ObservacionComprobante" Multiplicity="*" />
@@ -704,6 +758,16 @@
             <End Role="ArchivoAsociado" EntitySet="ArchivoAsociadoes" />
             <End Role="VisualizacionComprobante" EntitySet="VisualizacionComprobantes" />
           </AssociationSet>
+          <EntitySet Name="Mensajes" EntityType="FacturaElectronicaModel.Mensaje" />
+          <EntitySet Name="MensajeClientes" EntityType="FacturaElectronicaModel.MensajeCliente" />
+          <AssociationSet Name="FK_MensajeCliente_Cliente" Association="FacturaElectronicaModel.FK_MensajeCliente_Cliente">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="MensajeCliente" EntitySet="MensajeClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajeCliente_Mensaje" Association="FacturaElectronicaModel.FK_MensajeCliente_Mensaje">
+            <End Role="Mensaje" EntitySet="Mensajes" />
+            <End Role="MensajeCliente" EntitySet="MensajeClientes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cliente">
           <Key>
@@ -720,6 +784,7 @@
           <Property Type="String" Name="EmailContactoSecundario" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuarios" Relationship="FacturaElectronicaModel.FK_Usuarios_Clientes" FromRole="Cliente" ToRole="Usuario" />
           <NavigationProperty Name="Comprobantes" Relationship="FacturaElectronicaModel.FK_Comprobante_Cliente" FromRole="Cliente" ToRole="Comprobante" />
+          <NavigationProperty Name="MensajeClientes" Relationship="FacturaElectronicaModel.FK_MensajeCliente_Cliente" FromRole="Cliente" ToRole="MensajeCliente" />
         </EntityType>
         <EntityType Name="DetalleCabecera">
           <Key>
@@ -1168,6 +1233,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Texto" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NombreArchivo" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Path" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaDeCarga" Nullable="false" />
+          <NavigationProperty Name="MensajeClientes" Relationship="FacturaElectronicaModel.FK_MensajeCliente_Mensaje" FromRole="Mensaje" ToRole="MensajeCliente" />
+        </EntityType>
+        <EntityType Name="MensajeCliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="MensajeId" Nullable="false" />
+          <Property Type="Int64" Name="ClienteId" Nullable="false" />
+          <Property Type="Boolean" Name="Leido" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="FacturaElectronicaModel.FK_MensajeCliente_Cliente" FromRole="MensajeCliente" ToRole="Cliente" />
+          <NavigationProperty Name="Mensaje" Relationship="FacturaElectronicaModel.FK_MensajeCliente_Mensaje" FromRole="MensajeCliente" ToRole="Mensaje" />
+        </EntityType>
+        <Association Name="FK_MensajeCliente_Cliente">
+          <End Type="FacturaElectronicaModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.MensajeCliente" Role="MensajeCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MensajeCliente">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajeCliente_Mensaje">
+          <End Type="FacturaElectronicaModel.Mensaje" Role="Mensaje" Multiplicity="1" />
+          <End Type="FacturaElectronicaModel.MensajeCliente" Role="MensajeCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensaje">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MensajeCliente">
+              <PropertyRef Name="MensajeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1438,6 +1550,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Mensajes">
+            <EntityTypeMapping TypeName="FacturaElectronicaModel.Mensaje">
+              <MappingFragment StoreEntitySet="Mensaje">
+                <ScalarProperty Name="FechaDeCarga" ColumnName="FechaDeCarga" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MensajeClientes">
+            <EntityTypeMapping TypeName="FacturaElectronicaModel.MensajeCliente">
+              <MappingFragment StoreEntitySet="MensajeCliente">
+                <ScalarProperty Name="Leido" ColumnName="Leido" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="MensajeId" ColumnName="MensajeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1458,7 +1592,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="FacturaElectronica.Model">
+      <Diagram Name="FacturaElectronica.Model" ZoomLevel="54">
         <EntityTypeShape EntityType="FacturaElectronicaModel.Cliente" Width="1.5" PointX="0.75" PointY="6.125" Height="2.7427376302083388" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.DetalleCabecera" Width="1.875" PointX="6.5" PointY="15.125" Height="2.5783902994791674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.DetalleError" Width="2.375" PointX="3.375" PointY="17.25" Height="1.7566536458333246" />
@@ -1467,17 +1601,17 @@
         <EntityTypeShape EntityType="FacturaElectronicaModel.Rol" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.Usuario" Width="1.5" PointX="6" PointY="7.75" Height="2.1725878906249996" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_Usuarios_Clientes" ManuallyRouted="false" >
-          <ConnectorPoint PointX="2.25" PointY="8.4349101041666668" />
-          <ConnectorPoint PointX="3.8854166666666665" PointY="8.4349101041666668" />
-          <ConnectorPoint PointX="4.052083333333333" PointY="8.4349101041666668" />
-          <ConnectorPoint PointX="5.010416666666667" PointY="8.4349101041666668" />
-          <ConnectorPoint PointX="5.177083333333333" PointY="8.4349101041666668" />
-          <ConnectorPoint PointX="6" PointY="8.4349101041666668" />
+          <ConnectorPoint PointX="2.25" PointY="8.4120603251139325" />
+          <ConnectorPoint PointX="3.9791666666666665" PointY="8.4120603251139325" />
+          <ConnectorPoint PointX="4.145833333333333" PointY="8.4120603251139325" />
+          <ConnectorPoint PointX="5.010416666666667" PointY="8.4120603251139325" />
+          <ConnectorPoint PointX="5.177083333333333" PointY="8.4120603251139325" />
+          <ConnectorPoint PointX="6" PointY="8.4120603251139325" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.UsuarioRol" >
           <ConnectorPoint PointX="5.09375" PointY="2.537985026041667" />
-          <ConnectorPoint PointX="5.09375" PointY="9.2100014973958331" />
-          <ConnectorPoint PointX="6" PointY="9.2100014973958331" />
+          <ConnectorPoint PointX="5.09375" PointY="9.1991206502278651" />
+          <ConnectorPoint PointX="6" PointY="9.1991206502278651" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.VisualizacionComprobante" Width="2.125" PointX="9.5" PointY="4.375" Height="1.9802864583333335" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoComprobante" Width="1.5" PointX="0.75" PointY="0.875" Height="1.7566536458333388" />
@@ -1495,19 +1629,25 @@
         <EntityTypeShape EntityType="FacturaElectronicaModel.TipoConcepto" Width="1.5" PointX="9" PointY="9.25" Height="1.2636116536458246" />
         <EntityTypeShape EntityType="FacturaElectronicaModel.CorridaAutorizacion" Width="1.5" PointX="0.75" PointY="14.5" Height="2.749492187499996" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleCabeceras_Corridas" >
-          <ConnectorPoint PointX="2.25" PointY="16.187246093749998" />
-          <ConnectorPoint PointX="4.479166666666667" PointY="16.187246093749998" />
-          <ConnectorPoint PointX="4.645833333333333" PointY="16.187246093749998" />
-          <ConnectorPoint PointX="6.5" PointY="16.187246093749998" />
+          <ConnectorPoint PointX="2.25" PointY="15.98232180664062" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="15.98232180664062" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="15.98232180664062" />
+          <ConnectorPoint PointX="4.479166666666667" PointY="15.98232180664062" />
+          <ConnectorPoint PointX="4.645833333333333" PointY="15.98232180664062" />
+          <ConnectorPoint PointX="6.5" PointY="15.98232180664062" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_DetalleComprobantes_Corridas" >
           <ConnectorPoint PointX="2.25" PointY="14.78125" />
-          <ConnectorPoint PointX="6.03125" PointY="14.78125" />
-          <ConnectorPoint PointX="6.03125" PointY="14.335999348958334" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="14.78125" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="14.78125" />
+          <ConnectorPoint PointX="6.21875" PointY="14.78125" />
+          <ConnectorPoint PointX="6.21875" PointY="14.335999348958334" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_Errores_Corridas" >
-          <ConnectorPoint PointX="2.25" PointY="15.484248046874999" />
-          <ConnectorPoint PointX="4.5625" PointY="15.484248046874999" />
+          <ConnectorPoint PointX="2.25" PointY="15.38178590332031" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="15.38178590332031" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="15.38178590332031" />
+          <ConnectorPoint PointX="4.5625" PointY="15.38178590332031" />
           <ConnectorPoint PointX="4.5625" PointY="17.25" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_Eventos_Corridas" >
@@ -1530,8 +1670,8 @@
           <ConnectorPoint PointX="2.875" PointY="3.25" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.DetalleComprobanteComprobante" >
-          <ConnectorPoint PointX="3.96875" PointY="6.9609993489583317" />
-          <ConnectorPoint PointX="3.96875" PointY="13.473043619791666" />
+          <ConnectorPoint PointX="4.0625" PointY="6.9609993489583317" />
+          <ConnectorPoint PointX="4.0625" PointY="13.473043619791666" />
           <ConnectorPoint PointX="5.625" PointY="13.473043619791666" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.CorridaSubidaArchivo" Width="1.5" PointX="9.625" PointY="15.5" Height="1.7879850260416674" />
@@ -1540,8 +1680,8 @@
           <ConnectorPoint PointX="10.093750499999999" PointY="15.5" />
           <ConnectorPoint PointX="10.093750499999999" PointY="10.903382161458332" />
           <ConnectorPoint PointX="10.75" PointY="10.903382161458332" />
-          <ConnectorPoint PointX="10.75" PointY="8.4035953776041659" />
-          <ConnectorPoint PointX="11.875" PointY="8.4035953776041659" />
+          <ConnectorPoint PointX="10.75" PointY="8.40359537760417" />
+          <ConnectorPoint PointX="11.875" PointY="8.40359537760417" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FacturaElectronicaModel.CorridaSubidaArchivoLog" Width="1.5" PointX="11.875" PointY="15.5" Height="1.9802864583333264" />
         <AssociationConnector Association="FacturaElectronicaModel.FK_CorridaSubidaArchivoLog_CorridaSubidaArchivo" >
@@ -1561,8 +1701,8 @@
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_ArchivoAsociado_TipoContrato" >
           <ConnectorPoint PointX="7.3125" PointY="2.662985026041667" />
-          <ConnectorPoint PointX="7.3125" PointY="3.1908655130208396" />
-          <ConnectorPoint PointX="13.625" PointY="3.1908655130208396" />
+          <ConnectorPoint PointX="7.3125" PointY="2.97211551302084" />
+          <ConnectorPoint PointX="13.625" PointY="2.97211551302084" />
         </AssociationConnector>
         <AssociationConnector Association="FacturaElectronicaModel.FK_CorridaSubidaArchivoDetalle_ArchivoAsociado" >
           <ConnectorPoint PointX="14.375" PointY="6.10520507812501" />
@@ -1572,6 +1712,23 @@
         <AssociationConnector Association="FacturaElectronicaModel.FK_VisualizacionComprobante_ArchivoAsociado" >
           <ConnectorPoint PointX="13.625" PointY="5.2401025390625051" />
           <ConnectorPoint PointX="11.625" PointY="5.2401025390625051" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="FacturaElectronicaModel.Mensaje" Width="1.5" PointX="10.25" PointY="18.875" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="FacturaElectronicaModel.MensajeCliente" Width="1.5" PointX="7.125" PointY="18.875" Height="2.1725878906250102" />
+        <AssociationConnector Association="FacturaElectronicaModel.FK_MensajeCliente_Cliente" >
+          <ConnectorPoint PointX="1.5" PointY="9.451396484375" />
+          <ConnectorPoint PointX="1.5" PointY="10.125" />
+          <ConnectorPoint PointX="3.25" PointY="10.125" />
+          <ConnectorPoint PointX="3.25" PointY="17" />
+          <ConnectorPoint PointX="4.479166666666667" PointY="17" />
+          <ConnectorPoint PointX="4.645833333333333" PointY="17" />
+          <ConnectorPoint PointX="6" PointY="17" />
+          <ConnectorPoint PointX="6" PointY="19.961293945312505" />
+          <ConnectorPoint PointX="7.125" PointY="19.961293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="FacturaElectronicaModel.FK_MensajeCliente_Mensaje" >
+          <ConnectorPoint PointX="10.25" PointY="19.961293945312505" />
+          <ConnectorPoint PointX="8.625" PointY="19.961293945312505" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

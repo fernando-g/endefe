@@ -87,11 +87,13 @@
     <Content Include="Images\key.gif" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logoubatic.jpg" />
+    <Content Include="Images\mail_alert.png" />
     <Content Include="Images\no_visualizado.png" />
     <Content Include="Images\no_visualizado_vencido.png" />
     <Content Include="Images\pdf.png" />
     <Content Include="Images\roller.gif" />
     <Content Include="Images\roller_orange.gif" />
+    <Content Include="Images\save_file.png" />
     <Content Include="Images\viewItem.png" />
     <Content Include="Images\visualizado.png" />
     <Content Include="Images\warning.png" />
@@ -101,6 +103,8 @@
     <Content Include="Pages\ComprobantesListado.aspx" />
     <Content Include="Pages\Contacto.aspx" />
     <Content Include="Pages\InfoVisualizacion.aspx" />
+    <Content Include="Pages\MensajesAlertasDetalle.aspx" />
+    <Content Include="Pages\MensajesAlertasListado.aspx" />
     <Content Include="Pages\ReporteComprobantes.aspx" />
     <Content Include="Pages\Test.aspx" />
     <Content Include="Pages\TestGrid.aspx" />
@@ -213,6 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\FileHandler.ashx.cs">
+      <DependentUpon>FileHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\CambiarPassword.aspx.cs">
       <DependentUpon>CambiarPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -257,6 +264,20 @@
     </Compile>
     <Compile Include="Handlers\PdfHandler.ashx.cs">
       <DependentUpon>PdfHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasDetalle.aspx.cs">
+      <DependentUpon>MensajesAlertasDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasDetalle.aspx.designer.cs">
+      <DependentUpon>MensajesAlertasDetalle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasListado.aspx.cs">
+      <DependentUpon>MensajesAlertasListado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasListado.aspx.designer.cs">
+      <DependentUpon>MensajesAlertasListado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReporteComprobantes.aspx.cs">
       <DependentUpon>ReporteComprobantes.aspx</DependentUpon>
@@ -328,6 +349,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Handlers\PdfHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\FileHandler.ashx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -19,12 +19,37 @@ namespace FacturaElectronica.Ui.Web
             {
                 if (this.BaseMaster.EsCliente)
                 {
-                    IComprobanteService svc = ServiceFactory.GetComprobanteService();
-                    EstadoComprobantesDto dto = svc.ObtenerEstadoComprobantes(this.BaseMaster.ClienteId);
-                    this.CargarEstados(dto);
-                    this.pnlEstadoComprobantes.Visible = true;
+                    CargarMensajes();
+                    CargarEstadoComprobantes();
                 }
             }
+        }
+
+        private void CargarMensajes()
+        {
+            IMensajeService svc = ServiceFactory.GetMensajeService();
+            MensajeCriteria criteria = new MensajeCriteria();
+            criteria.ClienteId = this.BaseMaster.ClienteId;
+            criteria.Leido = false;
+            List<MensajeDto> mensajes = svc.ObtenerMensajes(criteria);
+            int cantidad = mensajes.Count;
+            if (mensajes.Count > 0)
+            {
+                this.lblCantMensajesTitulo.Text = cantidad.ToString();
+                this.lblCantMensajesDesc.Text = cantidad.ToString();
+                this.pnlMensajeSinLeer.Visible = true;
+            }
+            else
+                this.pnlMensajeSinLeer.Visible = false;
+
+        }
+
+        private void CargarEstadoComprobantes()
+        {
+            IComprobanteService svc = ServiceFactory.GetComprobanteService();
+            EstadoComprobantesDto dto = svc.ObtenerEstadoComprobantes(this.BaseMaster.ClienteId);
+            this.CargarEstados(dto);
+            this.pnlEstadoComprobantes.Visible = true;
         }
 
         private void CargarEstados(EstadoComprobantesDto dto)

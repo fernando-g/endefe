@@ -7,99 +7,129 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacturaElectronica.Ui.Web {
+namespace FacturaElectronica.Ui.Web.Pages {
     
     
-    public partial class _Default {
+    public partial class MensajesAlertasListado {
         
         /// <summary>
-        /// lnkEndesa control.
+        /// valSumm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkEndesa;
+        protected global::System.Web.UI.WebControls.ValidationSummary valSumm;
         
         /// <summary>
-        /// pnlMensajeSinLeer control.
+        /// txtFechaDeCargaDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMensajeSinLeer;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaDesde;
         
         /// <summary>
-        /// lblCantMensajesTitulo control.
+        /// cvFechaDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantMensajesTitulo;
+        protected global::System.Web.UI.WebControls.CompareValidator cvFechaDesde;
         
         /// <summary>
-        /// lblCantMensajesDesc control.
+        /// txtAsunto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantMensajesDesc;
+        protected global::System.Web.UI.WebControls.TextBox txtAsunto;
         
         /// <summary>
-        /// pnlEstadoComprobantes control.
+        /// txtFechaDeCargaHasta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlEstadoComprobantes;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDeCargaHasta;
         
         /// <summary>
-        /// lblFechaActual control.
+        /// btnBuscar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFechaActual;
+        protected global::System.Web.UI.WebControls.Button btnBuscar;
         
         /// <summary>
-        /// lblVisualizados control.
+        /// btnLimpiar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVisualizados;
+        protected global::System.Web.UI.WebControls.Button btnLimpiar;
         
         /// <summary>
-        /// lblNoVisualizados control.
+        /// lblCantReg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoVisualizados;
+        protected global::System.Web.UI.WebControls.Label lblCantReg;
         
         /// <summary>
-        /// lblNoVisualizadosVencidos control.
+        /// pnlResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoVisualizadosVencidos;
+        protected global::System.Web.UI.WebControls.Panel pnlResults;
         
         /// <summary>
-        /// lblTotalComprobantes control.
+        /// Grid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalComprobantes;
+        protected global::System.Web.UI.WebControls.GridView Grid;
+        
+        /// <summary>
+        /// btnAgregarNuevo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarNuevo;
+        
+        /// <summary>
+        /// btnExportToExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportToExcel;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new FacturaElectronica.Ui.Web.SiteMaster Master {
+            get {
+                return ((FacturaElectronica.Ui.Web.SiteMaster)(base.Master));
+            }
+        }
     }
 }
