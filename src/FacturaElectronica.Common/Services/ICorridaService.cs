@@ -21,9 +21,6 @@ namespace FacturaElectronica.Common.Services
         [OperationContract]
         List<LogCorridaDto> ConsultarLog(LogSearch search);
 
-        [OperationContract(Name="ConsultarLogPorCriteria")]
-        List<LogCorridaDto> ConsultarLog(LogCriteria logCriteria);
-
         CorridaAutorizacionDto ProcesarCorrida(CorridaAutorizacionDto corridaDto, FECAEResponse feCAEResponse);
 
         void Log(long corridaId, string mensaje, string detalle);

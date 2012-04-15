@@ -62,7 +62,6 @@
     <Compile Include="Contracts\EstadoArchivoAsociadoDto.cs" />
     <Compile Include="Contracts\EstadoComprobantesDto.cs" />
     <Compile Include="Contracts\LogCorridaDto.cs" />
-    <Compile Include="Contracts\LogCriteria.cs" />
     <Compile Include="Contracts\MensajeCriteria.cs" />
     <Compile Include="Contracts\MensajeDto.cs" />
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />
