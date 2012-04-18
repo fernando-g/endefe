@@ -401,7 +401,7 @@ namespace FacturaElectronica.Business.Services
                     {
                         aa.EstadoArchivoAsociado = ctx.EstadoArchivoAsociadoes.Where(e => e.Codigo == CodigosEstadoArchivoAsociado.Visualizado).First();
 
-                        if (aa.Comprobante.Cliente.CalculaVencimientoConVisualizacionDoc)
+                        if (aa.Comprobante.Cliente.CalculaVencimientoConVisualizacionDoc && !aa.FechaDeRecepcion.HasValue)
                         {
                             DateTime fechaDeRecepcion = DateTime.Now;
                             AsociarFechaDeRecepcion(ctx, dto.ArchivoAsociadoId, fechaDeRecepcion, dto.UsuarioIdAuditoria);

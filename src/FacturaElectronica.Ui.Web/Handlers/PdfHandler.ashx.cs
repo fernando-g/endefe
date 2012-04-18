@@ -29,7 +29,7 @@ namespace FacturaElectronica.Ui.Web.Handlers
                     try
                     {
                         r.ContentType = "application/pdf";
-                        r.AppendHeader("Content-Disposition", "attachment; filename=Comprobante.pdf");
+                        //r.AppendHeader("Content-Disposition", "attachment; filename=Comprobante.pdf");
                         r.TransmitFile(file);
                         r.End();
                     }

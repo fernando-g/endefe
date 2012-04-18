@@ -277,7 +277,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                 {
                     ComprobanteArchivoAsociadoDto dto = e.Row.DataItem as ComprobanteArchivoAsociadoDto;
                     int columnaFechaVencimiento = 3;
-                    int columnaEstado = 4;
+                    int columnaEstado = 5;
                     EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);                    
                     EstablecerColorEstado(e, dto, columnaEstado);
                 }
