@@ -381,16 +381,16 @@ namespace FacturaElectronica.Business.Services
                     if (aa.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado)
                     {
                         aa.EstadoArchivoAsociado = ctx.EstadoArchivoAsociadoes.Where(e => e.Codigo == CodigosEstadoArchivoAsociado.Visualizado).First();
+
+                        if (aa.Comprobante.Cliente.CalculaVencimientoConVisualizacionDoc)
+                        {
+                            DateTime fechaDeRecepcion = DateTime.Now;
+                            AsociarFechaDeRecepcion(ctx, dto.ArchivoAsociadoId, fechaDeRecepcion, dto.UsuarioIdAuditoria);
+                        }
                     }
 
                     aa.VisualizacionComprobantes.Add(vc);
-
-                    if (aa.Comprobante.Cliente.CalculaVencimientoConVisualizacionDoc)
-                    {
-                        DateTime fechaDeRecepcion = DateTime.Now;
-                        AsociarFechaDeRecepcion(ctx, dto.ArchivoAsociadoId, fechaDeRecepcion, dto.UsuarioIdAuditoria);
-                    }
-
+                    
                     //if (!aa.FechaVencimiento.HasValue && aa.DiasVencimiento.HasValue)
                     //{
                     //    aa.FechaVencimiento = DateTime.Now.AddDays(aa.DiasVencimiento.Value);

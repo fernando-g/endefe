@@ -232,12 +232,15 @@ namespace FacturaElectronica.Ui.Web.Pages
                     }
                     dto.Ip = ip;
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
+                    dto.UsuarioIdAuditoria = UIHelper.GetCustomIdentity().UserId;
                     svc.AgregarVisualizacion(dto);
-                    // Actualizo Estado
-                    EstadoArchivoAsociadoDto estado = svc.ObtenerEstado(CodigosEstadoArchivoAsociado.Visualizado);
-                    int columnaEstado = 4;
-                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].Text = estado.Descripcion;
-                    this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].ForeColor = Color.Green;
+
+                    Buscar();
+                    //// Actualizo Estado
+                    //EstadoArchivoAsociadoDto estado = svc.ObtenerEstado(CodigosEstadoArchivoAsociado.Visualizado);
+                    //int columnaEstado = 4;
+                    //this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].Text = estado.Descripcion;
+                    //this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[columnaEstado].ForeColor = Color.Green;
                 }
             }
             catch (Exception ex)
