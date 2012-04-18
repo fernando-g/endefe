@@ -47,6 +47,12 @@ namespace FacturaElectronica.Business.Services
                                  // Fecha Vencimiento
                              (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                              && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
+                              // Fecha de Recepcion
+                            && (!criteria.FechaDeRecepcionDesde.HasValue || criteria.FechaDeRecepcionDesde.Value <= aa.FechaDeRecepcion)
+                            && (!criteria.FechaDeRecepcionHasta.HasValue || aa.FechaDeRecepcion <= criteria.FechaDeRecepcionHasta.Value)
+                            // Dias de vto
+                             && (!criteria.DiasDeVencimientoDesde.HasValue || criteria.DiasDeVencimientoDesde.Value <= aa.DiasVencimiento)
+                            && (!criteria.DiasDeVencimientoHasta.HasValue || criteria.DiasDeVencimientoHasta.Value >= aa.DiasVencimiento)
                                  // Razon Social
                              && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
                                  // Tipo Comprobante
@@ -88,6 +94,8 @@ namespace FacturaElectronica.Business.Services
                                  TipoComprobanteDescripcion = c.TipoComprobante.Descripcion,
                                  TipoContratoId = aa.TipoContratoId,
                                  TipoContratoDescripcion = aa.TipoContratoId.HasValue ? aa.TipoContrato.Descripcion : string.Empty,
+                                 FechaDeRecepcion = aa.FechaDeRecepcion,
+                                 ClienteCalculaVencimientoConVisualizacion = aa.Comprobante.Cliente.CalculaVencimientoConVisualizacionDoc
                              }).OrderByDescending(c => c.FechaDeCarga);
                 if (cantUltimosCbtes > 0)
                 {
@@ -157,7 +165,7 @@ namespace FacturaElectronica.Business.Services
                     else
                     {
                         dbArchivoAsociado.FechaVencimiento = null;
-                    }                    
+                    }
                 }
             }
         }
@@ -166,6 +174,11 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
+                if (criteria.FechaDeRecepcionHasta.HasValue)
+                {
+                    criteria.FechaDeRecepcionHasta = criteria.FechaDeRecepcionHasta.Value.Date.AddDays(1).AddSeconds(-1);
+                }
+
                 DateTime hoy = DateTime.Now.Date;
                 List<ComprobanteArchivoAsociadoDto> list = (from aa in ctx.ArchivoAsociadoes
                                                             join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
@@ -176,10 +189,16 @@ namespace FacturaElectronica.Business.Services
                                                                 // Fecha De Carga
                                                             && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
                                                             && (!criteria.FechaDeCargaHasta.HasValue || aa.FechaDeCarga <= criteria.FechaDeCargaHasta.Value)
+                                                                // Fecha de Recepcion
+                                                            && (!criteria.FechaDeRecepcionDesde.HasValue || criteria.FechaDeRecepcionDesde.Value <= aa.FechaDeRecepcion)
+                                                            && (!criteria.FechaDeRecepcionHasta.HasValue || aa.FechaDeRecepcion <= criteria.FechaDeRecepcionHasta.Value)
                                                                 // Razon Social
                                                             && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
                                                                 // Tipo Comprobante
                                                             && (!criteria.TipoComprobanteId.HasValue || c.TipoComprobanteId == criteria.TipoComprobanteId.Value)
+                                                                // rango de vencimiento
+                                                            && (!criteria.DiasDeVencimientoDesde.HasValue || criteria.DiasDeVencimientoDesde.Value <= aa.DiasVencimiento)
+                                                            && (!criteria.DiasDeVencimientoHasta.HasValue || criteria.DiasDeVencimientoHasta.Value >= aa.DiasVencimiento)
                                                                 // Nro Comprobante
                                                             && (!criteria.NroComprobante.HasValue || aa.NroComprobante == criteria.NroComprobante.Value)
                                                                 // Cliente Id
@@ -390,7 +409,7 @@ namespace FacturaElectronica.Business.Services
                     }
 
                     aa.VisualizacionComprobantes.Add(vc);
-                    
+
                     //if (!aa.FechaVencimiento.HasValue && aa.DiasVencimiento.HasValue)
                     //{
                     //    aa.FechaVencimiento = DateTime.Now.AddDays(aa.DiasVencimiento.Value);

@@ -46,12 +46,30 @@ namespace FacturaElectronica.Ui.Web.Code
         {
             get;
         }
-
+        
         protected abstract TextBox txtFechaVencDesdeControl
         {
             get;
         }
         protected abstract TextBox txtFechaVencHastaControl
+        {
+            get;
+        }
+
+        protected abstract TextBox txtDiasAlVtoDesdeCtrl
+        {
+            get;
+        }
+        protected abstract TextBox txtDiasAlVtoHastaCtrl
+        {
+            get;
+        }
+
+        protected abstract TextBox txtFechaRecepcionDesdeControl
+        {
+            get;
+        }
+        protected abstract TextBox txtFechaRecepcionHastaControl
         {
             get;
         }
@@ -84,6 +102,11 @@ namespace FacturaElectronica.Ui.Web.Code
             criteria.NroComprobante = UIHelper.GetLongFromInputText(this.txtNroComprobanteControl.Text.Trim());
             criteria.FechaVencDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaVencDesdeControl.Text);
             criteria.FechaVencHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaVencHastaControl.Text);
+            criteria.FechaDeRecepcionDesde = UIHelper.GetDateTimeFromInputText(this.txtFechaRecepcionDesdeControl.Text);
+            criteria.FechaDeRecepcionHasta = UIHelper.GetDateTimeFromInputText(this.txtFechaRecepcionHastaControl.Text);
+            criteria.DiasDeVencimientoDesde = UIHelper.GetIntFromInputText(this.txtDiasAlVtoDesdeCtrl.Text);
+            criteria.DiasDeVencimientoHasta = UIHelper.GetIntFromInputText(this.txtDiasAlVtoHastaCtrl.Text);
+
             if (criteria.FechaDeCargaHasta.HasValue)
             {
                 criteria.FechaDeCargaHasta = criteria.FechaDeCargaHasta.Value.AddDays(1).AddSeconds(-1);

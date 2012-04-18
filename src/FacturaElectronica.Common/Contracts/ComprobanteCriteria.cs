@@ -24,6 +24,18 @@ namespace FacturaElectronica.Common.Contracts
         public DateTime? FechaDeCargaHasta { get; set; }
 
         [DataMember]
+        public DateTime? FechaDeRecepcionDesde { get; set; }
+
+        [DataMember]
+        public DateTime? FechaDeRecepcionHasta { get; set; }
+
+        [DataMember]
+        public int? DiasDeVencimientoDesde { get; set; }
+
+        [DataMember]
+        public int? DiasDeVencimientoHasta { get; set; }
+
+        [DataMember]
         public int? TipoComprobanteId { get; set; }
 
         [DataMember]

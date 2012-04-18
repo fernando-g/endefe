@@ -52,6 +52,25 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.txtFechaVencHasta; }
         }
+        protected override TextBox txtFechaRecepcionDesdeControl
+        {
+            get { return this.txtFechaDeRecepcionDesde; }
+        }
+
+        protected override TextBox txtFechaRecepcionHastaControl
+        {
+            get { return this.txtFechaDeRecepcionHasta; }
+        }
+
+        protected override TextBox txtDiasAlVtoDesdeCtrl
+        {
+            get { return this.txtDiasAlVtoDesde; }
+        }
+        protected override TextBox txtDiasAlVtoHastaCtrl
+        {
+            get { return this.txtDiasAlVtoHasta; }
+        }
+
         protected override GridView GridControl
         {
             get { return this.Grid; }

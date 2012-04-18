@@ -42,7 +42,16 @@
                     Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Venc. Desde debe ser menor o igual a Fecha Venc. Hasta"></asp:CompareValidator>
             </p>  
             <div class="clear">
-            </div>         
+            </div>  
+             <p>
+                <span class="title2">Fecha de Recep. Desde:</span>
+                <asp:TextBox ID="txtFechaDeRecepcionDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+                <asp:CompareValidator ID="CompareValidator2" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaDeRecepcionHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Recep. Desde debe ser menor o igual a Fecha Recep. Hasta"></asp:CompareValidator>
+            </p>
+            <div class="clear">
+            </div>       
             <p>
                 <span class="title2">Mes Facturaci&oacute;n:</span>
                 <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo">
@@ -57,6 +66,17 @@
             </p>
             <div class="clear">
             </div>
+             <p>
+                <span class="title2">Cantidad de Dias para Vencer:</span>
+                <asp:TextBox ID="txtDiasAlVtoDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+                <asp:RegularExpressionValidator   ID="RegularExpressionValidator1" runat="server" ErrorMessage="Debe ingresar un número"
+                 ControlToValidate="txtDiasAlVtoDesde" ValidationExpression="[0-9]*" Text="*"></asp:RegularExpressionValidator>
+                <asp:CompareValidator ID="CompareValidator3" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtDiasAlVtoDesde" ControlToCompare="txtDiasAlVtoHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="La Cantidad de Dias Hasta debe ser menor que el Desde"></asp:CompareValidator>
+            </p>
+            <div class="clear">
+            </div>  
         </div>
         <%--segundo--%>
         <div class="divSearchLeft">
@@ -69,6 +89,12 @@
             <p>
                 <span class="title2 secondColumn">Hasta:</span>
                 <asp:TextBox ID="txtFechaVencHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            </p>
+            <div class="clear">
+            </div>
+             <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtFechaDeRecepcionHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
             </p>
             <div class="clear">
             </div>
@@ -86,6 +112,12 @@
             </p>
             <div class="clear">
             </div>
+             <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtDiasAlVtoHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>                
+            </p>
+            <div class="clear">
+            </div>  
         </div>
         <div class="clear">
         </div>
@@ -122,6 +154,8 @@
                 <asp:BoundField DataField="FechaDeCarga" HeaderText="Fecha de Carga" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de Vencimiento" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="FechaDeRecepcion" HeaderText="Fecha de Recepción" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:dd/MM/yyyy}"
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="EstadoDescripcion" HeaderText="Estado" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
@@ -163,6 +197,8 @@
 
             $('#txtFechaVencDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeRecepcionDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeRecepcionHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#btnBuscar').toggleClass('bounce');
 
             //                 $('input[title]').inputHints();

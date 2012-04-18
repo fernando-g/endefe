@@ -58,6 +58,15 @@
             <div class="clear">
             </div>
             <p>
+                <span class="title2">Fecha de Recep. Desde:</span>
+                <asp:TextBox ID="txtFechaDeRecepcionDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+                <asp:CompareValidator ID="CompareValidator2" runat="server" Text="*" Display="Static"
+                    CssClass="failureNotification" ControlToValidate="txtFechaVencDesde" ControlToCompare="txtFechaDeRecepcionHasta"
+                    Operator="LessThanEqual" Type="Date" ErrorMessage="Fecha Recep. Desde debe ser menor o igual a Fecha Recep. Hasta"></asp:CompareValidator>
+            </p>
+            <div class="clear">
+            </div>
+            <p>
                 <span class="title2">Mes Facturaci&oacute;n</span>
                 <asp:DropDownList ID="ddlMesFacturacion" runat="server" CssClass="cbo">
                 </asp:DropDownList>
@@ -78,12 +87,20 @@
             <div class="clear">
             </div>
             <p>
+                <span class="title2">Cantidad de Dias para Vencer:</span>
+                <asp:TextBox ID="txtDiasAlVtoDesde" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+                <asp:RegularExpressionValidator   ID="RegularExpressionValidator1" runat="server" ErrorMessage="Debe ingresar un número"
+                 ControlToValidate="txtDiasAlVtoDesde" ValidationExpression="[0-9]*" Text="*"></asp:RegularExpressionValidator>               
+            </p>
+            <div class="clear">
+            </div>  
+            <p>
                 <span class="title2">Estado:</span>
                 <asp:DropDownList ID="ddlEstado" runat="server" CssClass="cbo">
                 </asp:DropDownList>
             </p>
             <div class="clear">
-            </div>
+            </div>            
         </div>
         <div class="divSearchLeft">
             <p>
@@ -101,6 +118,12 @@
             <p>
                 <span class="title2 secondColumn">Hasta:</span>
                 <asp:TextBox ID="txtFechaVencHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
+            </p>
+            <div class="clear">
+            </div>
+             <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtFechaDeRecepcionHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
             </p>
             <div class="clear">
             </div>
@@ -123,6 +146,14 @@
                 <span class="title2 secondColumn">Hasta:</span>
                 <asp:TextBox ID="txtMontoTotalHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>
             </p>
+            <div class="clear">
+            </div>  
+             <p>
+                <span class="title2 secondColumn">Hasta:</span>
+                <asp:TextBox ID="txtDiasAlVtoHasta" runat="server" ClientIDMode="Static" CssClass="inputs"></asp:TextBox>                
+            </p>
+            <div class="clear">
+            </div>  
         </div>
         <div class="clear">
         </div>
@@ -238,6 +269,9 @@
             $('#txtFechaVencHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#txtFechaDeCargaDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
             $('#txtFechaDeCargaHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeRecepcionDesde').datepick({ dateFormat: 'dd/mm/yyyy' });
+            $('#txtFechaDeRecepcionHasta').datepick({ dateFormat: 'dd/mm/yyyy' });
+            
             $('#btnBuscar').toggleClass('bounce');
             //$('#btnBuscar').toggleClass('bounce');
 
