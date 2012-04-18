@@ -10,5 +10,7 @@ namespace FacturaElectronica.Common.Contracts
         public long ArchivoAsociadoId { get; set; }
 
         public string Ip { get; set; }
+
+        public long UsuarioIdAuditoria { get; set; }
     }
 }

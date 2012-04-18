@@ -4,12 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Collections;
+using FacturaElectronica.Ui.Web.Code.Security;
 
-namespace Ubatic.Ui.Web.Code
+namespace FacturaElectronica.Ui.Web.Code
 {
     public class UIHelper
     {      
         public const string cboNullValue = "-1";
+
+        public static CustomIdentity GetCustomIdentity()
+        {
+            CustomPrincipal ppal = (CustomPrincipal)HttpContext.Current.User;
+            return (CustomIdentity)ppal.Identity;            
+        }
 
         public static int? GetIntFromInputText(string text)
         {

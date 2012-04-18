@@ -141,9 +141,10 @@
         Listado de Comprobantes<asp:Label ID="lblCantReg" runat="server"></asp:Label>
     </h2>
     <asp:Panel ID="pnlResults" CssClass="editionContainerForGrid" runat="server" ClientIDMode="Static">
-        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="15"
-            AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%" AllowPaging="True"
-            OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand" OnRowDataBound="Grid_RowDataBound">
+        <asp:GridView ID="Grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+            PageSize="15" AutoGenerateColumns="False" DataKeyNames="ArchivoAsociadoId" Width="100%"
+            AllowPaging="True" OnPageIndexChanging="Grid_PageIndexChanging" OnRowCommand="Grid_RowCommand"
+            OnRowDataBound="Grid_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="ClienteRazonSocial" HeaderText="Razon Social" HeaderStyle-HorizontalAlign="Center"
@@ -164,13 +165,27 @@
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" HeaderStyle-HorizontalAlign="Center"
                     DataFormatString="{0:n}" ItemStyle-HorizontalAlign="Center" />
+                <asp:TemplateField HeaderText="Fecha de Recepción">
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Center" />
+                    <ItemTemplate>
+                        <asp:Panel ID="pnlFechaRecepción" runat="server">                                                    
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>').datepick({ dateFormat: 'dd/mm/yyyy' });
+                                    $('#txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>').attr('name', 'txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>');
+                                });                            
+                            </script>
+                        </asp:Panel>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Factura Asociada">
                     <HeaderStyle HorizontalAlign="Left" Width="30px" />
                     <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="imgPdf" ImageUrl="~/Images/pdf.png" Width="16px" Height="16px"
-                            OnClientClick='<%# "openPdf(\"" + Eval("ArchivoAsociadoId") + "\");" %>'
-                            runat="server" CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                            OnClientClick='<%# "openPdf(\"" + Eval("ArchivoAsociadoId") + "\");" %>' runat="server"
+                            CommandName="ver" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Borrar Comprobante">
@@ -201,8 +216,16 @@
     </asp:Panel>
     <br class="clear" />
     &nbsp;
-    <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn"
-        runat="server" OnClick="btnExportToExcel_Click" />
+    <div>
+        <p>
+            <asp:Button ID="btnAceptar" CssClass="btn" runat="server" Text="Guardar" OnClick="btnAceptar_Click"
+                ClientIDMode="Static" />
+            <asp:Button ID="btnExportToExcel" Text="Exportar Datos a Excel" Width="200px" CssClass="btn"
+                runat="server" OnClick="btnExportToExcel_Click" />
+        </p>
+        <div class="clear">
+        </div>
+    </div>
     <script type='text/javascript'>
 
         $(document).ready(function () {

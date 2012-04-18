@@ -10,6 +10,11 @@ namespace FacturaElectronica.Common.Contracts
     [DataContract]
     public class ClienteDto
     {
+        public ClienteDto()
+        {
+            CalculaVencimientoConVisualizacionDoc = true; // valor x defecto
+        }
+
         [DataMember]
         public long Id { get; set; }
 
@@ -39,5 +44,11 @@ namespace FacturaElectronica.Common.Contracts
 
         [DataMember]
         public long UsuarioId { get; set; }
+
+        [DataMember]
+        public bool CalculaVencimientoConVisualizacionDoc { get; set; }
+
+        [DataMember]
+        public long Auditoria_UsuarioId { get; set; }
     }
 }

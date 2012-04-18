@@ -172,3 +172,8 @@
     float:left;
     margin-right: 40px;
 }
+
+.txtFechaVtoEditable
+{
+    width: 100px;
+}

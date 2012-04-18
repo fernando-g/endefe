@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaElectronica.Ui.Web.Code;
 using FacturaElectronica.Common.Contracts;
-using Ubatic.Ui.Web.Code;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {

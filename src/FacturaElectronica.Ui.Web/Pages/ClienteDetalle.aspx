@@ -45,6 +45,12 @@
         </p>
         <div class="clear">
         </div>
+        <p>
+            <span class="title2">Calcula Vencimiento con Visualización de PDF?:</span>
+            <asp:CheckBox ID="chkCalculaVencimientoConVisualizacionDoc" runat="server" Checked="True" />            
+        </p>
+        <div class="clear">
+        </div>
         <fieldset>
         
             <legend>Datos Contacto</legend>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Ubatic.Ui.Web.Code;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Ui.Web.Code;
 using FacturaElectronica.Common.Services;

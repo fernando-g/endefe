@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using FacturaElectronica.Ui.Web.Code;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
-using Ubatic.Ui.Web.Code;
 using FacturaElectronica.Common.Constants;
 using System.Drawing;
 
@@ -143,16 +142,39 @@ namespace FacturaElectronica.Ui.Web.Pages
                     int columnaFechaVencimiento = 4;
                     int columnaFechaVisualizacion = 5;
                     int columnaEstado = 7;
-                    int columnaBorrarComprobante = 10;
+                    int columnaFechaDeRecepcion = 9;
+                    int columnaBorrarComprobante = 11;
                     EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);
                     EstablecerColorEstado(e, dto, columnaEstado);
                     EstablecerFechaVisualizacion(e, dto, columnaFechaVisualizacion);
                     EstablecerBorrarComprobante(e, dto, columnaBorrarComprobante, columnaEstado);
+                    EstablecerFechaDeRecepcion(e, dto, columnaFechaDeRecepcion);
                 }
             }
             catch (Exception ex)
             {
                 ExceptionManager.Instance.HandleException(ex);
+            }
+        }
+
+        private void EstablecerFechaDeRecepcion(GridViewRowEventArgs e, ComprobanteArchivoAsociadoDto dto, int columnaFechaDeRecepcion)
+        {
+            ComprobanteArchivoAsociadoDto comprobanteArchivo = (ComprobanteArchivoAsociadoDto)e.Row.DataItem;
+            TableCell cell = e.Row.Cells[columnaFechaDeRecepcion];
+            Panel pnl = (Panel)cell.FindControl("pnlFechaRecepción");
+            TextBox txt = new TextBox();
+            txt.ID = "txtFechaDeRecepcion_" + comprobanteArchivo.ArchivoAsociadoId.ToString();
+            txt.ClientIDMode = System.Web.UI.ClientIDMode.Static;
+            txt.CssClass = "txtFechaVtoEditable";
+            //txt.Attributes.Add("name", "txtFechaDeRecepcion_" + comprobanteArchivo.ArchivoAsociadoId.ToString());
+            
+            if (comprobanteArchivo.DiasVencimiento.HasValue)
+            {
+                pnl.Controls.Add(txt);
+                if (dto.FechaDeRecepcion.HasValue)
+                {
+                    txt.Text = dto.FechaDeRecepcion.Value.ToString("dd/MM/yyyy");
+                }
             }
         }
 
@@ -170,12 +192,12 @@ namespace FacturaElectronica.Ui.Web.Pages
                     cell.Text = dto.EstadoDescripcion;
                     cell.ForeColor = Color.Red;
                 }
-            }                        
+            }
         }
 
         private void EstablecerBorrarComprobante(GridViewRowEventArgs e, ComprobanteArchivoAsociadoDto dto, int columnaBorrarComprobante, int columnaEstado)
         {
-            if (dto.EstadoCodigo == CodigosEstadoArchivoAsociado.Eliminado || 
+            if (dto.EstadoCodigo == CodigosEstadoArchivoAsociado.Eliminado ||
                 dto.EstadoCodigo == CodigosEstadoArchivoAsociado.Visualizado)
             {
                 e.Row.Cells[columnaBorrarComprobante].Text = "--";
@@ -185,8 +207,8 @@ namespace FacturaElectronica.Ui.Web.Pages
                     foreach (TableCell cell in e.Row.Cells)
                     {
                         int cellIndex = e.Row.Cells.GetCellIndex(cell);
-                        if (cell.Visible && 
-                            cell.Controls.Count == 0  && 
+                        if (cell.Visible &&
+                            cell.Controls.Count == 0 &&
                             cellIndex != columnaEstado &&
                             cellIndex != columnaBorrarComprobante)
                         {
@@ -218,6 +240,46 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             //  exporto la grilla
             GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
+        }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                try
+                {
+                    if (!this.BaseMaster.EsCliente)
+                    {
+                        // Cargo los valores de los inputs
+                        Dictionary<long, DateTime?> ArchivoAsociadoIdsFechaRecepcion = new Dictionary<long, DateTime?>();
+                        foreach (string key in this.Request.Form.AllKeys)
+                        {
+                            if (key.StartsWith("txtFechaDeRecepcion_"))
+                            {
+                                string dateValue = this.Request.Form[key];
+                                long archivoAsociadoId = Convert.ToInt64(key.Split('_')[1]);
+                                DateTime? fechaRecepcion = null;
+                                if (!String.IsNullOrEmpty(dateValue))
+                                {
+                                    fechaRecepcion = DateTime.ParseExact(dateValue, "dd/MM/yyyy", null);
+                                }
+
+                                ArchivoAsociadoIdsFechaRecepcion.Add(archivoAsociadoId, fechaRecepcion);
+                            }
+                        }
+
+                        // Tengo que guardar los cambios
+                        IComprobanteService comprobanteSvc = ServiceFactory.GetComprobanteService();
+                        comprobanteSvc.AsociarFechaDeRecepcion(ArchivoAsociadoIdsFechaRecepcion, UIHelper.GetCustomIdentity().UserId);
+                    }
+
+                    Buscar(); // vuelve a buscar para cargar los datos
+                }
+                catch (Exception ex)
+                {
+                    ExceptionManager.Instance.HandleException(ex);
+                }
+            }
         }
     }
 }

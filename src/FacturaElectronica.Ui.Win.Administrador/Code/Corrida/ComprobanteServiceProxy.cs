@@ -55,6 +55,11 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
             }            
         }
 
+        public void AsociarFechaDeRecepcion(Dictionary<long, DateTime?> archivosAsociados, long userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<TipoContratoDto> ObtenerTiposContrato()
         {
             throw new NotImplementedException();

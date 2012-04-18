@@ -54,5 +54,8 @@ namespace FacturaElectronica.Common.Services
 
         [OperationContract]
         EstadoComprobantesDto ObtenerEstadoComprobantes(long clientId);
+
+        [OperationContract]
+        void AsociarFechaDeRecepcion(Dictionary<long, DateTime?> archivosAsociados, long userId);
     }
 }

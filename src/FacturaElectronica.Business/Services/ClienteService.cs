@@ -20,6 +20,12 @@ namespace FacturaElectronica.Business.Services
                 using (var ctx = new FacturaElectronicaEntities())
                 {
                     Cliente cliente = new Cliente();
+
+                    if (cliente.CalculaVencimientoConVisualizacionDoc != clienteDto.CalculaVencimientoConVisualizacionDoc)
+                    {
+                        CrearAuditoria(clienteDto, cliente);
+                    }
+
                     ToCliente(clienteDto, cliente);
                     ctx.Clientes.AddObject(cliente);
                     ctx.SaveChanges();
@@ -38,6 +44,13 @@ namespace FacturaElectronica.Business.Services
                 using (var ctx = new FacturaElectronicaEntities())
                 {
                     Cliente cliente = this.ObtenerCliente(ctx, clienteDto.Id);
+
+                    // Se podrían analizar todos los campos
+                    if (cliente.CalculaVencimientoConVisualizacionDoc != clienteDto.CalculaVencimientoConVisualizacionDoc)
+                    {
+                        CrearAuditoria(clienteDto, cliente);
+                    }
+
                     ToCliente(clienteDto, cliente);
                     
                     ctx.SaveChanges();
@@ -46,6 +59,17 @@ namespace FacturaElectronica.Business.Services
 
                 return clienteDto;
             }
+        }
+
+        private static void CrearAuditoria(ClienteDto clienteDto, Cliente cliente)
+        {
+            Cliente_Auditoria cliente_auditoria = new Cliente_Auditoria();
+            cliente.Cliente_Auditoria.Add(cliente_auditoria);
+            cliente_auditoria.UsuarioId = clienteDto.Auditoria_UsuarioId;
+            cliente_auditoria.CampoModificado = "CalculaVencimientoConVisualizacionDoc";
+            cliente_auditoria.ValorAnterior = cliente.CalculaVencimientoConVisualizacionDoc ? "SI" : "NO";
+            cliente_auditoria.ValorNuevo = clienteDto.CalculaVencimientoConVisualizacionDoc ? "SI" : "NO";
+            cliente_auditoria.Fecha = DateTime.Now;
         }
 
         public bool EliminarCliente(long clienteId)
@@ -129,6 +153,7 @@ namespace FacturaElectronica.Business.Services
             cliente.CUIT = clienteDto.CUIT;
             cliente.EmailContacto = clienteDto.EmailContacto;
             cliente.EmailContactoSecundario = clienteDto.EmailContactoSecundario;
+            cliente.CalculaVencimientoConVisualizacionDoc = clienteDto.CalculaVencimientoConVisualizacionDoc;
         }
 
         private static ClienteDto ToClienteDto(Cliente cliente)
@@ -145,6 +170,7 @@ namespace FacturaElectronica.Business.Services
             clienteDto.CUIT = cliente.CUIT;
             clienteDto.EmailContacto = cliente.EmailContacto;
             clienteDto.EmailContactoSecundario = cliente.EmailContactoSecundario;
+            clienteDto.CalculaVencimientoConVisualizacionDoc = cliente.CalculaVencimientoConVisualizacionDoc;
 
             Usuario usuario = cliente.Usuarios.FirstOrDefault();
             if(usuario != null)

@@ -38,6 +38,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_VisualizacionComprobante_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "VisualizacionComprobante", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.VisualizacionComprobante), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Cliente), "MensajeCliente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.MensajeCliente), true)]
 [assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_MensajeCliente_Mensaje", "Mensaje", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Mensaje), "MensajeCliente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.MensajeCliente), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.ArchivoAsociado), "ArchivoAsociado_Auditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado_Auditoria), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_Usuario", "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Usuario), "ArchivoAsociado_Auditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.ArchivoAsociado_Auditoria), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Cliente", "Cliente", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Cliente), "Cliente_Auditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Cliente_Auditoria), true)]
+[assembly: EdmRelationshipAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Usuario", "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FacturaElectronica.Data.Usuario), "Cliente_Auditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FacturaElectronica.Data.Cliente_Auditoria), true)]
 
 #endregion
 
@@ -472,6 +476,38 @@ namespace FacturaElectronica.Data
             }
         }
         private ObjectSet<MensajeCliente> _MensajeClientes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ArchivoAsociado_Auditoria> ArchivoAsociado_Auditoria
+        {
+            get
+            {
+                if ((_ArchivoAsociado_Auditoria == null))
+                {
+                    _ArchivoAsociado_Auditoria = base.CreateObjectSet<ArchivoAsociado_Auditoria>("ArchivoAsociado_Auditoria");
+                }
+                return _ArchivoAsociado_Auditoria;
+            }
+        }
+        private ObjectSet<ArchivoAsociado_Auditoria> _ArchivoAsociado_Auditoria;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Cliente_Auditoria> Cliente_Auditoria
+        {
+            get
+            {
+                if ((_Cliente_Auditoria == null))
+                {
+                    _Cliente_Auditoria = base.CreateObjectSet<Cliente_Auditoria>("Cliente_Auditoria");
+                }
+                return _Cliente_Auditoria;
+            }
+        }
+        private ObjectSet<Cliente_Auditoria> _Cliente_Auditoria;
 
         #endregion
         #region AddTo Methods
@@ -666,6 +702,22 @@ namespace FacturaElectronica.Data
         public void AddToMensajeClientes(MensajeCliente mensajeCliente)
         {
             base.AddObject("MensajeClientes", mensajeCliente);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ArchivoAsociado_Auditoria EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToArchivoAsociado_Auditoria(ArchivoAsociado_Auditoria archivoAsociado_Auditoria)
+        {
+            base.AddObject("ArchivoAsociado_Auditoria", archivoAsociado_Auditoria);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Cliente_Auditoria EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCliente_Auditoria(Cliente_Auditoria cliente_Auditoria)
+        {
+            base.AddObject("Cliente_Auditoria", cliente_Auditoria);
         }
 
         #endregion
@@ -1030,6 +1082,30 @@ namespace FacturaElectronica.Data
         private Nullable<global::System.Decimal> _MontoTotal;
         partial void OnMontoTotalChanging(Nullable<global::System.Decimal> value);
         partial void OnMontoTotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FechaDeRecepcion
+        {
+            get
+            {
+                return _FechaDeRecepcion;
+            }
+            set
+            {
+                OnFechaDeRecepcionChanging(value);
+                ReportPropertyChanging("FechaDeRecepcion");
+                _FechaDeRecepcion = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FechaDeRecepcion");
+                OnFechaDeRecepcionChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FechaDeRecepcion;
+        partial void OnFechaDeRecepcionChanging(Nullable<global::System.DateTime> value);
+        partial void OnFechaDeRecepcionChanged();
 
         #endregion
     
@@ -1192,6 +1268,314 @@ namespace FacturaElectronica.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado_Auditoria")]
+        public EntityCollection<ArchivoAsociado_Auditoria> ArchivoAsociado_Auditoria
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArchivoAsociado_Auditoria>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado_Auditoria");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArchivoAsociado_Auditoria>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado_Auditoria", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="ArchivoAsociado_Auditoria")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ArchivoAsociado_Auditoria : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ArchivoAsociado_Auditoria object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="usuarioId">Initial value of the UsuarioId property.</param>
+        /// <param name="campoModificado">Initial value of the CampoModificado property.</param>
+        /// <param name="fecha">Initial value of the Fecha property.</param>
+        /// <param name="archivoAsociadoId">Initial value of the ArchivoAsociadoId property.</param>
+        public static ArchivoAsociado_Auditoria CreateArchivoAsociado_Auditoria(global::System.Int64 id, global::System.Int64 usuarioId, global::System.String campoModificado, global::System.DateTime fecha, global::System.Int64 archivoAsociadoId)
+        {
+            ArchivoAsociado_Auditoria archivoAsociado_Auditoria = new ArchivoAsociado_Auditoria();
+            archivoAsociado_Auditoria.Id = id;
+            archivoAsociado_Auditoria.UsuarioId = usuarioId;
+            archivoAsociado_Auditoria.CampoModificado = campoModificado;
+            archivoAsociado_Auditoria.Fecha = fecha;
+            archivoAsociado_Auditoria.ArchivoAsociadoId = archivoAsociadoId;
+            return archivoAsociado_Auditoria;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 UsuarioId
+        {
+            get
+            {
+                return _UsuarioId;
+            }
+            set
+            {
+                OnUsuarioIdChanging(value);
+                ReportPropertyChanging("UsuarioId");
+                _UsuarioId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UsuarioId");
+                OnUsuarioIdChanged();
+            }
+        }
+        private global::System.Int64 _UsuarioId;
+        partial void OnUsuarioIdChanging(global::System.Int64 value);
+        partial void OnUsuarioIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CampoModificado
+        {
+            get
+            {
+                return _CampoModificado;
+            }
+            set
+            {
+                OnCampoModificadoChanging(value);
+                ReportPropertyChanging("CampoModificado");
+                _CampoModificado = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CampoModificado");
+                OnCampoModificadoChanged();
+            }
+        }
+        private global::System.String _CampoModificado;
+        partial void OnCampoModificadoChanging(global::System.String value);
+        partial void OnCampoModificadoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ValorAnterior
+        {
+            get
+            {
+                return _ValorAnterior;
+            }
+            set
+            {
+                OnValorAnteriorChanging(value);
+                ReportPropertyChanging("ValorAnterior");
+                _ValorAnterior = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ValorAnterior");
+                OnValorAnteriorChanged();
+            }
+        }
+        private global::System.String _ValorAnterior;
+        partial void OnValorAnteriorChanging(global::System.String value);
+        partial void OnValorAnteriorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ValorNuevo
+        {
+            get
+            {
+                return _ValorNuevo;
+            }
+            set
+            {
+                OnValorNuevoChanging(value);
+                ReportPropertyChanging("ValorNuevo");
+                _ValorNuevo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ValorNuevo");
+                OnValorNuevoChanged();
+            }
+        }
+        private global::System.String _ValorNuevo;
+        partial void OnValorNuevoChanging(global::System.String value);
+        partial void OnValorNuevoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Fecha
+        {
+            get
+            {
+                return _Fecha;
+            }
+            set
+            {
+                OnFechaChanging(value);
+                ReportPropertyChanging("Fecha");
+                _Fecha = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fecha");
+                OnFechaChanged();
+            }
+        }
+        private global::System.DateTime _Fecha;
+        partial void OnFechaChanging(global::System.DateTime value);
+        partial void OnFechaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ArchivoAsociadoId
+        {
+            get
+            {
+                return _ArchivoAsociadoId;
+            }
+            set
+            {
+                OnArchivoAsociadoIdChanging(value);
+                ReportPropertyChanging("ArchivoAsociadoId");
+                _ArchivoAsociadoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ArchivoAsociadoId");
+                OnArchivoAsociadoIdChanged();
+            }
+        }
+        private global::System.Int64 _ArchivoAsociadoId;
+        partial void OnArchivoAsociadoIdChanging(global::System.Int64 value);
+        partial void OnArchivoAsociadoIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado")]
+        public ArchivoAsociado ArchivoAsociado
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ArchivoAsociado> ArchivoAsociadoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ArchivoAsociado>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_ArchivoAsociado", "ArchivoAsociado", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_Usuario", "Usuario")]
+        public Usuario Usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "Usuario").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "Usuario").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Usuario> UsuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "Usuario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Usuario>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "Usuario", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1215,7 +1599,8 @@ namespace FacturaElectronica.Data
         /// <param name="nombreContacto">Initial value of the NombreContacto property.</param>
         /// <param name="apellidoContacto">Initial value of the ApellidoContacto property.</param>
         /// <param name="emailContacto">Initial value of the EmailContacto property.</param>
-        public static Cliente CreateCliente(global::System.Int64 id, global::System.String razonSocial, global::System.Int64 cUIT, global::System.String nombreContacto, global::System.String apellidoContacto, global::System.String emailContacto)
+        /// <param name="calculaVencimientoConVisualizacionDoc">Initial value of the CalculaVencimientoConVisualizacionDoc property.</param>
+        public static Cliente CreateCliente(global::System.Int64 id, global::System.String razonSocial, global::System.Int64 cUIT, global::System.String nombreContacto, global::System.String apellidoContacto, global::System.String emailContacto, global::System.Boolean calculaVencimientoConVisualizacionDoc)
         {
             Cliente cliente = new Cliente();
             cliente.Id = id;
@@ -1224,6 +1609,7 @@ namespace FacturaElectronica.Data
             cliente.NombreContacto = nombreContacto;
             cliente.ApellidoContacto = apellidoContacto;
             cliente.EmailContacto = emailContacto;
+            cliente.CalculaVencimientoConVisualizacionDoc = calculaVencimientoConVisualizacionDoc;
             return cliente;
         }
 
@@ -1448,6 +1834,30 @@ namespace FacturaElectronica.Data
         private global::System.String _EmailContactoSecundario;
         partial void OnEmailContactoSecundarioChanging(global::System.String value);
         partial void OnEmailContactoSecundarioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean CalculaVencimientoConVisualizacionDoc
+        {
+            get
+            {
+                return _CalculaVencimientoConVisualizacionDoc;
+            }
+            set
+            {
+                OnCalculaVencimientoConVisualizacionDocChanging(value);
+                ReportPropertyChanging("CalculaVencimientoConVisualizacionDoc");
+                _CalculaVencimientoConVisualizacionDoc = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CalculaVencimientoConVisualizacionDoc");
+                OnCalculaVencimientoConVisualizacionDocChanged();
+            }
+        }
+        private global::System.Boolean _CalculaVencimientoConVisualizacionDoc;
+        partial void OnCalculaVencimientoConVisualizacionDocChanging(global::System.Boolean value);
+        partial void OnCalculaVencimientoConVisualizacionDocChanged();
 
         #endregion
     
@@ -1515,6 +1925,312 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MensajeCliente>("FacturaElectronicaModel.FK_MensajeCliente_Cliente", "MensajeCliente", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Cliente", "Cliente_Auditoria")]
+        public EntityCollection<Cliente_Auditoria> Cliente_Auditoria
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Cliente_Auditoria>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente_Auditoria");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Cliente_Auditoria>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente_Auditoria", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FacturaElectronicaModel", Name="Cliente_Auditoria")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Cliente_Auditoria : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Cliente_Auditoria object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="clienteId">Initial value of the ClienteId property.</param>
+        /// <param name="usuarioId">Initial value of the UsuarioId property.</param>
+        /// <param name="fecha">Initial value of the Fecha property.</param>
+        public static Cliente_Auditoria CreateCliente_Auditoria(global::System.Int64 id, global::System.Int64 clienteId, global::System.Int64 usuarioId, global::System.DateTime fecha)
+        {
+            Cliente_Auditoria cliente_Auditoria = new Cliente_Auditoria();
+            cliente_Auditoria.Id = id;
+            cliente_Auditoria.ClienteId = clienteId;
+            cliente_Auditoria.UsuarioId = usuarioId;
+            cliente_Auditoria.Fecha = fecha;
+            return cliente_Auditoria;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ClienteId
+        {
+            get
+            {
+                return _ClienteId;
+            }
+            set
+            {
+                OnClienteIdChanging(value);
+                ReportPropertyChanging("ClienteId");
+                _ClienteId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ClienteId");
+                OnClienteIdChanged();
+            }
+        }
+        private global::System.Int64 _ClienteId;
+        partial void OnClienteIdChanging(global::System.Int64 value);
+        partial void OnClienteIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 UsuarioId
+        {
+            get
+            {
+                return _UsuarioId;
+            }
+            set
+            {
+                OnUsuarioIdChanging(value);
+                ReportPropertyChanging("UsuarioId");
+                _UsuarioId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UsuarioId");
+                OnUsuarioIdChanged();
+            }
+        }
+        private global::System.Int64 _UsuarioId;
+        partial void OnUsuarioIdChanging(global::System.Int64 value);
+        partial void OnUsuarioIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CampoModificado
+        {
+            get
+            {
+                return _CampoModificado;
+            }
+            set
+            {
+                OnCampoModificadoChanging(value);
+                ReportPropertyChanging("CampoModificado");
+                _CampoModificado = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CampoModificado");
+                OnCampoModificadoChanged();
+            }
+        }
+        private global::System.String _CampoModificado;
+        partial void OnCampoModificadoChanging(global::System.String value);
+        partial void OnCampoModificadoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ValorAnterior
+        {
+            get
+            {
+                return _ValorAnterior;
+            }
+            set
+            {
+                OnValorAnteriorChanging(value);
+                ReportPropertyChanging("ValorAnterior");
+                _ValorAnterior = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ValorAnterior");
+                OnValorAnteriorChanged();
+            }
+        }
+        private global::System.String _ValorAnterior;
+        partial void OnValorAnteriorChanging(global::System.String value);
+        partial void OnValorAnteriorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ValorNuevo
+        {
+            get
+            {
+                return _ValorNuevo;
+            }
+            set
+            {
+                OnValorNuevoChanging(value);
+                ReportPropertyChanging("ValorNuevo");
+                _ValorNuevo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ValorNuevo");
+                OnValorNuevoChanged();
+            }
+        }
+        private global::System.String _ValorNuevo;
+        partial void OnValorNuevoChanging(global::System.String value);
+        partial void OnValorNuevoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Fecha
+        {
+            get
+            {
+                return _Fecha;
+            }
+            set
+            {
+                OnFechaChanging(value);
+                ReportPropertyChanging("Fecha");
+                _Fecha = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fecha");
+                OnFechaChanged();
+            }
+        }
+        private global::System.DateTime _Fecha;
+        partial void OnFechaChanging(global::System.DateTime value);
+        partial void OnFechaChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Cliente", "Cliente")]
+        public Cliente Cliente
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Cliente> ClienteReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Cliente>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Cliente>("FacturaElectronicaModel.FK_Cliente_Auditoria_Cliente", "Cliente", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Usuario", "Usuario")]
+        public Usuario Usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Usuario").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Usuario").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Usuario> UsuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Usuario>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Usuario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Usuario>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Usuario", value);
                 }
             }
         }
@@ -5516,6 +6232,50 @@ namespace FacturaElectronica.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rol>("FacturaElectronicaModel.UsuarioRol", "Rol", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_ArchivoAsociado_Auditoria_Usuario", "ArchivoAsociado_Auditoria")]
+        public EntityCollection<ArchivoAsociado_Auditoria> ArchivoAsociado_Auditoria
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArchivoAsociado_Auditoria>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "ArchivoAsociado_Auditoria");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArchivoAsociado_Auditoria>("FacturaElectronicaModel.FK_ArchivoAsociado_Auditoria_Usuario", "ArchivoAsociado_Auditoria", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FacturaElectronicaModel", "FK_Cliente_Auditoria_Usuario", "Cliente_Auditoria")]
+        public EntityCollection<Cliente_Auditoria> Cliente_Auditoria
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Cliente_Auditoria>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Cliente_Auditoria");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Cliente_Auditoria>("FacturaElectronicaModel.FK_Cliente_Auditoria_Usuario", "Cliente_Auditoria", value);
                 }
             }
         }

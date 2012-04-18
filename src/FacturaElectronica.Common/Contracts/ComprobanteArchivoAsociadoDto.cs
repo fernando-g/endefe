@@ -37,6 +37,12 @@ namespace FacturaElectronica.Common.Contracts
         public long? ClienteId { get; set; }
 
         [DataMember]
+        public bool ClienteCalculaVencimientoConVisualizacion { get; set; }
+
+        [DataMember]
+        public DateTime? FechaDeRecepcion { get; set; }
+
+        [DataMember]
         public string ClienteRazonSocial { get; set; }
 
         [DataMember]

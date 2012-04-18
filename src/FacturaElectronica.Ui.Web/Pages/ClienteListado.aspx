@@ -83,6 +83,8 @@
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="ApellidoContacto" HeaderText="Apellido Contacto" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
+                <asp:CheckBoxField DataField="CalculaVencimientoConVisualizacionDoc" HeaderText="Calcula Vencimiento con Visualizacion" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center" ReadOnly="True" />                                     
                 <asp:TemplateField HeaderText="Editar">
                     <HeaderStyle HorizontalAlign="Center" Width="40px" />
                     <ItemStyle HorizontalAlign="Center" />

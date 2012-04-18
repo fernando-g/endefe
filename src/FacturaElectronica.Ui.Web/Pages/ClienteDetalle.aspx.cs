@@ -30,7 +30,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             this.HasPermissionToSeeMe(Operaciones.ClienteDetalle);
-            if(this.BaseMaster.EsCliente)
+            if (this.BaseMaster.EsCliente)
                 this.lblTituloPagina.Text = "Mis Datos";
             try
             {
@@ -77,6 +77,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                 this.txtNombreContactoSecundario.Text = clienteCurrent.NombreContactoSecundario;
                 this.txtApellidoContactoSecundario.Text = clienteCurrent.ApellidoContactoSecundario;
                 this.txtEmailContactoSecundario.Text = clienteCurrent.EmailContactoSecundario;
+                this.chkCalculaVencimientoConVisualizacionDoc.Checked = clienteCurrent.CalculaVencimientoConVisualizacionDoc;
 
                 // asigno usuario
                 ISeguridadService seguridadSvc = ServiceFactory.GetSecurityService();
@@ -103,11 +104,18 @@ namespace FacturaElectronica.Ui.Web.Pages
             clienteCurrent.NombreContactoSecundario = this.txtNombreContactoSecundario.Text.Trim();
             clienteCurrent.ApellidoContactoSecundario = this.txtApellidoContactoSecundario.Text.Trim();
             clienteCurrent.EmailContactoSecundario = this.txtEmailContactoSecundario.Text.Trim();
+            clienteCurrent.CalculaVencimientoConVisualizacionDoc = this.chkCalculaVencimientoConVisualizacionDoc.Checked;
         }
 
         private void Save()
         {
             IClienteService clienteSvc = ServiceFactory.GetClienteService();
+            var userIdentity = UIHelper.GetCustomIdentity();
+            if (userIdentity != null)
+            {
+                clienteCurrent.Auditoria_UsuarioId = userIdentity.UserId;
+            }
+
             if (clienteCurrent.Id == 0)
             {
                 clienteCurrent = clienteSvc.CrearCliente(clienteCurrent);
@@ -222,7 +230,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                 IClienteService svc = ServiceFactory.GetClienteService();
                 ClienteDto cliente = svc.ObtenerClientePorCuit(Int64.Parse(txtCuit.Text.Trim()));
                 args.IsValid = cliente == null;
-            }                        
+            }
         }
 
     }
