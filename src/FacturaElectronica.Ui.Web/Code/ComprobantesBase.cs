@@ -148,8 +148,8 @@ namespace FacturaElectronica.Ui.Web.Code
             this.txtNroComprobanteControl.Text = string.Empty;
             this.txtFechaVencDesdeControl.Text = string.Empty;
             this.txtFechaVencHastaControl.Text = string.Empty;
-            this.txtFechaVencDesdeControl.Text = string.Empty;
-            this.txtFechaVencHastaControl.Text = string.Empty;
+            this.txtFechaRecepcionDesdeControl.Text = string.Empty;
+            this.txtFechaRecepcionHastaControl.Text = string.Empty;
             this.ddlMesFacturacionControl.SelectedIndex = 0;
             this.ddlAnioFacturacionControl.SelectedIndex = 0;
             this.ddlTipoContratoControl.SelectedIndex = 0;

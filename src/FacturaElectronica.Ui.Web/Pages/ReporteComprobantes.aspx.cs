@@ -253,8 +253,6 @@ namespace FacturaElectronica.Ui.Web.Pages
             this.chkDocumentosVencidos.Checked = false;
             this.txtMontoTotalDesde.Text = string.Empty;
             this.txtMontoTotalHasta.Text = string.Empty;
-            this.txtFechaDeRecepcionDesde.Text = string.Empty;
-            this.txtFechaDeRecepcionHasta.Text = string.Empty;
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
