@@ -70,9 +70,9 @@ namespace FacturaElectronica.Ui.Web
                     MenuItem misComprobantes = new MenuItem() { Text = "Mis Comprobantes", NavigateUrl = "~/Pages/ComprobantesListado.aspx" };
                     this.NavigationMenu.Items.Add(misComprobantes);
                 }
-                // Mensaje y Alertas
-                MenuItem mensajeAlertas = new MenuItem() { Text = "Mensajes y Alertas", NavigateUrl = "~/Pages/MensajesAlertasListado.aspx" };
-                this.NavigationMenu.Items.Add(mensajeAlertas);
+                // Mensaje y Alertas Listado
+                MenuItem mensajeAlertasListado = new MenuItem() { Text = "Mensajes y Alertas", NavigateUrl = "~/Pages/MensajesAlertasListado.aspx" };
+                this.NavigationMenu.Items.Add(mensajeAlertasListado);
                 // Contacto
                 MenuItem contacto = new MenuItem() { Text = "Contacto", NavigateUrl = "~/Pages/Contacto.aspx" };
                 this.NavigationMenu.Items.Add(contacto);

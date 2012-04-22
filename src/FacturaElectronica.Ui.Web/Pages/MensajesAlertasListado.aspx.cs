@@ -12,16 +12,19 @@ namespace FacturaElectronica.Ui.Web.Pages
     public partial class MensajesAlertasListado : BasePage
     {
         private const string pagDetalle = "MensajesAlertasDetalle.aspx";
+        private const string pagClientes = "MensajesAlertasClientes.aspx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HasPermissionToSeeMe(Operaciones.MensajesAlertas);
+            HasPermissionToSeeMe(Operaciones.MensajesAlertasListado);
             this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
             if (!this.IsPostBack)
             {
                 if (this.Master.EsCliente)
                 {
+                    this.Grid.Columns[4].Visible = false;
                     this.Grid.Columns[5].Visible = false;
+                    this.Grid.Columns[7].Visible = false;
                     this.btnAgregarNuevo.Visible = false;
                 }
                 else if (this.Master.EsAdministrador)
@@ -64,19 +67,23 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "ver" || e.CommandName == "eliminar")
+            if (e.CommandName == "ver" || e.CommandName == "eliminar" || e.CommandName == "clientes")
             {
                 try
                 {
-                    long clienteId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                    long mensajeId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
                     if (e.CommandName == "ver")
                     {
-                        this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, clienteId), true);
+                        this.Response.Redirect(string.Format("{0}?Id={1}", pagDetalle, mensajeId), true);
+                    }
+                    else if (e.CommandName == "clientes")
+                    {
+                        this.Response.Redirect(string.Format("{0}?Id={1}", pagClientes, mensajeId), true);
                     }
                     else if (e.CommandName == "eliminar")
                     {
 
-                        if (!ServiceFactory.GetMensajeService().EliminarMensaje(clienteId))
+                        if (!ServiceFactory.GetMensajeService().EliminarMensaje(mensajeId))
                         {
                             throw new Exception("El mensaje no se puede eliminar dado que ha sido leido por al menos un cliente");
                         }
@@ -103,6 +110,39 @@ namespace FacturaElectronica.Ui.Web.Pages
             }
         }
 
+        protected void Grid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                MensajeDto dataItem = e.Row.DataItem as MensajeDto;
+                // Mensaje
+                e.Row.Cells[2].Text = dataItem.Texto.Length > 11 ? dataItem.Texto.Substring(0, 10) + "..." : dataItem.Texto;
+
+                if (this.Master.EsAdministrador)
+                {
+                    e.Row.Cells[4].Text = string.Format("{0}/{1}", dataItem.MensajesLeidos, dataItem.CantClientes);
+                }
+                else if (this.Master.EsCliente)
+                {
+                    string leido = string.Empty;
+                    if (dataItem.Leido)
+                    {
+                        leido = "Si";
+                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Green;
+                    }
+                    else
+                    {
+                        leido = "No";
+                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
+                    }
+
+                    e.Row.Cells[3].Text = leido;
+                }
+                
+
+            }
+        }
+
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
             this.Response.Redirect(pagDetalle, true);
@@ -125,34 +165,6 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             //  exporto la grilla
             GridViewExportUtil.Export("MensajesAlertas.xls", this.Grid);
-        }
-
-        protected void Grid_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                MensajeDto dataItem = e.Row.DataItem as MensajeDto;
-                // Mensaje
-                e.Row.Cells[2].Text = dataItem.Texto.Length > 11 ? dataItem.Texto.Substring(0, 10) + "..." : dataItem.Texto;
-
-                if (this.Master.EsCliente)
-                {
-                    string leido = string.Empty;
-                    if (dataItem.Leido)
-                    {
-                        leido = "Si";
-                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Green;
-                    }
-                    else 
-                    {
-                        leido = "No";
-                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
-                    }
-
-                    e.Row.Cells[3].Text = leido;
-                }
-                
-            }
         }
     }
 }

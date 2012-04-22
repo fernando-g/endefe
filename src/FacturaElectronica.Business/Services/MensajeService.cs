@@ -135,6 +135,28 @@ namespace FacturaElectronica.Business.Services
 
         }
 
+        public List<MensajeClienteDto> ObtenerClientesEstados(MensajeClienteCriteria criteria)
+        { 
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                var result = from mc in ctx.MensajeClientes
+                             where (!criteria.Leido.HasValue || mc.Leido.Equals(criteria.Leido.Value))
+                                && (string.IsNullOrEmpty(criteria.RazonSocial) || mc.Cliente.RazonSocial.Contains(criteria.RazonSocial))
+                                && (!criteria.CuitDesde.HasValue || criteria.CuitDesde.Value <= mc.Cliente.CUIT)
+                                && (!criteria.CuitHasta.HasValue || mc.Cliente.CUIT <= criteria.CuitHasta.Value)
+                                && (mc.MensajeId == criteria.MensajeId)
+                             select new MensajeClienteDto()
+                             {
+                                Cuit = mc.Cliente.CUIT,
+                                ClienteId = mc.Cliente.Id,
+                                Leido = mc.Leido,
+                                RazonSocial = mc.Cliente.RazonSocial,
+
+                             };
+                return result.ToList();
+            }
+        }
+
         #region [Conversion]
 
         private static void ToMensaje(MensajeDto mensajeDto, Mensaje mensaje)
@@ -153,6 +175,11 @@ namespace FacturaElectronica.Business.Services
             if (clienteId.HasValue)
             {
                 dto.Leido = entity.MensajeClientes.Where(mc => mc.ClienteId == clienteId).Single().Leido;
+            }
+            else
+            {
+                dto.MensajesLeidos = entity.MensajeClientes.Where(mc => mc.Leido).Count();
+                dto.CantClientes = entity.MensajeClientes.Count();
             }
 
             if (cargarClientes && entity.MensajeClientes.Count > 0)

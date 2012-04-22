@@ -19,3 +19,25 @@ function openWindows(estado, file)
 function Nav(url, parameters) {
     document.location.href = url + parameters;
 }
+
+function AllowDigitsOnly(controlId) {
+    $('#'+ controlId).keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+}
+
+function validarRangoCuit(source, args) {
+    var cuitDesde = $('#txtCuitDesde').val();
+    var cuitHasta = $('#txtCuitHasta').val();
+
+    if (cuitDesde == "" || cuitHasta == "" || parseInt(cuitDesde)<parseInt(cuitHasta))
+    {
+        args.IsValid = true;
+    }
+    else {
+        args.IsValid = false;
+    }  
+    return;  
+}

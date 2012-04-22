@@ -59,7 +59,7 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.HasPermissionToSeeMe(Operaciones.ClienteDetalle);
+            this.HasPermissionToSeeMe(Operaciones.MensajesAlertasDetalle);
             try
             {
                 IMensajeService mensajeService = ServiceFactory.GetMensajeService();
@@ -80,8 +80,10 @@ namespace FacturaElectronica.Ui.Web.Pages
                     else
                     {
                         this.btnAceptar.Visible = 
+                        this.btnCancelar.Visible =
                         this.pnlBotones.Visible = 
                         this.pnlClientes.Visible = false;
+                        this.btnVolver.Visible = true;
                         mensajeCurrent = mensajeService.ObtenerMensaje(Convert.ToInt64(this.Request.QueryString["Id"]));
                     }
                     Bindear();
@@ -305,6 +307,11 @@ namespace FacturaElectronica.Ui.Web.Pages
         protected void rblOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.OrderyCargarListBoxes();
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            RedirectToPagListado();
         }
     }
 }

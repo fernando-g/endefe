@@ -77,6 +77,16 @@
                     ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="Leido" HeaderText="Le&iacute;do" HeaderStyle-HorizontalAlign="Center"
                     ItemStyle-HorizontalAlign="Center" />
+                <asp:TemplateField HeaderText="Le&iacute;do" HeaderStyle-HorizontalAlign="Center"
+                    ItemStyle-HorizontalAlign="Center"></asp:TemplateField>
+                <asp:TemplateField HeaderText="Clientes">
+                    <HeaderStyle HorizontalAlign="Center" Width="50px" />
+                    <ItemStyle HorizontalAlign="Center" />
+                    <ItemTemplate>
+                        <asp:ImageButton ID="btnClientes" runat="server" ImageUrl="~/Images/clientes.png" CommandName="clientes"
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ver">
                     <HeaderStyle HorizontalAlign="Center" Width="50px" />
                     <ItemStyle HorizontalAlign="Center" />

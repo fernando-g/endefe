@@ -61,6 +61,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Images\aprobar.png" />
+    <Content Include="Images\clientes.png" />
     <Content Include="Images\delItem.gif" />
     <Content Include="Images\editar.png" />
     <Content Include="Images\editItem.png" />
@@ -103,6 +104,7 @@
     <Content Include="Pages\ComprobantesListado.aspx" />
     <Content Include="Pages\Contacto.aspx" />
     <Content Include="Pages\InfoVisualizacion.aspx" />
+    <Content Include="Pages\MensajesAlertasClientes.aspx" />
     <Content Include="Pages\MensajesAlertasDetalle.aspx" />
     <Content Include="Pages\MensajesAlertasListado.aspx" />
     <Content Include="Pages\ReporteComprobantes.aspx" />
@@ -264,6 +266,13 @@
     </Compile>
     <Compile Include="Handlers\PdfHandler.ashx.cs">
       <DependentUpon>PdfHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasClientes.aspx.cs">
+      <DependentUpon>MensajesAlertasClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MensajesAlertasClientes.aspx.designer.cs">
+      <DependentUpon>MensajesAlertasClientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\MensajesAlertasDetalle.aspx.cs">
       <DependentUpon>MensajesAlertasDetalle.aspx</DependentUpon>

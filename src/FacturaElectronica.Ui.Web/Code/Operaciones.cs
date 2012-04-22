@@ -16,6 +16,8 @@ namespace FacturaElectronica.Ui.Web.Code
         ComprobanteListado,
         ReporteComprobantes,
         Contacto,
-        MensajesAlertas
+        MensajesAlertasListado,
+        MensajesAlertasDetalle,
+        MensajesAlertasClientes
     }
 }

@@ -72,7 +72,8 @@ namespace FacturaElectronica.Ui.Web.Code
                         operacion == Operaciones.Contacto ||
                         operacion == Operaciones.ComprobanteListado ||
                         operacion == Operaciones.ClienteDetalle ||
-                        operacion == Operaciones.MensajesAlertas)
+                        operacion == Operaciones.MensajesAlertasListado ||
+                        operacion == Operaciones.MensajesAlertasDetalle)
                     { 
                         hasPermission = true;
                     }

@@ -22,6 +22,10 @@ namespace FacturaElectronica.Common.Contracts
 
         public bool Leido { get; set; }
 
+        public int MensajesLeidos { get; set; }
+
+        public int CantClientes { get; set; }
+
         public List<ClienteDto> Clientes { get; set; }
     }
 }
