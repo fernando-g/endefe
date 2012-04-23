@@ -16,11 +16,18 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HasPermissionToSeeMe(Operaciones.UsuarioDetalle);
-            if (!this.IsPostBack)
+            try
             {
-                this.InicializarListControls();
-                this.Buscar();
+                HasPermissionToSeeMe(Operaciones.UsuarioDetalle);
+                if (!this.IsPostBack)
+                {
+                    this.InicializarListControls();
+                    this.Buscar();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
             }
         }
 
@@ -46,7 +53,14 @@ namespace FacturaElectronica.Ui.Web.Pages
         
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
-            this.Response.Redirect(pagDetalle, true);
+            try
+            {
+                this.Response.Redirect(pagDetalle, true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void Grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -98,18 +112,39 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            this.Buscar();
+            try
+            {
+                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            this.txtNombre.Text = string.Empty;
+            try
+            {
+                this.txtNombre.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
-            //  exporto la grilla
-            GridViewExportUtil.Export("Usuarios.xls", this.Grid);
+            try
+            {
+                //  exporto la grilla
+                GridViewExportUtil.Export("Usuarios.xls", this.Grid);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
     }
 }

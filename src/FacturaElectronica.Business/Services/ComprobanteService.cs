@@ -27,6 +27,19 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
+        public ComprobanteDto ObtenerComprobanteDeArchivoAsociado(long archivoAsociadoId)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {                
+                var dbArchivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.Id == archivoAsociadoId).Single();
+                var dbComprobante = dbArchivoAsociado.Comprobante;
+
+                ComprobanteDto comprobanteDto = ToComprobanteDto(dbComprobante);
+                comprobanteDto.NroComprobante = dbArchivoAsociado.NroComprobante;
+                return comprobanteDto;
+            }
+        }
+
         /// <summary>
         /// Obtiene los comprobantes para un cliente
         /// </summary>
@@ -123,6 +136,23 @@ namespace FacturaElectronica.Business.Services
                     ctx.SaveChanges();
                     ts.Complete();
                 }
+            }
+        }
+
+        public List<RegistroAuditoria> ObtenerAuditoriaComprobante(long archivoAsociadoId)
+        {
+            List<RegistroAuditoria> registros = new List<RegistroAuditoria>();
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                foreach (var dbArchivoAsoAuditoria in ctx.ArchivoAsociado_Auditoria.Where(a => a.ArchivoAsociadoId == archivoAsociadoId).OrderByDescending(a => a.Fecha))
+                {
+                    RegistroAuditoria ra = new RegistroAuditoria();
+                    EntityMapper.Map(dbArchivoAsoAuditoria, ra);
+                    ra.UsuarioNombre = dbArchivoAsoAuditoria.Usuario.NombreUsuario;
+                    registros.Add(ra);
+                }
+
+                return registros;
             }
         }
 

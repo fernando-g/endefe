@@ -67,6 +67,7 @@
     <Compile Include="Contracts\MensajeCriteria.cs" />
     <Compile Include="Contracts\MensajeDto.cs" />
     <Compile Include="Contracts\ObservacionComprobanteDto.cs" />
+    <Compile Include="Contracts\RegistroAuditoria.cs" />
     <Compile Include="Contracts\RolDto.cs" />
     <Compile Include="Contracts\SearchResult.cs" />
     <Compile Include="Contracts\Search\CorridaSubidaArchivoSearch.cs" />

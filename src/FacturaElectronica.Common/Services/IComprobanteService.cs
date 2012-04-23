@@ -13,6 +13,8 @@ namespace FacturaElectronica.Common.Services
         [OperationContract]
         ComprobanteDto ObtenerComprobante(long comprobanteId);
 
+        ComprobanteDto ObtenerComprobanteDeArchivoAsociado(long archivoAsociadoId);
+
         [OperationContract]
         List<ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(ComprobanteCriteria criteria, int cantUltimosCbtes);
 
@@ -57,5 +59,7 @@ namespace FacturaElectronica.Common.Services
 
         [OperationContract]
         void AsociarFechaDeRecepcion(Dictionary<long, DateTime?> archivosAsociados, long userId);
+
+        List<RegistroAuditoria> ObtenerAuditoriaComprobante(long archivoAsociadoId);
     }
 }

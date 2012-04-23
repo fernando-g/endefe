@@ -154,7 +154,14 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            RedirectToPagListado();
+            try
+            {
+                RedirectToPagListado();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         private void RedirectToPagListado()
@@ -171,7 +178,14 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnBuscarCliente_Click(object sender, EventArgs e)
         {
-            this.Buscar();
+            try
+            {
+                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void Grid_PageIndexChanging(object sender, GridViewPageEventArgs e)

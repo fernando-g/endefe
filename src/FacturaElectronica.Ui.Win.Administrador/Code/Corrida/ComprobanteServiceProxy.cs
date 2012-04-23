@@ -104,5 +104,15 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
         {
             throw new NotImplementedException();
         }
+
+        public ComprobanteDto ObtenerComprobanteDeArchivoAsociado(long archivoAsociadoId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RegistroAuditoria> ObtenerAuditoriaComprobante(long archivoAsociadoId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

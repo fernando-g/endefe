@@ -14,6 +14,7 @@ namespace FacturaElectronica.Ui.Web.Pages
     public partial class ClienteDetalle : BasePage
     {
         private const string pagListado = "ClienteListado.aspx";
+        private const string pagAuditoria = "ClienteAuditoria.aspx";
 
         public ClienteDto clienteCurrent
         {
@@ -29,11 +30,20 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.HasPermissionToSeeMe(Operaciones.ClienteDetalle);
-            if (this.BaseMaster.EsCliente)
-                this.lblTituloPagina.Text = "Mis Datos";
             try
             {
+                this.HasPermissionToSeeMe(Operaciones.ClienteDetalle);
+                if (this.BaseMaster.EsCliente)
+                {
+                    this.lblTituloPagina.Text = "Mis Datos";
+                    this.btnVerAuditoria.Visible = false;
+                }
+                else
+                {
+                    this.btnVerAuditoria.Visible = true;
+                }
+
+
                 IClienteService clienteService = ServiceFactory.GetClienteService();
 
                 if (!this.IsPostBack)
@@ -91,6 +101,10 @@ namespace FacturaElectronica.Ui.Web.Pages
                 {
                     this.pnlUsuario.Visible = false;
                 }
+            }
+            else
+            {
+                btnVerAuditoria.Visible = false;
             }
         }
 
@@ -160,7 +174,29 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            RedirectToPagListado();
+            try
+            {
+                RedirectToPagListado();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
+        }
+
+        protected void btnVerAuditoria_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clienteCurrent.Id != 0)
+                {
+                    Response.Redirect(string.Format("{0}?Id={1}", pagAuditoria, clienteCurrent.Id), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         private void RedirectToPagListado()

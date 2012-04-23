@@ -99,8 +99,10 @@
     <Content Include="Images\visualizado.png" />
     <Content Include="Images\warning.png" />
     <Content Include="Pages\CambiarPassword.aspx" />
+    <Content Include="Pages\ClienteAuditoria.aspx" />
     <Content Include="Pages\ClienteDetalle.aspx" />
     <Content Include="Pages\ClienteListado.aspx" />
+    <Content Include="Pages\ComprobanteAuditoria.aspx" />
     <Content Include="Pages\ComprobantesListado.aspx" />
     <Content Include="Pages\Contacto.aspx" />
     <Content Include="Pages\InfoVisualizacion.aspx" />
@@ -229,6 +231,13 @@
     <Compile Include="Pages\CambiarPassword.aspx.designer.cs">
       <DependentUpon>CambiarPassword.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ClienteAuditoria.aspx.cs">
+      <DependentUpon>ClienteAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ClienteAuditoria.aspx.designer.cs">
+      <DependentUpon>ClienteAuditoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ClienteDetalle.aspx.cs">
       <DependentUpon>ClienteDetalle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,6 +251,13 @@
     </Compile>
     <Compile Include="Pages\ClienteListado.aspx.designer.cs">
       <DependentUpon>ClienteListado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComprobanteAuditoria.aspx.cs">
+      <DependentUpon>ComprobanteAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ComprobanteAuditoria.aspx.designer.cs">
+      <DependentUpon>ComprobanteAuditoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ComprobantesListado.aspx.cs">
       <DependentUpon>ComprobantesListado.aspx</DependentUpon>

@@ -19,5 +19,7 @@ namespace FacturaElectronica.Common.Services
         List<ClienteDto> ObtenerClientes(ClienteCriteria criteria);
 
         ClienteDto ObtenerClientePorCuit(long cuit);
+
+        List<RegistroAuditoria> ObtenerAuditoriaCliente(long clienteId);
     }
 }

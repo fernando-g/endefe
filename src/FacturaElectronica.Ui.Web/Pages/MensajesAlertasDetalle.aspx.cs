@@ -98,7 +98,6 @@ namespace FacturaElectronica.Ui.Web.Pages
             {
                 ExceptionManager.Instance.HandleException(ex);
             }
-
         }
 
         private void MarcarMensajeComoLeido()
@@ -236,7 +235,14 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            RedirectToPagListado();
+            try
+            {
+                RedirectToPagListado();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         private void RedirectToPagListado()
@@ -306,12 +312,26 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void rblOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.OrderyCargarListBoxes();
+            try
+            {
+                this.OrderyCargarListBoxes();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            RedirectToPagListado();
+            try
+            {
+                RedirectToPagListado();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
     }
 }

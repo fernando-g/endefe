@@ -82,10 +82,19 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         #endregion [BaseControls]
 
+        private const string pagComprobanteAuditoria = "ComprobanteAuditoria.aspx";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            HasPermissionToSeeMe(Operaciones.ReporteComprobantes);
-            base.Page_Load();
+            try
+            {
+                HasPermissionToSeeMe(Operaciones.ReporteComprobantes);
+                base.Page_Load();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected override void InicializarControles()
@@ -129,6 +138,11 @@ namespace FacturaElectronica.Ui.Web.Pages
                     IComprobanteService svc = ServiceFactory.GetComprobanteService();
                     svc.CambiarEstado(archivoAsociadoId, CodigosEstadoArchivoAsociado.Eliminado);
                     Buscar();
+                }
+                else if (e.CommandName == "ver")
+                {
+                    long archivoAsociadoId = Convert.ToInt64(this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
+                    this.Response.Redirect(string.Format("{0}?Id={1}", pagComprobanteAuditoria, archivoAsociadoId), true);
                 }
             }
             catch (Exception ex)
@@ -240,25 +254,46 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            this.Buscar();
+            try
+            {
+                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            base.LimpiarControles();
+            try
+            {
+                base.LimpiarControles();
 
-            this.txtRazonSocial.Text = string.Empty;
-            this.txtFechaDeCargaDesde.Text = string.Empty;
-            this.txtFechaDeCargaHasta.Text = string.Empty;
-            this.chkDocumentosVencidos.Checked = false;
-            this.txtMontoTotalDesde.Text = string.Empty;
-            this.txtMontoTotalHasta.Text = string.Empty;
+                this.txtRazonSocial.Text = string.Empty;
+                this.txtFechaDeCargaDesde.Text = string.Empty;
+                this.txtFechaDeCargaHasta.Text = string.Empty;
+                this.chkDocumentosVencidos.Checked = false;
+                this.txtMontoTotalDesde.Text = string.Empty;
+                this.txtMontoTotalHasta.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
-            //  exporto la grilla
-            GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
+            try
+            {
+                //  exporto la grilla
+                GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)

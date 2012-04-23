@@ -16,22 +16,29 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HasPermissionToSeeMe(Operaciones.MensajesAlertasListado);
-            this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
-            if (!this.IsPostBack)
+            try
             {
-                if (this.Master.EsCliente)
+                HasPermissionToSeeMe(Operaciones.MensajesAlertasListado);
+                this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
+                if (!this.IsPostBack)
                 {
-                    this.Grid.Columns[4].Visible = false;
-                    this.Grid.Columns[5].Visible = false;
-                    this.Grid.Columns[7].Visible = false;
-                    this.btnAgregarNuevo.Visible = false;
+                    if (this.Master.EsCliente)
+                    {
+                        this.Grid.Columns[4].Visible = false;
+                        this.Grid.Columns[5].Visible = false;
+                        this.Grid.Columns[7].Visible = false;
+                        this.btnAgregarNuevo.Visible = false;
+                    }
+                    else if (this.Master.EsAdministrador)
+                    {
+                        this.Grid.Columns[3].Visible = false;
+                    }
+                    this.Buscar();
                 }
-                else if (this.Master.EsAdministrador)
-                {
-                    this.Grid.Columns[3].Visible = false;
-                }
-                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
             }
         }
 
@@ -66,7 +73,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         }
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
+        {            
             if (e.CommandName == "ver" || e.CommandName == "eliminar" || e.CommandName == "clientes")
             {
                 try
@@ -112,59 +119,92 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Grid_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                MensajeDto dataItem = e.Row.DataItem as MensajeDto;
-                // Mensaje
-                e.Row.Cells[2].Text = dataItem.Texto.Length > 11 ? dataItem.Texto.Substring(0, 10) + "..." : dataItem.Texto;
-
-                if (this.Master.EsAdministrador)
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    e.Row.Cells[4].Text = string.Format("{0}/{1}", dataItem.MensajesLeidos, dataItem.CantClientes);
-                }
-                else if (this.Master.EsCliente)
-                {
-                    string leido = string.Empty;
-                    if (dataItem.Leido)
-                    {
-                        leido = "Si";
-                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Green;
-                    }
-                    else
-                    {
-                        leido = "No";
-                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
-                    }
+                    MensajeDto dataItem = e.Row.DataItem as MensajeDto;
+                    // Mensaje
+                    e.Row.Cells[2].Text = dataItem.Texto.Length > 11 ? dataItem.Texto.Substring(0, 10) + "..." : dataItem.Texto;
 
-                    e.Row.Cells[3].Text = leido;
-                }
-                
+                    if (this.Master.EsAdministrador)
+                    {
+                        e.Row.Cells[4].Text = string.Format("{0}/{1}", dataItem.MensajesLeidos, dataItem.CantClientes);
+                    }
+                    else if (this.Master.EsCliente)
+                    {
+                        string leido = string.Empty;
+                        if (dataItem.Leido)
+                        {
+                            leido = "Si";
+                            e.Row.Cells[3].ForeColor = System.Drawing.Color.Green;
+                        }
+                        else
+                        {
+                            leido = "No";
+                            e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
+                        }
 
+                        e.Row.Cells[3].Text = leido;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
             }
         }
 
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
-            this.Response.Redirect(pagDetalle, true);
+            try
+            {
+                this.Response.Redirect(pagDetalle, true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            this.Buscar();
+            try
+            {
+                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            this.txtFechaDeCargaDesde.Text = string.Empty;
-            this.txtFechaDeCargaHasta.Text = string.Empty;
-            this.txtAsunto.Text = string.Empty;
+            try
+            {
+                this.txtFechaDeCargaDesde.Text = string.Empty;
+                this.txtFechaDeCargaHasta.Text = string.Empty;
+                this.txtAsunto.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
             //this.txtNombreArchivo.Text = string.Empty;
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
-            //  exporto la grilla
-            GridViewExportUtil.Export("MensajesAlertas.xls", this.Grid);
+            try
+            {
+                //  exporto la grilla
+                GridViewExportUtil.Export("MensajesAlertas.xls", this.Grid);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
     }
 }

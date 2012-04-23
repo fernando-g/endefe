@@ -72,7 +72,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             get { return this.txtNroComprobante; }
         }
-        protected override  TextBox txtFechaVencDesdeControl
+        protected override TextBox txtFechaVencDesdeControl
         {
             get { return this.txtFechaVencDesde; }
         }
@@ -113,9 +113,16 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HasPermissionToSeeMe(Operaciones.ComprobanteListado);
-            base.Page_Load();
-            this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
+            try
+            {
+                HasPermissionToSeeMe(Operaciones.ComprobanteListado);
+                base.Page_Load();
+                this.btnBuscar.Attributes.Add("aspnetid", this.btnBuscar.ClientID);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected override void InicializarControles()
@@ -162,7 +169,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             int cantCbtes = this.Page.IsPostBack ? 0 : int.Parse(ConfigurationManager.AppSettings["cantUltimosReg"].ToString());
             return ServiceFactory.GetComprobanteService().ObtenerComprobantesPorCliente(criteria, cantCbtes);
-        }        
+        }
 
         private void BindToGrid()
         {
@@ -170,7 +177,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             //this.Grid.DataSourceID = "CustomerObjectDs";   
         }
 
-       // private ObjectDataSourceComprobanteListado search = new ObjectDataSourceComprobanteListado();
+        // private ObjectDataSourceComprobanteListado search = new ObjectDataSourceComprobanteListado();
 
         protected void CustomerObjectDs_ObjectCreating(object sender, ObjectDataSourceEventArgs e)
         {
@@ -267,7 +274,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             {
                 ExceptionManager.Instance.HandleException(ex);
             }
-        }       
+        }
 
         protected void Grid_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -278,7 +285,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                     ComprobanteArchivoAsociadoDto dto = e.Row.DataItem as ComprobanteArchivoAsociadoDto;
                     int columnaFechaVencimiento = 3;
                     int columnaEstado = 5;
-                    EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);                    
+                    EstablecerFechaVencimiento(e, dto, columnaFechaVencimiento);
                     EstablecerColorEstado(e, dto, columnaEstado);
                 }
             }
@@ -287,21 +294,42 @@ namespace FacturaElectronica.Ui.Web.Pages
                 ExceptionManager.Instance.HandleException(ex);
             }
         }
-        
+
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            this.Buscar();
+            try
+            {
+                this.Buscar();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarControles();
+            try
+            {
+                LimpiarControles();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
-            //  exporto la grilla
-            GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
+            try
+            {
+                //  exporto la grilla
+                GridViewExportUtil.Export("Comprobantes.xls", this.Grid);
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Instance.HandleException(ex);
+            }
         }
     }
 }

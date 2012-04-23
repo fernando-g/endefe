@@ -386,6 +386,11 @@ div.accountInfo
 .btn a:hover   {text-decoration:none; color: Red;}
 .btn a:active  {text-decoration:none; color: Red;}
 
+.btnwidther
+{
+    width: 100px !important;
+}
+
 .btnMouseOver
 {
     background-color: #00C3F2;

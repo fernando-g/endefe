@@ -11,20 +11,20 @@ using FacturaElectronica.Common.Services;
 
 namespace FacturaElectronica.Ui.Web.Pages
 {
-    public partial class MensajesAlertasClientes : BasePage
+    public partial class ClienteAuditoria : BasePage
     {
-        private IMensajeService mensajeSvc = null;
-        private const string pagListado = "MensajesAlertasListado.aspx";
+        private IClienteService clienteSvc = null;
+        private const string pagClienteDetalle = "ClienteDetalle.aspx";
 
-        public long MensajeId 
+        public long ClienteId
         {
             get
-            {                
-                return long.Parse(ViewState["Id"].ToString());
+            {
+                return long.Parse(ViewState["ClienteId"].ToString());
             }
             set
             {
-                ViewState["Id"] = value;
+                ViewState["ClienteId"] = value;
             }
         }
 
@@ -33,15 +33,16 @@ namespace FacturaElectronica.Ui.Web.Pages
             try
             {
                 HasPermissionToSeeMe(Operaciones.MensajesAlertasClientes);
-                this.mensajeSvc = ServiceFactory.GetMensajeService();
+                this.clienteSvc = ServiceFactory.GetClienteService();
                 if (!this.IsPostBack)
                 {
                     if (this.Request.QueryString["Id"] != null)
                     {
-                        MensajeDto mensaje = this.mensajeSvc.ObtenerMensaje(long.Parse(this.Request.QueryString["Id"].ToString()));
-                        this.MensajeId = mensaje.Id;
-                        this.lblMensaje.Text = mensaje.Asunto;
+                        ClienteDto client = this.clienteSvc.ObtenerCliente(long.Parse(this.Request.QueryString["Id"].ToString()));
+                        this.ClienteId = client.Id;
+                        this.lblCliente.Text = client.RazonSocial;
                     }
+
                     this.Buscar();
                 }
             }
@@ -53,26 +54,10 @@ namespace FacturaElectronica.Ui.Web.Pages
 
         private void Buscar()
         {
-            // cargo los filtros
-            MensajeClienteCriteria criteria = new MensajeClienteCriteria();
-            CargarCriteria(criteria);
-
-            List<MensajeClienteDto> list = this.mensajeSvc.ObtenerClientesEstados(criteria);
+            List<RegistroAuditoria> list = this.clienteSvc.ObtenerAuditoriaCliente(ClienteId);
             this.lblCantReg.Text = string.Format(" ({0})", list.Count);
             this.Grid.DataSource = list;
             this.Grid.DataBind();
-        }
-
-        private void CargarCriteria(MensajeClienteCriteria criteria)
-        {
-            criteria.MensajeId = this.MensajeId;
-            criteria.RazonSocial = this.txtRazonSocial.Text.Trim();
-            criteria.CuitDesde = this.txtCuitDesde.Text.Trim() != string.Empty ? long.Parse(this.txtCuitDesde.Text.Trim()) : default(long?);
-            criteria.CuitHasta = this.txtCuitHasta.Text.Trim() != string.Empty ? long.Parse(this.txtCuitHasta.Text.Trim()) : default(long?);
-            if(this.ddlEstado.SelectedValue != "0")
-            {
-                criteria.Leido = this.ddlEstado.SelectedValue == "1";
-            }
         }
 
         protected void Grid_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -98,9 +83,9 @@ namespace FacturaElectronica.Ui.Web.Pages
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    MensajeClienteDto item = e.Row.DataItem as MensajeClienteDto;
-                    e.Row.Cells[2].ForeColor = item.Leido ? Color.Green : Color.Red;
-                    e.Row.Cells[2].Text = item.Leido ? "Sí" : "No";
+                    //MensajeClienteDto item = e.Row.DataItem as MensajeClienteDto;
+                    //e.Row.Cells[2].ForeColor = item.Leido ? Color.Green : Color.Red;
+                    //e.Row.Cells[2].Text = item.Leido ? "Sí" : "No";
                 }
             }
             catch (Exception ex)
@@ -113,7 +98,7 @@ namespace FacturaElectronica.Ui.Web.Pages
         {
             try
             {
-                this.Response.Redirect(pagListado, true);
+                this.Response.Redirect(string.Format("{0}?Id={1}", pagClienteDetalle, ClienteId), true);
             }
             catch (Exception ex)
             {
@@ -133,27 +118,12 @@ namespace FacturaElectronica.Ui.Web.Pages
             }
         }
 
-        protected void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.txtRazonSocial.Text = string.Empty;
-                this.txtCuitDesde.Text = string.Empty;
-                this.txtCuitHasta.Text = string.Empty;
-                this.ddlEstado.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                ExceptionManager.Instance.HandleException(ex);
-            }
-        }
-
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
             try
             {
                 //  exporto la grilla
-                GridViewExportUtil.Export("MensajeClientes.xls", this.Grid);
+                GridViewExportUtil.Export("ClienteAuditoria.xls", this.Grid);
             }
             catch (Exception ex)
             {

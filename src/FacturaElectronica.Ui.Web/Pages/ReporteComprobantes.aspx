@@ -228,6 +228,14 @@
                             OnClientClick="return confirm('Esta seguro que desea eliminar el registro?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Auditoría">
+                    <HeaderStyle HorizontalAlign="Center" Width="50px" />
+                    <ItemStyle HorizontalAlign="Center" />
+                    <ItemTemplate>
+                        <asp:ImageButton ID="btnVer" runat="server" ImageUrl="~/Images/viewItem.png" CommandName="ver"
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

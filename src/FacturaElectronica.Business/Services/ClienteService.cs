@@ -6,6 +6,7 @@ using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts;
 using System.Transactions;
 using FacturaElectronica.Data;
+using Web.Framework.Mapper;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -66,10 +67,27 @@ namespace FacturaElectronica.Business.Services
             Cliente_Auditoria cliente_auditoria = new Cliente_Auditoria();
             cliente.Cliente_Auditoria.Add(cliente_auditoria);
             cliente_auditoria.UsuarioId = clienteDto.Auditoria_UsuarioId;
-            cliente_auditoria.CampoModificado = "CalculaVencimientoConVisualizacionDoc";
+            cliente_auditoria.CampoModificado = "Calcula Vencimiento Con Visualizacion de Documento";
             cliente_auditoria.ValorAnterior = cliente.CalculaVencimientoConVisualizacionDoc ? "SI" : "NO";
             cliente_auditoria.ValorNuevo = clienteDto.CalculaVencimientoConVisualizacionDoc ? "SI" : "NO";
             cliente_auditoria.Fecha = DateTime.Now;
+        }
+
+        public List<RegistroAuditoria> ObtenerAuditoriaCliente(long clienteId)
+        {
+            List<RegistroAuditoria> registros = new List<RegistroAuditoria>();
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                foreach (var dbClienteAuditoria in ctx.Cliente_Auditoria.Where(a => a.ClienteId == clienteId).OrderByDescending(a => a.Fecha))
+                {
+                    RegistroAuditoria ra = new RegistroAuditoria();
+                    EntityMapper.Map(dbClienteAuditoria, ra);
+                    ra.UsuarioNombre = dbClienteAuditoria.Usuario.NombreUsuario;
+                    registros.Add(ra);
+                }
+
+                return registros;
+            }
         }
 
         public bool EliminarCliente(long clienteId)

@@ -12,6 +12,9 @@ namespace FacturaElectronica.Common.Contracts
     public class ComprobanteCriteria
     {
         [DataMember]
+        public long? ArchivoAsociadoId { get; set; }
+
+        [DataMember]
         public DateTime? FechaVencDesde { get; set; }
 
         [DataMember]

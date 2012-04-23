@@ -138,6 +138,8 @@
                 ClientIDMode="Static" />
             <asp:Button ID="btnCancelar" CssClass="btn" runat="server" Text="Cancelar" CausesValidation="false" OnClick="btnCancelar_Click"
                 ClientIDMode="Static" />
+                <asp:Button ID="btnVerAuditoria" CssClass="btn btnwidther" runat="server" Text="Ver Auditoría" CausesValidation="false" OnClick="btnVerAuditoria_Click"
+                ClientIDMode="Static" />
         </p>
         <div class="clear">
         </div>
