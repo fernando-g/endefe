@@ -316,15 +316,15 @@ namespace FacturaElectronica.Business.Services
                 dto.TotalComprobantes = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
                                                                          a.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado).Count();
                 // Visualizados
-                dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                    
                                                                     a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado).Count();
-                // No Visualizados
+                // No Visualizados No Vencidos
                 DateTime hoy = DateTime.Now.Date;
-                dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                      
                                                                       a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
-                                                                      hoy <= a.FechaVencimiento).Count();
+                                                                      hoy <= a.FechaVencimiento || a.FechaVencimiento == null).Count();
                 // No Visualizados
-                dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                              
                                                                               a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
                                                                               a.FechaVencimiento < hoy).Count();
             }
