@@ -44,13 +44,7 @@
                 onservervalidate="cvCuitExistente_ServerValidate"></asp:CustomValidator>
         </p>
         <div class="clear">
-        </div>
-        <p>
-            <span class="title2">Calcula Vencimiento con Visualización de PDF?:</span>
-            <asp:CheckBox ID="chkCalculaVencimientoConVisualizacionDoc" runat="server" Checked="True" />            
-        </p>
-        <div class="clear">
-        </div>
+        </div>        
         <fieldset>
         
             <legend>Datos Contacto</legend>
@@ -119,6 +113,12 @@
         <br />
         <div class="clear">
         </div>
+        <p>
+            <span class="title2">Calcula Vencimiento con Visualización de PDF?:</span>
+            <asp:CheckBox ID="chkCalculaVencimientoConVisualizacionDoc" runat="server" Checked="False" />            
+        </p>
+        <div class="clear">
+           </div>
     </div>
     <asp:Panel ID="pnlUsuario" runat="server" Visible="false">
         <h2>
@@ -131,9 +131,13 @@
             <div class="clear">
             </div>
         </div>
+         
     </asp:Panel>
-    <div>
-        <p>
+    
+     
+  <div>
+   
+        <p>        
             <asp:Button ID="btnAceptar" CssClass="btn" runat="server" Text="Aceptar" OnClick="btnAceptar_Click"
                 ClientIDMode="Static" />
             <asp:Button ID="btnCancelar" CssClass="btn" runat="server" Text="Cancelar" CausesValidation="false" OnClick="btnCancelar_Click"

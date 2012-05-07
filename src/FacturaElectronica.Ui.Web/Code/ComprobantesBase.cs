@@ -180,7 +180,7 @@ namespace FacturaElectronica.Ui.Web.Code
         {
             e.Row.Cells[columnaFechaVencimiento].Text = dto.FechaVencimiento.HasValue ?
                                                         dto.FechaVencimiento.Value.ToString("dd/MM/yyyy") :
-                                                        string.Format("{0} días de visualizado", dto.DiasVencimiento);
+                                                        string.Format("{0} días de recepcionado", dto.DiasVencimiento);
         }
 
         protected virtual void EstablecerColorEstado(GridViewRowEventArgs e, ComprobanteArchivoAsociadoDto dto, int columnaEstado)

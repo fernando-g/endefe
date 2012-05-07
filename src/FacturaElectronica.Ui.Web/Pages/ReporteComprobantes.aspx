@@ -100,7 +100,13 @@
                 </asp:DropDownList>
             </p>
             <div class="clear">
-            </div>            
+            </div>   
+            <p>
+                <span class="title2">S&oacute;lo Docs. con "NN días":</span>
+                <asp:CheckBox ID="chkSoloDocsConNDias" runat="server" />
+            </p>
+            <div class="clear">
+            </div>         
         </div>
         <div class="divSearchLeft">
             <p>
@@ -203,7 +209,7 @@
                         <asp:Panel ID="pnlFechaRecepción" runat="server">                                                    
                             <script type="text/javascript">
                                 $(function () {
-                                    $('#txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>').datepick({ dateFormat: 'dd/mm/yyyy' });
+                                    $('#txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>').datepick({ dateFormat: 'dd/mm/yyyy', maxDate: new Date() });
                                     $('#txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>').attr('name', 'txtFechaDeRecepcion_<%#Eval("ArchivoAsociadoId") %>');
                                 });                            
                             </script>
@@ -286,6 +292,7 @@
             window.AppCommonObj.initializeEnterKeyEvent($('#searchBox'), function () {
                 __doPostBack($('#lnkBuscar').attr('aspnetid'), '');
             });
+            
         });
     </script>
 </asp:Content>

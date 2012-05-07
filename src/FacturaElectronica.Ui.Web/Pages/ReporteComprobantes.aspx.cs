@@ -121,6 +121,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             criteria.DocumentosVencidos = this.chkDocumentosVencidos.Checked;
             criteria.MontoTotalDesde = UIHelper.GetDecimalFromInputText(this.txtMontoTotalDesde.Text.Trim());
             criteria.MontoTotalHasta = UIHelper.GetDecimalFromInputText(this.txtMontoTotalHasta.Text.Trim());
+            criteria.SoloDocumentosConNDias = this.chkSoloDocsConNDias.Checked;
         }
 
         protected override List<ComprobanteArchivoAsociadoDto> ObtenerComprobantes(ComprobanteCriteria criteria)
@@ -199,6 +200,7 @@ namespace FacturaElectronica.Ui.Web.Pages
             txt.ID = "txtFechaDeRecepcion_" + comprobanteArchivo.ArchivoAsociadoId.ToString();
             txt.ClientIDMode = System.Web.UI.ClientIDMode.Static;
             txt.CssClass = "txtFechaVtoEditable";
+            txt.ReadOnly = true;
             //txt.Attributes.Add("name", "txtFechaDeRecepcion_" + comprobanteArchivo.ArchivoAsociadoId.ToString());
             
             if (comprobanteArchivo.DiasVencimiento.HasValue)

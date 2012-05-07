@@ -78,6 +78,9 @@ namespace FacturaElectronica.Common.Contracts
         public string Estado { get; set; }
 
         [DataMember]
+        public bool SoloDocumentosConNDias { get; set; }
+
+        [DataMember]
         public bool SortIsAsc { get; set; }
 
         [DataMember]

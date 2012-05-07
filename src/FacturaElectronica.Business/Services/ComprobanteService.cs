@@ -213,8 +213,11 @@ namespace FacturaElectronica.Business.Services
                 List<ComprobanteArchivoAsociadoDto> list = (from aa in ctx.ArchivoAsociadoes
                                                             join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                                                             where
+
+                                                            1== 1
+                                                            && (!criteria.SoloDocumentosConNDias || aa.DiasVencimiento.HasValue )
                                                                 // Fecha Vencimiento
-                                                            (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                                                            && (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                                                             && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
                                                                 // Fecha De Carga
                                                             && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
@@ -313,8 +316,8 @@ namespace FacturaElectronica.Business.Services
 
                 criteria.ClienteId = clientId;
                 // Total Comprobantes
-                dto.TotalComprobantes = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
-                                                                         a.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado).Count();
+                //dto.TotalComprobantes = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
+                //                                                         a.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado).Count();
                 // Visualizados
                 dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                    
                                                                     a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado).Count();
@@ -327,6 +330,8 @@ namespace FacturaElectronica.Business.Services
                 dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                              
                                                                               a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
                                                                               a.FechaVencimiento < hoy).Count();
+
+                dto.TotalComprobantes = dto.Visualizados + dto.NoVisualizados + dto.NoVisualizadosVencidos;
             }
 
             return dto;

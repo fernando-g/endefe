@@ -54,6 +54,7 @@ namespace FacturaElectronica.Ui.Web.Pages
                         this.txtCuit.Enabled = false;
                         this.txtRazonSocial.Enabled = false;
                         this.btnCancelar.Visible = false;
+                        this.chkCalculaVencimientoConVisualizacionDoc.Enabled = false;
                     }
                     else if (this.Request.QueryString["Id"] == null)
                     {

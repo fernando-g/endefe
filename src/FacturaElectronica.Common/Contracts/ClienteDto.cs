@@ -12,7 +12,7 @@ namespace FacturaElectronica.Common.Contracts
     {
         public ClienteDto()
         {
-            CalculaVencimientoConVisualizacionDoc = true; // valor x defecto
+            CalculaVencimientoConVisualizacionDoc = false; // valor x defecto
         }
 
         [DataMember]
