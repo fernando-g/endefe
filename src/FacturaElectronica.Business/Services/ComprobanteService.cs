@@ -325,7 +325,7 @@ namespace FacturaElectronica.Business.Services
                 DateTime hoy = DateTime.Now.Date;
                 dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                      
                                                                       a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
-                                                                      hoy <= a.FechaVencimiento || a.FechaVencimiento == null).Count();
+                                                                      (hoy <= a.FechaVencimiento || a.FechaVencimiento == null)).Count();
                 // No Visualizados
                 dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                              
                                                                               a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
