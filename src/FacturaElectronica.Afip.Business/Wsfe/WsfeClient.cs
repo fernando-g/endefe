@@ -9,6 +9,8 @@ using System.Configuration;
 using FacturaElectronica.Afip.Business.Helpers;
 using FacturaElectronica.Afip.Ws.Wsfe;
 using FacturaElectronica.Common.Services;
+using System.Net;
+using System.Net.Security;
 
 namespace FacturaElectronica.Afip.Business.Wsfe
 {
@@ -256,10 +258,10 @@ namespace FacturaElectronica.Afip.Business.Wsfe
         
         }
        
-        #region [Ticket Autorizacion]
+        #region [Ticket Autorizacion]        
 
         public FEAuthRequest ObtenerTicket()
-        {
+        {            
             LoginTicket loginTicket = new LoginTicket();
             string ticketReponse = loginTicket.ObtenerLoginTicketResponse(this.idServicioNegocio, this.certSigner, false, this.storeName, this.storeLocation);
 

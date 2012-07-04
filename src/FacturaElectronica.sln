@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework", "..\..\..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Framework.Svc", "..\..\..\..\..\..\..\Lacoste\Codigo\PlanProduccion\trunk\src\Web.Framework.Svc\Web.Framework.Svc.csproj", "{272A4403-5F67-4EE0-A52E-C7A744230563}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfInspector", "WcfInspector\WcfInspector.csproj", "{65F55F3B-72E0-43CD-B715-91FE087C6C2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +172,16 @@ Global
 		{272A4403-5F67-4EE0-A52E-C7A744230563}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{272A4403-5F67-4EE0-A52E-C7A744230563}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{272A4403-5F67-4EE0-A52E-C7A744230563}.Release|x86.ActiveCfg = Release|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{65F55F3B-72E0-43CD-B715-91FE087C6C2C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

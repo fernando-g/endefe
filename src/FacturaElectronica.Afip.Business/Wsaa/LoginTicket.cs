@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Security.Cryptography.X509Certificates;
 using FacturaElectronica.Afip.Ws.Wsaa;
+using WcfInspector;
 
 namespace FacturaElectronica.Afip.Business.Wsaa
 {
@@ -137,6 +138,10 @@ namespace FacturaElectronica.Afip.Business.Wsaa
 
                 using (LoginCMSClient client = new LoginCMSClient())
                 {
+
+                    // AD: para revisar de qué lado esta saliendo el error
+                    client.Endpoint.Behaviors.Add(new SimpleEndpointBehavior());
+
                     loginTicketResponse = client.loginCms(cmsFirmadoBase64);
                     client.Close();
                 }

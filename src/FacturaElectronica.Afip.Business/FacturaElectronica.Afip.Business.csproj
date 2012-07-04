@@ -83,6 +83,10 @@
       <Project>{4092E6BE-8D76-48C1-BC3A-D39ADC2CEFF6}</Project>
       <Name>FacturaElectronica.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WcfInspector\WcfInspector.csproj">
+      <Project>{65F55F3B-72E0-43CD-B715-91FE087C6C2C}</Project>
+      <Name>WcfInspector</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
