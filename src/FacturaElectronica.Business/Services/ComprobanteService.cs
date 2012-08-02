@@ -57,15 +57,15 @@ namespace FacturaElectronica.Business.Services
                 var query = (from aa in ctx.ArchivoAsociadoes
                              join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                              where
-                                 // Fecha Vencimiento
-                             (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                                // Fecha Vencimiento
+                             (!criteria.FechaVencDesde.HasValue || !aa.FechaVencimiento.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                              && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
                               // Fecha de Recepcion
                             && (!criteria.FechaDeRecepcionDesde.HasValue || criteria.FechaDeRecepcionDesde.Value <= aa.FechaDeRecepcion)
                             && (!criteria.FechaDeRecepcionHasta.HasValue || aa.FechaDeRecepcion <= criteria.FechaDeRecepcionHasta.Value)
                             // Dias de vto
                              && (!criteria.DiasDeVencimientoDesde.HasValue || criteria.DiasDeVencimientoDesde.Value <= aa.DiasVencimiento)
-                            && (!criteria.DiasDeVencimientoHasta.HasValue || criteria.DiasDeVencimientoHasta.Value >= aa.DiasVencimiento)
+                             && (!criteria.DiasDeVencimientoHasta.HasValue || criteria.DiasDeVencimientoHasta.Value >= aa.DiasVencimiento)
                                  // Razon Social
                              && (string.IsNullOrEmpty(criteria.RazonSocial) || c.Cliente.RazonSocial.Contains(criteria.RazonSocial))
                                  // Tipo Comprobante
@@ -73,23 +73,22 @@ namespace FacturaElectronica.Business.Services
                                  // Nro Comprobante
                              && (!criteria.NroComprobante.HasValue || aa.NroComprobante == criteria.NroComprobante.Value)
                                  // Cliente Id
-                             && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
+                            && (!criteria.ClienteId.HasValue || c.ClienteId == criteria.ClienteId.Value)
                                  // Tipo Contrato
                              && (!criteria.TipoContratoId.HasValue || aa.TipoContratoId == criteria.TipoContratoId.Value)
                                  // Periodo Facturacion
                              && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                              && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
-                                 // Documentos Vencidos
-                             && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < hoy)
-                                 // Documentos No Vencidos
-                             && (!criteria.DocumentosNoVencidos || hoy <= aa.FechaVencimiento.Value)
-                                 // Sacar Documentos Eliminados
+                            //     // Documentos Vencidos
+                             && (!criteria.DocumentosVencidos || aa.FechaVencimiento < hoy)
+                            //     // Documentos No Vencidos
+                             && (!criteria.DocumentosNoVencidos || !aa.FechaVencimiento.HasValue || hoy <= aa.FechaVencimiento.Value)
+                            //     // Sacar Documentos Eliminados
                              && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
-                                 // Estados por Id
+                             // Estados por Id
                              && (!criteria.EstadoId.HasValue || aa.EstadoArchivoAsociado.Id == criteria.EstadoId)
-                                 //Estado por Codigo
+                            //     //Estado por Codigo
                              && (string.IsNullOrEmpty(criteria.Estado) || aa.EstadoArchivoAsociado.Codigo == criteria.Estado)
-
                              select new ComprobanteArchivoAsociadoDto()
                              {
                                  ArchivoAsociadoId = aa.Id,
@@ -217,7 +216,7 @@ namespace FacturaElectronica.Business.Services
                                                             1== 1
                                                             && (!criteria.SoloDocumentosConNDias || aa.DiasVencimiento.HasValue )
                                                                 // Fecha Vencimiento
-                                                            && (!criteria.FechaVencDesde.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
+                                                            && (!criteria.FechaVencDesde.HasValue || !aa.FechaVencimiento.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                                                             && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
                                                                 // Fecha De Carga
                                                             && (!criteria.FechaDeCargaDesde.HasValue || criteria.FechaDeCargaDesde.Value <= aa.FechaDeCarga)
@@ -242,9 +241,9 @@ namespace FacturaElectronica.Business.Services
                                                             && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                                                             && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
                                                                 // Documentos Vencidos
-                                                            && (!criteria.DocumentosVencidos || aa.FechaVencimiento.Value < hoy)
+                                                            && (!criteria.DocumentosVencidos || aa.FechaVencimiento < hoy)
                                                                 // Documentos No Vencidos
-                                                            && (!criteria.DocumentosNoVencidos || hoy <= aa.FechaVencimiento.Value)
+                                                            && (!criteria.DocumentosNoVencidos || !aa.FechaVencimiento.HasValue || hoy <= aa.FechaVencimiento.Value)
                                                                 // Monto Desde
                                                             && (!criteria.MontoTotalDesde.HasValue || criteria.MontoTotalDesde.Value <= aa.MontoTotal)
                                                                 // Monto Hasta
