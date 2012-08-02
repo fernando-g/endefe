@@ -66,6 +66,7 @@
     <Content Include="Images\editar.png" />
     <Content Include="Images\editItem.png" />
     <Content Include="Images\eliminar.png" />
+    <Content Include="Images\endesaForEmail.png" />
     <Content Include="Images\excel.png" />
     <Content Include="Images\header_estados.png" />
     <Content Include="Images\icon_blockcollapsed.png" />

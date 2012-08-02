@@ -11,11 +11,10 @@
     <form id="form1" runat="server">
     <div style="width:300px">
         <h2>
-            Comprobante Entregado
+            Comprobante Visualizado
         </h2>
-        <p>
-            El comprobante se considera como "Entregado".
-            En caso de tener problemas con su visualizaci&oacute;n deber&aacute; comunicarse a los datos que aparecen en la opci&oacute;n de men&uacute; "Contacto"
+        <p>            
+            En caso de tener problemas con la visualizaci&oacute;n del documento deber&aacute; comunicarse a los datos que aparecen en la opci&oacute;n del men&uacute; "Contacto"
         </p>
     </div>
     </form>
