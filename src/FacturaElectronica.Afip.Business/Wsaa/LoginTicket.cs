@@ -140,7 +140,7 @@ namespace FacturaElectronica.Afip.Business.Wsaa
                 {
 
                     // AD: para revisar de qué lado esta saliendo el error
-                    client.Endpoint.Behaviors.Add(new SimpleEndpointBehavior());
+                    //client.Endpoint.Behaviors.Add(new SimpleEndpointBehavior());
 
                     loginTicketResponse = client.loginCms(cmsFirmadoBase64);
                     client.Close();
