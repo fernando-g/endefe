@@ -208,7 +208,8 @@ namespace FacturaElectronica.Ui.Web.Pages
             {                
                 if (e.CommandName == "asignar")
                 {
-                    this.txtRazonSocial.Text = this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text.ToString();
+                    this.txtRazonSocial.Text =
+                        Server.HtmlDecode(this.Grid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text);
                     this.hfClienteId.Value = this.Grid.DataKeys[Convert.ToInt32(e.CommandArgument)].Value.ToString();
                 }
             }
