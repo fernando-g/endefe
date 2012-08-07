@@ -353,10 +353,9 @@ namespace FacturaElectronica.Business.Services
         {
             using (var ctx = new FacturaElectronicaEntities())
             {
-                var list = (from aa in ctx.ArchivoAsociadoes
-                            select aa.Comprobante.TipoComprobante).Distinct().OrderBy(tc => tc.Descripcion).ToList();
-
-                return ToTipoComprobanteDtoList(list);
+                return
+                    ToTipoComprobanteDtoList(
+                        ctx.TipoComprobantes.Where(tc => tc.Codigo != "N/A").OrderBy(tc => tc.Descripcion).ToList());
             }
 
         }
