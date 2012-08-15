@@ -30,7 +30,7 @@ namespace FacturaElectronica.Business.Services
         public ComprobanteDto ObtenerComprobanteDeArchivoAsociado(long archivoAsociadoId)
         {
             using (var ctx = new FacturaElectronicaEntities())
-            {                
+            {
                 var dbArchivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.Id == archivoAsociadoId).Single();
                 var dbComprobante = dbArchivoAsociado.Comprobante;
 
@@ -57,13 +57,13 @@ namespace FacturaElectronica.Business.Services
                 var query = (from aa in ctx.ArchivoAsociadoes
                              join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                              where
-                                // Fecha Vencimiento
+                                 // Fecha Vencimiento
                              (!criteria.FechaVencDesde.HasValue || !aa.FechaVencimiento.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                              && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
-                              // Fecha de Recepcion
+                                 // Fecha de Recepcion
                             && (!criteria.FechaDeRecepcionDesde.HasValue || criteria.FechaDeRecepcionDesde.Value <= aa.FechaDeRecepcion)
                             && (!criteria.FechaDeRecepcionHasta.HasValue || aa.FechaDeRecepcion <= criteria.FechaDeRecepcionHasta.Value)
-                            // Dias de vto
+                                 // Dias de vto
                              && (!criteria.DiasDeVencimientoDesde.HasValue || criteria.DiasDeVencimientoDesde.Value <= aa.DiasVencimiento)
                              && (!criteria.DiasDeVencimientoHasta.HasValue || criteria.DiasDeVencimientoHasta.Value >= aa.DiasVencimiento)
                                  // Razon Social
@@ -79,15 +79,15 @@ namespace FacturaElectronica.Business.Services
                                  // Periodo Facturacion
                              && (!criteria.MesFacturacion.HasValue || aa.MesFacturacion == criteria.MesFacturacion.Value)
                              && (!criteria.AnioFacturacion.HasValue || aa.AnioFacturacion == criteria.AnioFacturacion.Value)
-                            //     // Documentos Vencidos
+                                 //     // Documentos Vencidos
                              && (!criteria.DocumentosVencidos || aa.FechaVencimiento < hoy)
-                            //     // Documentos No Vencidos
+                                 //     // Documentos No Vencidos
                              && (!criteria.DocumentosNoVencidos || !aa.FechaVencimiento.HasValue || hoy <= aa.FechaVencimiento.Value)
-                            //     // Sacar Documentos Eliminados
+                                 //     // Sacar Documentos Eliminados
                              && (aa.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado)
-                             // Estados por Id
+                                 // Estados por Id
                              && (!criteria.EstadoId.HasValue || aa.EstadoArchivoAsociado.Id == criteria.EstadoId)
-                            //     //Estado por Codigo
+                                 //     //Estado por Codigo
                              && (string.IsNullOrEmpty(criteria.Estado) || aa.EstadoArchivoAsociado.Codigo == criteria.Estado)
                              select new ComprobanteArchivoAsociadoDto()
                              {
@@ -213,8 +213,8 @@ namespace FacturaElectronica.Business.Services
                                                             join c in ctx.Comprobantes on aa.ComprobanteId equals c.Id
                                                             where
 
-                                                            1== 1
-                                                            && (!criteria.SoloDocumentosConNDias || aa.DiasVencimiento.HasValue )
+                                                            1 == 1
+                                                            && (!criteria.SoloDocumentosConNDias || aa.DiasVencimiento.HasValue)
                                                                 // Fecha Vencimiento
                                                             && (!criteria.FechaVencDesde.HasValue || !aa.FechaVencimiento.HasValue || criteria.FechaVencDesde.Value <= aa.FechaVencimiento)
                                                             && (!criteria.FechaVencHasta.HasValue || aa.FechaVencimiento <= criteria.FechaVencHasta.Value)
@@ -318,15 +318,15 @@ namespace FacturaElectronica.Business.Services
                 //dto.TotalComprobantes = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
                 //                                                         a.EstadoArchivoAsociado.Codigo != CodigosEstadoArchivoAsociado.Eliminado).Count();
                 // Visualizados
-                dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                    
+                dto.Visualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
                                                                     a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado).Count();
                 // No Visualizados No Vencidos
                 DateTime hoy = DateTime.Now.Date;
-                dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                      
+                dto.NoVisualizados = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
                                                                       a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
                                                                       (hoy <= a.FechaVencimiento || a.FechaVencimiento == null)).Count();
                 // No Visualizados
-                dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&                                                                              
+                dto.NoVisualizadosVencidos = ctx.ArchivoAsociadoes.Where(a => a.Comprobante.ClienteId == clientId &&
                                                                               a.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado &&
                                                                               a.FechaVencimiento < hoy).Count();
 
@@ -406,8 +406,7 @@ namespace FacturaElectronica.Business.Services
             using (var ctx = new FacturaElectronicaEntities())
             {
                 // Obtengo el listado con los tipos de contrato que existen en la base
-                var tiposContrato = (from aa in ctx.ArchivoAsociadoes
-                                     select aa.TipoContrato).Distinct().ToList();
+                var tiposContrato = ctx.TipoContratoes.ToList();
 
                 return ToTipoContratoDtoList(tiposContrato);
             }
@@ -494,19 +493,17 @@ namespace FacturaElectronica.Business.Services
 
         public List<int> ObtenerAniosFacturacion()
         {
-            using (var ctx = new FacturaElectronicaEntities())
+            List<int> aniosFacturacion = new List<int>();
+            int start = 2012;
+            int fin = DateTime.Now.Year;
+            
+            while (start <= fin)
             {
-                // Si no hay archivos asociados con ningun periodo de facturacion
-                List<int> aniosFacturacion = (from aa in ctx.ArchivoAsociadoes
-                                              select aa.AnioFacturacion).Distinct().ToList();
-                aniosFacturacion.Sort();
-
-                if (aniosFacturacion.Count == 0)
-                {
-                    aniosFacturacion.Add(DateTime.Now.Year);
-                }
-                return aniosFacturacion;
+                aniosFacturacion.Add(start);
+                start++;
             }
+
+            return aniosFacturacion;
         }
 
         #region [Conversion]
