@@ -8,23 +8,31 @@ using System.Security.Cryptography.X509Certificates;
 using System.Configuration;
 using FacturaElectronica.Afip.Business.Helpers;
 using FacturaElectronica.Afip.Ws.Wsfe;
+using FacturaElectronica.Afip.Ws.Wsfex;
 using FacturaElectronica.Common.Services;
 using System.Net;
 using System.Net.Security;
+using DummyResponse = FacturaElectronica.Afip.Ws.Wsfe.DummyResponse;
+using ServiceSoapClient = FacturaElectronica.Afip.Ws.Wsfe.ServiceSoapClient;
 
 namespace FacturaElectronica.Afip.Business.Wsfe
 {
     public class WsfeClient : IAfipWrapperService
     {
         private string idServicioNegocio;
+        private string idServicioNegocioFex;
         private string certSigner;
         private string cuit;
         private StoreName storeName;
         private StoreLocation storeLocation;
 
+        private const string errorWsfe = "***Error INVOCANDO al servicio WSFE : ";
+        private const string errorWsfex = "***Error INVOCANDO al servicio WSFEX : ";
+
         public WsfeClient()
         {
             this.idServicioNegocio = ConfigurationManager.AppSettings["idServicioNegocio"];
+            this.idServicioNegocioFex = ConfigurationManager.AppSettings["idServicioNegocioFex"];
             this.certSigner = ConfigurationManager.AppSettings["certSigner"];
             this.cuit = ConfigurationManager.AppSettings["cuit"];
 
@@ -240,30 +248,31 @@ namespace FacturaElectronica.Afip.Business.Wsfe
 
         #endregion [Maestros]
 
+        #region [Wfse]
+
         public FECAEResponse AutorizarComprobantes(FEAuthRequest feAuthRequest, FECAERequest feCAERequest)
         {
             try
             {
-                FECAEResponse result;
                 using (ServiceSoapClient client = new ServiceSoapClient())
                 {
-                    return result = client.FECAESolicitar(feAuthRequest,feCAERequest);
+                    return client.FECAESolicitar(feAuthRequest,feCAERequest);
                 }
             }
 
             catch (Exception ex)
             {
-                throw new Exception("***Error INVOCANDO al servicio WSFE : " + ex.Message);
+                throw new Exception(errorWsfe + ex.Message);
             }
         
         }
-       
-        #region [Ticket Autorizacion]        
+
+        #region [Ticket Autorizacion]
 
         public FEAuthRequest ObtenerTicket()
-        {            
+        {
             LoginTicket loginTicket = new LoginTicket();
-            string ticketReponse = loginTicket.ObtenerLoginTicketResponse(this.idServicioNegocio, this.certSigner, false, this.storeName, this.storeLocation);
+            loginTicket.ObtenerLoginTicketResponse(this.idServicioNegocio, this.certSigner, false, this.storeName, this.storeLocation);
 
             FEAuthRequest feAuthRequest = new FEAuthRequest();
             feAuthRequest.Cuit = Convert.ToInt64(this.cuit);
@@ -272,7 +281,273 @@ namespace FacturaElectronica.Afip.Business.Wsfe
 
             return feAuthRequest;
         }
-        
+
         #endregion [Ticket Autorizacion]
+
+        #endregion [Wfse]
+
+        #region [Wsfex]
+
+        public FEXResponseAuthorize AutorizarComprobanteExportacion(ClsFEXAuthRequest fexAuthRequest, ClsFEXRequest fexRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client = new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXAuthorize(fexAuthRequest, fexRequest);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(errorWsfe + ex.Message);
+            }
+
+        }
+
+        public FEXResponse_CheckPermiso CheckPermiso(ClsFEXAuthRequest fexAuthRequest, string idPermiso, int destMerc)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXCheck_Permiso(fexAuthRequest, idPermiso, destMerc);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXGetCMPResponse GetComprobante(ClsFEXAuthRequest fexAuthRequest, ClsFEXGetCMP fexGetCmp)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetCMP(fexAuthRequest, fexGetCmp);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponseLast_CMP GetUltimoComprobanteAutorizado(ClsFEX_LastCMP fexLastCmp)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetLast_CMP(fexLastCmp);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_LastID GetLastId(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetLast_ID(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Cbte_Tipo GetTiposComprobantes(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_Cbte_Tipo(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }        
+
+        public FEXResponse_Ctz GetFexCotizacion(ClsFEXAuthRequest fexAuthRequest, string monId)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_Ctz(fexAuthRequest, monId);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_DST_cuit GetCuits(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_DST_CUIT(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_DST_pais GetPaises(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_DST_pais(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Idi GetIdiomas(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_Idiomas(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Inc GetIncoterms(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_Incoterms(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Mon GetMonedas(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_MON(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_PtoVenta GetPuntosDeVenta(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_PtoVenta(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Tex GetTiposDeExportacion(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_Tipo_Expo(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        public FEXResponse_Umed GetUnidadesDeMedida(ClsFEXAuthRequest fexAuthRequest)
+        {
+            try
+            {
+                using (Ws.Wsfex.ServiceSoapClient client =
+                        new Ws.Wsfex.ServiceSoapClient())
+                {
+                    return client.FEXGetPARAM_UMed(fexAuthRequest);
+                }
+            }
+            catch (Exception excepcionAlInvocarWsfe)
+            {
+                throw new Exception(errorWsfex + excepcionAlInvocarWsfe.Message);
+            }
+        }
+
+        #region [Ticket Autorizacion]
+
+        public ClsFEXAuthRequest ObtenerTicketFex()
+        {
+            LoginTicket loginTicket = new LoginTicket();
+            loginTicket.ObtenerLoginTicketResponse(this.idServicioNegocioFex, this.certSigner, false, this.storeName, this.storeLocation);
+
+            ClsFEXAuthRequest feAuthRequest = new ClsFEXAuthRequest();
+            feAuthRequest.Cuit = Convert.ToInt64(this.cuit);
+            feAuthRequest.Sign = loginTicket.Sign;
+            feAuthRequest.Token = loginTicket.Token;
+
+            return feAuthRequest;
+        }
+
+        #endregion [Ticket Autorizacion]
+
+        #endregion [Wsfex]
+
+
     }
 }

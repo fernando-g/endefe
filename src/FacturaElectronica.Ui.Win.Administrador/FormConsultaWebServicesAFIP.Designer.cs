@@ -45,10 +45,18 @@
             this.lblDescripcionWs = new System.Windows.Forms.Label();
             this.lblNombreWs = new System.Windows.Forms.Label();
             this.btnConsultar = new System.Windows.Forms.Button();
+            this.panelGetComprobanteFex = new System.Windows.Forms.Panel();
+            this.cbPtosVtaFex = new System.Windows.Forms.ComboBox();
+            this.txtNroCbteFex = new System.Windows.Forms.MaskedTextBox();
+            this.cbTiposCbteFex = new System.Windows.Forms.ComboBox();
+            this.lblNroCbteFex = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelMoneda.SuspendLayout();
             this.panelUltimoCbte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridResultados)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panelGetComprobanteFex.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -75,11 +83,11 @@
             this.txtResultados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResultados.Location = new System.Drawing.Point(15, 199);
+            this.txtResultados.Location = new System.Drawing.Point(15, 493);
             this.txtResultados.Multiline = true;
             this.txtResultados.Name = "txtResultados";
             this.txtResultados.ReadOnly = true;
-            this.txtResultados.Size = new System.Drawing.Size(802, 418);
+            this.txtResultados.Size = new System.Drawing.Size(802, 124);
             this.txtResultados.TabIndex = 2;
             // 
             // panelMoneda
@@ -114,7 +122,7 @@
             // lblResultados
             // 
             this.lblResultados.AutoSize = true;
-            this.lblResultados.Location = new System.Drawing.Point(12, 183);
+            this.lblResultados.Location = new System.Drawing.Point(17, 477);
             this.lblResultados.Name = "lblResultados";
             this.lblResultados.Size = new System.Drawing.Size(63, 13);
             this.lblResultados.TabIndex = 4;
@@ -128,7 +136,7 @@
             this.panelUltimoCbte.Controls.Add(this.label5);
             this.panelUltimoCbte.Controls.Add(this.txtPtoVta);
             this.panelUltimoCbte.Controls.Add(this.label4);
-            this.panelUltimoCbte.Location = new System.Drawing.Point(17, 95);
+            this.panelUltimoCbte.Location = new System.Drawing.Point(15, 147);
             this.panelUltimoCbte.Name = "panelUltimoCbte";
             this.panelUltimoCbte.Size = new System.Drawing.Size(802, 64);
             this.panelUltimoCbte.TabIndex = 5;
@@ -180,13 +188,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gridResultados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridResultados.Location = new System.Drawing.Point(15, 199);
+            this.gridResultados.Location = new System.Drawing.Point(15, 493);
             this.gridResultados.MultiSelect = false;
             this.gridResultados.Name = "gridResultados";
             this.gridResultados.ReadOnly = true;
             this.gridResultados.RowHeadersVisible = false;
             this.gridResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridResultados.Size = new System.Drawing.Size(802, 418);
+            this.gridResultados.Size = new System.Drawing.Size(802, 124);
             this.gridResultados.TabIndex = 7;
             // 
             // panel1
@@ -224,7 +232,7 @@
             this.btnConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConsultar.Image = global::FacturaElectronica.Ui.Win.Administrador.Properties.Resources.search16x16;
             this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsultar.Location = new System.Drawing.Point(696, 165);
+            this.btnConsultar.Location = new System.Drawing.Point(696, 464);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(121, 23);
             this.btnConsultar.TabIndex = 6;
@@ -232,11 +240,76 @@
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
+            // panelGetComprobanteFex
+            // 
+            this.panelGetComprobanteFex.Controls.Add(this.cbPtosVtaFex);
+            this.panelGetComprobanteFex.Controls.Add(this.txtNroCbteFex);
+            this.panelGetComprobanteFex.Controls.Add(this.cbTiposCbteFex);
+            this.panelGetComprobanteFex.Controls.Add(this.lblNroCbteFex);
+            this.panelGetComprobanteFex.Controls.Add(this.label6);
+            this.panelGetComprobanteFex.Controls.Add(this.label3);
+            this.panelGetComprobanteFex.Location = new System.Drawing.Point(15, 217);
+            this.panelGetComprobanteFex.Name = "panelGetComprobanteFex";
+            this.panelGetComprobanteFex.Size = new System.Drawing.Size(802, 89);
+            this.panelGetComprobanteFex.TabIndex = 5;
+            // 
+            // cbPtosVtaFex
+            // 
+            this.cbPtosVtaFex.FormattingEnabled = true;
+            this.cbPtosVtaFex.Location = new System.Drawing.Point(232, 35);
+            this.cbPtosVtaFex.Name = "cbPtosVtaFex";
+            this.cbPtosVtaFex.Size = new System.Drawing.Size(260, 21);
+            this.cbPtosVtaFex.TabIndex = 6;
+            // 
+            // txtNroCbteFex
+            // 
+            this.txtNroCbteFex.Location = new System.Drawing.Point(233, 61);
+            this.txtNroCbteFex.Mask = "99999999";
+            this.txtNroCbteFex.Name = "txtNroCbteFex";
+            this.txtNroCbteFex.Size = new System.Drawing.Size(60, 20);
+            this.txtNroCbteFex.TabIndex = 5;
+            // 
+            // cbTiposCbteFex
+            // 
+            this.cbTiposCbteFex.FormattingEnabled = true;
+            this.cbTiposCbteFex.Location = new System.Drawing.Point(232, 8);
+            this.cbTiposCbteFex.Name = "cbTiposCbteFex";
+            this.cbTiposCbteFex.Size = new System.Drawing.Size(260, 21);
+            this.cbTiposCbteFex.TabIndex = 3;
+            // 
+            // lblNroCbteFex
+            // 
+            this.lblNroCbteFex.AutoSize = true;
+            this.lblNroCbteFex.Location = new System.Drawing.Point(133, 63);
+            this.lblNroCbteFex.Name = "lblNroCbteFex";
+            this.lblNroCbteFex.Size = new System.Drawing.Size(93, 13);
+            this.lblNroCbteFex.TabIndex = 2;
+            this.lblNroCbteFex.Text = "Nro Comprobante:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(166, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Pto de Vta:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(129, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Tipo Comprobante:";
+            // 
             // FormConsultaWebServicesAFIP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 627);
+            this.Controls.Add(this.panelGetComprobanteFex);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gridResultados);
             this.Controls.Add(this.panelUltimoCbte);
@@ -257,6 +330,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridResultados)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelGetComprobanteFex.ResumeLayout(false);
+            this.panelGetComprobanteFex.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,5 +356,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblDescripcionWs;
         private System.Windows.Forms.Label lblNombreWs;
+        private System.Windows.Forms.Panel panelGetComprobanteFex;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbTiposCbteFex;
+        private System.Windows.Forms.Label lblNroCbteFex;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox txtNroCbteFex;
+        private System.Windows.Forms.ComboBox cbPtosVtaFex;
     }
 }

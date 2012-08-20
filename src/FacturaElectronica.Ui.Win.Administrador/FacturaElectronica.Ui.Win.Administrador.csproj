@@ -215,6 +215,22 @@
     <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.IvaTipoResponse.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.MonedaResponse.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfe.OpcionalTipoResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXGetCMPResponse.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponseAuthorize.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponseLast_CMP.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Cbte_Tipo.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_CheckPermiso.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Ctz.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_cuit.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_pais.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Idi.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Inc.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_LastID.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Mon.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_PtoVenta.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Tex.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Umed.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.CodigoEstadoCbte.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCbte.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCorrida.datasource" />
@@ -247,16 +263,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapper\FacturaElectronica.Afip.Ws.Wsfex.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService1.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapper\service.wsdl" />
+    <None Include="Service References\ServiceReferenceAfipWrapper\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService2.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapper\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\WsfeClient.wsdl" />
+    <None Include="Service References\ServiceReferenceAfipWrapper\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\System.ComponentModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapper\System.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService.wsdl" />
     <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService.xsd">
       <SubType>Designer</SubType>
@@ -354,7 +379,6 @@
     </None>
     <None Include="Service References\ServiceReferenceAfipWrapper\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceAfipWrapper\configuration91.svcinfo" />
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService.disco" />
     <None Include="Service References\ServiceReferenceMaestro\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FacturaElectronica.Afip.Ws.Wsfe;
+using FacturaElectronica.Afip.Ws.Wsfex;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Win.Administrador.ServiceReferenceAfipWrapper;
 
@@ -272,5 +273,346 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
                 throw;
             }          
         }
+
+        #region [Wsfex]
+
+        public ClsFEXAuthRequest ObtenerTicketFex()
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.ObtenerTicketFex();
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+            return null;
+        }
+
+        public FEXResponseAuthorize AutorizarComprobanteExportacion(ClsFEXAuthRequest fexAuthRequest, ClsFEXRequest fexRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.AutorizarComprobanteExportacion(fexAuthRequest, fexRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_CheckPermiso CheckPermiso(ClsFEXAuthRequest fexAuthRequest, string idPermiso, int destMerc)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.CheckPermiso(fexAuthRequest, idPermiso, destMerc);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXGetCMPResponse GetComprobante(ClsFEXAuthRequest fexAuthRequest, ClsFEXGetCMP fexGetCmp)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetComprobante(fexAuthRequest, fexGetCmp);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponseLast_CMP GetUltimoComprobanteAutorizado(ClsFEX_LastCMP fexLastCmp)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetUltimoComprobanteAutorizado(fexLastCmp);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_LastID GetLastId(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetLastId(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Cbte_Tipo GetTiposComprobantes(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetTiposComprobantes(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Ctz GetFexCotizacion(ClsFEXAuthRequest fexAuthRequest, string monId)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetFexCotizacion(fexAuthRequest, monId);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_DST_cuit GetCuits(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetCuits(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_DST_pais GetPaises(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetPaises(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Idi GetIdiomas(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetIdiomas(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Inc GetIncoterms(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetIncoterms(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Mon GetMonedas(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetMonedas(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_PtoVenta GetPuntosDeVenta(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetPuntosDeVenta(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Tex GetTiposDeExportacion(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetTiposDeExportacion(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        public FEXResponse_Umed GetUnidadesDeMedida(ClsFEXAuthRequest fexAuthRequest)
+        {
+            AfipWrapperServiceClient client = new AfipWrapperServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.GetUnidadesDeMedida(fexAuthRequest);
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }
+        }
+
+        #endregion [Wsfex]
     }
 }

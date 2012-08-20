@@ -11,6 +11,7 @@ using System.IO;
 using System.Xml;
 using System.Globalization;
 using FacturaElectronica.Afip.Ws.Wsfe;
+using FacturaElectronica.Afip.Ws.Wsfex;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Ui.Win.Administrador.Code;
 using FacturaElectronica.Business.Services;
@@ -32,15 +33,32 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private const string CompUltimoAutorizadoNombre = "FECompUltimoAutorizado";
         private const string GetTiposConceptoNombre = "FEParamGetTiposConcepto";
         private const string GetCotizacionNombre = "FEParamGetCotizacion";
+        private const string FEXCheck_Permiso = "FEXCheck_Permiso";
+        private const string FEXGetCMP = "FEXGetCMP";
+        private const string FEXGetLast_CMP = "FEXGetLast_CMP";
+        private const string FEXGetLast_ID = "FEXGetLast_ID";
+        private const string FEXGetPARAM_Cbte_Tipo = "FEXGetPARAM_Cbte_Tipo";
+        private const string FEXGetPARAM_Ctz = "FEXGetPARAM_Ctz";
+        private const string FEXGetPARAM_DST_CUIT = "FEXGetPARAM_DST_CUIT";
+        private const string FEXGetPARAM_DST_pais = "FEXGetPARAM_DST_pais";
+        private const string FEXGetPARAM_Idiomas = "FEXGetPARAM_Idiomas";
+        private const string FEXGetPARAM_Incoterms = "FEXGetPARAM_Incoterms";
+        private const string FEXGetPARAM_MON = "FEXGetPARAM_MON";
+        private const string FEXGetPARAM_PtoVenta = "FEXGetPARAM_PtoVenta";
+        private const string FEXGetPARAM_Tipo_Expo = "FEXGetPARAM_Tipo_Expo";
+        private const string FEXGetPARAM_UMed = "FEXGetPARAM_UMed";
+
 
         #endregion [Constantes]
 
         #region [Atributos]
 
         private FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest ticket;
+        private FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest ticketFex;
         private IAfipWrapperService client;
         private IComprobanteService ComprobanteService = ServiceFactory.GetComprobanteService();
-        private string opcionAnterior = string.Empty;
+        private Point panelInitialLocation = new Point(17, 95);
+        private const int minPanelHeight = 20;
 
         #endregion [Atributos]
 
@@ -52,13 +70,9 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 client = ServiceFactory.GetAfipWrapperService();
 
                 this.ticket = client.ObtenerTicket();
+                this.ticketFex = client.ObtenerTicketFex();
                 this.CargarMetodos();
-                //
-                this.lblResultados.Location = new Point(this.lblResultados.Location.X, this.lblResultados.Location.Y - this.panelMoneda.Height);
-                this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, this.btnConsultar.Location.Y - this.panelMoneda.Height);
-                this.gridResultados.Location = new Point(this.gridResultados.Location.X, this.gridResultados.Location.Y - this.panelMoneda.Height);
-                this.txtResultados.Location = new Point(this.txtResultados.Location.X, this.txtResultados.Location.Y - this.panelMoneda.Height);
-                this.lblResultados.Visible = false;
+                this.AcomodarControles(false,minPanelHeight);
             }
             catch (Exception ex)
             {
@@ -71,8 +85,12 @@ namespace FacturaElectronica.Ui.Win.Administrador
         {
             this.lblResultados.Text = "Resultados:";
             this.lblResultados.Visible = true;
-            this.panelMoneda.Visible = false;
-            this.panelUltimoCbte.Visible = false;
+            this.panelMoneda.Visible = 
+            this.panelUltimoCbte.Visible =
+            this.panelGetComprobanteFex.Visible = false;
+            this.panelMoneda.Location =
+            this.panelUltimoCbte.Location =
+            this.panelGetComprobanteFex.Location = panelInitialLocation;
             this.txtResultados.Visible = false;
             this.gridResultados.Visible = false;
         }
@@ -110,11 +128,46 @@ namespace FacturaElectronica.Ui.Win.Administrador
             }
         }
 
+        private void CargarTiposCbteFex()
+        {
+            if (cbTiposCbte.Items.Count == 0)
+            {
+                FEXResponse_Cbte_Tipo resultado = client.GetTiposComprobantes(this.ticketFex);
+                this.cbTiposCbteFex.DisplayMember = "Cbte_Ds";
+                this.cbTiposCbteFex.ValueMember = "Cbte_Id";
+                this.cbTiposCbteFex.DataSource = resultado.FEXResultGet;
+            }
+        }
+
+        private void CargarPtosVtaFex()
+        {
+            if (cbTiposCbte.Items.Count == 0)
+            {
+                FEXResponse_PtoVenta resultado = client.GetPuntosDeVenta(this.ticketFex);
+                this.cbPtosVtaFex.DisplayMember = "Pve_Nro";
+                this.cbPtosVtaFex.ValueMember = "Pve_Nro";
+                this.cbPtosVtaFex.DataSource = resultado.FEXResultGet;
+            }
+        }
+
+        private void CargarMonedasFex()
+        {
+            if (cbMoneda.Items.Count == 0)
+            {
+                FEXResponse_Mon resultado = client.GetMonedas(this.ticketFex);
+                this.cbMoneda.DisplayMember = "Mon_Ds";
+                this.cbMoneda.ValueMember = "Mon_Id";
+                this.cbMoneda.DataSource = resultado.FEXResultGet.OrderBy(m => m.Mon_Ds).ToList();
+            }
+        }
+
         #endregion [Cargar Combos]
 
         private void cbWebService_SelectedIndexChanged(object sender, EventArgs e)
         {
             InicializarControles();
+            int panelSearchHeight = 0;
+            this.txtResultados.Visible = true;
             if (cbWebService.SelectedItem != null)
             {
                 bool mostrarPanelParametros = false;
@@ -123,10 +176,10 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
                 if (selectedValue == GetCotizacionNombre)
                 {
-                    mostrarPanelParametros = true;
-                    this.panelMoneda.Visible = true;
+                    mostrarPanelParametros = true;                    
+                    panelSearchHeight = this.panelMoneda.Height;
                     this.CargarMonedas();
-                    this.txtResultados.Visible = true;
+                    this.panelMoneda.Visible = true;
                 }
                 else if (selectedValue == GetTiposMonedasNombre ||
                          selectedValue == GetTiposCbtesNombre ||
@@ -134,56 +187,85 @@ namespace FacturaElectronica.Ui.Win.Administrador
                          selectedValue == GetTiposIvaNombre ||
                          selectedValue == GetTiposOpcionalNombre ||
                          selectedValue == GetTiposDocNombre ||
-                         selectedValue == GetTiposConceptoNombre)
+                         selectedValue == GetTiposConceptoNombre ||
+                         selectedValue == FEXGetPARAM_Cbte_Tipo ||
+                         selectedValue == FEXGetPARAM_DST_CUIT ||
+                         selectedValue == FEXGetPARAM_DST_pais ||
+                         selectedValue == FEXGetPARAM_Idiomas ||
+                         selectedValue == FEXGetPARAM_Incoterms ||
+                         selectedValue == FEXGetPARAM_MON ||
+                         selectedValue == FEXGetPARAM_PtoVenta ||
+                         selectedValue == FEXGetPARAM_Tipo_Expo ||
+                         selectedValue == FEXGetPARAM_UMed)
                 {
                     this.gridResultados.Visible = true;
                     this.gridResultados.DataSource = null;
-                }
-                else if (selectedValue == CompTotXRequestNombre)
-                {
-                    this.txtResultados.Visible = true;
+                    this.txtResultados.Visible = false;
                 }
                 else if (selectedValue == CompUltimoAutorizadoNombre)
+                {                    
+                    this.txtPtoVta.Text = string.Empty;                    
+                    panelSearchHeight = this.panelUltimoCbte.Height;                    
+                    this.CargarTiposCbte();
+                    mostrarPanelParametros = true;
+                    this.panelUltimoCbte.Visible = true;
+                }
+                else if( selectedValue == FEXGetCMP)
                 {
                     mostrarPanelParametros = true;
-                    this.txtPtoVta.Text = string.Empty;
-                    this.panelUltimoCbte.Visible = true;
-                    this.CargarTiposCbte();
-                    this.txtResultados.Visible = true;
+                    this.CargarTiposCbteFex();
+                    this.CargarPtosVtaFex();
+                    panelSearchHeight = this.panelGetComprobanteFex.Height;
+                    this.txtNroCbteFex.Visible = 
+                    this.lblNroCbteFex.Visible = true;
+                    this.panelGetComprobanteFex.Visible = true;
                 }
-                if (!mostrarPanelParametros &&
-                    (opcionAnterior == CompUltimoAutorizadoNombre ||
-                     opcionAnterior == GetCotizacionNombre))
+                else if (selectedValue == FEXGetLast_CMP)
                 {
-                    this.lblResultados.Location = new Point(this.lblResultados.Location.X, this.lblResultados.Location.Y - this.panelMoneda.Height);
-                    this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, this.btnConsultar.Location.Y - this.panelMoneda.Height);
-                    this.gridResultados.Location = new Point(this.gridResultados.Location.X, this.gridResultados.Location.Y - this.panelMoneda.Height);
-                    this.gridResultados.Height += this.panelMoneda.Height;
-                    this.txtResultados.Location = new Point(this.txtResultados.Location.X, this.txtResultados.Location.Y - this.panelMoneda.Height);
-                    this.txtResultados.Height += this.panelMoneda.Height;
-                    opcionAnterior = selectedValue;
+                    mostrarPanelParametros = true;
+                    this.CargarTiposCbteFex();
+                    this.CargarPtosVtaFex();
+                    this.txtNroCbteFex.Visible =
+                    this.lblNroCbteFex.Visible = false;
+                    panelSearchHeight = this.panelGetComprobanteFex.Height;
+                    this.panelGetComprobanteFex.Visible = true;
                 }
-                else if (mostrarPanelParametros &&
-                        (opcionAnterior != CompUltimoAutorizadoNombre &&
-                         opcionAnterior != GetCotizacionNombre))
+                else if (selectedValue == FEXGetPARAM_Ctz)
                 {
-                    this.lblResultados.Location = new Point(this.lblResultados.Location.X, this.lblResultados.Location.Y + this.panelMoneda.Height);
-                    this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, this.btnConsultar.Location.Y + this.panelMoneda.Height);
-                    this.gridResultados.Location = new Point(this.gridResultados.Location.X, this.gridResultados.Location.Y + this.panelMoneda.Height);
-                    this.gridResultados.Height -= this.panelMoneda.Height;
-                    this.txtResultados.Location = new Point(this.txtResultados.Location.X, this.txtResultados.Location.Y + this.panelMoneda.Height);
-                    this.txtResultados.Height -= this.panelMoneda.Height;
-                    opcionAnterior = selectedValue;
+                    mostrarPanelParametros = true;
+                    panelSearchHeight = this.panelMoneda.Height;
+                    this.CargarMonedasFex();
+                    this.panelMoneda.Visible = true;
                 }
-                else if (!mostrarPanelParametros && string.IsNullOrEmpty(opcionAnterior))
-                {
-                    this.gridResultados.Height += this.panelMoneda.Height;
-                    this.txtResultados.Height += this.panelMoneda.Height;
-                    opcionAnterior = selectedValue;
-                }
+
+                AcomodarControles(mostrarPanelParametros, panelSearchHeight);
+
                 this.lblNombreWs.Text = dto.Nombre;
                 this.lblDescripcionWs.Text = dto.Descripcion;
             }
+        }
+
+        private void AcomodarControles(bool mostrarPanelParametros, int panelSearchHeight)
+        {
+            this.btnConsultar.Location = new Point(this.btnConsultar.Location.X, panelInitialLocation.Y + minPanelHeight);
+            this.gridResultados.Location = new Point(this.lblResultados.Location.X, btnConsultar.Location.Y + 30);
+            this.txtResultados.Location = this.gridResultados.Location;
+            this.lblResultados.Location = new Point(this.gridResultados.Location.X,
+                                                    this.btnConsultar.Location.Y + (this.btnConsultar.Height/2));
+
+            if (mostrarPanelParametros)
+            {
+                this.lblResultados.Location = new Point(this.lblResultados.Location.X,
+                                                        this.lblResultados.Location.Y + panelSearchHeight - 10);
+                this.btnConsultar.Location = new Point(this.btnConsultar.Location.X,
+                                                       this.btnConsultar.Location.Y + panelSearchHeight);
+                this.gridResultados.Location = new Point(this.gridResultados.Location.X,
+                                                         this.gridResultados.Location.Y + panelSearchHeight);
+                this.txtResultados.Location = new Point(this.txtResultados.Location.X,
+                                                        this.txtResultados.Location.Y + panelSearchHeight);
+            }
+            this.gridResultados.Height = this.Height - this.gridResultados.Location.Y - 50;
+            this.txtResultados.Height = this.gridResultados.Height;
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
@@ -260,7 +342,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     if (cotizacion != null)
                     {
                         this.txtResultados.Text = string.Format(@"Fecha: {0}{1}Cotizacion: ${2}{3}",
-                                                                 DateTime.ParseExact(cotizacion.FchCotiz, "yyyyMMdd", CultureInfo.InvariantCulture).ToShortDateString(),
+                                                                 DateTime.ParseExact(cotizacion.FchCotiz, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy"),
                                                                  Environment.NewLine,
                                                                  cotizacion.MonCotiz,
                                                                  Environment.NewLine);
@@ -271,7 +353,47 @@ namespace FacturaElectronica.Ui.Win.Administrador
                     }
 
                 }
-
+                else if (selectedValue == FEXGetLast_ID)
+                {
+                    this.gridResultados.DataSource = this.client.GetLastId(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_Cbte_Tipo)
+                {
+                    this.gridResultados.DataSource = this.client.GetTiposComprobantes(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_DST_CUIT)
+                {
+                    this.gridResultados.DataSource =
+                        this.client.GetCuits(this.ticketFex).FEXResultGet.OrderBy(c => c.DST_Ds).ToList();
+                }
+                else if (selectedValue == FEXGetPARAM_DST_pais)
+                {
+                    this.gridResultados.DataSource = this.client.GetPaises(this.ticketFex).FEXResultGet.OrderBy(p => p.DST_Ds).ToList();
+                }
+                else if (selectedValue == FEXGetPARAM_Idiomas)
+                {
+                    this.gridResultados.DataSource = this.client.GetIdiomas(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_Incoterms)
+                {
+                    this.gridResultados.DataSource = this.client.GetIncoterms(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_MON)
+                {
+                    this.gridResultados.DataSource = this.client.GetMonedas(this.ticketFex).FEXResultGet.OrderBy(m => m.Mon_Ds).ToList();
+                }
+                else if (selectedValue == FEXGetPARAM_PtoVenta)
+                {
+                    this.gridResultados.DataSource = this.client.GetPuntosDeVenta(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_Tipo_Expo)
+                {
+                    this.gridResultados.DataSource = this.client.GetTiposDeExportacion(this.ticketFex).FEXResultGet;
+                }
+                else if (selectedValue == FEXGetPARAM_UMed)
+                {
+                    this.gridResultados.DataSource = this.client.GetUnidadesDeMedida(this.ticketFex).FEXResultGet.Where(u => u != null).OrderBy(u => u.Umed_Ds).ToList();
+                }
                 if (selectedValue == GetTiposMonedasNombre ||
                          selectedValue == GetTiposCbtesNombre ||
                          selectedValue == GetTiposTributosNombre ||
@@ -282,7 +404,72 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 {
                     this.lblResultados.Text = string.Format("Resultados: {0} registros", this.gridResultados.RowCount);
                 }
+                else if(selectedValue == FEXGetCMP)
+                {
+                    if (string.IsNullOrEmpty(this.txtNroCbteFex.Text.Trim()) ||
+                        string.IsNullOrEmpty(this.cbTiposCbteFex.SelectedValue.ToString()) ||
+                        string.IsNullOrEmpty(this.cbPtosVtaFex.SelectedValue.ToString()))
+                    {
+                        MensajeValidarParametros();
+                        return;
+                    }
+                    ClsFEXGetCMP fexGetCmp = new ClsFEXGetCMP();
+                    fexGetCmp.Cbte_nro = long.Parse(this.txtNroCbteFex.Text.Trim());
+                    fexGetCmp.Cbte_tipo = short.Parse(this.cbTiposCbteFex.SelectedValue.ToString());
+                    fexGetCmp.Punto_vta = short.Parse(this.cbPtosVtaFex.SelectedValue.ToString());
+                    FEXGetCMPResponse result = this.client.GetComprobante(this.ticketFex, fexGetCmp);
+                    // TODO: mostrar resultado
+                }
+                else if (selectedValue == FEXGetLast_CMP)
+                {
+                    if (string.IsNullOrEmpty(this.cbTiposCbteFex.SelectedValue.ToString()) ||
+                        string.IsNullOrEmpty(this.cbPtosVtaFex.SelectedValue.ToString()))
+                    {
+                        MensajeValidarParametros();
+                        return;
+                    }
+                    ClsFEX_LastCMP fexLastCmp = new ClsFEX_LastCMP();
+                    fexLastCmp.Cbte_Tipo = short.Parse(this.cbTiposCbteFex.SelectedValue.ToString());
+                    fexLastCmp.Pto_venta = short.Parse(this.cbPtosVtaFex.SelectedValue.ToString());
+                    fexLastCmp.Cuit = this.ticketFex.Cuit;
+                    fexLastCmp.Sign = this.ticketFex.Sign;
+                    fexLastCmp.Token = this.ticketFex.Token;
+                    FEXResponseLast_CMP result = this.client.GetUltimoComprobanteAutorizado(fexLastCmp);
+                    // TODO: mostrar resultado
+                }
+                else if (selectedValue == FEXGetLast_ID)
+                {
+                    FEXResponse_LastID result = this.client.GetLastId(this.ticketFex);
+                    this.txtResultados.Text = result.FEXResultGet.Id.ToString();
+                }
+                else if (selectedValue == FEXGetPARAM_Ctz)
+                {
+                    if(string.IsNullOrEmpty(this.cbMoneda.SelectedValue.ToString()))
+                    {
+                        MensajeValidarParametros();
+                        return;
+                    }
+                    string monId = this.cbMoneda.SelectedValue.ToString();
+                    FEXResponse_Ctz cotizacion = this.client.GetFexCotizacion(this.ticketFex,monId);
+                    if (cotizacion != null)
+                    {
+                        this.txtResultados.Text = string.Format(@"Fecha: {0}{1}Cotizacion: ${2}{3}",
+                                                                 DateTime.ParseExact(cotizacion.FEXResultGet.Mon_fecha, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy"),
+                                                                 Environment.NewLine,
+                                                                 cotizacion.FEXResultGet.Mon_ctz,
+                                                                 Environment.NewLine);
+                    }
+                    else
+                    {
+                        this.txtResultados.Text = "No hay cotizacion disponible";
+                    }
+                }
             }
+        }
+
+        private void MensajeValidarParametros()
+        {
+            MessageBox.Show("Debe ingresar un valor para todos los parametros", "Validación campos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }
