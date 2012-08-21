@@ -17,11 +17,12 @@ using FacturaElectronica.Business.Services;
 using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Core.Helpers;
 using FacturaElectronica.Common.Constants;
+using FacturaElectronica.Afip.Ws.Wsfex;
 
 namespace FacturaElectronica.Afip.Business
 {
     public class ProcesoAutorizador
-    {       
+    {
         private bool debeLoguear = false;
         private bool validaEsquema = true;
         private StringBuilder validacionesEsquema;
@@ -43,7 +44,7 @@ namespace FacturaElectronica.Afip.Business
         public ProcesoAutorizador(bool debeLoguear)
         {
             this.debeLoguear = debeLoguear;
-        }        
+        }
 
         public CorridaAutorizacionDto AutorizarComprobantes(CorridaAutorizacionDto corridaDto)
         {
@@ -53,7 +54,136 @@ namespace FacturaElectronica.Afip.Business
                 string pathArchivoOrigen = corridaDto.PathArchivo;
 
                 if (string.IsNullOrEmpty(corridaDto.PathArchivo))
-                    this.Log("ERROR: No se ha ingresado el path del archivo");                                
+                    this.Log("ERROR: No se ha ingresado el path del archivo");
+
+                // Cambio para el WSFEX
+                 
+                bool procesarFacturaExportacion = false;
+                using (StreamReader reader = new StreamReader(corridaDto.PathArchivo))
+                {
+                    string line = reader.ReadLine();
+                    line = reader.ReadLine();
+                    if (line.Contains("FacturaExportacion"))
+                    {
+                        procesarFacturaExportacion = true;
+                    }
+                    reader.Close();
+                }
+
+                if (procesarFacturaExportacion)
+                {
+                    corridaDto = AutorizarComprobantesParaWsFeX(this.corridaDto);
+                }
+                else
+                {
+                    // Fin Cambio para el WSFEX
+
+                    // Marco la corrida como en proceso en la base de datos
+                    if (this.corridaSvc.MarcarCorridaEnProceso(corridaDto.Id))
+                    {
+                        // Inicio Proceso
+                        this.Log(string.Format("Iniciando procesamiento de archivo {0}...", this.nombreDeArchivo));
+
+                        // Valido el Esquema de Xml
+                        this.Log(string.Format("Validando esquema de archivo"));
+                        string xmlSchemaPath = "";
+
+                        if (!this.ValidarEsquemaXml(corridaDto.PathArchivo, xmlSchemaPath))
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine("ERROR: el formato del archivo es invalido");
+                            sb.AppendLine(this.validacionesEsquema.ToString());
+                            this.Log(sb.ToString());
+                            return null;
+                        }
+
+                        // Leo archivo XML y lo paso a string
+                        this.Log("Leyendo archivo...");
+                        string xmlString = LeerArchivo(corridaDto.PathArchivo);
+
+                        // Reemplazo <Lote></Lote> por <FeCAEReq></FeCAEReq>
+                        xmlString = xmlString.Replace("<Lote>", "<FECAERequest>").Replace("</Lote>", "</FECAERequest>");
+
+                        // Deserealizo el XML y obtengo solo la parte del request
+                        FECAERequest feCAERequest = null;
+                        try
+                        {
+                            feCAERequest = DeserializarXml<FECAERequest>(xmlString);
+                        }
+                        catch (Exception ex)
+                        {
+                            this.Log("El formato del archivo es inválido.");
+                            return null;
+                        }
+
+                        // Obtengo Ticket de Autorizacion
+                        this.Log("Iniciando comunicacion con la AFIP");
+                        FEAuthRequest feAuthRequest = this.ObtenerTicket();
+
+                        // Cargo los comprobantes que estan autorizados en la AFIP
+                        // pero que no fueron cargados en la DB por problemas en 
+                        // la comunicacion
+                        this.CargarComprobantesYaAutorizados(feAuthRequest, feCAERequest);
+
+                        // Remover Comprobantes que ya han sido autorizados
+                        string resultado = this.RemoverComprobantesAutorizados(feAuthRequest, feCAERequest);
+                        if (!string.IsNullOrEmpty(resultado))
+                        {
+                            this.Log(resultado);
+                            feCAERequest.FeCabReq.CantReg = feCAERequest.FeDetReq.Count();
+                        }
+
+                        if (feCAERequest.FeDetReq != null && feCAERequest.FeDetReq.Count() > 0)
+                        {
+                            // Autorizar Comprobantes con la AFIP
+                            this.Log("Autorizando Comprobantes con la AFIP...");
+                            FECAEResponse feCAEResponse = this.AutorizarComprobantes(feAuthRequest, feCAERequest);
+
+                            // Proceso Resultado AFIP
+                            this.Log("Procesando respuesta de la AFIP...");
+                            corridaDto = this.corridaSvc.ProcesarCorrida(corridaDto, feCAEResponse);
+                        }
+                        else
+                        {
+                            // Todos los comprobantes del archivo ya tienen un CAE asignado
+                            // y existen en DB
+                            this.Log("Todos los comprobantes del archivo ya han sido autorizados");
+                        }
+
+                        // Muevo el archivo a una carpeta de procesados
+                        GuardarArchivoProcesado(pathArchivoOrigen);
+
+                        this.Log("Fin procesamiento de archivo.");
+                    }
+                    else
+                    {
+                        this.Log("La corrida ya se está ejecutando");
+                    }
+                }
+
+                return corridaDto;
+            }
+            catch (Exception ex)
+            {
+                string detalle = string.Format("ex.Message: {0} ex.StackTrace: {1}", ex.Message, ex.StackTrace);
+                this.Log(string.Format("ERROR: Se ha producido un error. Contactese con el administrador. Error: {0}", ex.Message), detalle);
+                return null;
+            }
+            finally
+            {
+                this.Log(CorridaService.FinCorridaMsg);
+            }
+        }
+
+        public CorridaAutorizacionDto AutorizarComprobantesParaWsFeX(CorridaAutorizacionDto corridaDto)
+        {
+            try
+            {
+                this.corridaDto = corridaDto;
+                string pathArchivoOrigen = corridaDto.PathArchivo;
+
+                if (string.IsNullOrEmpty(corridaDto.PathArchivo))
+                    this.Log("ERROR: No se ha ingresado el path del archivo");
 
                 // Marco la corrida como en proceso en la base de datos
                 if (this.corridaSvc.MarcarCorridaEnProceso(corridaDto.Id))
@@ -79,13 +209,53 @@ namespace FacturaElectronica.Afip.Business
                     string xmlString = LeerArchivo(corridaDto.PathArchivo);
 
                     // Reemplazo <Lote></Lote> por <FeCAEReq></FeCAEReq>
-                    xmlString = xmlString.Replace("<Lote>", "<FECAERequest>").Replace("</Lote>", "</FECAERequest>");
+                    xmlString = xmlString.Replace("<FacturaExportacion>", "<ClsFEXRequest>").Replace("</FacturaExportacion>", "</ClsFEXRequest>");
 
                     // Deserealizo el XML y obtengo solo la parte del request
-                    FECAERequest feCAERequest = null;
+                    ClsFEXRequest feXCAERequest = null;
                     try
                     {
-                        feCAERequest = DeserializarXml<FECAERequest>(xmlString);                       
+                        feXCAERequest = DeserializarXml<ClsFEXRequest>(xmlString, "http://ar.gov.afip.dif.fexv1/");
+
+                        //feXCAERequest = new ClsFEXRequest();
+                        //feXCAERequest.Id = 1;
+                        //feXCAERequest.Fecha_cbte = "20120820";
+                        //feXCAERequest.Punto_vta = 19;
+                        //feXCAERequest.Cbte_nro = 1;
+                        //feXCAERequest.Tipo_expo = 1;
+                        //feXCAERequest.Permiso_existente = "S";
+                        //feXCAERequest.Permisos = new Permiso[2];
+                        //feXCAERequest.Permisos[0] = new Permiso();
+                        //feXCAERequest.Permisos[0].Dst_merc = 203;
+                        //feXCAERequest.Permisos[1] = new Permiso();
+                        //feXCAERequest.Permisos[1].Id_permiso = "09052EC01006154G";
+                        //feXCAERequest.Permisos[1].Dst_merc = 202;
+                        //feXCAERequest.Dst_cmp = 203;
+                        //feXCAERequest.Cliente = "Joao Da Silva";
+                        //feXCAERequest.Cuit_pais_cliente = 50000000016;
+                        //feXCAERequest.Domicilio_cliente = "Rua 76 km 34.5 Alagoas";
+                        //feXCAERequest.Id_impositivo = "PJ54482221-l";
+                        //feXCAERequest.Moneda_Id = "012";
+                        //feXCAERequest.Moneda_ctz = 0.51M;
+                        //feXCAERequest.Obs_comerciales = "Sin observaciones";
+                        //feXCAERequest.Imp_total = 500;
+                        //feXCAERequest.Forma_pago = "Contado";
+                        //feXCAERequest.Incoterms = "CIF";
+                        //feXCAERequest.Incoterms_Ds = "Texto dic.";
+                        //feXCAERequest.Idioma_cbte = 1;
+                        //feXCAERequest.Items = new Item[1];
+                        //feXCAERequest.Items[0] = new Item();
+                        //feXCAERequest.Items[0].Pro_codigo = "PRO1";
+                        //feXCAERequest.Items[0].Pro_ds = "Producto Tipo 1 Exportacion MERCOSUR ISO 9001";
+                        //feXCAERequest.Items[0].Pro_qty = 2;
+                        //feXCAERequest.Items[0].Pro_umed = 7;
+                        //feXCAERequest.Items[0].Pro_precio_uni = 250;
+                        //feXCAERequest.Items[0].Pro_total_item = 500;
+
+                        //feXCAERequest.Cmps_asoc = new Cmp_asoc[0];
+                       
+                        //var revisar = SerializarXml<ClsFEXRequest>(feXCAERequest);
+                        //revisar = revisar.ToString();
                     }
                     catch (Exception ex)
                     {
@@ -95,30 +265,40 @@ namespace FacturaElectronica.Afip.Business
 
                     // Obtengo Ticket de Autorizacion
                     this.Log("Iniciando comunicacion con la AFIP");
-                    FEAuthRequest feAuthRequest = this.ObtenerTicket();
+                    ClsFEXAuthRequest feXAuthRequest = this.ObtenerTicketWSFeX();
 
                     // Cargo los comprobantes que estan autorizados en la AFIP
                     // pero que no fueron cargados en la DB por problemas en 
                     // la comunicacion
-                    this.CargarComprobantesYaAutorizados(feAuthRequest, feCAERequest);
+                    //-------------------------------------
+                    //-------------------------------------
+                    // IMPORTANTE!!!!!!
+                    //-------------------------------------
+                    //-------------------------------------
+                    // El siguiente codigo tiene que refactorearse según como trabaja este nuevo servicio
+                    // ByAd TODO: this.CargarComprobantesYaAutorizados(feAuthRequest, feCAERequest);
+
 
                     // Remover Comprobantes que ya han sido autorizados
-                    string resultado = this.RemoverComprobantesAutorizados(feAuthRequest, feCAERequest);
-                    if (!string.IsNullOrEmpty(resultado))
-                    {
-                        this.Log(resultado);
-                        feCAERequest.FeCabReq.CantReg = feCAERequest.FeDetReq.Count();
-                    }
+                    //string resultado = this.RemoverComprobantesAutorizados(feAuthRequest, feCAERequest);
+                    //if (!string.IsNullOrEmpty(resultado))
+                    //{
+                    //    this.Log(resultado);
+                    //    feCAERequest.FeCabReq.CantReg = feCAERequest.FeDetReq.Count();
+                    //}
+                    //-------------------------------------
+                    //-------------------------------------
+                    //-------------------------------------
 
-                    if (feCAERequest.FeDetReq != null && feCAERequest.FeDetReq.Count() > 0)
+                    if (feXCAERequest != null)
                     {
                         // Autorizar Comprobantes con la AFIP
                         this.Log("Autorizando Comprobantes con la AFIP...");
-                        FECAEResponse feCAEResponse = this.AutorizarComprobantes(feAuthRequest, feCAERequest);
+                        FEXResponseAuthorize feXCAEResponse = this.AutorizarComprobantes(feXAuthRequest, feXCAERequest);
 
                         // Proceso Resultado AFIP
                         this.Log("Procesando respuesta de la AFIP...");
-                        corridaDto = this.corridaSvc.ProcesarCorrida(corridaDto, feCAEResponse);
+                        corridaDto = this.corridaSvc.ProcesarCorridaWsFeX(corridaDto, feXCAEResponse, feXCAERequest);
                     }
                     else
                     {
@@ -174,10 +354,10 @@ namespace FacturaElectronica.Afip.Business
 
             if (File.Exists(destinationPath))
             {
-                File.Delete(destinationPath);                
+                File.Delete(destinationPath);
             }
-            
-            File.Move(pathArchivo, destinationPath);            
+
+            File.Move(pathArchivo, destinationPath);
         }
 
         private void Log(string mensaje, string detalle = null)
@@ -217,12 +397,12 @@ namespace FacturaElectronica.Afip.Business
         }
 
         private void CargarComprobantesYaAutorizados(FEAuthRequest feAuthRequest, FECAERequest feCAERequest)
-        { 
+        {
             // Agregar comprobantes que fueron autorizados pero que no fueron cargados
             // por problemas en la comunicacion (devolucion de datos por parte de la AFIP)
             FERecuperaLastCbteResponse ultimoCbteAutorizadoAfip = this.ObtenerUltimoComprobanteAutorizado(feAuthRequest, feCAERequest);
             ComprobanteDto ultimoCbteCargado = this.ObtenerUltimoComprobanteCargado(feCAERequest);
-            if (ultimoCbteCargado == null  ||
+            if (ultimoCbteCargado == null ||
                 ultimoCbteCargado.CbteHasta < ultimoCbteAutorizadoAfip.CbteNro)
             {
                 // Cargarlo en la base los comprobantes faltantes
@@ -273,7 +453,7 @@ namespace FacturaElectronica.Afip.Business
 
         private ComprobanteDto ObtenerUltimoComprobanteCargado(FECAERequest feCAERequest)
         {
-            return this.comprobanteSvc.ObtenerUltimoComprobanteCargado(feCAERequest.FeCabReq.PtoVta, feCAERequest.FeCabReq.CbteTipo);            
+            return this.comprobanteSvc.ObtenerUltimoComprobanteCargado(feCAERequest.FeCabReq.PtoVta, feCAERequest.FeCabReq.CbteTipo);
         }
 
         private FERecuperaLastCbteResponse ObtenerUltimoComprobanteAutorizado(FEAuthRequest feAuthRequest, FECAERequest feCAERequest)
@@ -298,11 +478,23 @@ namespace FacturaElectronica.Afip.Business
             return client.ObtenerTicket();
         }
 
+        private ClsFEXAuthRequest ObtenerTicketWSFeX()
+        {
+            WsfeClient client = new WsfeClient();
+            return client.ObtenerTicketFex();
+        }
+
         private FECAEResponse AutorizarComprobantes(FEAuthRequest feAuthRequest, FECAERequest feCAERequest)
         {
             WsfeClient client = new WsfeClient();
             return client.AutorizarComprobantes(feAuthRequest, feCAERequest);
-        }        
+        }
+
+        private FEXResponseAuthorize AutorizarComprobantes(ClsFEXAuthRequest feXAuthRequest, ClsFEXRequest feXCAERequest)
+        {
+            WsfeClient client = new WsfeClient();
+            return client.AutorizarComprobanteExportacion(feXAuthRequest, feXCAERequest);
+        }
 
         //public FECAERequest DeserializarXml(string xmlString)
         //{
@@ -338,13 +530,34 @@ namespace FacturaElectronica.Afip.Business
         //    return objeto;
         //}
 
-        public static T DeserializarXml<T>(string xml)
+        public static string SerializarXml<T>(T obj)
+        {
+            string xml;
+            try
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(T));
+                    xs.Serialize(sw, obj);
+                    xml = sw.ToString();
+                    sw.Close();
+                }                 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("El archivo no esta bien formado", ex);
+            }
+
+            return xml;
+        }
+
+        public static T DeserializarXml<T>(string xml, string defaultNamespace = "")
         {
             T obj = default(T);
             try
             {
-                XmlSerializer xs = new XmlSerializer(typeof(T));
-                obj = (T) xs.Deserialize(new StringReader(xml));
+                XmlSerializer xs = new XmlSerializer(typeof(T), defaultNamespace);
+                obj = (T)xs.Deserialize(new StringReader(xml));
             }
 
             catch (Exception ex)
@@ -368,7 +581,7 @@ namespace FacturaElectronica.Afip.Business
                 doc.WriteTo(xw);
                 return sw.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al Leer el archivo", ex);
             }

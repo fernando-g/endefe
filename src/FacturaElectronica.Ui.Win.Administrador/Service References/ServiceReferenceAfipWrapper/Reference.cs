@@ -50,6 +50,54 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceAfipWrapper {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/ObtenerTicket", ReplyAction="http://tempuri.org/IAfipWrapperService/ObtenerTicketResponse")]
         FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest ObtenerTicket();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/AutorizarComprobanteExportacion", ReplyAction="http://tempuri.org/IAfipWrapperService/AutorizarComprobanteExportacionResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponseAuthorize AutorizarComprobanteExportacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, FacturaElectronica.Afip.Ws.Wsfex.ClsFEXRequest fexRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/CheckPermiso", ReplyAction="http://tempuri.org/IAfipWrapperService/CheckPermisoResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_CheckPermiso CheckPermiso(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, string idPermiso, int destMerc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetComprobante", ReplyAction="http://tempuri.org/IAfipWrapperService/GetComprobanteResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXGetCMPResponse GetComprobante(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, FacturaElectronica.Afip.Ws.Wsfex.ClsFEXGetCMP fexGetCmp);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetUltimoComprobanteAutorizado", ReplyAction="http://tempuri.org/IAfipWrapperService/GetUltimoComprobanteAutorizadoResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponseLast_CMP GetUltimoComprobanteAutorizado(FacturaElectronica.Afip.Ws.Wsfex.ClsFEX_LastCMP fexLastCmp);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetLastId", ReplyAction="http://tempuri.org/IAfipWrapperService/GetLastIdResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_LastID GetLastId(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetTiposComprobantes", ReplyAction="http://tempuri.org/IAfipWrapperService/GetTiposComprobantesResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Cbte_Tipo GetTiposComprobantes(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest auth);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetFexCotizacion", ReplyAction="http://tempuri.org/IAfipWrapperService/GetFexCotizacionResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Ctz GetFexCotizacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, string monId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetCuits", ReplyAction="http://tempuri.org/IAfipWrapperService/GetCuitsResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_cuit GetCuits(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetPaises", ReplyAction="http://tempuri.org/IAfipWrapperService/GetPaisesResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_pais GetPaises(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetIdiomas", ReplyAction="http://tempuri.org/IAfipWrapperService/GetIdiomasResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Idi GetIdiomas(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetIncoterms", ReplyAction="http://tempuri.org/IAfipWrapperService/GetIncotermsResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Inc GetIncoterms(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetMonedas", ReplyAction="http://tempuri.org/IAfipWrapperService/GetMonedasResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Mon GetMonedas(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetPuntosDeVenta", ReplyAction="http://tempuri.org/IAfipWrapperService/GetPuntosDeVentaResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_PtoVenta GetPuntosDeVenta(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetTiposDeExportacion", ReplyAction="http://tempuri.org/IAfipWrapperService/GetTiposDeExportacionResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Tex GetTiposDeExportacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/GetUnidadesDeMedida", ReplyAction="http://tempuri.org/IAfipWrapperService/GetUnidadesDeMedidaResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Umed GetUnidadesDeMedida(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAfipWrapperService/ObtenerTicketFex", ReplyAction="http://tempuri.org/IAfipWrapperService/ObtenerTicketFexResponse")]
+        FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest ObtenerTicketFex();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +173,70 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceAfipWrapper {
         
         public FacturaElectronica.Afip.Ws.Wsfe.FEAuthRequest ObtenerTicket() {
             return base.Channel.ObtenerTicket();
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponseAuthorize AutorizarComprobanteExportacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, FacturaElectronica.Afip.Ws.Wsfex.ClsFEXRequest fexRequest) {
+            return base.Channel.AutorizarComprobanteExportacion(fexAuthRequest, fexRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_CheckPermiso CheckPermiso(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, string idPermiso, int destMerc) {
+            return base.Channel.CheckPermiso(fexAuthRequest, idPermiso, destMerc);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXGetCMPResponse GetComprobante(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, FacturaElectronica.Afip.Ws.Wsfex.ClsFEXGetCMP fexGetCmp) {
+            return base.Channel.GetComprobante(fexAuthRequest, fexGetCmp);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponseLast_CMP GetUltimoComprobanteAutorizado(FacturaElectronica.Afip.Ws.Wsfex.ClsFEX_LastCMP fexLastCmp) {
+            return base.Channel.GetUltimoComprobanteAutorizado(fexLastCmp);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_LastID GetLastId(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetLastId(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Cbte_Tipo GetTiposComprobantes(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest auth) {
+            return base.Channel.GetTiposComprobantes(auth);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Ctz GetFexCotizacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest, string monId) {
+            return base.Channel.GetFexCotizacion(fexAuthRequest, monId);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_cuit GetCuits(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetCuits(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_DST_pais GetPaises(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetPaises(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Idi GetIdiomas(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetIdiomas(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Inc GetIncoterms(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetIncoterms(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Mon GetMonedas(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetMonedas(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_PtoVenta GetPuntosDeVenta(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetPuntosDeVenta(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Tex GetTiposDeExportacion(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetTiposDeExportacion(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.FEXResponse_Umed GetUnidadesDeMedida(FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest fexAuthRequest) {
+            return base.Channel.GetUnidadesDeMedida(fexAuthRequest);
+        }
+        
+        public FacturaElectronica.Afip.Ws.Wsfex.ClsFEXAuthRequest ObtenerTicketFex() {
+            return base.Channel.ObtenerTicketFex();
         }
     }
 }

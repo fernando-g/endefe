@@ -12,6 +12,7 @@ using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
 using System.IO;
 using FacturaElectronica.Common.Contracts.Search;
+using FacturaElectronica.Afip.Ws.Wsfex;
 
 namespace FacturaElectronica.Business.Services
 {
@@ -30,7 +31,7 @@ namespace FacturaElectronica.Business.Services
                 corrida.PathArchivo = xmlPath;
                 corrida.Procesada = null;
                 ctx.CorridaAutorizacions.AddObject(corrida);
-                ctx.SaveChanges();              
+                ctx.SaveChanges();
                 return ToCorridaDto(corrida, null, null, null);
             }
         }
@@ -57,13 +58,13 @@ namespace FacturaElectronica.Business.Services
                     {
                         DateTime hasta = search.FechaHasta.Value.Date.AddDays(1).AddSeconds(-1);
                         query = query.Where(c => c.Fecha <= hasta);
-                    }                  
+                    }
                 }
 
                 query = query.OrderByDescending(c => c.Id);
-                
+
                 return ToCorridaDtoList(query.ToList(), ctx.TipoDocumentoes.ToList(), ctx.TipoComprobantes.ToList(), ctx.TipoConceptoes.ToList());
-            }        
+            }
         }
 
         public CorridaAutorizacionDto ProcesarCorrida(CorridaAutorizacionDto corridaDto, FECAEResponse feCAEResponse)
@@ -187,6 +188,117 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
+
+        public CorridaAutorizacionDto ProcesarCorridaWsFeX(CorridaAutorizacionDto corridaDto, FEXResponseAuthorize feXCAEResponse, ClsFEXRequest feXCAERequest)
+        {
+            using (var ctx = new FacturaElectronicaEntities())
+            {
+                CorridaAutorizacion corrida = ctx.CorridaAutorizacions.Where(c => c.Id == corridaDto.Id).First();
+
+                // Procesar Cabecera
+                DetalleCabecera cabecera = new DetalleCabecera();
+                ClsFEXOutAuthorize feCabResp = feXCAEResponse.FEXResultAuth;
+                if (feCabResp != null)
+                {
+                    cabecera.CantReg = 1; // ByAd: revisar
+                    cabecera.CUIT = feCabResp.Cuit;
+                    cabecera.CbteTipo = feCabResp.Cbte_tipo;
+                    cabecera.FchProceso = DateTime.Now; // ByAd: revisar
+                    cabecera.Resultado = feCabResp.Resultado;
+                    cabecera.PtoVta = feCabResp.Punto_vta;
+
+                    corrida.DetalleCabeceras.Add(cabecera);
+
+                    TipoComprobanteDto tipoCbteDto = cbteSvc.ObtenerTipoComprobantePorCodigoAfip(cabecera.CbteTipo);
+                    int tipoCbteId;
+                    if (tipoCbteDto != null)
+                    {
+                        tipoCbteId = tipoCbteDto.Id;
+                    }
+
+                    // Procesar Comprobantes
+                    DetalleComprobante detalleCbte = null;
+                    ObservacionComprobante observacionesCbte = null;
+
+                    detalleCbte = new DetalleComprobante();
+                    detalleCbte.Concepto = 1; // ByAd revisar: aca es prdoucto, servicios o ambos
+                    detalleCbte.DocTipo = 80;
+                    detalleCbte.DocNro = feCabResp.Cuit;
+                    detalleCbte.CbteDesde = feCabResp.Cbte_nro;
+                    detalleCbte.CbteHasta = feCabResp.Cbte_nro;
+                    detalleCbte.CbteFch = DateTimeHelper.ConvertyyyyMMddToDate(feCabResp.Fch_cbte);
+                    detalleCbte.Resultado = feCabResp.Resultado;
+
+                    if (feCabResp.Resultado == ResultadoCbte.Aprobado)
+                    {
+                        detalleCbte.CAE = feCabResp.Cae;
+                        detalleCbte.CAEFchVto = DateTimeHelper.ConvertyyyyMMddToDate(feCabResp.Fch_venc_Cae);
+
+                        // Si fue aprobado agrego una entidad Comprobante
+                        Comprobante comprobante = new Comprobante();
+                        comprobante.CAE = detalleCbte.CAE;
+                        comprobante.CAEFechaVencimiento = detalleCbte.CAEFchVto;
+                        comprobante.CbteDesde = detalleCbte.CbteDesde;
+                        comprobante.CbteHasta = detalleCbte.CbteHasta;
+                        comprobante.CbteFecha = detalleCbte.CbteFch;
+                        comprobante.PtoVta = cabecera.PtoVta;
+                        comprobante.FechaDeCarga = DateTime.Now;
+                        comprobante.TipoComprobante = ctx.TipoComprobantes.Where(tc => tc.CodigoAfip == cabecera.CbteTipo).FirstOrDefault();
+                        if (detalleCbte.DocTipo == 80) // CUIT
+                        {
+                            ClienteDto clienteDto = clienteSvc.ObtenerClientePorCuit(detalleCbte.DocNro);
+                            if (clienteDto != null)
+                            {
+                                comprobante.ClienteId = clienteDto.Id;
+                            }
+                        }
+                        // #TODO: borrar 
+                        //EstadoComprobanteDto estadoDto = this.cbteSvc.ObtenerEstado(CodigoEstadoCbte.NoVisualizado);
+                        //if (estadoDto != null)
+                        //{
+                        //    comprobante.EstadoId = estadoDto.Id;
+                        //}
+                        detalleCbte.Comprobantes.Add(comprobante);
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(feCabResp.Motivos_Obs))
+                        {
+                            observacionesCbte = new ObservacionComprobante();
+                            observacionesCbte.Code = 1; // ByAd: hardcodeado, ya que este tipo no recibe
+                            observacionesCbte.Msg = feCabResp.Motivos_Obs;
+                            detalleCbte.ObservacionComprobantes.Add(observacionesCbte);
+                        }
+                    }
+
+                    corrida.DetalleComprobantes.Add(detalleCbte);
+                }
+
+                if (feXCAEResponse.FEXEvents != null && !String.IsNullOrEmpty(feXCAEResponse.FEXEvents.EventMsg))
+                {
+                    // Procesar Eventos
+                    DetalleEvento detalleEvento = null;
+                    detalleEvento = new DetalleEvento();
+                    detalleEvento.Code = feXCAEResponse.FEXEvents.EventCode;
+                    detalleEvento.Msg = feXCAEResponse.FEXEvents.EventMsg;
+                    corrida.DetalleEventos.Add(detalleEvento);
+                }
+                if (feXCAEResponse.FEXErr != null && !String.IsNullOrEmpty(feXCAEResponse.FEXErr.ErrMsg))
+                {
+                    // Procesar Errores
+                    DetalleError detalleError = null;
+                    detalleError = new DetalleError();
+                    detalleError.Code = feXCAEResponse.FEXErr.ErrCode;
+                    detalleError.Msg = feXCAEResponse.FEXErr.ErrMsg;
+                    corrida.DetalleErrores.Add(detalleError);
+                }
+
+                corrida.Procesada = true;
+
+                ctx.SaveChanges();
+                return ToCorridaDto(corrida, ctx.TipoDocumentoes.ToList(), ctx.TipoComprobantes.ToList(), ctx.TipoConceptoes.ToList());
+            }
+        }
         /// <summary>
         /// Indica si la corrida puede ejectuarse si es asi la marca en proceso
         /// </summary>
@@ -205,7 +317,7 @@ namespace FacturaElectronica.Business.Services
                         corridaAutorizacion.Procesada = false; // Significa que está en proceso
                         ctx.SaveChanges();
                         puedeEjecturar = true;
-                    }                  
+                    }
                 }
             }
 
@@ -247,7 +359,7 @@ namespace FacturaElectronica.Business.Services
         #region [Conversion]
 
         public static CorridaAutorizacionDto ToCorridaDto(CorridaAutorizacion corrida, List<TipoDocumento> tiposDoc, List<TipoComprobante> tiposComprobante, List<TipoConcepto> tiposConcepto)
-        {            
+        {
             CorridaAutorizacionDto dto = new CorridaAutorizacionDto();
             dto.Id = corrida.Id;
             dto.Fecha = corrida.Fecha;
@@ -258,9 +370,9 @@ namespace FacturaElectronica.Business.Services
             if (tiposComprobante != null)
             {
                 DetalleCabecera cabecera = corrida.DetalleCabeceras.FirstOrDefault();
-                if(cabecera != null)
+                if (cabecera != null)
                 {
-                    TipoComprobante tipoComprobante = tiposComprobante.Where(c => c.CodigoAfip == cabecera.CbteTipo ).First();
+                    TipoComprobante tipoComprobante = tiposComprobante.Where(c => c.CodigoAfip == cabecera.CbteTipo).First();
                     dto.TipoComprobante = string.Format("{0} - {1}", tipoComprobante.CodigoAfip, tipoComprobante.Descripcion);
                 }
             }
@@ -277,8 +389,8 @@ namespace FacturaElectronica.Business.Services
             List<CorridaAutorizacionDto> dtoList = new List<CorridaAutorizacionDto>();
 
             foreach (CorridaAutorizacion corrida in corridaList)
-            {                
-                dtoList.Add(ToCorridaDto(corrida, tiposDoc,tiposComprobante, tiposConcepto));
+            {
+                dtoList.Add(ToCorridaDto(corrida, tiposDoc, tiposComprobante, tiposConcepto));
             }
 
             return dtoList;
@@ -320,11 +432,11 @@ namespace FacturaElectronica.Business.Services
             }
             dto.ConceptoDesc = sbConcepto.ToString();
 
-            
-            if ( detalleComprobante.Resultado == ResultadoCbte.Aprobado)
+
+            if (detalleComprobante.Resultado == ResultadoCbte.Aprobado)
             {
                 dto.CAE = detalleComprobante.CAE;
-                dto.CAEFechaVto = (DateTime)detalleComprobante.CAEFchVto;            
+                dto.CAEFechaVto = (DateTime)detalleComprobante.CAEFchVto;
             }
             if (detalleComprobante.Resultado == ResultadoCbte.Rechazado)
             {

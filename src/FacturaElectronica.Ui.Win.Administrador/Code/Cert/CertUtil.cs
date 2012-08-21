@@ -13,16 +13,17 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Cert
 
         private static bool RemoteCertificateValidate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors error)
         {
-            if (cert.Subject.Contains("endesacemsa"))
-            {
-                // trust any certificate!!!   
-                //System.Console.WriteLine("Warning, trust any certificate");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+            //if (cert.Subject.Contains("endesacemsa"))
+            //{
+            //    // trust any certificate!!!   
+            //    //System.Console.WriteLine("Warning, trust any certificate");
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
     }
                                                                                                                                                                               
