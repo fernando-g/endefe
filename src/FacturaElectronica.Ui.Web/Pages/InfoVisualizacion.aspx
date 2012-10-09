@@ -14,7 +14,9 @@
             Comprobante Visualizado
         </h2>
         <p>            
-            En caso de tener problemas con la visualizaci&oacute;n del documento deber&aacute; comunicarse a los datos que aparecen en la opci&oacute;n del men&uacute; "Contacto"
+        A partir de la visualizaci&oacute;n del comprobante el mismo se considera como entregado y notificado en su contenido.
+        <br />
+        En caso de tener problemas con la visualizaci&oacute;n del documento deber&aacute; comunicarse a los datos que aparecen en la opci&oacute;n del men&uacute; "Contacto"
         </p>
     </div>
     </form>
