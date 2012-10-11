@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page  Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="UsuariosListado.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.UsuariosListado" %>
 
 <%@ Register Assembly="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"

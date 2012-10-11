@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="ClienteListado.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.ClienteListado" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">

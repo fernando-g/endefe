@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page  Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="MensajesAlertasListado.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.MensajesAlertasListado" %>
 <%@ MasterType VirtualPath="~/Site.Master" %>
 

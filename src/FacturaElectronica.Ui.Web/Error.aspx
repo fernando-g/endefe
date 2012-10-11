@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#"  AutoEventWireup="true" CodeBehind="Error.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Error" %>
+﻿<%@ Page  Language="C#"  AutoEventWireup="true" CodeBehind="Error.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Error" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
     <title></title>

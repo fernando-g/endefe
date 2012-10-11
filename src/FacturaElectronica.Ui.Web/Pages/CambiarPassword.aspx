@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CambiarPassword.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.CambiarPassword" %>
+﻿<%@ Page  Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CambiarPassword.aspx.cs" Inherits="FacturaElectronica.Ui.Web.Pages.CambiarPassword" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="/Styles/GridStyle.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />

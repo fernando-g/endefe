@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head runat="server">
-    <title></title>
+    <title>Facturaci&oacute;n Electr&oacute;nica v1.0</title>
     <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/GridStyle.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/jquery-ui-1.8.10.custom.css" rel="stylesheet" type="text/css" />
@@ -30,7 +30,7 @@
             </div>
             <div class="title">
                 <h1>
-                    Factura Electronica
+                    Facturaci&oacute;n Electr&oacute;nica
                 </h1>
             </div>
             <div class="loginDisplay">
