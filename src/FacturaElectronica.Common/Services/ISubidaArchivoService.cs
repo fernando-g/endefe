@@ -15,7 +15,7 @@ namespace FacturaElectronica.Common.Services
         CorridaSubidaArchivoDto CrearNuevaCorrida();
 
         [OperationContract(IsOneWay = true)]
-        void EjecutarCorrida(long corridaId, List<string> files);
+        void EjecutarCorrida(EjecutarCorridaSubidaArchivo corrida);
 
         [OperationContract]
         List<CorridaSubidaArchivoDto> ObtenerCorridas(CorridaSubidaArchivoSearch search);        

@@ -20,5 +20,13 @@ namespace FacturaElectronica.Common.Contracts
 
         [DataMember]
         public string Codigo { get; set; }
+
+        public string ShowDescription
+        {
+            get
+            {
+                return String.Format("{0}({1})", Descripcion, Codigo);
+            }
+        }
     }
 }

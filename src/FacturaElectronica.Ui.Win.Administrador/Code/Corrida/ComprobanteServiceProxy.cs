@@ -62,7 +62,23 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
 
         public List<TipoContratoDto> ObtenerTiposContrato()
         {
-            throw new NotImplementedException();
+            FacturaElectronica.Ui.Win.Administrador.ServiceReferenceComprobanteService.ComprobanteServiceClient client = new FacturaElectronica.Ui.Win.Administrador.ServiceReferenceComprobanteService.ComprobanteServiceClient();
+            ClientCredentialHelper.SetCredentials(client.ClientCredentials);
+            try
+            {
+                var t = client.ObtenerTiposContrato();
+                client.Close();
+                return t;
+            }
+            catch
+            {
+                if (client.State != System.ServiceModel.CommunicationState.Closed)
+                {
+                    client.Abort();
+                }
+
+                throw;
+            }            
         }
 
         public List<int> ObtenerAniosFacturacion()

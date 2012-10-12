@@ -23,10 +23,11 @@
     <MetadataSource Address="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ComprobanteService.xsd" MetadataType="Schema" ID="278ce982-f2f9-4446-9f66-3d0528e564d2" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ComprobanteService1.xsd" MetadataType="Schema" ID="7fed287f-5d9f-49ba-b5c4-437a82631b77" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd2" />
     <MetadataFile FileName="ComprobanteService2.xsd" MetadataType="Schema" ID="8598bf7a-e33c-4e4f-a901-5a9001283e32" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ComprobanteService.xsd" MetadataType="Schema" ID="278ce982-f2f9-4446-9f66-3d0528e564d2" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd1" />
     <MetadataFile FileName="ComprobanteService.wsdl" MetadataType="Wsdl" ID="a961cd32-b049-4dd7-9c68-778b4740bffc" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?wsdl" />
+    <MetadataFile FileName="ComprobanteService1.xsd" MetadataType="Schema" ID="7fed287f-5d9f-49ba-b5c4-437a82631b77" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ComprobanteService3.xsd" MetadataType="Schema" ID="ef099502-717c-4dfc-b7d1-806a6e83147c" SourceId="1" SourceUrl="https://localhost/FacturaElectronicaWsHost/ComprobanteService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

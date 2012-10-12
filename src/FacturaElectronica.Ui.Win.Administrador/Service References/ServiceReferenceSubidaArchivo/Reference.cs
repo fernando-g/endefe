@@ -19,7 +19,7 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceSubidaArchivo 
         FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto CrearNuevaCorrida();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ISubidaArchivoService/EjecutarCorrida")]
-        void EjecutarCorrida(long corridaId, System.Collections.Generic.List<string> files);
+        void EjecutarCorrida(FacturaElectronica.Common.Contracts.EjecutarCorridaSubidaArchivo corrida);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubidaArchivoService/ObtenerCorridas", ReplyAction="http://tempuri.org/ISubidaArchivoService/ObtenerCorridasResponse")]
         System.Collections.Generic.List<FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto> ObtenerCorridas(FacturaElectronica.Common.Contracts.Search.CorridaSubidaArchivoSearch search);
@@ -56,8 +56,8 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceSubidaArchivo 
             return base.Channel.CrearNuevaCorrida();
         }
         
-        public void EjecutarCorrida(long corridaId, System.Collections.Generic.List<string> files) {
-            base.Channel.EjecutarCorrida(corridaId, files);
+        public void EjecutarCorrida(FacturaElectronica.Common.Contracts.EjecutarCorridaSubidaArchivo corrida) {
+            base.Channel.EjecutarCorrida(corrida);
         }
         
         public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.CorridaSubidaArchivoDto> ObtenerCorridas(FacturaElectronica.Common.Contracts.Search.CorridaSubidaArchivoSearch search) {

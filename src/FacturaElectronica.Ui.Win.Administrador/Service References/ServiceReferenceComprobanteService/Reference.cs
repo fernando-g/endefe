@@ -15,8 +15,54 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceComprobanteSer
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReferenceComprobanteService.IComprobanteService")]
     public interface IComprobanteService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerComprobante", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerComprobanteResponse")]
+        FacturaElectronica.Common.Contracts.ComprobanteDto ObtenerComprobante(long comprobanteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerComprobantesPorCliente", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerComprobantesPorClienteResponse")]
+        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(FacturaElectronica.Common.Contracts.ComprobanteCriteria criteria, int cantUltimosCbtes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerComprobantes", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerComprobantesResponse")]
+        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.ComprobanteArchivoAsociadoDto> ObtenerComprobantes(FacturaElectronica.Common.Contracts.ComprobanteCriteria criteria);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerUltimoComprobanteCargado", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerUltimoComprobanteCargadoResponse")]
+        FacturaElectronica.Common.Contracts.ComprobanteDto ObtenerUltimoComprobanteCargado(int ptoVta, int cbeTipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerTipoComprobantePorCodigoAfip", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerTipoComprobantePorCodigoAfipRespons" +
+            "e")]
+        FacturaElectronica.Common.Contracts.TipoComprobanteDto ObtenerTipoComprobantePorCodigoAfip(int codigoAfip);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerTiposComprobantes", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerTiposComprobantesResponse")]
         System.Collections.Generic.List<FacturaElectronica.Common.Contracts.TipoComprobanteDto> ObtenerTiposComprobantes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerTiposContrato", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerTiposContratoResponse")]
+        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.TipoContratoDto> ObtenerTiposContrato();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerAniosFacturacion", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerAniosFacturacionResponse")]
+        System.Collections.Generic.List<int> ObtenerAniosFacturacion();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/AgregarVisualizacion", ReplyAction="http://tempuri.org/IComprobanteService/AgregarVisualizacionResponse")]
+        void AgregarVisualizacion(FacturaElectronica.Common.Contracts.VisualizacionComprobanteDto dto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/CambiarEstado", ReplyAction="http://tempuri.org/IComprobanteService/CambiarEstadoResponse")]
+        void CambiarEstado(long archivoAsociadoId, string codigoEstado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerEstado", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerEstadoResponse")]
+        FacturaElectronica.Common.Contracts.EstadoArchivoAsociadoDto ObtenerEstado(string codigo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerEstados", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerEstadosResponse")]
+        System.Collections.Generic.List<FacturaElectronica.Common.Contracts.EstadoArchivoAsociadoDto> ObtenerEstados();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerArchivoPorId", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerArchivoPorIdResponse")]
+        string ObtenerArchivoPorId(long archivoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerArchivo", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerArchivoResponse")]
+        string ObtenerArchivo(long archivoId, long clienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/ObtenerEstadoComprobantes", ReplyAction="http://tempuri.org/IComprobanteService/ObtenerEstadoComprobantesResponse")]
+        FacturaElectronica.Common.Contracts.EstadoComprobantesDto ObtenerEstadoComprobantes(long clientId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IComprobanteService/AsociarFechaDeRecepcion", ReplyAction="http://tempuri.org/IComprobanteService/AsociarFechaDeRecepcionResponse")]
+        void AsociarFechaDeRecepcion(System.Collections.Generic.Dictionary<long, System.Nullable<System.DateTime>> archivosAsociados, long userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -46,8 +92,68 @@ namespace FacturaElectronica.Ui.Win.Administrador.ServiceReferenceComprobanteSer
                 base(binding, remoteAddress) {
         }
         
+        public FacturaElectronica.Common.Contracts.ComprobanteDto ObtenerComprobante(long comprobanteId) {
+            return base.Channel.ObtenerComprobante(comprobanteId);
+        }
+        
+        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.ComprobanteArchivoAsociadoDto> ObtenerComprobantesPorCliente(FacturaElectronica.Common.Contracts.ComprobanteCriteria criteria, int cantUltimosCbtes) {
+            return base.Channel.ObtenerComprobantesPorCliente(criteria, cantUltimosCbtes);
+        }
+        
+        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.ComprobanteArchivoAsociadoDto> ObtenerComprobantes(FacturaElectronica.Common.Contracts.ComprobanteCriteria criteria) {
+            return base.Channel.ObtenerComprobantes(criteria);
+        }
+        
+        public FacturaElectronica.Common.Contracts.ComprobanteDto ObtenerUltimoComprobanteCargado(int ptoVta, int cbeTipo) {
+            return base.Channel.ObtenerUltimoComprobanteCargado(ptoVta, cbeTipo);
+        }
+        
+        public FacturaElectronica.Common.Contracts.TipoComprobanteDto ObtenerTipoComprobantePorCodigoAfip(int codigoAfip) {
+            return base.Channel.ObtenerTipoComprobantePorCodigoAfip(codigoAfip);
+        }
+        
         public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.TipoComprobanteDto> ObtenerTiposComprobantes() {
             return base.Channel.ObtenerTiposComprobantes();
+        }
+        
+        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.TipoContratoDto> ObtenerTiposContrato() {
+            return base.Channel.ObtenerTiposContrato();
+        }
+        
+        public System.Collections.Generic.List<int> ObtenerAniosFacturacion() {
+            return base.Channel.ObtenerAniosFacturacion();
+        }
+        
+        public void AgregarVisualizacion(FacturaElectronica.Common.Contracts.VisualizacionComprobanteDto dto) {
+            base.Channel.AgregarVisualizacion(dto);
+        }
+        
+        public void CambiarEstado(long archivoAsociadoId, string codigoEstado) {
+            base.Channel.CambiarEstado(archivoAsociadoId, codigoEstado);
+        }
+        
+        public FacturaElectronica.Common.Contracts.EstadoArchivoAsociadoDto ObtenerEstado(string codigo) {
+            return base.Channel.ObtenerEstado(codigo);
+        }
+        
+        public System.Collections.Generic.List<FacturaElectronica.Common.Contracts.EstadoArchivoAsociadoDto> ObtenerEstados() {
+            return base.Channel.ObtenerEstados();
+        }
+        
+        public string ObtenerArchivoPorId(long archivoId) {
+            return base.Channel.ObtenerArchivoPorId(archivoId);
+        }
+        
+        public string ObtenerArchivo(long archivoId, long clienteId) {
+            return base.Channel.ObtenerArchivo(archivoId, clienteId);
+        }
+        
+        public FacturaElectronica.Common.Contracts.EstadoComprobantesDto ObtenerEstadoComprobantes(long clientId) {
+            return base.Channel.ObtenerEstadoComprobantes(clientId);
+        }
+        
+        public void AsociarFechaDeRecepcion(System.Collections.Generic.Dictionary<long, System.Nullable<System.DateTime>> archivosAsociados, long userId) {
+            base.Channel.AsociarFechaDeRecepcion(archivosAsociados, userId);
         }
     }
 }

@@ -38,14 +38,14 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
             return dto;
         }
 
-        public void EjecutarCorrida(long corridaId, List<string> files)
+        public void EjecutarCorrida(EjecutarCorridaSubidaArchivo corrida)
         {
             CorridaSubidaArchivoDto dto = null;
             SubidaArchivoServiceClient client = new SubidaArchivoServiceClient();
             ClientCredentialHelper.SetCredentials(client.ClientCredentials);
             try
             {
-                client.EjecutarCorrida(corridaId, files);
+                client.EjecutarCorrida(corrida);
                 client.Close();
             }
             catch

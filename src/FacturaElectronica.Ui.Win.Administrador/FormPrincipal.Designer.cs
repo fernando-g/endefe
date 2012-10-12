@@ -36,6 +36,7 @@
             this.envioDeArchivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enviarArchivosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarEnviosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarUnArchivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,6 +86,7 @@
             // 
             this.envioDeArchivosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enviarArchivosToolStripMenuItem1,
+            this.enviarUnArchivoToolStripMenuItem,
             this.consultarEnviosToolStripMenuItem1});
             this.envioDeArchivosToolStripMenuItem.Name = "envioDeArchivosToolStripMenuItem";
             this.envioDeArchivosToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
@@ -93,16 +95,23 @@
             // enviarArchivosToolStripMenuItem1
             // 
             this.enviarArchivosToolStripMenuItem1.Name = "enviarArchivosToolStripMenuItem1";
-            this.enviarArchivosToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.enviarArchivosToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
             this.enviarArchivosToolStripMenuItem1.Text = "Enviar Archivos";
             this.enviarArchivosToolStripMenuItem1.Click += new System.EventHandler(this.enviarArchivosToolStripMenuItem1_Click);
             // 
             // consultarEnviosToolStripMenuItem1
             // 
             this.consultarEnviosToolStripMenuItem1.Name = "consultarEnviosToolStripMenuItem1";
-            this.consultarEnviosToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.consultarEnviosToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
             this.consultarEnviosToolStripMenuItem1.Text = "Consultar Envios";
             this.consultarEnviosToolStripMenuItem1.Click += new System.EventHandler(this.consultarEnviosToolStripMenuItem1_Click);
+            // 
+            // enviarUnArchivoToolStripMenuItem
+            // 
+            this.enviarUnArchivoToolStripMenuItem.Name = "enviarUnArchivoToolStripMenuItem";
+            this.enviarUnArchivoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.enviarUnArchivoToolStripMenuItem.Text = "Enviar Un Archivo";
+            this.enviarUnArchivoToolStripMenuItem.Click += new System.EventHandler(this.enviarUnArchivoToolStripMenuItem_Click);
             // 
             // FormPrincipal
             // 
@@ -133,6 +142,7 @@
         private System.Windows.Forms.ToolStripMenuItem envioDeArchivosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enviarArchivosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem consultarEnviosToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem enviarUnArchivoToolStripMenuItem;
     }
 }
 

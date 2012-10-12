@@ -159,7 +159,10 @@ namespace FacturaElectronica.Ui.Win.Administrador
         private void EjecutarCorridaCallBack(object state)
         {
             EjecucionSubidaArchivos ejecucionData = (EjecucionSubidaArchivos)state;
-            SubidaArchivoService.EjecutarCorrida(ejecucionData.CorridaId, ejecucionData.FileList);
+            EjecutarCorridaSubidaArchivo corrida = new EjecutarCorridaSubidaArchivo();
+            corrida.CorridaId = ejecucionData.CorridaId;
+            corrida.FileNames = ejecucionData.FileList;
+            SubidaArchivoService.EjecutarCorrida(corrida);
         }
 
         private const int bufferLength = 2048;

@@ -90,6 +90,12 @@
     <Compile Include="Code\FtpClient.cs" />
     <Compile Include="Code\ServiceFactory.cs" />
     <Compile Include="Code\Validaciones.cs" />
+    <Compile Include="FormEnviarArchivoIndividualAWeb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEnviarArchivoIndividualAWeb.Designer.cs">
+      <DependentUpon>FormEnviarArchivoIndividualAWeb.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAutorizador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormEnviarArchivoIndividualAWeb.resx">
+      <DependentUpon>FormEnviarArchivoIndividualAWeb.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAutorizador.resx">
       <DependentUpon>FormAutorizador.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -236,6 +246,7 @@
     <None Include="Properties\DataSources\FacturaElectronica.Common.Constants.ResultadoCorrida.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ClienteCriteria.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ClienteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteArchivoAsociadoDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteCriteria.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.CorridaAutorizacionDto.datasource" />
@@ -243,11 +254,14 @@
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleErrorDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.DetalleEventoDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.EstadoArchivoAsociadoDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.EstadoComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.EstadoComprobantesDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.LogCorridaDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.ObservacionComprobanteDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.RolDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.TipoComprobanteDto.datasource" />
+    <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.TipoContratoDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.UsuarioDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Contracts.WebServiceAfipDto.datasource" />
     <None Include="Properties\DataSources\FacturaElectronica.Common.Services.IClienteService.datasource" />
@@ -311,6 +325,9 @@
     <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.wsdl" />
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService4.xsd">
       <SubType>Designer</SubType>
@@ -334,20 +351,20 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReferenceMaestro\MaestrosSevice.wsdl" />
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.wsdl" />
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.xsd">
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService1.wsdl" />
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService1.xsd">
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService51.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService2.xsd">
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService52.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService3.xsd">
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService53.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService4.xsd">
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService54.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -377,6 +394,7 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService1.disco" />
     <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService1.disco" />
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceComprobanteService\Reference.svcmap">
@@ -391,7 +409,6 @@
     </None>
     <None Include="Service References\ServiceReferenceSubidaArchivo\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceSubidaArchivo\configuration91.svcinfo" />
-    <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService.disco" />
     <None Include="Resources\repetir.png" />
     <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>

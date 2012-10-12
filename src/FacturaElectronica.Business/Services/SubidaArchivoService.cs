@@ -38,8 +38,11 @@ namespace FacturaElectronica.Business.Services
             }
         }
 
-        public void EjecutarCorrida(long corridaId, List<string> files)
+        public void EjecutarCorrida(EjecutarCorridaSubidaArchivo corrida)
         {
+            long corridaId = corrida.CorridaId;
+
+            List<string> files = corrida.FileNames;
             // Proceso los archivos en la corrida y marcos cuales están ok y cuales no            
             using (var ctx = new FacturaElectronicaEntities())
             {
@@ -79,7 +82,14 @@ namespace FacturaElectronica.Business.Services
 
                                 if (File.Exists(filePath))
                                 {
-                                    ArmarArchivoAsociado(ctx, dbCorrida, filePath, fileDestinationPathOk, fileDestinationPathNoOk);
+                                    if (!corrida.ForzarDatosCliente)
+                                    {
+                                        ArmarArchivoAsociado(ctx, dbCorrida, filePath, fileDestinationPathOk, fileDestinationPathNoOk, corrida);
+                                    }
+                                    else
+                                    {
+                                        ArmarArchivoAsociadoConContexto(ctx, dbCorrida, filePath, fileDestinationPathOk, fileDestinationPathNoOk, corrida);
+                                    }
                                 }
                                 else
                                 {
@@ -109,7 +119,6 @@ namespace FacturaElectronica.Business.Services
             // Al final, envío emails a los clientes informando que ya están listos X cantidad de facturas para
             // ser visualizadas
             SendMailToCustomers(corridaId);
-
         }
 
         private void SendMailToCustomers(long corridaId)
@@ -151,7 +160,7 @@ namespace FacturaElectronica.Business.Services
         private const int arch_tipoContrato = 7;
         private const int arch_montototal = 8;
 
-        private void ArmarArchivoAsociado(FacturaElectronicaEntities ctx, CorridaSubidaArchivo dbCorrida, string filePath, string fileDestinationPathOk, string fileDestinationPathNoOk)
+        private void ArmarArchivoAsociado(FacturaElectronicaEntities ctx, CorridaSubidaArchivo dbCorrida, string filePath, string fileDestinationPathOk, string fileDestinationPathNoOk, EjecutarCorridaSubidaArchivo corrida)
         {
             string fileName = Path.GetFileName(filePath);
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -357,7 +366,7 @@ namespace FacturaElectronica.Business.Services
                                     // No se puede procesar porque ya fue visualizado
                                     errorStr = string.Format("No se puede reemplazar el archivo asociado del comprobante porque ya fue visualizado. (Nro {0}, Tipo {1}, PtoVta: {2})", nroComprobante, tipoComprobanteObj.Descripcion, ptovta);
                                     mensajeError.AppendLine(errorStr);
-                                    GenerarLog(dbCorrida.Id, errorStr);                                    
+                                    GenerarLog(dbCorrida.Id, errorStr);
                                 }
                                 else
                                 {
@@ -404,6 +413,255 @@ namespace FacturaElectronica.Business.Services
                 detalle.Mensaje = mensajeError.ToString();
                 dbCorrida.CorridaSubidaArchivoDetalles.Add(detalle);
             }
+        }
+
+        private void ArmarArchivoAsociadoConContexto(FacturaElectronicaEntities ctx, CorridaSubidaArchivo dbCorrida, string filePath, string fileDestinationPathOk, string fileDestinationPathNoOk, EjecutarCorridaSubidaArchivo corrida)
+        {
+            string fileName = Path.GetFileName(filePath);
+
+            StringBuilder mensajeError = new StringBuilder();
+            string errorStr = string.Empty;
+
+            bool procesarArchivo = true;
+            long cuit;
+            if (!Int64.TryParse(corrida.Cuit, out cuit))
+            {
+                errorStr = "No se pudo interpretar el CUIT " + corrida.Cuit;
+                mensajeError.AppendLine(errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
+                procesarArchivo = false;
+            }
+
+            string tipoComprobante = corrida.TipoDeComprobanteCodigo;
+            TipoComprobante tipoComprobanteObj = null;
+            if (!String.IsNullOrEmpty(tipoComprobante))
+            {
+                tipoComprobanteObj = GetTipoComprobante(ctx).Where(t => t.Codigo == tipoComprobante).SingleOrDefault();
+                if (tipoComprobanteObj == null)
+                {
+                    errorStr = "No se pudo interpretar el Tipo de Comprobante " + tipoComprobante;
+                    mensajeError.AppendLine(errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
+                    procesarArchivo = false;
+                }
+            }
+            else
+            {
+                errorStr = "No se pudo interpretar el Tipo de Comprobante " + tipoComprobante;
+                mensajeError.AppendLine(errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
+                procesarArchivo = false;
+            }
+            
+            long nroComprobante = corrida.NroComprobante;           
+            
+            long? ptovta = corrida.PuntoDeVenta;
+           
+            string periodoFactuStr = corrida.PeriodoDeFacturacion;
+            string periodoFactuAnioStr = periodoFactuStr.Substring(0, 4);
+            string periodoFactuMesStr = periodoFactuStr.Substring(4, 2);
+            int periodoFacturacionAnio = 0;
+            int periodoFacturacionMes = 0;
+            if (!Int32.TryParse(periodoFactuAnioStr, out periodoFacturacionAnio) || !Int32.TryParse(periodoFactuMesStr, out periodoFacturacionMes))
+            {
+                errorStr = "No se pudo interpretar el Periodo de Facturacion " + periodoFactuStr;
+                mensajeError.AppendLine(errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
+                procesarArchivo = false;
+            }
+
+            bool tieneFechaVencimiento;
+            DateTime fechaDeVencimiento = DateTime.MinValue;
+            int diasDeVencimiento = 0;
+            if (!corrida.FechaDeVencimiento.HasValue)
+            {
+                tieneFechaVencimiento = false;
+                if (!corrida.DiasDeVencimiento.HasValue)
+                {
+                    errorStr = "No se pudo interpretar la fecha de vencimiento ";
+                    mensajeError.AppendLine(errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
+                    procesarArchivo = false;
+                }
+                else
+                {
+                    diasDeVencimiento = corrida.DiasDeVencimiento.Value;
+                }
+            }
+            else
+            {
+                tieneFechaVencimiento = true;
+                fechaDeVencimiento = corrida.FechaDeVencimiento.Value.Date;
+            }
+
+            string montoTotalStr = corrida.MontoTotal;
+            decimal montoTotal;
+
+            montoTotalStr = montoTotalStr.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator);
+            if (!Decimal.TryParse(montoTotalStr, out montoTotal))
+            {
+                errorStr = "No se pudo interpretar el MontoTotal " + montoTotalStr;
+                mensajeError.AppendLine(errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
+                procesarArchivo = false;
+            }
+
+            string tipoContratoStr = corrida.TipoContratoCodigo;
+            TipoContrato tipoContrato = null;
+            if (!String.IsNullOrEmpty(tipoContratoStr))
+            {
+                tipoContrato = GetTipoContrato(ctx).Where(t => t.Codigo == tipoContratoStr).SingleOrDefault();
+
+                if (tipoContrato == null)
+                {
+                    errorStr = "No se pudo interpretar el Tipo de Contrato " + tipoContratoStr;
+                    mensajeError.AppendLine(errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
+                    procesarArchivo = false;
+                }
+            }
+            else
+            {
+                errorStr = "No se pudo interpretar el Tipo de Contrato " + tipoContratoStr;
+                mensajeError.AppendLine(errorStr);
+                GenerarLog(dbCorrida.Id, errorStr);
+                procesarArchivo = false;
+            }
+
+            CorridaSubidaArchivoDetalle detalle = new CorridaSubidaArchivoDetalle();
+            if (procesarArchivo)
+            {
+                // obtengo el cliente
+                var dbCliente = ctx.Clientes.Where(c => c.CUIT == cuit).SingleOrDefault();
+                if (dbCliente == null)
+                {
+                    errorStr = "No se encuentra el cliente " + cuit.ToString();
+                    mensajeError.AppendLine(errorStr);
+                    GenerarLog(dbCorrida.Id, errorStr);
+                    detalle.ProcesadoOK = false;
+                }
+                else
+                {
+                    // Obtengo el comprobante al que hay que asociarle el archivo
+                    var dbComprobante = ctx.Comprobantes.Where(c => c.TipoComprobanteId == tipoComprobanteObj.Id && c.PtoVta == ptovta && c.CbteDesde <= nroComprobante && c.CbteHasta >= nroComprobante).FirstOrDefault();
+                    bool comprobanteOK = false;                    
+                    if (dbComprobante == null)
+                    {
+                        if (corrida.ForzarDatosCliente)
+                        {
+                            // Creo el comprobante
+                            dbComprobante = new Comprobante();
+                            ctx.Comprobantes.AddObject(dbComprobante);
+                            dbComprobante.TipoComprobanteId = tipoComprobanteObj.Id;
+                            dbComprobante.FechaDeCarga = DateTime.Now;
+                            dbComprobante.ClienteId = dbCliente.Id;
+                            dbComprobante.CAE = corrida.CAE;
+                            dbComprobante.CAEFechaVencimiento = corrida.FechaVencimientoCAE.Value;
+                            dbComprobante.CbteFecha = corrida.FechaComprobante;
+                            dbComprobante.CbteDesde = corrida.NroComprobante;
+                            dbComprobante.CbteHasta = corrida.NroComprobante;
+                            dbComprobante.PtoVta = corrida.PuntoDeVenta;
+                            ctx.SaveChanges();
+                            comprobanteOK = true;
+                        }
+                        else
+                        {
+                            // No se puede procesar
+                            errorStr = string.Format("No se encuentra el comprobante asociado. Nro {0}, Tipo {1}, PtoVta: {2}", nroComprobante, tipoComprobanteObj.Descripcion, ptovta);
+                            mensajeError.AppendLine(errorStr);
+                            GenerarLog(dbCorrida.Id, errorStr);
+
+                            // Lo copio a la carpeta de fallidos y registro el estado en el documento
+                            //File.Move(filePath, fileDestinationPathNoOk);
+                            detalle.ProcesadoOK = false;
+                        }
+                    }
+                    else
+                    {
+                        comprobanteOK = true;
+                    }
+
+                    if(comprobanteOK)
+                    {
+                        bool clienteOk = true;
+                        if (!dbComprobante.ClienteId.HasValue)
+                        {
+                            dbComprobante.ClienteId = dbCliente.Id;
+                        }
+                        else if (dbComprobante.ClienteId.Value != dbCliente.Id)
+                        {
+                            errorStr = string.Format("El cliente del comprobante CUIT {0} es distinto que el indicado en la factura CUIT {1}", dbComprobante.Cliente.CUIT, dbCliente.CUIT);
+                            mensajeError.AppendLine(errorStr);
+                            GenerarLog(dbCorrida.Id, errorStr);
+
+                            // Lo copio a la carpeta de fallidos y registro el estado en el documento
+                            //File.Move(filePath, fileDestinationPathNoOk);
+                            detalle.ProcesadoOK = false;
+                            clienteOk = false;
+                        }
+
+                        if (clienteOk)
+                        {
+                            // Lo copio a la carpeta de ok y lo guardo en la base
+                            string destPath = Path.Combine(fileDestinationPathOk, fileName);
+                            detalle.ProcesadoOK = true;
+                            File.Move(filePath, destPath);
+
+                            // Puede ser que el archivo asociado ya exista y lo tengo que actualizar
+                            ArchivoAsociado archivoAsociado;
+                            archivoAsociado = ctx.ArchivoAsociadoes.Where(a => a.ComprobanteId == dbComprobante.Id && a.NombreArchivo == fileName).SingleOrDefault();
+                            if (archivoAsociado != null &&
+                                archivoAsociado.EstadoArchivoAsociado.Codigo == CodigosEstadoArchivoAsociado.Visualizado)
+                            {
+                                // No se puede procesar porque ya fue visualizado
+                                errorStr = string.Format("No se puede reemplazar el archivo asociado del comprobante porque ya fue visualizado. (Nro {0}, Tipo {1}, PtoVta: {2})", nroComprobante, tipoComprobanteObj.Descripcion, ptovta);
+                                mensajeError.AppendLine(errorStr);
+                                GenerarLog(dbCorrida.Id, errorStr);
+                            }
+                            else
+                            {
+                                if (archivoAsociado == null)
+                                {
+                                    archivoAsociado = new ArchivoAsociado();
+                                    dbComprobante.ArchivoAsociadoes.Add(archivoAsociado);
+                                }
+
+                                detalle.ArchivoAsociado = archivoAsociado;
+                                archivoAsociado.NombreArchivo = fileName;
+                                archivoAsociado.PathArchivo = destPath;
+                                archivoAsociado.NroComprobante = nroComprobante;
+                                archivoAsociado.TipoContratoId = tipoContrato.Id;
+                                if (tieneFechaVencimiento)
+                                {
+                                    archivoAsociado.FechaVencimiento = fechaDeVencimiento;
+                                }
+                                else
+                                {
+                                    archivoAsociado.DiasVencimiento = diasDeVencimiento;
+                                }
+
+                                archivoAsociado.FechaDeCarga = DateTime.Now;
+                                archivoAsociado.MesFacturacion = periodoFacturacionMes;
+                                archivoAsociado.AnioFacturacion = periodoFacturacionAnio;
+                                archivoAsociado.EstadoId = GetEstadoArchivoAsociado(ctx).Where(c => c.Codigo == CodigosEstadoArchivoAsociado.NoVisualizado).Select(e => e.Id).Single();
+                                archivoAsociado.MontoTotal = montoTotal;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!detalle.ProcesadoOK)
+            {
+                // Lo copio a la carpeta de fallidos y registro el estado en el documento
+                string destPath = Path.Combine(fileDestinationPathNoOk, fileName);
+                File.Move(filePath, destPath);
+            }
+
+            detalle.NombreArchivo = fileName;
+            detalle.Mensaje = mensajeError.ToString();
+            dbCorrida.CorridaSubidaArchivoDetalles.Add(detalle);
+
         }
 
         private void SendEmailToCustomerInThread(long corridaId, List<Cliente> clienteList)
@@ -506,7 +764,6 @@ namespace FacturaElectronica.Business.Services
             email.ReplyToList.Add(new MailAddress(replayTo));
             //email.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure | DeliveryNotificationOptions.OnSuccess;
             email.IsBodyHtml = true;
-
 
             SmtpClient client = new SmtpClient();
             client.Host = host;
@@ -642,7 +899,7 @@ namespace FacturaElectronica.Business.Services
                         IQueryable<CorridaSubidaArchivoLog> queryLog = dbCorrida.CorridaSubidaArchivoLogs.AsQueryable();
 
                         if (search.FechaLog.HasValue)
-                        {                            
+                        {
                             queryLog = queryLog.Where(l => l.Fecha >= search.FechaLog.Value);
                         }
 

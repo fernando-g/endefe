@@ -27,14 +27,12 @@ namespace FacturaElectronica.Ui.Win.Administrador.Code
         }
 
         public static IProcesoCorridaService GetProcesoCorridaService()
-        {
-            //return new CorridaService();
+        {            
            return new ProcesoCorridaWcfProxy();            
         }        
 
         public static IMaestrosService GetMaestroService()
-        {
-            //return new MaestrosSevice();
+        {            
             return new MaestroServiceProxy();
         }
 
