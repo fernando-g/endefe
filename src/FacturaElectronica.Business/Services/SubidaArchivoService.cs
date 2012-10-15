@@ -681,6 +681,7 @@ namespace FacturaElectronica.Business.Services
 
             foreach (Cliente cliente in clienteList)
             {
+                // Envio 2 emails por cliente
                 EmailInThread emailInThread = new EmailInThread();
                 emailInThread.CorridaId = corridaId;
                 emailInThread.Cuit = cliente.CUIT;
@@ -689,6 +690,18 @@ namespace FacturaElectronica.Business.Services
                 emailInThread.ConnectionString = ConfigurationManager.ConnectionStrings["FacturaElectronicaEntities"].ConnectionString;
 
                 ThreadPool.QueueUserWorkItem(SendEmailToCustomer, emailInThread);
+
+                if (!String.IsNullOrEmpty(cliente.EmailContactoSecundario))
+                {
+                    emailInThread = new EmailInThread();
+                    emailInThread.CorridaId = corridaId;
+                    emailInThread.Cuit = cliente.CUIT;
+                    emailInThread.Email = cliente.EmailContactoSecundario;
+                    emailInThread.Configuration = configuration;
+                    emailInThread.ConnectionString = ConfigurationManager.ConnectionStrings["FacturaElectronicaEntities"].ConnectionString;
+
+                    ThreadPool.QueueUserWorkItem(SendEmailToCustomer, emailInThread);
+                }
             }
         }
 
