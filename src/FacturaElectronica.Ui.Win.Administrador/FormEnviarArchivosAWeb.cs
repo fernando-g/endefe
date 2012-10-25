@@ -115,9 +115,10 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
                         // Activo el timer porque a veces no retorna la siguiente llamada
                         fechaLog = DateTime.MinValue;
+                        timerLog.Interval = 3000;
                         timerLog.Start();
 
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData);                        
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(EjecutarCorridaCallBack), ejecucionData);
                     }
                 }
             }
@@ -173,9 +174,9 @@ namespace FacturaElectronica.Ui.Win.Administrador
 
             FtpClient ftpClient = new FtpClient();
             ftpClient.LoadFromConfig();
-           
+
             List<string> folders = ftpClient.GetFolders(ftpClient.FTPAddress);
-         
+
             if (folders.Where(f => f.Contains("ArchivosPDF")).Count() == 0)
             {
                 ftpClient.CreateDirectory(ftpClient.FTPAddress + "ArchivosPDF");
@@ -200,7 +201,7 @@ namespace FacturaElectronica.Ui.Win.Administrador
             }
 
             return filesInServerList;
-        }        
+        }
 
         private void MostrarMensajeEnLog(string text)
         {
@@ -222,17 +223,17 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 {
                     if (log.FinCorrida)
                     {
-                        this.timerLog.Stop();
-                        fechaLog = DateTime.MinValue;
+                        // Si solo quedan los emails, pooleo en menos tiempo
+                        this.timerLog.Interval = this.timerLog.Interval * 7;
+                        //.Stop();
+                        //fechaLog = DateTime.MinValue;
                         this.btnVerDetalleCorrida.Enabled = true;
-                        break;
+                        //break;
                     }
-                    else
+
+                    if (log.Id > lastLogId)
                     {
-                        if (log.Id > lastLogId)
-                        {
-                            this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
-                        }
+                        this.LogTextBox.Text += log.Mensaje + Environment.NewLine;
                     }
                 }
 

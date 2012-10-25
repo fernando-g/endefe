@@ -236,6 +236,7 @@
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
+            this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.LogTextBox.Size = new System.Drawing.Size(592, 282);
             this.LogTextBox.TabIndex = 5;
             // 
