@@ -53,10 +53,20 @@ namespace FacturaElectronica.Ui.Win.Administrador
             this.cboTipoContrato.ValueMember = "Codigo";
             this.cboTipoContrato.DisplayMember = "ShowDescription";
 
+            if (tiposDeContrato.Where(t => t.Codigo == "OTROS").Count() > 0)
+            {
+                cboTipoContrato.SelectedValue = "OTROS";
+            }
+
             List<TipoComprobanteDto> tiposDeComprobatne = ComprobanteService.ObtenerTiposComprobantes();
             this.cboTipoComprobante.DataSource = tiposDeComprobatne;
             this.cboTipoComprobante.ValueMember = "Codigo";
             this.cboTipoComprobante.DisplayMember = "ShowDescription";
+
+            if (tiposDeComprobatne.Where(c => c.Codigo == "FCE").Count() > 0)
+            {
+                this.cboTipoComprobante.SelectedValue = "FCE";
+            }
         }
 
         private void timerLog_Tick(object sender, EventArgs e)

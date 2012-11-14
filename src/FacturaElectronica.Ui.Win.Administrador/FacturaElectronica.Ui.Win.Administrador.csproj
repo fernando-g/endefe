@@ -146,7 +146,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\ServiceReferenceAfipWrapper\Reference.cs">
+    <Compile Include="Service References\ServiceReferenceAfipWrapperService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -277,44 +277,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService3.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService31.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService32.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService33.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService34.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService35.xsd">
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\FacturaElectronica.Afip.Ws.Wsfex.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\service.wsdl" />
-    <None Include="Service References\ServiceReferenceAfipWrapper\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\System.ComponentModel.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\System.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\WsfeClient1.wsdl" />
+    <None Include="Service References\ServiceReferenceAfipWrapperService\WsfeClient.wsdl" />
     <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService.wsdl" />
     <None Include="Service References\ServiceReferenceComprobanteService\ComprobanteService.xsd">
       <SubType>Designer</SubType>
@@ -394,8 +375,14 @@
     <Content Include="ENDESA-Cemsa-Ejemplo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Service References\ServiceReferenceAfipWrapperService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceAfipWrapperService\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceAfipWrapperService\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceAfipWrapperService\AfipWrapperService.disco" />
     <None Include="Service References\ServiceReferenceSubidaArchivo\SubidaArchivoService1.disco" />
-    <None Include="Service References\ServiceReferenceAfipWrapper\AfipWrapperService1.disco" />
     <None Include="Service References\ServiceReferenceCorrida\ProcesoCorridaService1.disco" />
     <None Include="Service References\ServiceReferenceComprobanteService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -410,12 +397,6 @@
     <None Include="Service References\ServiceReferenceSubidaArchivo\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceSubidaArchivo\configuration91.svcinfo" />
     <None Include="Resources\repetir.png" />
-    <None Include="Service References\ServiceReferenceAfipWrapper\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServiceReferenceAfipWrapper\configuration.svcinfo" />
-    <None Include="Service References\ServiceReferenceAfipWrapper\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceMaestro\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -440,7 +421,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceReferenceAfipWrapper\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceAfipWrapperService\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceComprobanteService\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceCorrida\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceMaestro\" />

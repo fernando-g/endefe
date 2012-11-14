@@ -5,7 +5,7 @@ using System.Text;
 using FacturaElectronica.Afip.Ws.Wsfe;
 using FacturaElectronica.Afip.Ws.Wsfex;
 using FacturaElectronica.Common.Services;
-using FacturaElectronica.Ui.Win.Administrador.ServiceReferenceAfipWrapper;
+using FacturaElectronica.Ui.Win.Administrador.ServiceReferenceAfipWrapperService;
 
 namespace FacturaElectronica.Ui.Win.Administrador.Code.Corrida
 {

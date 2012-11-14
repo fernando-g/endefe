@@ -70,7 +70,9 @@ namespace FacturaElectronica.Ui.Win.Administrador
                 client = ServiceFactory.GetAfipWrapperService();
 
                 this.ticket = client.ObtenerTicket();
-                this.ticketFex = client.ObtenerTicketFex();
+
+                // TODO: habilitar para factura de exportación
+                //this.ticketFex = client.ObtenerTicketFex();
                 this.CargarMetodos();
                 this.AcomodarControles(false,minPanelHeight);
             }
