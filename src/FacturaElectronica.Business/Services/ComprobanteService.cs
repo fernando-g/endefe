@@ -7,7 +7,7 @@ using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Data;
 using System.Data.Objects;
 using FacturaElectronica.Common.Constants;
-using Web.Framework.Mapper;
+using WebFramework.Mapper;
 using System.Transactions;
 
 namespace FacturaElectronica.Business.Services

@@ -6,7 +6,7 @@ using FacturaElectronica.Common.Contracts;
 using FacturaElectronica.Common.Services;
 using FacturaElectronica.Common.Contracts.Search;
 using FacturaElectronica.Data;
-using Web.Framework.Mapper;
+using WebFramework.Mapper;
 using System.Configuration;
 using System.IO;
 using FacturaElectronica.Common.Constants;
